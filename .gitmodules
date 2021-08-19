@@ -1,0 +1,6 @@
+[submodule "Third-Party/imgui"]
+	path = Third-Party/imgui
+	url = https://github.com/ocornut/imgui.git
+[submodule "Third-Party/polyhook2"]
+	path = Third-Party/polyhook2
+	url = https://github.com/stevemk14ebr/PolyHook_2_0.git
