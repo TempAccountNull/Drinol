@@ -22,8 +22,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{1871a8c9-91a6-42a7-b674-34cff7b63827}</ProjectGuid>
-    <RootNamespace>Drinol</RootNamespace>
+    <ProjectGuid>{5de4bc05-4153-4223-9c9f-85aaa8125605}</ProjectGuid>
+    <RootNamespace>DrinolDLL</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
