@@ -53,10 +53,10 @@ void utils::check_for_game()
 
 	std::cout << "Checking for a running game inside MCC......" << std::endl;
 
-	// Get array of modules that mcc is currently using!
-
+	//Check if there is only one halo dll being used at the moment. then continue.
 	while (runninggames.size() != 1)
 	{
+		// Get array of modules that mcc is currently using!
 		std::vector<std::string> modules = get_current_modules();
 
 		//Search array for halo game dlls. UGLY CODE INCOMING!
@@ -99,12 +99,12 @@ void utils::check_for_game()
 			}
 		}
 
+		// Clear array if multiple games are found.
 		if (runninggames.size() > 1)
 		{
 			runninggames.clear();
 		}
 	}
-
-	//Check if there is only one halo dll being used at the moment. then continue.
+	
 	std::cout << runninggames[0] << " is running!" << std::endl;
 }
