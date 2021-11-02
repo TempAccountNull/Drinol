@@ -2,5 +2,6 @@
 class utils
 {
 public:
-	static void check_for_game();
+	static std::string check_for_game();
+	static int string_to_wstring(std::wstring& ws, const std::string& s);
 };

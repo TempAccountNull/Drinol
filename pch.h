@@ -15,4 +15,5 @@
 #include <tchar.h>
 #include <vector>
 #include <algorithm>
+#include <locale>
 #endif //PCH_H

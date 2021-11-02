@@ -47,11 +47,11 @@ std::vector<std::string> get_current_modules()
 	return modules;
 }
 
-void utils::check_for_game()
+std::string utils::check_for_game()
 {
-	std::vector<std::string> runninggames;
+	//TODO: This would be better rewritten with function hooks in mind.
 
-	std::cout << "Checking for a running game inside MCC......" << std::endl;
+	std::vector<std::string> runninggames;
 
 	//Check if there is only one halo dll being used at the moment. then continue.
 	while (runninggames.size() != 1)
@@ -105,6 +105,17 @@ void utils::check_for_game()
 			runninggames.clear();
 		}
 	}
-	
-	std::cout << runninggames[0] << " is running!" << std::endl;
+
+	// Return string of running game.
+	return runninggames[0];
+}
+
+//https://stackoverflow.com/a/8969776
+int utils::string_to_wstring(std::wstring& ws, const std::string& s)
+{
+	std::wstring wsTmp(s.begin(), s.end());
+
+	ws = wsTmp;
+
+	return 0;
 }

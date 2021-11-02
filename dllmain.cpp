@@ -1,9 +1,28 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "pch.h"
 
+#include <codecvt>
+
 #include "utils.h"
 
+std::string current_game; //TODO: add exit-time destructor for this var
 FILE* fDummy;
+HMODULE dll_hmodule;
+
+void kill_dll()
+{
+	//Unhook shit, etc
+
+#if defined _DEBUG
+	//Unload Console
+	fclose(fDummy);
+	HWND hw_ConsoleHwnd = GetConsoleWindow();
+	FreeConsole();
+	PostMessageW(hw_ConsoleHwnd, WM_CLOSE, 0, 0);
+#endif
+
+	FreeLibraryAndExitThread(reinterpret_cast<HINSTANCE>(dll_hmodule), NULL);
+};
 
 int WINAPI main()
 {
@@ -19,21 +38,37 @@ int WINAPI main()
 	freopen_s(&fDummy, "CONOUT$", "w", stdout);
 	std::cout << "Welcome to Drinol!" << std::endl;
 
-	//Do shit, etc hooks whatever
+	//Do shit, hooks whatever etc
 
-	utils::check_for_game();
+	std::cout << "Waiting for a game to be running." << std::endl;
+
+	current_game = utils::check_for_game();
+
+	if (current_game != "halo3.dll")
+	{
+		std::wstring tmp;
+		utils::string_to_wstring(tmp, current_game);
+
+		MessageBox(GetConsoleWindow(), (tmp + L" is not supported at the moment, please use halo3.dll").c_str(), L"Invalid Game!", MB_OK | MB_ICONERROR);
+
+		kill_dll();
+	}
+	else
+	{
+	}
 }
 
 BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
 	if (dwReason == DLL_PROCESS_ATTACH)
 	{
+		dll_hmodule = hModule;
 		DisableThreadLibraryCalls(hModule);
 		CreateThread(nullptr, NULL, reinterpret_cast<LPTHREAD_START_ROUTINE>(main), nullptr, NULL, nullptr);  // NOLINT(clang-diagnostic-main)
 	}
 	else if (dwReason == DLL_PROCESS_DETACH)
 	{
-		//utils::dll_management::kill_dll();
+		kill_dll();
 	}
 
 	return TRUE;
