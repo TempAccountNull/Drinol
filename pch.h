@@ -10,6 +10,7 @@
 // add headers that you want to pre-compile here
 #include "framework.h"
 #include <Psapi.h>
+#include "detours.h"
 #include <iostream>
 #include <Windows.h>
 #include <tchar.h>
