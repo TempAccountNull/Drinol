@@ -1,7 +1,8 @@
 #pragma once
-class utils
+
+namespace utils
 {
-public:
-	static std::string check_for_game();
-	static int string_to_wstring(std::wstring& ws, const std::string& s);
-};
+	std::string check_for_game();
+	int string_to_wstring(std::wstring& ws, const std::string& s);
+	inline bool active = true;
+}

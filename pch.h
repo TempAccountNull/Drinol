@@ -10,11 +10,24 @@
 // add headers that you want to pre-compile here
 #include "framework.h"
 #include <Psapi.h>
-#include "detours.h"
+
+#include "third-party/minhook/include/MinHook.h"
+
 #include <iostream>
 #include <Windows.h>
 #include <tchar.h>
 #include <vector>
 #include <algorithm>
 #include <locale>
+
+//DX11
+#include <d3d11.h>
+#include <d3dcompiler.h>
+#include <DirectXMath.h>
+
+//Imgui
+#include <imgui.h>
+#include <imgui_impl_win32.h>
+#include <imgui_impl_dx11.h>
+
 #endif //PCH_H

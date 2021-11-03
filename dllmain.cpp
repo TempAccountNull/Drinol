@@ -3,6 +3,7 @@
 
 #include <codecvt>
 
+#include "ui.h"
 #include "utils.h"
 
 std::string current_game; //TODO: add exit-time destructor for this var
@@ -21,7 +22,9 @@ void kill_dll()
 	PostMessageW(hw_ConsoleHwnd, WM_CLOSE, 0, 0);
 #endif
 
-	FreeLibraryAndExitThread(reinterpret_cast<HINSTANCE>(dll_hmodule), NULL);
+	//dx11::CleanupD3D();
+
+	FreeLibraryAndExitThread(dll_hmodule, NULL);
 };
 
 int WINAPI main()
@@ -55,6 +58,21 @@ int WINAPI main()
 	}
 	else
 	{
+		if (MH_Initialize() == MH_OK)
+		{
+			std::cout << "Minhook Initialized!" << std::endl;
+			ui::hook_ui();
+		}
+
+		while (true)
+		{
+			if (!utils::active)
+			{
+				break;
+			}
+		}
+
+		kill_dll();
 	}
 }
 

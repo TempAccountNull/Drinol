@@ -7,7 +7,6 @@ std::vector<std::string> get_current_modules()
 	HMODULE hMods[1024];
 	HANDLE hProcess = nullptr;
 	DWORD cbNeeded;
-	unsigned int i;
 	DWORD processID = GetCurrentProcessId();
 	std::vector<std::string> modules;
 
@@ -26,7 +25,7 @@ std::vector<std::string> get_current_modules()
 
 	if (EnumProcessModules(hProcess, hMods, sizeof(hMods), &cbNeeded))
 	{
-		for (i = 0; i < (cbNeeded / sizeof(HMODULE)); i++)
+		for (unsigned int i = 0; i < (cbNeeded / sizeof(HMODULE)); i++)
 		{
 			CHAR szModName[260];
 
