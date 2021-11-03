@@ -150,6 +150,11 @@ void main_menu()
 			ImGui::EndTabItem();
 		}
 
+		if (ImGui::BeginTabItem("Details"))
+		{
+			ImGui::EndTabItem();
+		}
+
 		ImGui::EndTabBar();
 
 		ImGui::End();

@@ -155,6 +155,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="memory_editing.h" />
+    <ClInclude Include="offsets.h" />
     <ClInclude Include="third-party\imgui\backends\imgui_impl_dx11.h" />
     <ClInclude Include="third-party\imgui\backends\imgui_impl_win32.h" />
     <ClInclude Include="ui.h" />
@@ -178,6 +180,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="memory_editing.cpp" />
+    <ClCompile Include="offsets.cpp" />
     <ClCompile Include="third-party\imgui\backends\imgui_impl_dx11.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>

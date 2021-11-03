@@ -22,7 +22,7 @@ void kill_dll()
 	PostMessageW(hw_ConsoleHwnd, WM_CLOSE, 0, 0);
 #endif
 
-	//dx11::CleanupD3D();
+	ui::unhook_ui();
 
 	FreeLibraryAndExitThread(dll_hmodule, NULL);
 };
@@ -62,13 +62,13 @@ int WINAPI main()
 		{
 			std::cout << "Minhook Initialized!" << std::endl;
 			ui::hook_ui();
-		}
 
-		while (true)
-		{
-			if (!utils::active)
+			while (true)
 			{
-				break;
+				if (!utils::active)
+				{
+					break;
+				}
 			}
 		}
 
