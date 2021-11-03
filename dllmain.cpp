@@ -52,7 +52,7 @@ int WINAPI main()
 		std::wstring tmp;
 		utils::string_to_wstring(tmp, current_game);
 
-		MessageBox(GetConsoleWindow(), (tmp + L" is not supported at the moment, please use halo3.dll").c_str(), L"Invalid Game!", MB_OK | MB_ICONERROR);
+		MessageBox(GetConsoleWindow(), (tmp + L" is not supported at the moment, please run only halo 3 for now.").c_str(), L"Invalid Game!", MB_OK | MB_ICONERROR);
 
 		kill_dll();
 	}
