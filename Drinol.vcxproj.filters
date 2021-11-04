@@ -75,15 +75,21 @@
     <ClInclude Include="third-party\imgui\backends\imgui_impl_dx11.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="offsets.h">
+    <ClInclude Include="memory_editing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="memory_editing.h">
+    <ClInclude Include="main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="halo3_hooks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="halo3_offsets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
@@ -131,10 +137,13 @@
     <ClCompile Include="third-party\imgui\backends\imgui_impl_dx11.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="offsets.cpp">
+    <ClCompile Include="memory_editing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="memory_editing.cpp">
+    <ClCompile Include="halo3_hooks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="halo3_offsets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -155,8 +155,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="halo3_hooks.h" />
+    <ClInclude Include="halo3_offsets.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="memory_editing.h" />
-    <ClInclude Include="offsets.h" />
     <ClInclude Include="third-party\imgui\backends\imgui_impl_dx11.h" />
     <ClInclude Include="third-party\imgui\backends\imgui_impl_win32.h" />
     <ClInclude Include="ui.h" />
@@ -179,9 +181,10 @@
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="halo3_hooks.cpp" />
+    <ClCompile Include="halo3_offsets.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="memory_editing.cpp" />
-    <ClCompile Include="offsets.cpp" />
     <ClCompile Include="third-party\imgui\backends\imgui_impl_dx11.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>

@@ -1,5 +1,8 @@
 #include "pch.h"
 #include "ui.h"
+
+#include "halo3_hooks.h"
+#include "main.h"
 // DX11 imports
 #pragma comment(lib, "D3dcompiler.lib")
 #pragma comment(lib, "d3d11.lib")
@@ -30,7 +33,6 @@ ImGuiContext* imgui_context;
 bool g_b_initialized = false;
 bool g_show_menu = false;
 bool g_present_hooked = false;
-bool show_wireframe = false;
 
 //Resize Protection (fullscreen and that)
 typedef HRESULT(__stdcall* ResizeBuffers)(IDXGISwapChain* pThis, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
@@ -123,20 +125,18 @@ HRESULT get_device_and_ctx_from_swapchain(IDXGISwapChain* p_swap_chain, ID3D11De
 	return ret;
 }
 
-static void help_marker(const char* desc)
-{
-	ImGui::TextDisabled("(?)");
-	if (ImGui::IsItemHovered())
-	{
-		ImGui::BeginTooltip();
-		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
-		ImGui::TextUnformatted(desc);
-		ImGui::PopTextWrapPos();
-		ImGui::EndTooltip();
-	}
-}
-
-float game_speed = 1.0f;
+//static void help_marker(const char* desc)
+//{
+//	ImGui::TextDisabled("(?)");
+//	if (ImGui::IsItemHovered())
+//	{
+//		ImGui::BeginTooltip();
+//		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+//		ImGui::TextUnformatted(desc);
+//		ImGui::PopTextWrapPos();
+//		ImGui::EndTooltip();
+//	}
+//}
 
 void main_menu()
 {
@@ -145,9 +145,16 @@ void main_menu()
 	const ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_NoCloseWithMiddleMouseButton | ImGuiTabBarFlags_Reorderable;
 	if (ImGui::BeginTabBar("MainTabs", tab_bar_flags))
 	{
-		if (ImGui::BeginTabItem("Testing"))
+		if (main::current_game == "halo3.dll")
 		{
-			ImGui::EndTabItem();
+			if (ImGui::BeginTabItem("Halo 3"))
+			{
+				if (ImGui::Button("hook test"))
+				{
+					halo3::hooks::init_hooks();
+				}
+				ImGui::EndTabItem();
+			}
 		}
 
 		if (ImGui::BeginTabItem("Details"))

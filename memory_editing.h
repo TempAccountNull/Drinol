@@ -1,7 +1,8 @@
 #pragma once
 namespace memory
 {
-		static void patch(char* dst, char* src, int size);
-		static void nop(char* dst, unsigned size);
-;
+	static void patch(char* dst, char* src, int size);
+	std::uint8_t* pattern_scan(void* module, const char* signature);
+	static void nop(char* dst, unsigned size);
+	;
 }

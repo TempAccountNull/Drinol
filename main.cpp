@@ -1,12 +1,8 @@
-// dllmain.cpp : Defines the entry point for the DLL application.
 #include "pch.h"
-
-#include <codecvt>
-
 #include "ui.h"
 #include "utils.h"
+#include "main.h"
 
-std::string current_game; //TODO: add exit-time destructor for this var
 FILE* fDummy;
 HMODULE dll_hmodule;
 
@@ -27,7 +23,7 @@ void kill_dll()
 	FreeLibraryAndExitThread(dll_hmodule, NULL);
 };
 
-int WINAPI main()
+int WINAPI start()
 {
 	//Initialize Console
 	AllocConsole();
@@ -45,12 +41,12 @@ int WINAPI main()
 
 	std::cout << "Waiting for a game to be running." << std::endl;
 
-	current_game = utils::check_for_game();
+	main::current_game = utils::check_for_game();
 
-	if (current_game != "halo3.dll")
+	if (main::current_game != "halo3.dll")
 	{
 		std::wstring tmp;
-		utils::string_to_wstring(tmp, current_game);
+		utils::string_to_wstring(tmp, main::current_game);
 
 		MessageBox(GetConsoleWindow(), (tmp + L" is not supported at the moment, please run only halo 3 for now.").c_str(), L"Invalid Game!", MB_OK | MB_ICONERROR);
 
@@ -74,6 +70,8 @@ int WINAPI main()
 
 		kill_dll();
 	}
+
+	return 0;
 }
 
 BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
@@ -82,7 +80,7 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 	{
 		dll_hmodule = hModule;
 		DisableThreadLibraryCalls(hModule);
-		CreateThread(nullptr, NULL, reinterpret_cast<LPTHREAD_START_ROUTINE>(main), nullptr, NULL, nullptr);  // NOLINT(clang-diagnostic-main)
+		CreateThread(nullptr, NULL, reinterpret_cast<LPTHREAD_START_ROUTINE>(start), nullptr, NULL, nullptr);  // NOLINT(clang-diagnostic-main)
 	}
 	else if (dwReason == DLL_PROCESS_DETACH)
 	{
