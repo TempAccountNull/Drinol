@@ -57,7 +57,7 @@ int WINAPI start()
 		if (MH_Initialize() == MH_OK)
 		{
 			std::cout << "Minhook Initialized!" << std::endl;
-			utils::init_game_offsets(main::current_game);
+			utils::init_game(main::current_game);
 			ui::hook_ui();
 
 			while (true)

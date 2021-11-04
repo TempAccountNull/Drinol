@@ -152,10 +152,10 @@ void main_menu()
 		{
 			if (ImGui::BeginTabItem("Halo 3"))
 			{
-				if (ImGui::Button("hook test"))
+				/*if (ImGui::Button("hook test"))
 				{
 					halo3::hooks::init_hooks();
-				}
+				}*/
 				ImGui::EndTabItem();
 			}
 		}
@@ -164,10 +164,10 @@ void main_menu()
 		{
 			if (ImGui::BeginTabItem("H2AMP"))
 			{
-				if (ImGui::Button("hook test"))
+				/*if (ImGui::Button("hook test"))
 				{
 					groundhog::hooks::init_hooks();
-				}
+				}*/
 				ImGui::EndTabItem();
 			}
 		}
@@ -176,10 +176,10 @@ void main_menu()
 		{
 			if (ImGui::BeginTabItem("Halo 4"))
 			{
-				if (ImGui::Button("hook test"))
+				/*if (ImGui::Button("hook test"))
 				{
 					halo4::hooks::init_hooks();
-				}
+				}*/
 				ImGui::EndTabItem();
 			}
 		}
@@ -188,10 +188,10 @@ void main_menu()
 		{
 			if (ImGui::BeginTabItem("Halo Reach"))
 			{
-				if (ImGui::Button("hook test"))
+				/*if (ImGui::Button("hook test"))
 				{
 					haloreach::hooks::init_hooks();
-				}
+				}*/
 				ImGui::EndTabItem();
 			}
 		}

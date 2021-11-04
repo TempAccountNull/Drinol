@@ -1,9 +1,13 @@
 #include "pch.h"
 #include "utils.h"
 
+#include "groundhog_hooks.h"
 #include "groundhog_offsets.h"
+#include "halo3_hooks.h"
 #include "halo3_offsets.h"
+#include "halo4_hooks.h"
 #include "halo4_offsets.h"
+#include "haloreach_hooks.h"
 #include "haloreach_offsets.h"
 
 //Copy pasta from https://docs.microsoft.com/en-us/windows/win32/psapi/enumerating-all-modules-for-a-process
@@ -124,7 +128,7 @@ int utils::string_to_wstring(std::wstring& ws, const std::string& s)
 	return 0;
 }
 
-void utils::init_game_offsets(std::string game)
+void utils::init_game(std::string game)
 {
 	//UGLY CODEEEEEEEEE
 
@@ -132,27 +136,31 @@ void utils::init_game_offsets(std::string game)
 	{
 		std::cout << "Initializing offsets for Halo 3!" << std::endl;
 		halo3::offsets::init();
+		halo3::hooks::init_hooks();
 	}
 	else if (game == "groundhog.dll")
 	{
 		std::cout << "Initializing offsets for H2AMP!" << std::endl;
 		groundhog::offsets::init();
+		groundhog::hooks::init_hooks();
 	}
 	else if (game == "halo4.dll")
 	{
 		std::cout << "Initializing offsets for Halo 4!" << std::endl;
 		halo4::offsets::init();
+		halo4::hooks::init_hooks();
 	}
 	else if (game == "haloreach.dll")
 	{
 		std::cout << "Initializing offsets for Halo Reach!" << std::endl;
 		haloreach::offsets::init();
+		haloreach::hooks::init_hooks();
 	}
 	else
 	{
 		std::wstring tmp;
 		utils::string_to_wstring(tmp, game);
 
-		MessageBox(GetConsoleWindow(), (tmp + L" is invalid!").c_str(), L"utils::init_game_offsets", MB_OK | MB_ICONERROR);
+		MessageBox(GetConsoleWindow(), (tmp + L" is invalid!").c_str(), L"utils::init_game", MB_OK | MB_ICONERROR);
 	}
 }
