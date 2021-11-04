@@ -18,7 +18,7 @@ static __int64 __fastcall game_update_detour(int a1, float* a2, __int64 a3)
 
 inline void halo4::hooks::hook_game_update()
 {
-	game_update_pointer = reinterpret_cast<game_update>(halo4::offsets::game_update);
+	game_update_pointer = reinterpret_cast<game_update>(offsets::game_update);
 	if (MH_CreateHook(game_update_pointer, &game_update_detour, reinterpret_cast<LPVOID*>(&game_update_og)) != MH_OK)
 	{
 		throw std::runtime_error("game_update hook no worky");
@@ -37,12 +37,12 @@ inline void halo4::hooks::unhook_game_update()
 
 void halo4::hooks::init_hooks()
 {
-	halo4::hooks::hook_game_update();
+	hook_game_update();
 }
 
 void halo4::hooks::deinit_hooks()
 {
-	halo4::hooks::unhook_game_update();
+	unhook_game_update();
 }
 
 void halo4::hooks::reinit_hooks()

@@ -159,7 +159,7 @@ void utils::init_game(std::string game)
 	else
 	{
 		std::wstring tmp;
-		utils::string_to_wstring(tmp, game);
+		string_to_wstring(tmp, game);
 
 		MessageBox(GetConsoleWindow(), (tmp + L" is invalid!").c_str(), L"utils::init_game", MB_OK | MB_ICONERROR);
 	}
