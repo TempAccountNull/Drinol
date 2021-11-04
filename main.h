@@ -1,5 +1,5 @@
 #pragma once
 namespace main
 {
-	inline std::string current_game;
+	void kill_dll();
 }

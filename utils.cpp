@@ -9,6 +9,7 @@
 #include "halo4_offsets.h"
 #include "haloreach_hooks.h"
 #include "haloreach_offsets.h"
+#include "main.h"
 
 //Copy pasta from https://docs.microsoft.com/en-us/windows/win32/psapi/enumerating-all-modules-for-a-process
 std::vector<std::string> get_current_modules()
@@ -55,8 +56,11 @@ std::vector<std::string> get_current_modules()
 	return modules;
 }
 
-std::string utils::check_for_game()
+void utils::check_for_game()
 {
+
+	std::cout << "Waiting for a game to be running." << std::endl;
+	
 	//TODO: This would be better rewritten with function hooks in mind.
 
 	std::vector<std::string> runninggames;
@@ -114,8 +118,19 @@ std::string utils::check_for_game()
 		}
 	}
 
+	if (runninggames[0] == "halo1.dll" || runninggames[0] == "halo2.dll")
+	{
+		std::wstring tmp;
+		utils::string_to_wstring(tmp, runninggames[0]);
+
+		MessageBox(GetConsoleWindow(), (tmp + L" is not supported at the moment. Sorry!").c_str(), L"Invalid Game!", MB_OK | MB_ICONERROR);
+
+		main::kill_dll();
+	}
+	
 	// Return string of running game.
-	return runninggames[0];
+	current_game = runninggames[0];
+	utils::init_game(runninggames[0]);
 }
 
 //https://stackoverflow.com/a/8969776

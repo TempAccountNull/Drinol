@@ -6,7 +6,7 @@
 FILE* fDummy;
 HMODULE dll_hmodule;
 
-void kill_dll()
+void main::kill_dll()
 {
 	//Unhook shit, etc
 
@@ -39,38 +39,26 @@ int WINAPI start()
 
 	//Do shit, hooks whatever etc
 
-	std::cout << "Waiting for a game to be running." << std::endl;
-
-	main::current_game = utils::check_for_game();
-
-	if (main::current_game == "halo1.dll" || main::current_game == "halo2.dll")
+	if (MH_Initialize() == MH_OK)
 	{
-		std::wstring tmp;
-		utils::string_to_wstring(tmp, main::current_game);
+		std::cout << "Minhook Initialized!" << std::endl;
+		
+		ui::hook_ui();
 
-		MessageBox(GetConsoleWindow(), (tmp + L" is not supported at the moment. Sorry!").c_str(), L"Invalid Game!", MB_OK | MB_ICONERROR);
-
-		kill_dll();
-	}
-	else
-	{
-		if (MH_Initialize() == MH_OK)
+		utils::check_for_game();
+		
+		while (true)
 		{
-			std::cout << "Minhook Initialized!" << std::endl;
-			utils::init_game(main::current_game);
-			ui::hook_ui();
-
-			while (true)
+			if (!utils::active)
 			{
-				if (!utils::active)
-				{
-					break;
-				}
+				break;
 			}
 		}
 
-		kill_dll();
+		main::kill_dll();
 	}
+
+
 
 	return 0;
 }
@@ -85,7 +73,7 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 	}
 	else if (dwReason == DLL_PROCESS_DETACH)
 	{
-		kill_dll();
+		main::kill_dll();
 	}
 
 	return TRUE;

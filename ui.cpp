@@ -1,11 +1,7 @@
 #include "pch.h"
 #include "ui.h"
 
-#include "groundhog_hooks.h"
-#include "halo3_hooks.h"
-#include "halo4_hooks.h"
-#include "haloreach_hooks.h"
-#include "main.h"
+#include "utils.h"
 // DX11 imports
 #pragma comment(lib, "D3dcompiler.lib")
 #pragma comment(lib, "d3d11.lib")
@@ -148,7 +144,7 @@ void main_menu()
 	const ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_NoCloseWithMiddleMouseButton | ImGuiTabBarFlags_Reorderable;
 	if (ImGui::BeginTabBar("MainTabs", tab_bar_flags))
 	{
-		if (main::current_game == "halo3.dll")
+		if (utils::current_game == "halo3.dll")
 		{
 			if (ImGui::BeginTabItem("Halo 3"))
 			{
@@ -160,7 +156,7 @@ void main_menu()
 			}
 		}
 
-		if (main::current_game == "groundhog.dll")
+		if (utils::current_game == "groundhog.dll")
 		{
 			if (ImGui::BeginTabItem("H2AMP"))
 			{
@@ -172,7 +168,7 @@ void main_menu()
 			}
 		}
 
-		if (main::current_game == "halo4.dll")
+		if (utils::current_game == "halo4.dll")
 		{
 			if (ImGui::BeginTabItem("Halo 4"))
 			{
@@ -184,7 +180,7 @@ void main_menu()
 			}
 		}
 
-		if (main::current_game == "haloreach.dll")
+		if (utils::current_game == "haloreach.dll")
 		{
 			if (ImGui::BeginTabItem("Halo Reach"))
 			{

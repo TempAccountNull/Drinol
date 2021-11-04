@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "haloreach_hooks.h"
 #include "haloreach_offsets.h"
+#include "utils.h"
 
 /// <summary>
 /// game_finish
@@ -11,7 +12,9 @@ inline game_finish game_finish_pointer;
 
 static __int64 __fastcall game_finish_detour()
 {
-	std::cout << "game_finish: " << std::endl;
+	std::cout << "Game has finished!" << std::endl;
+	
+	haloreach::hooks::deinit_hooks();
 
 	return game_finish_og();
 }
@@ -78,6 +81,10 @@ void haloreach::hooks::deinit_hooks()
 {
 	unhook_game_update();
 	unhook_game_finish();
+
+	Sleep(5000);
+	utils::current_game = "";
+	utils::check_for_game();
 }
 
 void haloreach::hooks::reinit_hooks()
