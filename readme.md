@@ -1,7 +1,2 @@
-
-
-## To-Do:
-- [ ] Redirect script debug print functions to ui.
-- [ ] Toggle AI
-- [ ] DX11 Wireframe Mode
-- [ ] https://github.com/Lookenpeepers/DLLFixer but all in memory?
+This is a WIP tool for Halo MCC supporting Halo 3 and up.
+Halo 1 and 2 will be supported later.
