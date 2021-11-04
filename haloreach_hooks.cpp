@@ -1,42 +1,10 @@
 #include "pch.h"
 #include "haloreach_hooks.h"
+
+#include <thread>
+
 #include "haloreach_offsets.h"
 #include "utils.h"
-
-/// <summary>
-/// game_finish
-/// </summary>
-typedef __int64(__fastcall* game_finish)();
-inline game_finish game_finish_og = NULL;
-inline game_finish game_finish_pointer;
-
-static __int64 __fastcall game_finish_detour()
-{
-	std::cout << "Game has finished!" << std::endl;
-	
-	haloreach::hooks::deinit_hooks();
-
-	return game_finish_og();
-}
-
-inline void haloreach::hooks::hook_game_finish()
-{
-	game_finish_pointer = reinterpret_cast<game_finish>(offsets::game_finish);
-	if (MH_CreateHook(game_finish_pointer, &game_finish_detour, reinterpret_cast<LPVOID*>(&game_finish_og)) != MH_OK)
-	{
-		throw std::runtime_error("game_finish hook no worky");
-	}
-	if (MH_EnableHook(game_finish_pointer) == MH_OK)
-	{
-		std::cout << "game_finish Hooked" << std::endl;
-	}
-}
-
-inline void haloreach::hooks::unhook_game_finish()
-{
-	MH_DisableHook(game_finish_pointer);
-	MH_RemoveHook(game_finish_pointer);
-}
 
 /// <summary>
 /// game_update
@@ -74,17 +42,11 @@ inline void haloreach::hooks::unhook_game_update()
 void haloreach::hooks::init_hooks()
 {
 	hook_game_update();
-	hook_game_finish();
 }
 
 void haloreach::hooks::deinit_hooks()
 {
 	unhook_game_update();
-	unhook_game_finish();
-
-	Sleep(5000);
-	utils::current_game = "";
-	utils::check_for_game();
 }
 
 void haloreach::hooks::reinit_hooks()

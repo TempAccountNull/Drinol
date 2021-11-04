@@ -6,5 +6,5 @@ namespace utils
 	void check_for_game();
 	int string_to_wstring(std::wstring& ws, const std::string& s);
 	void init_game(std::string game);
-	inline bool active = true;
+	inline bool dll_active = true;
 }
