@@ -58,9 +58,8 @@ std::vector<std::string> get_current_modules()
 
 void utils::check_for_game()
 {
-
 	std::cout << "Waiting for a game to be running." << std::endl;
-	
+
 	//TODO: This would be better rewritten with function hooks in mind.
 
 	std::vector<std::string> runninggames;
@@ -127,7 +126,7 @@ void utils::check_for_game()
 
 		main::kill_dll();
 	}
-	
+
 	// Return string of running game.
 	current_game = runninggames[0];
 	utils::init_game(runninggames[0]);

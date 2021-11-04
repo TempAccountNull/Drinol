@@ -1,10 +1,7 @@
 #include "pch.h"
 #include "haloreach_hooks.h"
 
-#include <thread>
-
 #include "haloreach_offsets.h"
-#include "utils.h"
 
 /// <summary>
 /// game_update
