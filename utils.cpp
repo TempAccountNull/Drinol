@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "utils.h"
 
+#include "halo3_offsets.h"
+
 //Copy pasta from https://docs.microsoft.com/en-us/windows/win32/psapi/enumerating-all-modules-for-a-process
 std::vector<std::string> get_current_modules()
 {
@@ -117,4 +119,20 @@ int utils::string_to_wstring(std::wstring& ws, const std::string& s)
 	ws = wsTmp;
 
 	return 0;
+}
+
+void utils::init_game_offsets(std::string game)
+{
+	if (game == "halo3.dll")
+	{
+		std::cout << "Initializing offsets for Halo 3!" << std::endl;
+		halo3::offsets::init();
+	}
+	else
+	{
+		std::wstring tmp;
+		utils::string_to_wstring(tmp, game);
+
+		MessageBox(GetConsoleWindow(), (tmp + L" is invalid!").c_str(), L"utils::init_game_offsets", MB_OK | MB_ICONERROR);
+	}
 }

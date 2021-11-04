@@ -1,9 +1,10 @@
+#pragma once
 namespace halo3
 {
 	class offsets
 	{
 	public:
-		static const char* game_tick;
-		static const char* weapon_barrel_create_projectiles;
+		static uint8_t* game_update;
+		static void init();
 	};
 }
