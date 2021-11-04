@@ -1,7 +1,10 @@
 #include "pch.h"
 #include "ui.h"
 
+#include "groundhog_hooks.h"
 #include "halo3_hooks.h"
+#include "halo4_hooks.h"
+#include "haloreach_hooks.h"
 #include "main.h"
 // DX11 imports
 #pragma comment(lib, "D3dcompiler.lib")
@@ -157,8 +160,45 @@ void main_menu()
 			}
 		}
 
-		if (ImGui::BeginTabItem("Details"))
+		if (main::current_game == "groundhog.dll")
 		{
+			if (ImGui::BeginTabItem("H2AMP"))
+			{
+				if (ImGui::Button("hook test"))
+				{
+					groundhog::hooks::init_hooks();
+				}
+				ImGui::EndTabItem();
+			}
+		}
+
+		if (main::current_game == "halo4.dll")
+		{
+			if (ImGui::BeginTabItem("Halo 4"))
+			{
+				if (ImGui::Button("hook test"))
+				{
+					halo4::hooks::init_hooks();
+				}
+				ImGui::EndTabItem();
+			}
+		}
+
+		if (main::current_game == "haloreach.dll")
+		{
+			if (ImGui::BeginTabItem("Halo Reach"))
+			{
+				if (ImGui::Button("hook test"))
+				{
+					haloreach::hooks::init_hooks();
+				}
+				ImGui::EndTabItem();
+			}
+		}
+
+		if (ImGui::BeginTabItem("About"))
+		{
+			ImGui::Text("Drinol, created by Matty45/Matthew");
 			ImGui::EndTabItem();
 		}
 

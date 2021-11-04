@@ -155,8 +155,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="groundhog_hooks.h" />
+    <ClInclude Include="groundhog_offsets.h" />
     <ClInclude Include="halo3_hooks.h" />
     <ClInclude Include="halo3_offsets.h" />
+    <ClInclude Include="halo4_hooks.h" />
+    <ClInclude Include="halo4_offsets.h" />
+    <ClInclude Include="haloreach_hooks.h" />
+    <ClInclude Include="haloreach_offsets.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="memory_editing.h" />
     <ClInclude Include="third-party\imgui\backends\imgui_impl_dx11.h" />
@@ -181,8 +187,14 @@
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="groundhog_hooks.cpp" />
+    <ClCompile Include="groundhog_offsets.cpp" />
     <ClCompile Include="halo3_hooks.cpp" />
     <ClCompile Include="halo3_offsets.cpp" />
+    <ClCompile Include="halo4_hooks.cpp" />
+    <ClCompile Include="halo4_offsets.cpp" />
+    <ClCompile Include="haloreach_hooks.cpp" />
+    <ClCompile Include="haloreach_offsets.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="memory_editing.cpp" />
     <ClCompile Include="third-party\imgui\backends\imgui_impl_dx11.cpp">

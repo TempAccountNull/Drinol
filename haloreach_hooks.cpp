@@ -1,24 +1,24 @@
 #include "pch.h"
-#include "halo3_hooks.h"
-#include "halo3_offsets.h"
+#include "haloreach_hooks.h"
+#include "haloreach_offsets.h"
 
 /// <summary>
 /// game_update
 /// </summary>
-typedef char(__fastcall* game_update)(int a1, float* a2);
+typedef char(__fastcall* game_update)(int a1, float near* a2);
 inline game_update game_update_og = NULL;
 inline game_update game_update_pointer;
 
-static char __fastcall game_update_detour(int a1, float* a2)
+static char __fastcall game_update_detour(int a1, float near* a2)
 {
 	std::cout << "game_update: " << a1 << " " << a2 << std::endl;
 
 	return game_update_og(a1, a2);
 }
 
-inline void halo3::hooks::hook_game_update()
+inline void haloreach::hooks::hook_game_update()
 {
-	game_update_pointer = reinterpret_cast<game_update>(halo3::offsets::game_update);
+	game_update_pointer = reinterpret_cast<game_update>(haloreach::offsets::game_update);
 	if (MH_CreateHook(game_update_pointer, &game_update_detour, reinterpret_cast<LPVOID*>(&game_update_og)) != MH_OK)
 	{
 		throw std::runtime_error("game_update hook no worky");
@@ -29,23 +29,23 @@ inline void halo3::hooks::hook_game_update()
 	}
 }
 
-inline void halo3::hooks::unhook_game_update()
+inline void haloreach::hooks::unhook_game_update()
 {
 	MH_DisableHook(game_update_pointer);
 	MH_RemoveHook(game_update_pointer);
 }
 
-void halo3::hooks::init_hooks()
+void haloreach::hooks::init_hooks()
 {
-	halo3::hooks::hook_game_update();
+	haloreach::hooks::hook_game_update();
 }
 
-void halo3::hooks::deinit_hooks()
+void haloreach::hooks::deinit_hooks()
 {
-	halo3::hooks::unhook_game_update();
+	haloreach::hooks::unhook_game_update();
 }
 
-void halo3::hooks::reinit_hooks()
+void haloreach::hooks::reinit_hooks()
 {
 	deinit_hooks();
 	Sleep(1000);

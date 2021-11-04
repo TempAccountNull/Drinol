@@ -1,6 +1,6 @@
 #pragma once
 
-namespace halo3
+namespace groundhog
 {
 	class hooks
 	{
