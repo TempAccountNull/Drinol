@@ -105,6 +105,12 @@
     <ClInclude Include="haloreach_offsets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="halo3odst_hooks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="halo3odst_offsets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -180,6 +186,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="haloreach_offsets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="halo3odst_hooks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="halo3odst_offsets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -157,6 +157,8 @@
   <ItemGroup>
     <ClInclude Include="groundhog_hooks.h" />
     <ClInclude Include="groundhog_offsets.h" />
+    <ClInclude Include="halo3odst_hooks.h" />
+    <ClInclude Include="halo3odst_offsets.h" />
     <ClInclude Include="halo3_hooks.h" />
     <ClInclude Include="halo3_offsets.h" />
     <ClInclude Include="halo4_hooks.h" />
@@ -189,6 +191,8 @@
   <ItemGroup>
     <ClCompile Include="groundhog_hooks.cpp" />
     <ClCompile Include="groundhog_offsets.cpp" />
+    <ClCompile Include="halo3odst_hooks.cpp" />
+    <ClCompile Include="halo3odst_offsets.cpp" />
     <ClCompile Include="halo3_hooks.cpp" />
     <ClCompile Include="halo3_offsets.cpp" />
     <ClCompile Include="halo4_hooks.cpp" />
