@@ -21,10 +21,10 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="utils.h">
+    <ClInclude Include="utils\utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ui.h">
+    <ClInclude Include="ui\ui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="third-party\imgui\imconfig.h">
@@ -75,40 +75,40 @@
     <ClInclude Include="third-party\imgui\backends\imgui_impl_dx11.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="memory_editing.h">
+    <ClInclude Include="utils\memory\memory_editing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="halo3_hooks.h">
+    <ClInclude Include="games\halo3\halo3_hooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="halo3_offsets.h">
+    <ClInclude Include="games\halo3\halo3_offsets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="groundhog_hooks.h">
+    <ClInclude Include="games\groundhog\groundhog_hooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="groundhog_offsets.h">
+    <ClInclude Include="games\groundhog\groundhog_offsets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="halo4_hooks.h">
+    <ClInclude Include="games\halo4\halo4_hooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="halo4_offsets.h">
+    <ClInclude Include="games\halo4\halo4_offsets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="haloreach_hooks.h">
+    <ClInclude Include="games\haloreach\haloreach_hooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="haloreach_offsets.h">
+    <ClInclude Include="games\haloreach\haloreach_offsets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="halo3odst_hooks.h">
+    <ClInclude Include="games\halo3odst\halo3odst_hooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="halo3odst_offsets.h">
+    <ClInclude Include="games\halo3odst\halo3odst_offsets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -119,10 +119,10 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="utils.cpp">
+    <ClCompile Include="utils\utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ui.cpp">
+    <ClCompile Include="ui\ui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="third-party\imgui\imgui.cpp">
@@ -161,37 +161,37 @@
     <ClCompile Include="third-party\imgui\backends\imgui_impl_dx11.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="memory_editing.cpp">
+    <ClCompile Include="utils\memory\memory_editing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="halo3_hooks.cpp">
+    <ClCompile Include="games\halo3\halo3_hooks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="halo3_offsets.cpp">
+    <ClCompile Include="games\halo3\halo3_offsets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="groundhog_hooks.cpp">
+    <ClCompile Include="games\groundhog\groundhog_hooks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="groundhog_offsets.cpp">
+    <ClCompile Include="games\groundhog\groundhog_offsets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="halo4_hooks.cpp">
+    <ClCompile Include="games\halo4\halo4_hooks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="halo4_offsets.cpp">
+    <ClCompile Include="games\halo4\halo4_offsets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="haloreach_hooks.cpp">
+    <ClCompile Include="games\haloreach\haloreach_hooks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="haloreach_offsets.cpp">
+    <ClCompile Include="games\haloreach\haloreach_offsets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="halo3odst_hooks.cpp">
+    <ClCompile Include="games\halo3odst\halo3odst_hooks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="halo3odst_offsets.cpp">
+    <ClCompile Include="games\halo3odst\halo3odst_offsets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
