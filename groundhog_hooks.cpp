@@ -25,7 +25,6 @@ inline game_update game_update_pointer;
 
 static char __fastcall game_update_detour(int a1, float* a2)
 {
-
 	if (groundhog::hooks::change_speed)
 	{
 		game_time_set_rate_scale_direct_og(ui::game_speed);

@@ -3,6 +3,8 @@
 
 #include "groundhog_hooks.h"
 #include "groundhog_offsets.h"
+#include "halo3odst_hooks.h"
+#include "halo3odst_offsets.h"
 #include "halo3_hooks.h"
 #include "halo3_offsets.h"
 #include "halo4_hooks.h"
@@ -151,6 +153,14 @@ void utils::init_game(std::string game)
 		std::cout << "Initializing offsets for Halo 3!" << std::endl;
 		halo3::offsets::init();
 		halo3::hooks::init_hooks();
+		halo3::hooks::init_function_calls();
+	}
+	else if (game == "halo3odst.dll")
+	{
+		std::cout << "Initializing offsets for Halo 3 ODST!" << std::endl;
+		halo3odst::offsets::init();
+		halo3odst::hooks::init_hooks();
+		halo3odst::hooks::init_function_calls();
 	}
 	else if (game == "groundhog.dll")
 	{
@@ -164,12 +174,14 @@ void utils::init_game(std::string game)
 		std::cout << "Initializing offsets for Halo 4!" << std::endl;
 		halo4::offsets::init();
 		halo4::hooks::init_hooks();
+		halo4::hooks::init_function_calls();
 	}
 	else if (game == "haloreach.dll")
 	{
 		std::cout << "Initializing offsets for Halo Reach!" << std::endl;
 		haloreach::offsets::init();
 		haloreach::hooks::init_hooks();
+		haloreach::hooks::init_function_calls();
 	}
 	else
 	{

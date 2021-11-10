@@ -3,11 +3,6 @@
 #include "utils.h"
 #include "main.h"
 
-#include "groundhog_hooks.h"
-#include "halo3_hooks.h"
-#include "halo4_hooks.h"
-#include "haloreach_hooks.h"
-
 FILE* fDummy;
 HMODULE dll_hmodule;
 

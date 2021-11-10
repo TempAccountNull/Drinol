@@ -5,8 +5,6 @@ namespace groundhog
 	class hooks
 	{
 	public:
-		static void hook_game_time_set_rate_scale_direct();
-		static void unhook_game_time_set_rate_scale_direct();
 		static void hook_game_update();
 		static void unhook_game_update();
 		static void init_hooks();

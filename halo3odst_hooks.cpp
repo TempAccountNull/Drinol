@@ -1,6 +1,19 @@
 #include "pch.h"
 #include "halo3odst_hooks.h"
 #include "halo3odst_offsets.h"
+#include "ui.h"
+
+/// <summary>
+/// game_time_set_rate_scale_direct
+/// </summary>
+typedef __int64(__fastcall* game_time_set_rate_scale_direct)(float a1);
+static inline game_time_set_rate_scale_direct game_time_set_rate_scale_direct_og = nullptr;
+
+void halo3odst::hooks::init_function_calls()
+{
+	// Declaring these inline does not work! So this function has been made to properly assign these vars.
+	game_time_set_rate_scale_direct_og = reinterpret_cast<game_time_set_rate_scale_direct>(reinterpret_cast<char*>(halo3odst::offsets::game_time_set_rate_scale_direct));
+}
 
 /// <summary>
 /// game_update
@@ -11,8 +24,13 @@ inline game_update game_update_pointer;
 
 static __int64 __fastcall game_update_detour(int a1, float near* a2)
 {
-	std::cout << "game_update: " << a1 << " " << a2 << std::endl;
+	if (halo3odst::hooks::change_speed)
+	{
+		game_time_set_rate_scale_direct_og(ui::game_speed);
 
+		halo3odst::hooks::change_speed = false;
+	}
+	
 	return game_update_og(a1, a2);
 }
 

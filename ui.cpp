@@ -2,6 +2,10 @@
 #include "ui.h"
 
 #include "groundhog_hooks.h"
+#include "halo3odst_hooks.h"
+#include "halo3_hooks.h"
+#include "halo4_hooks.h"
+#include "haloreach_hooks.h"
 #include "utils.h"
 // DX11 imports
 #pragma comment(lib, "D3dcompiler.lib")
@@ -149,10 +153,32 @@ void main_menu()
 		{
 			if (ImGui::BeginTabItem("Halo 3"))
 			{
-				/*if (ImGui::Button("hook test"))
+				ImGui::InputFloat("Speed", &ui::game_speed, 0.01f, 1.0f, "%.3f");
+				ImGui::SameLine();
+				if (ImGui::Button("Change"))
 				{
-					halo3::hooks::init_hooks();
-				}*/
+					halo3::hooks::change_speed = true;
+				}
+				ImGui::SameLine();
+				help_marker("Changes the games speed, 1.0 is default!");
+
+				ImGui::EndTabItem();
+			}
+		}
+
+		if (utils::current_game == "halo3odst.dll")
+		{
+			if (ImGui::BeginTabItem("Halo 3 ODST"))
+			{
+				ImGui::InputFloat("Speed", &ui::game_speed, 0.01f, 1.0f, "%.3f");
+				ImGui::SameLine();
+				if (ImGui::Button("Change"))
+				{
+					halo3odst::hooks::change_speed = true;
+				}
+				ImGui::SameLine();
+				help_marker("Changes the games speed, 1.0 is default!");
+
 				ImGui::EndTabItem();
 			}
 		}
@@ -177,10 +203,15 @@ void main_menu()
 		{
 			if (ImGui::BeginTabItem("Halo 4"))
 			{
-				/*if (ImGui::Button("hook test"))
+				ImGui::InputFloat("Speed", &ui::game_speed, 0.01f, 1.0f, "%.3f");
+				ImGui::SameLine();
+				if (ImGui::Button("Change"))
 				{
-					halo4::hooks::init_hooks();
-				}*/
+					halo4::hooks::change_speed = true;
+				}
+				ImGui::SameLine();
+				help_marker("Changes the games speed, 1.0 is default!");
+
 				ImGui::EndTabItem();
 			}
 		}
@@ -189,10 +220,15 @@ void main_menu()
 		{
 			if (ImGui::BeginTabItem("Halo Reach"))
 			{
-				/*if (ImGui::Button("hook test"))
+				ImGui::InputFloat("Speed", &ui::game_speed, 0.01f, 1.0f, "%.3f");
+				ImGui::SameLine();
+				if (ImGui::Button("Change"))
 				{
-					haloreach::hooks::init_hooks();
-				}*/
+					haloreach::hooks::change_speed = true;
+				}
+				ImGui::SameLine();
+				help_marker("Changes the games speed, 1.0 is default!");
+
 				ImGui::EndTabItem();
 			}
 		}
