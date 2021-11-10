@@ -4,12 +4,6 @@
 #include "groundhog_offsets.h"
 
 /// <summary>
-/// game_time_set_rate_scale_direct
-/// </summary>
-typedef __int64 __fastcall game_time_set_rate_scale_direct(float a1);
-game_time_set_rate_scale_direct* game_time_set_rate_scale_direct_og = reinterpret_cast<game_time_set_rate_scale_direct*>(reinterpret_cast<char*>(groundhog::offsets::game_time_set_rate_scale_direct));  // NOLINT(cppcoreguidelines-interfaces-global-init)
-
-/// <summary>
 /// game_update
 /// </summary>
 typedef char(__fastcall* game_update)(int a1, float* a2);
@@ -18,12 +12,7 @@ inline game_update game_update_pointer;
 
 static char __fastcall game_update_detour(int a1, float* a2)
 {
-	if (groundhog::hooks::test)
-	{
-		game_time_set_rate_scale_direct_og(0.5);
-
-		groundhog::hooks::test = false;
-	}
+	std::cout << "game_update: " << a1 << " " << a2 << std::endl;
 
 	return game_update_og(a1, a2);
 }

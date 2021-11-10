@@ -10,6 +10,5 @@ namespace groundhog
 		static void init_hooks();
 		static void deinit_hooks();
 		static void reinit_hooks();
-		static inline bool test = false;
 	};
 }
