@@ -157,6 +157,7 @@ void utils::init_game(std::string game)
 		std::cout << "Initializing offsets for H2AMP!" << std::endl;
 		groundhog::offsets::init();
 		groundhog::hooks::init_hooks();
+		groundhog::hooks::init_function_calls();
 	}
 	else if (game == "halo4.dll")
 	{

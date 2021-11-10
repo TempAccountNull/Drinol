@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "ui.h"
 
+#include "groundhog_hooks.h"
 #include "utils.h"
 // DX11 imports
 #pragma comment(lib, "D3dcompiler.lib")
@@ -124,18 +125,18 @@ HRESULT get_device_and_ctx_from_swapchain(IDXGISwapChain* p_swap_chain, ID3D11De
 	return ret;
 }
 
-//static void help_marker(const char* desc)
-//{
-//	ImGui::TextDisabled("(?)");
-//	if (ImGui::IsItemHovered())
-//	{
-//		ImGui::BeginTooltip();
-//		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
-//		ImGui::TextUnformatted(desc);
-//		ImGui::PopTextWrapPos();
-//		ImGui::EndTooltip();
-//	}
-//}
+static void help_marker(const char* desc)
+{
+	ImGui::TextDisabled("(?)");
+	if (ImGui::IsItemHovered())
+	{
+		ImGui::BeginTooltip();
+		ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+		ImGui::TextUnformatted(desc);
+		ImGui::PopTextWrapPos();
+		ImGui::EndTooltip();
+	}
+}
 
 void main_menu()
 {
@@ -160,10 +161,14 @@ void main_menu()
 		{
 			if (ImGui::BeginTabItem("H2AMP"))
 			{
-				/*if (ImGui::Button("hook test"))
+				ImGui::InputFloat("Speed", &ui::game_speed, 0.01f, 1.0f, "%.3f");
+				ImGui::SameLine();
+				if (ImGui::Button("Change"))
 				{
-					groundhog::hooks::init_hooks();
-				}*/
+					groundhog::hooks::change_speed = true;
+				}
+				ImGui::SameLine();
+				help_marker("Changes the games speed, 1.0 is default!");
 				ImGui::EndTabItem();
 			}
 		}

@@ -28,8 +28,6 @@ void main::kill_dll()
 	FreeLibraryAndExitThread(dll_hmodule, NULL);
 };
 
-
-
 int WINAPI start()
 {
 	//Initialize Console
@@ -49,11 +47,11 @@ int WINAPI start()
 	if (MH_Initialize() == MH_OK)
 	{
 		std::cout << "Minhook Initialized!" << std::endl;
-		
+
 		ui::hook_ui();
 
 		utils::check_for_game();
-		
+
 		while (true)
 		{
 			if (!utils::dll_active)
@@ -61,7 +59,6 @@ int WINAPI start()
 				break;
 			}
 		}
-		
 	}
 
 	main::kill_dll();
