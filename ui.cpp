@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "ui.h"
 
+#include "groundhog_hooks.h"
 #include "utils.h"
 // DX11 imports
 #pragma comment(lib, "D3dcompiler.lib")
@@ -160,10 +161,10 @@ void main_menu()
 		{
 			if (ImGui::BeginTabItem("H2AMP"))
 			{
-				/*if (ImGui::Button("hook test"))
+				if (ImGui::Button("Test Speed"))
 				{
-					groundhog::hooks::init_hooks();
-				}*/
+					groundhog::hooks::test = true;
+				}
 				ImGui::EndTabItem();
 			}
 		}
