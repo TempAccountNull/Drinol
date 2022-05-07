@@ -2,7 +2,7 @@
 #include "groundhog_hooks.h"
 
 #include "groundhog_offsets.h"
-#include <ui.h>
+#include "ui.h"
 
 /// <summary>
 /// game_time_set_rate_scale_direct
