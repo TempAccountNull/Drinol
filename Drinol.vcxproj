@@ -72,17 +72,20 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir)games\halo1;$(ProjectDir)games\groundhog;$(ProjectDir)games\halo3;$(ProjectDir)games\halo4;$(ProjectDir)games\halo3odst;$(ProjectDir)games\haloreach;$(ProjectDir)ui\;$(ProjectDir)utils\;$(ProjectDir)utils\memory;$(ProjectDir);$(ProjectDir)third-party\imgui;$(ProjectDir)third-party\imgui\backends;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(ProjectDir)games\halo1;$(ProjectDir)games\groundhog;$(ProjectDir)games\halo3;$(ProjectDir)games\halo4;$(ProjectDir)games\halo3odst;$(ProjectDir)games\haloreach;$(ProjectDir)ui\;$(ProjectDir)utils\;$(ProjectDir)utils\memory;$(ProjectDir);$(ProjectDir)third-party\imgui;$(ProjectDir)third-party\imgui\backends;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)games\groundhog;$(ProjectDir)games\halo3;$(ProjectDir)games\halo4;$(ProjectDir)games\halo3odst;$(ProjectDir)games\haloreach;$(ProjectDir)ui\;$(ProjectDir)utils\;$(ProjectDir)utils\memory;$(ProjectDir);$(ProjectDir)third-party\imgui;$(ProjectDir)third-party\imgui\backends;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)games\halo1;$(ProjectDir)games\groundhog;$(ProjectDir)games\halo3;$(ProjectDir)games\halo4;$(ProjectDir)games\halo3odst;$(ProjectDir)games\haloreach;$(ProjectDir)ui\;$(ProjectDir)utils\;$(ProjectDir)utils\memory;$(ProjectDir);$(ProjectDir)third-party\imgui;$(ProjectDir)third-party\imgui\backends;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(ProjectDir)games\halo1;$(ProjectDir)games\groundhog;$(ProjectDir)games\halo3;$(ProjectDir)games\halo4;$(ProjectDir)games\halo3odst;$(ProjectDir)games\haloreach;$(ProjectDir)ui\;$(ProjectDir)utils\;$(ProjectDir)utils\memory;$(ProjectDir);$(ProjectDir)third-party\imgui;$(ProjectDir)third-party\imgui\backends;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -157,6 +160,8 @@
   <ItemGroup>
     <ClInclude Include="games\groundhog\groundhog_hooks.h" />
     <ClInclude Include="games\groundhog\groundhog_offsets.h" />
+    <ClInclude Include="games\halo1\halo1_hooks.h" />
+    <ClInclude Include="games\halo1\halo1_offsets.h" />
     <ClInclude Include="games\halo3odst\halo3odst_hooks.h" />
     <ClInclude Include="games\halo3odst\halo3odst_offsets.h" />
     <ClInclude Include="games\halo3\halo3_hooks.h" />
@@ -191,6 +196,8 @@
   <ItemGroup>
     <ClCompile Include="games\groundhog\groundhog_hooks.cpp" />
     <ClCompile Include="games\groundhog\groundhog_offsets.cpp" />
+    <ClCompile Include="games\halo1\halo1_hooks.cpp" />
+    <ClCompile Include="games\halo1\halo1_offsets.cpp" />
     <ClCompile Include="games\halo3odst\halo3odst_hooks.cpp" />
     <ClCompile Include="games\halo3odst\halo3odst_offsets.cpp" />
     <ClCompile Include="games\halo3\halo3_hooks.cpp" />

@@ -11,6 +11,8 @@
 #include "halo4_offsets.h"
 #include "haloreach_hooks.h"
 #include "haloreach_offsets.h"
+#include "halo1_hooks.h"
+#include "halo1_offsets.h"
 #include "main.h"
 
 //Copy pasta from https://docs.microsoft.com/en-us/windows/win32/psapi/enumerating-all-modules-for-a-process
@@ -119,7 +121,7 @@ void utils::check_for_game()
 		}
 	}
 
-	if (runninggames[0] == "halo1.dll" || runninggames[0] == "halo2.dll")
+	if (runninggames[0] == "halo2.dll")
 	{
 		std::wstring tmp;
 		utils::string_to_wstring(tmp, runninggames[0]);
@@ -161,6 +163,13 @@ void utils::init_game(std::string game)
 		halo3odst::offsets::init();
 		halo3odst::hooks::init_hooks();
 		halo3odst::hooks::init_function_calls();
+	}
+	else if (game == "halo1.dll")
+	{
+		std::cout << "Initializing offsets for Halo 1!" << std::endl;
+		halo1::offsets::init();
+		halo1::hooks::init_hooks();
+		halo1::hooks::init_function_calls();
 	}
 	else if (game == "groundhog.dll")
 	{
