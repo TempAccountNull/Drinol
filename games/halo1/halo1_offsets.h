@@ -5,7 +5,10 @@ namespace halo1
 	{
 	public:
 		static uint8_t* game_time_update;
-		static uint8_t* game_speed_value;
+		static float* game_speed_value;
+		static uint8_t* infinite_grenades;
+		static uint8_t* bottomless_clip;
+		static uint8_t* infinite_ammo;
 		static void init();
 	};
 }

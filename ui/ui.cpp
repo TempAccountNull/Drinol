@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "ui.h"
 
+#include "halo1_offsets.h"
 #include "groundhog_hooks.h"
 #include "halo3odst_hooks.h"
 #include "halo3_hooks.h"
@@ -149,6 +150,23 @@ void main_menu()
 	const ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_NoCloseWithMiddleMouseButton | ImGuiTabBarFlags_Reorderable;
 	if (ImGui::BeginTabBar("MainTabs", tab_bar_flags))
 	{
+		if (utils::current_game == "halo1.dll")
+		{
+			if (ImGui::BeginTabItem("Halo 1"))
+			{
+				ImGui::InputFloat("Speed", &ui::game_speed, 0.01f, 1.0f, "%.3f");
+				ImGui::SameLine();
+				if (ImGui::Button("Change"))
+				{
+					*halo1::offsets::game_speed_value = ui::game_speed;
+				}
+				ImGui::SameLine();
+				help_marker("Changes the games speed, 1.0 is default!");
+
+				ImGui::EndTabItem();
+			}
+		}
+
 		if (utils::current_game == "halo3.dll")
 		{
 			if (ImGui::BeginTabItem("Halo 3"))
