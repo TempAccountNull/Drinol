@@ -7,6 +7,7 @@
 #include "halo3_hooks.h"
 #include "halo4_hooks.h"
 #include "haloreach_hooks.h"
+#include "memory_editing.h"
 #include "utils.h"
 // DX11 imports
 #pragma comment(lib, "D3dcompiler.lib")
@@ -154,7 +155,7 @@ void main_menu()
 		{
 			if (ImGui::BeginTabItem("Halo 1"))
 			{
-				ImGui::InputFloat("Speed", &ui::game_speed, 0.01f, 1.0f, "%.3f");
+				ImGui::InputFloat("Game Speed", &ui::game_speed, 0.01f, 1.0f, "%.3f");
 				ImGui::SameLine();
 				if (ImGui::Button("Change"))
 				{
@@ -162,6 +163,29 @@ void main_menu()
 				}
 				ImGui::SameLine();
 				help_marker("Changes the games speed, 1.0 is default!");
+
+				//if (ImGui::Checkbox("Infinite Ammo", &ui::infinite_ammo))
+				//{
+				//	// *halo1::offsets::infinite_ammo = ui::infinite_ammo;
+				//	std::cout << *halo1::offsets::infinite_ammo << std::endl;
+				//}
+				//ImGui::SameLine();
+				//help_marker("Toggles infinite ammo.");
+
+				if (ImGui::Button("Test"))
+				{
+					HMODULE baseaddress = GetModuleHandle(L"halo1.dll");
+					std::cout << std::hex << memory::pattern_scan(baseaddress, "80 3D ?? ?? ?? ?? ?? 48 8B 4C 24 40") + 10 << std::endl;
+					std::cout << std::hex << memory::pattern_scan(baseaddress, "80 3D ?? ?? ?? ?? ?? 48 8B 4C 24 40") + 9 << std::endl;
+					std::cout << std::hex << memory::pattern_scan(baseaddress, "80 3D ?? ?? ?? ?? ?? 48 8B 4C 24 40") + 8 << std::endl;
+					std::cout << std::hex << memory::pattern_scan(baseaddress, "80 3D ?? ?? ?? ?? ?? 48 8B 4C 24 40") + 7 << std::endl;
+					std::cout << std::hex << memory::pattern_scan(baseaddress, "80 3D ?? ?? ?? ?? ?? 48 8B 4C 24 40") + 6 << std::endl;
+					std::cout << std::hex << memory::pattern_scan(baseaddress, "80 3D ?? ?? ?? ?? ?? 48 8B 4C 24 40") + 5 << std::endl;
+					std::cout << std::hex << memory::pattern_scan(baseaddress, "80 3D ?? ?? ?? ?? ?? 48 8B 4C 24 40") + 4 << std::endl;
+					std::cout << std::hex << memory::pattern_scan(baseaddress, "80 3D ?? ?? ?? ?? ?? 48 8B 4C 24 40") + 3 << std::endl;
+					std::cout << std::hex << memory::pattern_scan(baseaddress, "80 3D ?? ?? ?? ?? ?? 48 8B 4C 24 40") + 2 << std::endl;
+					std::cout << std::hex << memory::pattern_scan(baseaddress, "80 3D ?? ?? ?? ?? ?? 48 8B 4C 24 40") + 1 << std::endl;
+				}
 
 				ImGui::EndTabItem();
 			}
