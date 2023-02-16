@@ -1,1 +1,5 @@
-This is a WIP tool for Halo MCC supporting all the games. (Halo 1 and 2 have not been implemented yet.)
+WIP Tool for Halo:MCC with the goal of allowing you to modify the game entirely in memory without having to touch the game dlls.
+
+State: Somewhat usable.
+
+Halo 1 is currently being worked on and is partially done.

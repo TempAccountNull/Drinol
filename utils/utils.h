@@ -1,10 +1,11 @@
 #pragma once
+#include <string>
+#include <Windows.h>
 
-namespace utils
+class utils
 {
-	inline std::string current_game;
-	void check_for_game();
-	int string_to_wstring(std::wstring& ws, const std::string& s);
-	void init_game(std::string game);
-	inline bool dll_active = true;
-}
+public:
+	static inline std::string running_game;
+	static inline std::string dll_path; // Path of the drinol dll.
+	static void handle_game_init(int game_number);
+};

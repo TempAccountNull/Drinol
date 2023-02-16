@@ -1,0 +1,4 @@
+Thanks to:
+https://github.com/Gavpherk/Universal-IL2CPP-DX11-Kiero-Hook : DX11 Hooking Code
+Apoxied#1337: Halo 3 Dll research information that i borrowed!
+SilentRunner#6097 : Borrowed research from MCC Toolbox.

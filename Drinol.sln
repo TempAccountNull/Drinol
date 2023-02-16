@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31424.327
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.32912.340
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Drinol", "Drinol.vcxproj", "{2AD3507F-B7DE-4E89-8C3E-9DD43313CC21}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Drinol", "Drinol.vcxproj", "{95AA594E-F9EC-4BA8-B2AD-15495987E440}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2AD3507F-B7DE-4E89-8C3E-9DD43313CC21}.Debug|x64.ActiveCfg = Debug|x64
-		{2AD3507F-B7DE-4E89-8C3E-9DD43313CC21}.Debug|x64.Build.0 = Debug|x64
-		{2AD3507F-B7DE-4E89-8C3E-9DD43313CC21}.Release|x64.ActiveCfg = Release|x64
-		{2AD3507F-B7DE-4E89-8C3E-9DD43313CC21}.Release|x64.Build.0 = Release|x64
+		{95AA594E-F9EC-4BA8-B2AD-15495987E440}.Debug|x64.ActiveCfg = Debug|x64
+		{95AA594E-F9EC-4BA8-B2AD-15495987E440}.Debug|x64.Build.0 = Debug|x64
+		{95AA594E-F9EC-4BA8-B2AD-15495987E440}.Release|x64.ActiveCfg = Release|x64
+		{95AA594E-F9EC-4BA8-B2AD-15495987E440}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {E7221467-7389-498F-A9DA-23065486D74D}
+		SolutionGuid = {F092AEB1-F7A9-494E-B5F0-68FAA51FA26D}
 	EndGlobalSection
 EndGlobal
