@@ -1,7 +1,5 @@
 #include "halo1_offsets.h"
 
-#include <iostream>
-
 #include "Memcury/memcury.h"
 
 void halo1::offsets::init()
@@ -17,14 +15,15 @@ void halo1::offsets::init()
 	wireframe = Memcury::Scanner::FindPattern("0F B6 05 ?? ?? ?? ?? F6 D8 1B C9 83 C1 03 39 0D ?? ?? ?? ?? 74 2E").RelativeOffset(3).GetAs<bool*>();
 
 	//Blamscript External Globals Table
-	hs_external_globals = Memcury::Scanner::FindPattern("48 8D 1D ?? ?? ?? ?? BF D2 01 00 00 48 8D 35").RelativeOffset(3).GetAs<void*>();
+	hs_external_globals = reinterpret_cast<engine::_hs_external_globals*>(Memcury::Scanner::FindPattern("48 8D 1D ?? ?? ?? ?? BF D2 01 00 00 48 8D 35").
+		RelativeOffset(3).Get());
 
 	//Blamscript type names.
-	hs_type_names = Memcury::Scanner::FindPattern("48 8D 35 ?? ?? ?? ?? 4C 8B 0B").RelativeOffset(3).GetAs<void*>();
+	hs_type_names = reinterpret_cast<engine::_hs_type_names*>(Memcury::Scanner::FindPattern("48 8D 35 ?? ?? ?? ?? 4C 8B 0B").RelativeOffset(3).Get());
 
 	// for some reason, game_ticks_per_second is protected from being changed
 	DWORD old_prot;
-	VirtualProtect((void*)game_ticks_per_second, 4, PAGE_EXECUTE_READWRITE, &old_prot);
+	VirtualProtect(game_ticks_per_second, 4, PAGE_EXECUTE_READWRITE, &old_prot);
 
 	//std::cout << std::hex << Memcury::Scanner::FindPattern("48 8D 35 ?? ?? ?? ?? 4C 8B 0B").RelativeOffset(1).Get() << std::endl;
 }

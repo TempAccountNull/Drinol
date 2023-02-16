@@ -1,5 +1,5 @@
 #pragma once
-#include "Memcury/memcury.h"
+#include "halo1_engine.h"
 
 namespace halo1
 {
@@ -11,8 +11,8 @@ namespace halo1
 		inline static float* game_ticks_per_second;
 		inline static bool* god_mode;
 		inline static bool* wireframe;
-		inline static void* hs_external_globals;
-		inline static void* hs_type_names;
+		inline static engine::_hs_external_globals* hs_external_globals;
+		inline static engine::_hs_type_names* hs_type_names;
 		static void init();
 	};
 }

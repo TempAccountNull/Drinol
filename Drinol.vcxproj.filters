@@ -167,5 +167,8 @@
     <ClInclude Include="dependencies\memcury\memcury.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="games\halo1\halo1_engine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

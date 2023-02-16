@@ -1,5 +1,4 @@
 #pragma once
-#include <dxgi.h>
 
 class gui
 {
