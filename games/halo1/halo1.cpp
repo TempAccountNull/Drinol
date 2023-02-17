@@ -20,7 +20,7 @@ void halo1::game::list_all_hs_functions()
 {
 	for (engine::hs_script_op* function : offsets::hs_function_table->table)
 	{
-		std::cout << "Return Type: " << offsets::hs_type_names->types[function->return_type] << " Name: " << function->name << std::endl;
+		std::cout << "Return Type: " << offsets::hs_type_names->types[function->return_type] << " Name: " << function->name << " Address: " << std::hex << function->evaluate_func << std::endl;
 	}
 }
 
