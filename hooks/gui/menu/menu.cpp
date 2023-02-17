@@ -10,7 +10,7 @@ void menu::render()
 {
 	ImGui::Begin("Drinol");
 	ImGui::Text("This does nothing yet.");
-	ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_None;
+	const ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_None;
 	if (ImGui::BeginTabBar("DrinolTabs", tab_bar_flags))
 	{
 		if (ImGui::BeginTabItem("Status"))

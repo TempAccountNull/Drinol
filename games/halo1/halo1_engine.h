@@ -17,7 +17,7 @@ namespace halo1::engine // Engine related structs, etc
 	public:
 		char* name; //0x0000 Name of the global
 		int64_t param_type; //0x0008 parameter type (unparsed, float, bool, etc)
-		void* address; //0x0010 // The address og the global
+		void* address; //0x0010 // The address of the global
 	}; //Size: 0x0018
 	static_assert(sizeof(hs_external_global) == 0x18);
 

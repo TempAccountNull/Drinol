@@ -30,7 +30,7 @@ void InitImGui()
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
-	std::string inipath = utils::dll_path + "\\imgui.ini";
+	const std::string inipath = utils::dll_path + "\\imgui.ini";
 	io.IniFilename = inipath.c_str();
 	ImGui_ImplWin32_Init(window);
 	ImGui_ImplDX11_Init(pDevice, pContext);
