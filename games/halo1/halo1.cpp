@@ -16,6 +16,14 @@ void halo1::game::test_function()
 {
 }
 
+void halo1::game::list_all_hs_functions()
+{
+	for (engine::hs_script_op* function : offsets::hs_function_table->table)
+	{
+		std::cout << "Return Type: " << offsets::hs_type_names->types[function->return_type] << " Name: " << function->name << std::endl;
+	}
+}
+
 void halo1::game::list_all_hs_globals()
 {
 	for (engine::hs_external_global* global : offsets::hs_external_globals->globals)
@@ -27,7 +35,7 @@ void halo1::game::list_all_hs_globals()
 
 #endif
 
-void* halo1::game::get_global(const char* global_name) // Gets the address of the specified global.
+void* halo1::game::get_hs_global(const char* global_name) // Gets the address of the specified global.
 {
 	for (const halo1::engine::hs_external_global* global : halo1::offsets::hs_external_globals->globals)
 	{
@@ -39,9 +47,28 @@ void* halo1::game::get_global(const char* global_name) // Gets the address of th
 				return global->address;
 			}
 
-			throw std::runtime_error("halo1::game::get_global: bool has been found but does not have a working address");
+			throw std::runtime_error("halo1::game::get_global: global has been found but does not have a working address");
 		}
 	}
 
-	throw std::runtime_error("halo1::game::get_global:: bool was not found");
+	throw std::runtime_error("halo1::game::get_global:: global was not found");
+}
+
+void* halo1::game::get_hs_function(const char* func_name) // Gets the address of the specified function.
+{
+	for (const engine::hs_script_op* function : offsets::hs_function_table->table)
+	{
+		if (strcmp(function->name, func_name) == 0)
+		{
+			// bool has been found
+			if (function->evaluate_func != nullptr)
+			{
+				return function->evaluate_func;
+			}
+
+			throw std::runtime_error("halo1::game::get_hs_function: function has been found but does not have a working address");
+		}
+	}
+
+	throw std::runtime_error("halo1::game::get_hs_function:: function was not found");
 }

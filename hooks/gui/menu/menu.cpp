@@ -9,7 +9,6 @@
 void menu::render()
 {
 	ImGui::Begin("Drinol");
-	ImGui::Text("This does nothing yet.");
 	const ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_None;
 	if (ImGui::BeginTabBar("DrinolTabs", tab_bar_flags))
 	{
@@ -39,6 +38,9 @@ void menu::render()
 					{
 						if (ImGui::Button("Trigger Test Function"))
 							halo1::game::test_function();
+
+						if (ImGui::Button("Print all blamscript functions."))
+							halo1::game::list_all_hs_functions();
 
 						if (ImGui::Button("Print all blamscript globals."))
 							halo1::game::list_all_hs_globals();
