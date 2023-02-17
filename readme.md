@@ -4,4 +4,4 @@ State: Somewhat usable.
 
 Halo 1 is currently being worked on and is partially done.
 
-![Picture](MCC-Win64-Shipping_k8RIiyCtEL.png)
+![Picture](https://i.imgur.com/BYtmRAJ.jpeg)
