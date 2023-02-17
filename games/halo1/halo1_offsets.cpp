@@ -24,6 +24,11 @@ void halo1::offsets::init()
 	infinite_ammo = static_cast<bool*>(game::get_global("debug_ice_cream_flavor_status_bandanna"));
 	god_mode = static_cast<bool*>(game::get_global("cheat_deathless_player"));
 	wireframe = static_cast<bool*>(game::get_global("rasterizer_wireframe"));
+	enviroment_diffuse = static_cast<bool*>(game::get_global("rasterizer_environment_diffuse_textures"));
+	atmosphere_fog = static_cast<bool*>(game::get_global("rasterizer_fog_atmosphere"));
+	fog_plane = static_cast<bool*>(game::get_global("rasterizer_fog_plane"));
+	fps_counter = static_cast<bool*>(game::get_global("rasterizer_fps"));
+	motion_sensor_show_all_units = static_cast<bool*>(game::get_global("debug_motion_sensor_draw_all_units"));
 
 	game_ticks_per_second = Memcury::Scanner::FindPattern("F3 0F 5C 05 ?? ?? ?? ?? F3 0F 2C F8").RelativeOffset(4).GetAs<float*>();
 

@@ -13,6 +13,11 @@ namespace halo1
 		inline static bool* wireframe;
 		inline static engine::_hs_external_globals* hs_external_globals;
 		inline static engine::_hs_type_names* hs_type_names;
+		inline static bool* enviroment_diffuse;
+		inline static bool* atmosphere_fog;
+		inline static bool* fog_plane;
+		inline static bool* fps_counter;
+		inline static bool* motion_sensor_show_all_units;
 		static void init();
 	};
 }

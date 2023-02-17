@@ -75,9 +75,34 @@ void menu::render()
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Basically the speed/time scale of the game. Default: 30.0");
 
+						ImGui::Checkbox("Motion Sensor - Show All Units", halo1::offsets::motion_sensor_show_all_units);
+						if (ImGui::IsItemHovered())
+							ImGui::SetTooltip("Shows all units on your motion sensor, regardless if they are moving or not.");
+
+						ImGui::EndTabItem();
+					}
+
+					if (ImGui::BeginTabItem("Rendering"))
+					{
+						ImGui::Checkbox("FPS Counter", halo1::offsets::fps_counter);
+						if (ImGui::IsItemHovered())
+							ImGui::SetTooltip("Displays a built-in fps counter. Does not work in remastered mode!");
+
 						ImGui::Checkbox("Wireframe", halo1::offsets::wireframe);
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Renders the game in wireframe. Does not work in remastered mode!");
+
+						ImGui::Checkbox("Fog", halo1::offsets::atmosphere_fog);
+						if (ImGui::IsItemHovered())
+							ImGui::SetTooltip("Toggles the atmosphere fog.");
+
+						ImGui::Checkbox("Fog Plane", halo1::offsets::fog_plane);
+						if (ImGui::IsItemHovered())
+							ImGui::SetTooltip("Toggles the fog plane.");
+
+						ImGui::Checkbox("Enviroment Diffuse Textures", halo1::offsets::enviroment_diffuse);
+						if (ImGui::IsItemHovered())
+							ImGui::SetTooltip("Toggles rendering diffuse textures on the enviroment.");
 
 						ImGui::EndTabItem();
 					}
