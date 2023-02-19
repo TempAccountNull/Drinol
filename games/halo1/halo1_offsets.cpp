@@ -7,8 +7,6 @@
 
 void halo1::offsets::init()
 {
-	Memcury::Globals::moduleName = "halo1.dll";
-
 	//Blamscript Functions Table
 	hs_function_table = reinterpret_cast<engine::_hs_function_table*>(Memcury::Scanner::FindPattern("48 8D 1D ?? ?? ?? ?? 48 8D 35 ?? ?? ?? ?? 48 89 7C 24 30").
 		RelativeOffset(3).Get());

@@ -7,6 +7,7 @@
 #include "gui/gui.h"
 #include "middleware/middleware.h"
 
+//TODO: possibly make the console appear in the release build or have it inside the menu?
 #if defined _DEBUG
 #include "console.h"
 #endif
@@ -49,6 +50,10 @@ void drinol_init()
 	}
 
 	std::cout << "Drinol has loaded." << std::endl;
+
+#if defined NDEBUG
+	MessageBox(NULL, L"Drinol has successfully initialized!", L"Hello!", 0);
+#endif
 }
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)

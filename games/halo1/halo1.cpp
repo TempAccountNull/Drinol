@@ -8,6 +8,8 @@ void halo1::game::init() // Initialize hooks and shit for halo 1
 {
 	std::cout << "Initializing Halo 1" << std::endl;
 
+	Memcury::Globals::moduleName = "halo1.dll"; // TODO: do this in a better way.
+
 	offsets::init();
 }
 
