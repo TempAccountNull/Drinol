@@ -81,6 +81,12 @@
     <ClCompile Include="games\halo1\halo1_offsets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="games\halo2\halo2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="games\halo2\halo2_offsets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\subhook\subhook.h">
@@ -168,6 +174,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="games\halo1\halo1_engine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo2\halo2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo2\halo2_engine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo2\halo2_offsets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

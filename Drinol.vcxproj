@@ -29,6 +29,8 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="games\halo1\halo1.cpp" />
     <ClCompile Include="games\halo1\halo1_offsets.cpp" />
+    <ClCompile Include="games\halo2\halo2_offsets.cpp" />
+    <ClCompile Include="games\halo2\halo2.cpp" />
     <ClCompile Include="hooks\gui\gui.cpp" />
     <ClCompile Include="hooks\gui\menu\menu.cpp" />
     <ClCompile Include="hooks\middleware\middleware.cpp" />
@@ -59,6 +61,9 @@
     <ClInclude Include="games\halo1\halo1.h" />
     <ClInclude Include="games\halo1\halo1_engine.h" />
     <ClInclude Include="games\halo1\halo1_offsets.h" />
+    <ClInclude Include="games\halo2\halo2_engine.h" />
+    <ClInclude Include="games\halo2\halo2_offsets.h" />
+    <ClInclude Include="games\halo2\halo2.h" />
     <ClInclude Include="hooks\gui\gui.h" />
     <ClInclude Include="hooks\directx11\dx11.h" />
     <ClInclude Include="hooks\gui\menu\menu.h" />

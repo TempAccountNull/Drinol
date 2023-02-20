@@ -1,26 +1,28 @@
-#include "halo1.h"
+#include "halo2.h"
 
 #include <iostream>
 
-#include "halo1_offsets.h"
+#include "halo2_offsets.h"
 
-void halo1::game::init() // Initialize hooks and shit for halo 1
+void halo2::game::init() // Initialize hooks and shit for halo 1
 {
-	std::cout << "Initializing Halo 1" << std::endl;
+	std::cout << "Initializing Halo 2" << std::endl;
 
-	Memcury::Globals::moduleName = "halo1.dll"; // TODO: do this in a better way.
+	Memcury::Globals::moduleName = "halo2.dll";
 
 	std::cout << std::hex << Memcury::PE::GetModuleBase() << std::endl;
 
-	offsets::init();
+	std::cout << std::hex << Memcury::Scanner::FindPattern("4F 8B 84 C6 A0 A4 DF 00").RelativeOffset(1).Get() << std::endl;
+
+	//offsets::init();
 }
 
 #if defined _DEBUG
-void halo1::game::test_function()
+void halo2::game::test_function()
 {
 }
 
-void halo1::game::list_all_hs_functions()
+void halo2::game::list_all_hs_functions()
 {
 	for (engine::hs_script_op* function : offsets::hs_function_table->table)
 	{
@@ -28,7 +30,7 @@ void halo1::game::list_all_hs_functions()
 	}
 }
 
-void halo1::game::list_all_hs_globals()
+void halo2::game::list_all_hs_globals()
 {
 	for (engine::hs_external_global* global : offsets::hs_external_globals->globals)
 		if (global->address != nullptr) // Check if globals functionality has not been stripped from retail.
@@ -39,9 +41,9 @@ void halo1::game::list_all_hs_globals()
 
 #endif
 
-void* halo1::game::get_hs_global(const char* global_name) // Gets the address of the specified global.
+void* halo2::game::get_hs_global(const char* global_name) // Gets the address of the specified global.
 {
-	for (const halo1::engine::hs_external_global* global : halo1::offsets::hs_external_globals->globals)
+	for (const halo2::engine::hs_external_global* global : halo2::offsets::hs_external_globals->globals)
 	{
 		if (strcmp(global->name, global_name) == 0)
 		{
@@ -51,14 +53,14 @@ void* halo1::game::get_hs_global(const char* global_name) // Gets the address of
 				return global->address;
 			}
 
-			throw std::runtime_error("halo1::game::get_global: global has been found but does not have a working address");
+			throw std::runtime_error("halo2::game::get_global: global has been found but does not have a working address");
 		}
 	}
 
-	throw std::runtime_error("halo1::game::get_global:: global was not found");
+	throw std::runtime_error("halo2::game::get_global:: global was not found");
 }
 
-void* halo1::game::get_hs_function(const char* func_name) // Gets the address of the specified function.
+void* halo2::game::get_hs_function(const char* func_name) // Gets the address of the specified function.
 {
 	for (const engine::hs_script_op* function : offsets::hs_function_table->table)
 	{
@@ -70,9 +72,9 @@ void* halo1::game::get_hs_function(const char* func_name) // Gets the address of
 				return function->evaluate_func;
 			}
 
-			throw std::runtime_error("halo1::game::get_hs_function: function has been found but does not have a working address");
+			throw std::runtime_error("halo2::game::get_hs_function: function has been found but does not have a working address");
 		}
 	}
 
-	throw std::runtime_error("halo1::game::get_hs_function:: function was not found");
+	throw std::runtime_error("halo2::game::get_hs_function:: function was not found");
 }

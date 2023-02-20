@@ -5,6 +5,8 @@
 #include "utils.h"
 #include "games/halo1/halo1.h"
 #include "games/halo1/halo1_offsets.h"
+#include "games/halo2/halo2.h"
+#include "games/halo2/halo2_offsets.h"
 
 void menu::render()
 {
@@ -31,7 +33,7 @@ void menu::render()
 		{
 			if (ImGui::BeginTabItem("Halo 1"))
 			{
-				if (ImGui::BeginTabBar("DrinolTabs", tab_bar_flags))
+				if (ImGui::BeginTabBar("Halo1Tabs", tab_bar_flags))
 				{
 #if defined _DEBUG
 					if (ImGui::BeginTabItem("Debug"))
@@ -105,6 +107,43 @@ void menu::render()
 						ImGui::Checkbox("Enviroment Diffuse Textures", halo1::offsets::enviroment_diffuse);
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Toggles rendering diffuse textures on the enviroment.");
+
+						ImGui::EndTabItem();
+					}
+					ImGui::EndTabBar();
+				}
+
+				ImGui::EndTabItem();
+			}
+		}
+
+		if (utils::running_game == "Halo 2 Anniversary")
+		{
+			if (ImGui::BeginTabItem("Halo 2"))
+			{
+				if (ImGui::BeginTabBar("Halo2Tabs", tab_bar_flags))
+				{
+#if defined _DEBUG
+					if (ImGui::BeginTabItem("Debug"))
+					{
+						if (ImGui::Button("Trigger Test Function"))
+							halo2::game::test_function();
+
+						if (ImGui::Button("Print all blamscript functions."))
+							halo2::game::list_all_hs_functions();
+
+						if (ImGui::Button("Print all blamscript globals."))
+							halo2::game::list_all_hs_globals();
+
+						ImGui::EndTabItem();
+					}
+#endif
+
+					if (ImGui::BeginTabItem("Rendering"))
+					{
+						ImGui::Checkbox("Toggle HUD", halo2::offsets::toggle_hud);
+						if (ImGui::IsItemHovered())
+							ImGui::SetTooltip("Toggles the heads up display.");
 
 						ImGui::EndTabItem();
 					}

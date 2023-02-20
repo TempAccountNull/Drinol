@@ -3,6 +3,9 @@
 #include <cassert>
 
 #include "games/halo1/halo1.h"
+
+#include "games/halo2/halo2.h"
+
 #if defined _DEBUG
 #include <iostream>
 #endif
@@ -16,6 +19,7 @@ void utils::handle_game_init(int game_number)
 		break;
 	case 1:
 		running_game = "Halo 2 Anniversary";
+		halo2::game::init();
 		break;
 	case 2:
 		running_game = "Halo 3";
