@@ -1,7 +1,2 @@
-WIP Tool for Halo:MCC with the goal of allowing you to modify the game entirely in memory without having to touch the game dlls.
-
-State: Somewhat usable.
-
-Halo 1 is currently being worked on
-
+WIP Tool for Halo:MCC with the goal of aiding modders who are testing their mods inside of MCC.
 ![Picture](https://i.imgur.com/BYtmRAJ.jpeg)
