@@ -1,7 +1,5 @@
 #include "halo2_offsets.h"
 
-#include <iostream>
-
 #include "halo2.h"
 #include "Memcury/memcury.h"
 

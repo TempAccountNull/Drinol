@@ -1,6 +1,5 @@
 #pragma once
 #include "halo1_engine.h"
-#include "Memcury/memcury.h"
 
 namespace halo1
 {
