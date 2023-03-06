@@ -3,12 +3,13 @@
 #include <iostream>
 
 #include "halo2_offsets.h"
+#include "memcury/memcury.h"
 
 void halo2::game::init() // Initialize hooks and shit for halo 1
 {
 	std::cout << "Initializing Halo 2" << std::endl;
 
-	Memcury::Globals::moduleName = "halo2.dll";
+	Memcury::Scanner::SetTargetModule("halo2.dll");
 
 	std::cout << std::hex << Memcury::PE::GetModuleBase() << std::endl;
 
