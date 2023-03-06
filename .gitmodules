@@ -8,3 +8,6 @@
 [submodule "dependencies/mINI"]
 	path = dependencies/mINI
 	url = https://github.com/pulzed/mINI.git
+[submodule "dependencies/Memcury"]
+	path = dependencies/Memcury
+	url = https://github.com/kem0x/Memcury.git
