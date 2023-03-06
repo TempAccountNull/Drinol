@@ -28,6 +28,16 @@ void menu::render()
 
 			ImGui::EndTabItem();
 		}
+
+#if defined _DEBUG
+		if (ImGui::BeginTabItem("Debug"))
+		{
+			if (ImGui::Button("Trigger Test Function"))
+				utils::list_game_base_addresses();
+			ImGui::EndTabItem();
+		}
+#endif
+
 		// TODO: ideally we should show all the games and just grey out the stuff you cant interact with if a certain game is not running
 		if (utils::running_game == "Halo 1 Anniversary")
 		{
