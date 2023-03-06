@@ -13,7 +13,7 @@ typedef struct {
 	char padding[180192];
 	HMODULE module; // Handle to the games dll.
 	DWORD  unkdword;
-	DWORD  number; // Games index number (a number between 0 and 6)
+	int  number; // Games index number (a number between 0 and 6)
 }struct_game;
 
 static void (*start_game_engine_og)(struct_game a1, int game_number);
