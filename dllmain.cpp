@@ -1,5 +1,4 @@
 #include <iostream>
-#include <Windows.h>
 #include <minhook/include/MinHook.h>
 
 #include "utils.h"

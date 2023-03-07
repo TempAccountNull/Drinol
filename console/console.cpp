@@ -1,8 +1,7 @@
 //TODO: maby account for CppClangTidyCertErr33C?
 #include "console.h"
-
+#include "framework.h"
 #include <cstdio>
-#include <Windows.h>
 
 void console::initialize()
 {

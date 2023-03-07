@@ -58,6 +58,7 @@
     <ClInclude Include="dependencies\minhook\src\trampoline.h" />
     <ClInclude Include="dependencies\mINI\src\mini\ini.h" />
     <ClInclude Include="dependencies\subhook\subhook.h" />
+    <ClInclude Include="framework.h" />
     <ClInclude Include="games\halo1\halo1.h" />
     <ClInclude Include="games\halo1\halo1_engine.h" />
     <ClInclude Include="games\halo1\halo1_offsets.h" />
