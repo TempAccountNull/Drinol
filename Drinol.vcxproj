@@ -31,6 +31,8 @@
     <ClCompile Include="games\halo1\halo1_offsets.cpp" />
     <ClCompile Include="games\halo2\halo2_offsets.cpp" />
     <ClCompile Include="games\halo2\halo2.cpp" />
+    <ClCompile Include="games\halo3\halo3.cpp" />
+    <ClCompile Include="games\halo3\halo3_offsets.cpp" />
     <ClCompile Include="hooks\gui\gui.cpp" />
     <ClCompile Include="hooks\gui\menu\menu.cpp" />
     <ClCompile Include="hooks\middleware\middleware.cpp" />
@@ -65,6 +67,9 @@
     <ClInclude Include="games\halo2\halo2_engine.h" />
     <ClInclude Include="games\halo2\halo2_offsets.h" />
     <ClInclude Include="games\halo2\halo2.h" />
+    <ClInclude Include="games\halo3\halo3.h" />
+    <ClInclude Include="games\halo3\halo3_engine.h" />
+    <ClInclude Include="games\halo3\halo3_offsets.h" />
     <ClInclude Include="hooks\gui\gui.h" />
     <ClInclude Include="hooks\directx11\dx11.h" />
     <ClInclude Include="hooks\gui\menu\menu.h" />
@@ -105,10 +110,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
