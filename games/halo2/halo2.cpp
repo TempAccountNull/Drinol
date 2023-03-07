@@ -21,9 +21,12 @@ void halo2::game::test_function()
 
 void halo2::game::list_all_hs_functions()
 {
-	for (engine::hs_script_op* function : offsets::hs_function_table->table)
+	for (engine::_hs_script_op* function : offsets::hs_function_table->table)
 	{
-		std::cout << "Return Type: " << offsets::hs_type_names->types[function->return_type] << " Name: " << function->name << " Address: " << std::hex << function->evaluate_func << std::endl;
+		if (function->evaluate_func != nullptr && function->evaluate_func != offsets::hs_null_evaluate)
+		{
+			std::cout << "Return Type: " << offsets::hs_type_names->types[function->return_type] << " Name: " << function->name << " Address: " << std::hex << function->evaluate_func << std::endl;
+		}
 	}
 }
 
@@ -59,12 +62,12 @@ void* halo2::game::get_hs_global(const char* global_name) // Gets the address of
 
 void* halo2::game::get_hs_function(const char* func_name) // Gets the address of the specified function.
 {
-	for (const engine::hs_script_op* function : offsets::hs_function_table->table)
+	for (const engine::_hs_script_op* function : offsets::hs_function_table->table)
 	{
 		if (strcmp(function->name, func_name) == 0)
 		{
 			// bool has been found
-			if (function->evaluate_func != nullptr)
+			if (function->evaluate_func != nullptr || function->evaluate_func != offsets::hs_null_evaluate)
 			{
 				return function->evaluate_func;
 			}

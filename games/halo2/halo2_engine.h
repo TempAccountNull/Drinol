@@ -9,34 +9,34 @@ namespace halo2::engine // Engine related structs, etc
 	class _hs_function_table
 	{
 	public:
-		class hs_script_op* table[477]; //0x0000
-	}; //Size: 0x0EE8
-	static_assert(sizeof(_hs_function_table) == 0xEE8);
+		class _hs_script_op* table[919]; //0x0000
+	}; //Size: 0x1CB8
+	static_assert(sizeof(_hs_function_table) == 0x1CB8);
 
-	class hs_script_op
+	class _hs_script_op
 	{
 	public:
-		int16_t return_type; //0x0000 parameter type that gets returned (unparsed, float, bool, etc)
+		int16_t return_type; //0x0000
 		int16_t flags; //0x0002
 		int32_t unused; //0x0004
-		char* name; //0x0008 name of the function
-		void* parse_func; //0x0010
-		void* evaluate_func; //0x0018
-		char* description; //0x0020
-		char* param_info; //0x0028
-		int16_t param_count; //0x0030
-		int16_t param_type; //0x0032 parameter type (unparsed, float, bool, etc)
-		char pad_0034[4]; //0x0034
-	}; //Size: 0x0038
-	static_assert(sizeof(hs_script_op) == 0x38);
+		char* name; //0x0008
+		char pad_0010[8]; //0x0010
+		void* parse_func; //0x0018
+		void* evaluate_func; //0x0020
+		char pad_0028[8]; //0x0028
+		char* param_info; //0x0030
+		char pad_0038[8]; //0x0038
+	}; //Size: 0x0040
+	static_assert(sizeof(_hs_script_op) == 0x40);
 
 	class _hs_external_globals // This is the array of globals that halo uses for its scripting system.
 	{
 	public:
-		class hs_external_global* globals[466]; //0x0000 The list of globals.
+		class hs_external_global* globals[1085]; //0x0000 The list of globals.
 		// 466 is the hardcoded total number of globals in this array TODO: Fetch this dynamically somehow?
-	}; //Size: 0x0E90
-	static_assert(sizeof(_hs_external_globals) == 0xE90);
+	}; //Size: 0x21E8
+	static_assert(sizeof(_hs_external_globals) == 0x21E8);
+
 
 	class hs_external_global
 	{

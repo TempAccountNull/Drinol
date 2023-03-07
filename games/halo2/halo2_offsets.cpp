@@ -8,6 +8,8 @@ void halo2::offsets::init()
 	//Blamscript Functions Table
 	hs_function_table = reinterpret_cast<engine::_hs_function_table*>(Memcury::Scanner::FindPattern("48 8D 3D ?? ?? ?? ?? 48 89 74 24 30 0F 1F 40 00").RelativeOffset(3).Get());
 
+	hs_null_evaluate = game::get_hs_function("data_mine_display_session_data");
+
 	//Blamscript External Globals Table
 	hs_external_globals = reinterpret_cast<engine::_hs_external_globals*>(Memcury::Scanner::FindPattern("48 8D 05 ?? ?? ?? ?? 0F 1F 40 00 48 0F BF D3").RelativeOffset(3).Get());
 
