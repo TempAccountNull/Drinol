@@ -9,9 +9,7 @@ void halo1::game::init() // Initialize hooks and shit for halo 1
 {
 	std::cout << "Initializing Halo 1" << std::endl;
 
-	Memcury::Scanner::SetTargetModule("halo1.dll"); // TODO: do this in a better way.
-
-	std::cout << std::hex << Memcury::PE::GetModuleBase() << std::endl;
+	Memcury::Scanner::SetTargetModule("halo1.dll");
 
 	offsets::init();
 }

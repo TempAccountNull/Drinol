@@ -11,11 +11,7 @@ void halo2::game::init() // Initialize hooks and shit for halo 1
 
 	Memcury::Scanner::SetTargetModule("halo2.dll");
 
-	std::cout << std::hex << Memcury::PE::GetModuleBase() << std::endl;
-
-	std::cout << std::hex << Memcury::Scanner::FindPattern("4F 8B 84 C6 A0 A4 DF 00").RelativeOffset(1).Get() << std::endl;
-
-	//offsets::init();
+	offsets::init();
 }
 
 #if defined _DEBUG
