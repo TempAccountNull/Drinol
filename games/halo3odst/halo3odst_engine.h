@@ -46,8 +46,8 @@ namespace halo3odst::engine // Engine related structs, etc
 	class _hs_type_names
 	{
 	public:
-		char* types[83]; //0x0000 List of parameter types in the form of a string.
+		char* types[85]; //0x0000 List of parameter types in the form of a string.
 		// 83 is the total number of types in this array TODO: Fetch this dynamically somehow?
 	}; //Size: 0x0298
-	static_assert(sizeof(_hs_type_names) == 0x298);
+	static_assert(sizeof(_hs_type_names) == 0x2A8);
 }

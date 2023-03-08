@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 
-namespace halo2::engine // Engine related structs, etc
+namespace haloreach::engine // Engine related structs, etc
 {
 	// search the string: hs_doc.txt to find the functions that contain the amount of globals, and functions
 
@@ -9,9 +9,9 @@ namespace halo2::engine // Engine related structs, etc
 	class _hs_function_table
 	{
 	public:
-		class _hs_script_op* table[919]; //0x0000
-	}; //Size: 0x1CB8
-	static_assert(sizeof(_hs_function_table) == 0x1CB8);
+		class _hs_script_op* table[1903]; //0x0000
+	}; //Size: 0x3B78
+	static_assert(sizeof(_hs_function_table) == 0x3B78);
 
 	class _hs_script_op
 	{
@@ -23,20 +23,16 @@ namespace halo2::engine // Engine related structs, etc
 		char pad_0010[8]; //0x0010
 		void* parse_func; //0x0018
 		void* evaluate_func; //0x0020
-		char pad_0028[8]; //0x0028
-		char* param_info; //0x0030
-		char pad_0038[8]; //0x0038
-	}; //Size: 0x0040
-	static_assert(sizeof(_hs_script_op) == 0x40);
+	}; //Size: 0x0028
+	static_assert(sizeof(_hs_script_op) == 0x28);
 
-	class _hs_external_globals // This is the array of globals that halo uses for its scripting system.
+	class _hs_external_globals
 	{
 	public:
-		class hs_external_global* globals[1085]; //0x0000 The list of globals.
+		class hs_external_global* globals[1724]; //0x0000 The list of globals.
 		// 466 is the hardcoded total number of globals in this array TODO: Fetch this dynamically somehow?
-	}; //Size: 0x21E8
-	static_assert(sizeof(_hs_external_globals) == 0x21E8);
-
+	}; //Size: 0x2930
+	static_assert(sizeof(_hs_external_globals) == 0x35E0);
 
 	class hs_external_global
 	{
@@ -50,8 +46,8 @@ namespace halo2::engine // Engine related structs, etc
 	class _hs_type_names
 	{
 	public:
-		char* types[68]; //0x0000 List of parameter types in the form of a string.
-		// 49 is the total number of types in this array TODO: Fetch this dynamically somehow?
-	}; //Size: 0x0188
-	static_assert(sizeof(_hs_type_names) == 0x220);
+		char* types[89]; //0x0000 List of parameter types in the form of a string.
+		// 89 is the total number of types in this array TODO: Fetch this dynamically somehow?
+	}; //Size: 0x0298
+	static_assert(sizeof(_hs_type_names) == 0x2C8);
 }

@@ -10,6 +10,7 @@
 #include "games/halo3/halo3.h"
 #include "games/halo3/halo3_offsets.h"
 #include "games/halo3odst/halo3odst.h"
+#include "games/haloreach/haloreach.h"
 
 void menu::render()
 {
@@ -221,6 +222,43 @@ void menu::render()
 
 						if (ImGui::Button("Print all blamscript globals."))
 							halo3odst::game::list_all_hs_globals();
+
+						ImGui::EndTabItem();
+					}
+#endif
+
+					if (ImGui::BeginTabItem("Rendering"))
+					{
+						/*	ImGui::Checkbox("Toggle HUD", halo3::offsets::toggle_hud);
+							if (ImGui::IsItemHovered())
+								ImGui::SetTooltip("Toggles the heads up display.");*/
+
+						ImGui::EndTabItem();
+					}
+					ImGui::EndTabBar();
+				}
+
+				ImGui::EndTabItem();
+			}
+		}
+
+		if (utils::running_game == "Halo Reach")
+		{
+			if (ImGui::BeginTabItem("Halo Reach"))
+			{
+				if (ImGui::BeginTabBar("HaloReachTabs", tab_bar_flags))
+				{
+#if defined _DEBUG
+					if (ImGui::BeginTabItem("Debug"))
+					{
+						if (ImGui::Button("Trigger Test Function"))
+							haloreach::game::test_function();
+
+						if (ImGui::Button("Print all blamscript functions."))
+							haloreach::game::list_all_hs_functions();
+
+						if (ImGui::Button("Print all blamscript globals."))
+							haloreach::game::list_all_hs_globals();
 
 						ImGui::EndTabItem();
 					}

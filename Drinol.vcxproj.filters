@@ -99,6 +99,12 @@
     <ClCompile Include="games\halo3odst\halo3odst_offsets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="games\haloreach\haloreach.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="games\haloreach\haloreach_offsets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\subhook\subhook.h">
@@ -216,6 +222,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="games\halo3odst\halo3odst_offsets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\haloreach\haloreach.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\haloreach\haloreach_engine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\haloreach\haloreach_offsets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -9,6 +9,7 @@
 #include "games/halo3/halo3.h"
 
 #include "games/halo3odst/halo3odst.h"
+#include "games/haloreach/haloreach.h"
 
 #if defined _DEBUG
 #include <iostream>
@@ -42,6 +43,7 @@ void utils::handle_game_init(int game_number)
 		break;
 	case 6:
 		running_game = "Halo Reach";
+		haloreach::game::init();
 		break;
 	default:
 		assert(game_number <= 6);
