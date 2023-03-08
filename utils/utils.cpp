@@ -8,6 +8,8 @@
 
 #include "games/halo3/halo3.h"
 
+#include "games/halo3odst/halo3odst.h"
+
 #if defined _DEBUG
 #include <iostream>
 #include "Memcury/memcury.h"
@@ -36,6 +38,7 @@ void utils::handle_game_init(int game_number)
 		break;
 	case 5:
 		running_game = "Halo 3: ODST";
+		halo3odst::game::init();
 		break;
 	case 6:
 		running_game = "Halo Reach";

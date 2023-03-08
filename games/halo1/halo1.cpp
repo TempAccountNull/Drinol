@@ -40,7 +40,7 @@ void halo1::game::list_all_hs_globals()
 
 void* halo1::game::get_hs_global(const char* global_name) // Gets the address of the specified global.
 {
-	for (const halo1::engine::hs_external_global* global : halo1::offsets::hs_external_globals->globals)
+	for (const engine::hs_external_global* global : offsets::hs_external_globals->globals)
 	{
 		if (strcmp(global->name, global_name) == 0)
 		{

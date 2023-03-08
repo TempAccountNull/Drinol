@@ -9,6 +9,7 @@
 #include "games/halo2/halo2_offsets.h"
 #include "games/halo3/halo3.h"
 #include "games/halo3/halo3_offsets.h"
+#include "games/halo3odst/halo3odst.h"
 
 void menu::render()
 {
@@ -183,6 +184,43 @@ void menu::render()
 
 						if (ImGui::Button("Print all blamscript globals."))
 							halo3::game::list_all_hs_globals();
+
+						ImGui::EndTabItem();
+					}
+#endif
+
+					if (ImGui::BeginTabItem("Rendering"))
+					{
+						/*	ImGui::Checkbox("Toggle HUD", halo3::offsets::toggle_hud);
+							if (ImGui::IsItemHovered())
+								ImGui::SetTooltip("Toggles the heads up display.");*/
+
+						ImGui::EndTabItem();
+					}
+					ImGui::EndTabBar();
+				}
+
+				ImGui::EndTabItem();
+			}
+		}
+
+		if (utils::running_game == "Halo 3: ODST")
+		{
+			if (ImGui::BeginTabItem("Halo 3: ODST"))
+			{
+				if (ImGui::BeginTabBar("Halo3ODSTTabs", tab_bar_flags))
+				{
+#if defined _DEBUG
+					if (ImGui::BeginTabItem("Debug"))
+					{
+						if (ImGui::Button("Trigger Test Function"))
+							halo3odst::game::test_function();
+
+						if (ImGui::Button("Print all blamscript functions."))
+							halo3odst::game::list_all_hs_functions();
+
+						if (ImGui::Button("Print all blamscript globals."))
+							halo3odst::game::list_all_hs_globals();
 
 						ImGui::EndTabItem();
 					}

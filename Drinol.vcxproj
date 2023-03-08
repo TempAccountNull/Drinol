@@ -31,6 +31,8 @@
     <ClCompile Include="games\halo1\halo1_offsets.cpp" />
     <ClCompile Include="games\halo2\halo2_offsets.cpp" />
     <ClCompile Include="games\halo2\halo2.cpp" />
+    <ClCompile Include="games\halo3odst\halo3odst.cpp" />
+    <ClCompile Include="games\halo3odst\halo3odst_offsets.cpp" />
     <ClCompile Include="games\halo3\halo3.cpp" />
     <ClCompile Include="games\halo3\halo3_offsets.cpp" />
     <ClCompile Include="hooks\gui\gui.cpp" />
@@ -67,6 +69,9 @@
     <ClInclude Include="games\halo2\halo2_engine.h" />
     <ClInclude Include="games\halo2\halo2_offsets.h" />
     <ClInclude Include="games\halo2\halo2.h" />
+    <ClInclude Include="games\halo3odst\halo3odst.h" />
+    <ClInclude Include="games\halo3odst\halo3odst_engine.h" />
+    <ClInclude Include="games\halo3odst\halo3odst_offsets.h" />
     <ClInclude Include="games\halo3\halo3.h" />
     <ClInclude Include="games\halo3\halo3_engine.h" />
     <ClInclude Include="games\halo3\halo3_offsets.h" />
@@ -111,9 +116,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    <CustomBuildAfterTargets>Clean</CustomBuildAfterTargets>
+    <CustomBuildBeforeTargets>Clean</CustomBuildBeforeTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    <CustomBuildAfterTargets>Clean</CustomBuildAfterTargets>
+    <CustomBuildBeforeTargets>Clean</CustomBuildBeforeTargets>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -141,6 +150,9 @@
     <PostBuildEvent>
       <Message>Automatically copies the drinol binary to MCC binaries directory.</Message>
     </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>call $(ProjectDir)UninstallDrinol.bat</Command>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -170,6 +182,9 @@
       <Message>Automatically copies the drinol binary to MCC binaries directory.</Message>
       <Command>call $(ProjectDir)InstallRelease.bat</Command>
     </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>call $(ProjectDir)UninstallDrinol.bat</Command>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
