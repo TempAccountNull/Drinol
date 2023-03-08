@@ -10,5 +10,4 @@
 	url = https://github.com/pulzed/mINI.git
 [submodule "dependencies/Memcury"]
 	path = dependencies/Memcury
-	url = https://github.com/matty45/Memcury.git
-	branch = patch-1
+	url = https://github.com/kem0x/Memcury.git
