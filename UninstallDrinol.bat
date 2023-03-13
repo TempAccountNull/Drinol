@@ -37,9 +37,10 @@ if exist !MCCBinariesLocation! (
 
 ) )
 
-if exist "%MCCPATH%\umpdc.dll" (
+if exist "%MCCPATH%umpdc.dll" (
 del /f "%MCCPATH%umpdc.dll"
 del /f "%MCCPATH%Drinol.ini"
+rmdir /s /q "%MCCPATH%Drinol"
  echo Drinol has been uninstalled!
 ) else (
     echo Drinol has not been installed. There is nothing to delete.
