@@ -6,15 +6,15 @@
 void halo2::offsets::init()
 {
 	//Blamscript Functions Table
-	hs_function_table = reinterpret_cast<engine::_hs_function_table*>(Memcury::Scanner::FindPattern("48 8D 3D ?? ?? ?? ?? 48 89 74 24 30 0F 1F 40 00").RelativeOffset(3).Get());
+	hs_function_table = reinterpret_cast<engine::_hs_function_table*>(Memcury::Scanner::FindPattern(hs_function_table_aob_sig.c_str()).RelativeOffset(3).Get());
 
 	hs_null_evaluate = game::get_hs_function("data_mine_display_session_data");
 
 	//Blamscript External Globals Table
-	hs_external_globals = reinterpret_cast<engine::_hs_external_globals*>(Memcury::Scanner::FindPattern("48 8D 05 ?? ?? ?? ?? 0F 1F 40 00 48 0F BF D3").RelativeOffset(3).Get());
+	hs_external_globals = reinterpret_cast<engine::_hs_external_globals*>(Memcury::Scanner::FindPattern(hs_external_globals_aob_sig.c_str()).RelativeOffset(3).Get());
 
 	//Blamscript type names.
-	hs_type_names = reinterpret_cast<engine::_hs_type_names*>(Memcury::Scanner::FindPattern("48 8D 35 ?? ?? ?? ?? 48 8B 1C C6").RelativeOffset(3).Get());
+	hs_type_names = reinterpret_cast<engine::_hs_type_names*>(Memcury::Scanner::FindPattern(hs_type_names_aob_sig.c_str()).RelativeOffset(3).Get());
 
 	//TODO: it would be nice to dynamically fill the imgui menu with all possible globals and functions, instead of manually defining them like below.
 	//Blamscript Globals

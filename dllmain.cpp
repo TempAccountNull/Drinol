@@ -18,23 +18,43 @@ void drinol_init()
 	console::init();
 #endif
 
-	puts("Drinol is loading.\n");
+	puts("Drinol is loading.");
 
 	// Load data from the ini config.
 
 	// Get config folder
 	config::config_folder = utils::dll_path + "\\Drinol";
 
-	if (!config::load())
+	//Check if config folder exists, if not, create one.
+	if (!config::create_config_folder())
 	{
-		puts("Failed to load config, creating a new one from scratch.\n");
-		if (!config::create_new())
-		{
-			puts("Failed to create new config.\n");
+		puts("Failed to create the config folder.");
+	}
 
-			if (!config::load())
+	if (!config::load_main_settings())
+	{
+		puts("Failed to load main settings config file, creating a new one from scratch.");
+		if (!config::create_new_main_settings())
+		{
+			puts("Failed to create new main settings config file.");
+
+			if (!config::load_main_settings())
 			{
-				puts("Failed to load new config.\n");
+				puts("Failed to load new main settings config file.");
+			}
+		}
+	}
+
+	if (!config::load_signatures())
+	{
+		puts("Failed to load signatures config file, creating a new one from scratch.");
+		if (!config::create_new_signatures())
+		{
+			puts("Failed to create new signatures config file.");
+
+			if (!config::load_signatures())
+			{
+				puts("Failed to load new signatures config file.");
 			}
 		}
 	}
@@ -53,7 +73,7 @@ void drinol_init()
 		gui::init();
 	}
 
-	puts("Drinol has loaded.\n");
+	puts("Drinol has loaded.");
 
 #if defined NDEBUG
 	MessageBox(NULL, L"Drinol has successfully initialized!", L"Hello!", 0);

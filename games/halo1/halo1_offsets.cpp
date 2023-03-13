@@ -6,15 +6,17 @@
 void halo1::offsets::init()
 {
 	//Blamscript Functions Table
-	hs_function_table = reinterpret_cast<engine::_hs_function_table*>(Memcury::Scanner::FindPattern("48 8D 1D ?? ?? ?? ?? 48 8D 35 ?? ?? ?? ?? 48 89 7C 24 30").
+	hs_function_table = reinterpret_cast<engine::_hs_function_table*>(Memcury::Scanner::FindPattern(
+		hs_function_table_aob_sig.c_str()).
 		RelativeOffset(3).Get());
 
 	//Blamscript External Globals Table
-	hs_external_globals = reinterpret_cast<engine::_hs_external_globals*>(Memcury::Scanner::FindPattern("48 8D 1D ?? ?? ?? ?? BF D2 01 00 00 48 8D 35").
+	hs_external_globals = reinterpret_cast<engine::_hs_external_globals*>(Memcury::Scanner::FindPattern(
+		hs_external_globals_aob_sig.c_str()).
 		RelativeOffset(3).Get());
 
 	//Blamscript type names.
-	hs_type_names = reinterpret_cast<engine::_hs_type_names*>(Memcury::Scanner::FindPattern("48 8D 35 ?? ?? ?? ?? 4C 8B 0B").RelativeOffset(3).Get());
+	hs_type_names = reinterpret_cast<engine::_hs_type_names*>(Memcury::Scanner::FindPattern(hs_type_names_aob_sig.c_str()).RelativeOffset(3).Get());
 
 	//TODO: it would be nice to dynamically fill the imgui menu with all possible globals and functions, instead of manually defining them like below.
 	//Blamscript Globals
@@ -30,7 +32,7 @@ void halo1::offsets::init()
 
 	//Blamscript Functions TODO: Figure out a way to call these without crashing the game or having to hook into the main thread of the game.
 
-	game_ticks_per_second = Memcury::Scanner::FindPattern("F3 0F 5C 05 ?? ?? ?? ?? F3 0F 2C F8").RelativeOffset(4).GetAs<float*>();
+	game_ticks_per_second = Memcury::Scanner::FindPattern(game_ticks_per_second_aob_sig.c_str()).RelativeOffset(4).GetAs<float*>();
 
 	// for some reason, game_ticks_per_second is protected from being changed
 	DWORD old_prot;

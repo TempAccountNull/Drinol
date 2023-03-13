@@ -54,13 +54,13 @@ static __int64 __fastcall ui_command_overlay_push_detour(INT64 a1, char* a2, int
 
 void middleware::init()
 {
-	void* start_game_engine_t = Memcury::Scanner::FindPattern("83 FF 06 77 1A").FindFunctionBoundary(false).GetAs<void*>();
+	void* start_game_engine_t = Memcury::Scanner::FindPattern(start_game_engine_t_aob_sig.c_str()).FindFunctionBoundary(false).GetAs<void*>();
 
 	if (MH_CreateHook(start_game_engine_t, &start_game_engine_detour, reinterpret_cast <LPVOID*> (&start_game_engine_og)) != MH_OK) {
 		throw std::runtime_error("failed to hook start_game_engine");
 	}
 
-	void* UICommandOverlayPush_t = Memcury::Scanner::FindPattern("41 83 C9 FF 4C 8B C5").FindFunctionBoundary(false).GetAs<void*>();
+	void* UICommandOverlayPush_t = Memcury::Scanner::FindPattern(UICommandOverlayPush_t_aob_sig.c_str()).FindFunctionBoundary(false).GetAs<void*>();
 
 	if (MH_CreateHook(UICommandOverlayPush_t, &ui_command_overlay_push_detour, reinterpret_cast <LPVOID*> (&UICommandOverlayPush_og)) != MH_OK) {
 		throw std::runtime_error("failed to hook UICommandOverlayPush");
