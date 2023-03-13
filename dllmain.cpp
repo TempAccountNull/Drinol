@@ -15,7 +15,7 @@ void drinol_init()
 {
 #if defined _DEBUG
 	// Initialize debug console.
-	console::initialize();
+	console::init();
 #endif
 
 	std::cout << "Drinol is loading." << std::endl;

@@ -3,7 +3,7 @@
 #include "framework.h"
 #include <cstdio>
 
-void console::initialize()
+void console::init()
 {
 	//Initialize Console
 	AllocConsole();

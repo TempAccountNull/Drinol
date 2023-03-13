@@ -4,5 +4,8 @@
 class middleware
 {
 public:
+	/**
+	 * \brief initializes MCC UE4 middleware hook stuff.
+	 */
 	static void init();
 };

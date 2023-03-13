@@ -2,5 +2,5 @@
 class console
 {
 public:
-	static void initialize();
+	static void init();
 };
