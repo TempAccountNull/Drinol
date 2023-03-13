@@ -38,7 +38,9 @@ bool config::load()
 
 	// read a value
 
-	std::istringstream(ini.get("HookDX11").get("enabled")) >> std::boolalpha >> gui::enabled;
+	std::istringstream(ini.get("UI").get("hookdx11")) >> std::boolalpha >> gui::enabled;
+
+	gui::ui_ini_path = ini.get("UI").get("imguiinidir");
 
 	// update a value
 	//ini["fruits"]["oranges"] = "50";
@@ -52,7 +54,8 @@ bool config::create_new()
 	mINI::INIStructure ini;
 
 	// populate the structure
-	ini["HookDX11"]["enabled"] = "true";
+	ini["UI"]["hookdx11"] = "true";
+	ini["UI"]["imguiinidir"] = utils::dll_path + "\\DrinoUI.ini";
 
 	ini["Halo1A"];
 

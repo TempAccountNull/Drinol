@@ -1,6 +1,7 @@
 // Most of this code is from https://github.com/Gavpherk/Universal-IL2CPP-DX11-Kiero-Hook
 #include "gui.h"
 
+#include <algorithm>
 #include <d3d11.h>
 #include <dxgi.h>
 #include <iostream>
@@ -30,8 +31,7 @@ void InitImGui()
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
-	const std::string inipath = utils::dll_path + "\\imgui.ini";
-	io.IniFilename = inipath.c_str();
+	io.IniFilename = gui::ui_ini_path.c_str();
 	ImGui_ImplWin32_Init(window);
 	ImGui_ImplDX11_Init(pDevice, pContext);
 }
