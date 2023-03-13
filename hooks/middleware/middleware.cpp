@@ -42,7 +42,7 @@ static __int64 __fastcall ui_command_overlay_push_detour(INT64 a1, char* a2, int
 	if (strcmp(a2, "RestartScreen") == 0)
 	{
 #if defined _DEBUG
-		std::cout << "Game has ended." << std::endl;
+		puts("Game has ended.\n");
 #endif
 		//TODO: Deinit game related hooks and stuff now that we know that the game has ended.
 		utils::running_game.clear();

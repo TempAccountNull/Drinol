@@ -21,6 +21,4 @@ void halo2::offsets::init()
 	toggle_hud = static_cast<bool*>(game::get_hs_global("disable_hud"));
 
 	//Blamscript Functions TODO: Figure out a way to call these without crashing the game or having to hook into the main thread of the game.
-
-	//std::cout << std::hex << Memcury::Scanner::FindPattern("48 8D 35 ?? ?? ?? ?? 4C 8B 0B").RelativeOffset(1).Get() << std::endl;
 }

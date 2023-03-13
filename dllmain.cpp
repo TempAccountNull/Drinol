@@ -18,7 +18,7 @@ void drinol_init()
 	console::init();
 #endif
 
-	std::cout << "Drinol is loading." << std::endl;
+	puts("Drinol is loading.\n");
 
 	// Load data from the ini config.
 
@@ -27,14 +27,14 @@ void drinol_init()
 
 	if (!config::load())
 	{
-		std::cout << "Failed to load config, creating a new one from scratch." << std::endl;
+		puts("Failed to load config, creating a new one from scratch.\n");
 		if (!config::create_new())
 		{
-			std::cout << "Failed to create new config." << std::endl;
+			puts("Failed to create new config.\n");
 
 			if (!config::load())
 			{
-				std::cout << "Failed to load new config." << std::endl;
+				puts("Failed to load new config.\n");
 			}
 		}
 	}
@@ -42,7 +42,7 @@ void drinol_init()
 	// Initialize Minhook
 	if (MH_Initialize() != MH_OK)
 	{
-		std::cout << "Failed to initialize minhook. Please restart the game and try again!" << std::endl;
+		MessageBox(NULL, L"Failed to initialize minhook. Please restart the game and try again!", L"Drinol Error!", 0);
 	}
 
 	// Initialize UE4 middleware hooks.
@@ -53,12 +53,12 @@ void drinol_init()
 		gui::init();
 	}
 
-	std::cout << "Drinol has loaded." << std::endl;
+	puts("Drinol has loaded.\n");
 
 #if defined NDEBUG
 	MessageBox(NULL, L"Drinol has successfully initialized!", L"Hello!", 0);
 #endif
-	}
+}
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {

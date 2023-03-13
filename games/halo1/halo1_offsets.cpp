@@ -35,6 +35,4 @@ void halo1::offsets::init()
 	// for some reason, game_ticks_per_second is protected from being changed
 	DWORD old_prot;
 	VirtualProtect(game_ticks_per_second, 4, PAGE_EXECUTE_READWRITE, &old_prot);
-
-	//std::cout << std::hex << Memcury::Scanner::FindPattern("48 8D 35 ?? ?? ?? ?? 4C 8B 0B").RelativeOffset(1).Get() << std::endl;
 }

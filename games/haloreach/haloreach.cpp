@@ -1,5 +1,6 @@
 #include "haloreach.h"
 
+#include <cinttypes>
 #include <iostream>
 
 #include "haloreach_offsets.h"
@@ -7,7 +8,7 @@
 
 void haloreach::game::init() // Initialize hooks and shit for halo 1
 {
-	std::cout << "Initializing Halo Reach" << std::endl;
+	puts("Initializing Halo Reach\n");
 
 	Memcury::Scanner::SetTargetModule("haloreach.dll");
 
@@ -25,7 +26,7 @@ void haloreach::game::list_all_hs_functions()
 	{
 		if (function->evaluate_func != nullptr && function->evaluate_func != offsets::hs_null_evaluate)
 		{
-			std::cout << "Return Type: " << offsets::hs_type_names->types[function->return_type] << " Name: " << function->name << " Address: " << std::hex << function->evaluate_func << std::endl;
+			printf("Return Type: %s Name: %s Address: 0x%" PRIXPTR "\n", offsets::hs_type_names->types[function->return_type], function->name, reinterpret_cast<uintptr_t>(function->evaluate_func));
 		}
 	}
 }
@@ -35,7 +36,7 @@ void haloreach::game::list_all_hs_globals()
 	for (engine::hs_external_global* global : offsets::hs_external_globals->globals)
 		if (global->address != nullptr) // Check if globals functionality has not been stripped from retail.
 		{
-			std::cout << "Name: " << global->name << " Address: " << global->address << " Parameter Type:" << offsets::hs_type_names->types[global->param_type] << std::endl;
+			printf("Name: %s Address: 0x%" PRIXPTR " Parameter Type: %s \n", global->name, reinterpret_cast<uintptr_t>(global->address), offsets::hs_type_names->types[global->param_type]);
 		}
 }
 

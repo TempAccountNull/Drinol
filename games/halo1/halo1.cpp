@@ -1,5 +1,6 @@
 #include "halo1.h"
 
+#include <cinttypes>
 #include <iostream>
 
 #include "halo1_offsets.h"
@@ -7,7 +8,7 @@
 
 void halo1::game::init() // Initialize hooks and shit for halo 1
 {
-	std::cout << "Initializing Halo 1" << std::endl;
+	puts("Initializing Halo 1\n");
 
 	Memcury::Scanner::SetTargetModule("halo1.dll");
 
@@ -23,7 +24,7 @@ void halo1::game::list_all_hs_functions()
 {
 	for (engine::hs_script_op* function : offsets::hs_function_table->table)
 	{
-		std::cout << "Return Type: " << offsets::hs_type_names->types[function->return_type] << " Name: " << function->name << " Address: " << std::hex << function->evaluate_func << std::endl;
+		printf("Return Type: %s Name: %s Address: 0x%" PRIXPTR "\n", offsets::hs_type_names->types[function->return_type], function->name, reinterpret_cast<uintptr_t>(function->evaluate_func));
 	}
 }
 
@@ -32,7 +33,7 @@ void halo1::game::list_all_hs_globals()
 	for (engine::hs_external_global* global : offsets::hs_external_globals->globals)
 		if (global->address != nullptr) // Check if globals functionality has not been stripped from retail.
 		{
-			std::cout << "Name: " << global->name << " Address: " << global->address << " Parameter Type:" << offsets::hs_type_names->types[global->param_type] << std::endl;
+			printf("Name: %s Address: 0x%" PRIXPTR " Parameter Type: %s \n", global->name, reinterpret_cast<uintptr_t>(global->address), offsets::hs_type_names->types[global->param_type]);
 		}
 }
 

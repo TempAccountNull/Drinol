@@ -30,7 +30,7 @@ bool config::load()
 bool config::create_new()
 {
 	// Create a directory to store all the config files (keeps things tidy :p)
-
+	// from https://stackoverflow.com/a/9235708
 	if (CreateDirectoryA(config_folder.c_str(), NULL) ||
 		ERROR_ALREADY_EXISTS == GetLastError())
 	{

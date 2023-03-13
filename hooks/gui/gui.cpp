@@ -103,7 +103,7 @@ void gui::init()
 	if (kiero::init(kiero::RenderType::D3D11) == kiero::Status::Success)
 	{
 #if defined _DEBUG
-		std::cout << "kiero initialized." << std::endl;
+		puts("kiero initialized.\n");
 #endif
 		kiero::bind(8, (void**)&oPresent, hkPresent);
 	}

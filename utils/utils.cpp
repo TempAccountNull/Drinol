@@ -1,6 +1,7 @@
 #include "utils.h"
 
 #include <cassert>
+#include <cinttypes>
 
 #include "games/halo1/halo1.h"
 
@@ -50,7 +51,7 @@ void utils::handle_game_init(int game_number)
 	}
 
 #if defined _DEBUG
-	std::cout << running_game << " is active." << std::endl;
+	printf("%s is active.\n", running_game.c_str());
 #endif
 }
 
@@ -59,18 +60,18 @@ void utils::list_game_base_addresses()
 {
 	Memcury::Scanner::SetTargetModule("halo1.dll");
 
-	std::cout << "halo 1 " << std::hex << Memcury::PE::GetModuleBase() << std::endl;
+	printf("Halo 1 base : 0x%" PRIXPTR "\n", Memcury::PE::GetModuleBase());
 
 	Memcury::Scanner::SetTargetModule("halo2.dll");
 
-	std::cout << "halo 2 " << std::hex << Memcury::PE::GetModuleBase() << std::endl;
+	printf("Halo 2 base : 0x%" PRIXPTR "\n", Memcury::PE::GetModuleBase());
 
 	Memcury::Scanner::SetTargetModule("halo3.dll");
 
-	std::cout << "halo 3 " << std::hex << Memcury::PE::GetModuleBase() << std::endl;
+	printf("Halo 3 base : 0x%" PRIXPTR "\n", Memcury::PE::GetModuleBase());
 
 	Memcury::Scanner::SetTargetModule("halo4.dll");
 
-	std::cout << "halo 4 " << std::hex << Memcury::PE::GetModuleBase() << std::endl;
+	printf("Halo 4 base : 0x%" PRIXPTR "\n", Memcury::PE::GetModuleBase());
 }
 #endif
