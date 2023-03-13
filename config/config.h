@@ -1,10 +1,14 @@
 #pragma once
+#include <string>
+
 class config
 {
 public:
-#if defined _DEBUG
-	static void test();
-#endif
+
+	/**
+ * \brief the folder containing all the config files.
+ */
+	static inline std::string config_folder;
 
 	/**
 	 * \brief creates a new config.

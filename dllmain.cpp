@@ -19,7 +19,12 @@ void drinol_init()
 #endif
 
 	std::cout << "Drinol is loading." << std::endl;
+
 	// Load data from the ini config.
+
+	// Get config folder
+	config::config_folder = utils::dll_path + "\\Drinol";
+
 	if (!config::load())
 	{
 		std::cout << "Failed to load config, creating a new one from scratch." << std::endl;
@@ -53,7 +58,7 @@ void drinol_init()
 #if defined NDEBUG
 	MessageBox(NULL, L"Drinol has successfully initialized!", L"Hello!", 0);
 #endif
-}
+	}
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
