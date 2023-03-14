@@ -1,7 +1,6 @@
 #include "halo2.h"
 
 #include <cinttypes>
-#include <iostream>
 
 #include "halo2_offsets.h"
 #include "memcury/memcury.h"

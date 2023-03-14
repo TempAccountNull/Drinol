@@ -13,7 +13,6 @@
 #include "games/haloreach/haloreach.h"
 
 #if defined _DEBUG
-#include <iostream>
 #include "Memcury/memcury.h"
 #endif
 

@@ -2,7 +2,6 @@
 #include "middleware.h"
 
 #include <cassert>
-#include <iostream>
 #include <Memcury/memcury.h>
 #include <minhook/include/MinHook.h>
 

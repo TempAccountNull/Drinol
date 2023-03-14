@@ -1,7 +1,6 @@
 #include "halo3odst.h"
 
 #include <cinttypes>
-#include <iostream>
 
 #include "halo3odst_offsets.h"
 #include "memcury/memcury.h"

@@ -1,7 +1,6 @@
 #include "haloreach.h"
 
 #include <cinttypes>
-#include <iostream>
 
 #include "haloreach_offsets.h"
 #include "memcury/memcury.h"

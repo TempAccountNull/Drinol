@@ -8,9 +8,9 @@
 #include "games/halo2/halo2.h"
 #include "games/halo2/halo2_offsets.h"
 #include "games/halo3/halo3.h"
-#include "games/halo3/halo3_offsets.h"
 #include "games/halo3odst/halo3odst.h"
 #include "games/haloreach/haloreach.h"
+#include "gui/gui.h"
 
 void menu::render()
 {
@@ -282,4 +282,11 @@ void menu::render()
 		ImGui::EndTabBar();
 	}
 	ImGui::End();
+
+	if (console_enabled)
+	{
+		ImGui::Begin("Console");
+		ImGui::Text("Blargh, this has not been implemented yet!");
+		ImGui::End();
+	}
 }

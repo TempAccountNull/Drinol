@@ -1,14 +1,15 @@
 // This is used for the management of config files, etc
 #include "config.h"
 
+#include "console.h"
 #include "framework.h"
-#include "utils.h"
 #include "games/halo1/halo1_offsets.h"
 #include "games/halo2/halo2_offsets.h"
 #include "games/halo3/halo3_offsets.h"
 #include "games/halo3odst/halo3odst_offsets.h"
 #include "games/haloreach/haloreach_offsets.h"
 #include "gui/gui.h"
+#include "gui/menu/menu.h"
 #include "middleware/middleware.h"
 #include "mINI/src/mini/ini.h"
 
@@ -29,6 +30,10 @@ bool config::load_main_settings()
 	std::istringstream(ini.get("UI").get("hookdx11")) >> std::boolalpha >> gui::enabled;
 
 	gui::ui_ini_path = ini.get("UI").get("imguiinidir");
+
+	std::istringstream(ini.get("console").get("consolewindow")) >> std::boolalpha >> console::enabled;
+
+	std::istringstream(ini.get("console").get("imguiconsole")) >> std::boolalpha >> menu::console_enabled;
 
 	return true;
 }
@@ -59,6 +64,9 @@ bool config::create_new_main_settings()
 	// populate the structure
 	ini["UI"]["hookdx11"] = "true";
 	ini["UI"]["imguiinidir"] = config_folder + "\\UI.ini";
+
+	ini["Console"]["consolewindow"] = "true";
+	ini["Console"]["imguiconsole"] = "false";
 
 	ini["Middleware"];
 
