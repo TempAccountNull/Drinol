@@ -12,11 +12,6 @@
 
 void drinol_init()
 {
-	// Initialize debug console.
-	console::init();
-
-	puts("Drinol is loading.");
-
 	// Load data from the ini config.
 
 	// Get config folder
@@ -55,6 +50,14 @@ void drinol_init()
 			}
 		}
 	}
+
+	if (console::enabled)
+	{
+		// Initialize debug console.
+		console::init();
+	}
+
+	puts("Drinol is loading.");
 
 	// Initialize Minhook
 	if (MH_Initialize() != MH_OK)
