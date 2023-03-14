@@ -2,6 +2,7 @@
 
 #include <cinttypes>
 
+#include "halo1_hooks.h"
 #include "halo1_offsets.h"
 #include "memcury/memcury.h"
 
@@ -12,6 +13,8 @@ void halo1::game::init() // Initialize hooks and shit for halo 1
 	Memcury::Scanner::SetTargetModule("halo1.dll");
 
 	offsets::init();
+
+	hooks::init();
 }
 
 #if defined _DEBUG

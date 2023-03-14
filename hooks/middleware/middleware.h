@@ -9,6 +9,6 @@ public:
 	 * \brief initializes MCC UE4 middleware hook stuff.
 	 */
 	static void init();
-	static inline std::string start_game_engine_t_aob_sig;
-	static inline std::string UICommandOverlayPush_t_aob_sig;
+	inline static std::string start_game_engine_t_aob_sig;
+	inline static std::string UICommandOverlayPush_t_aob_sig;
 };

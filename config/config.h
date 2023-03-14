@@ -8,7 +8,7 @@ public:
 	/**
  * \brief the folder containing all the config files.
  */
-	static inline std::string config_folder;
+	inline static std::string config_folder;
 
 	/**
 	 * \brief creates a new config file containing the main settings of drinol.

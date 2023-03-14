@@ -13,9 +13,9 @@ namespace halo3
 		inline static engine::_hs_type_names* hs_type_names;
 		inline static void* hs_null_evaluate;
 		inline static bool* toggle_hud;
-		static inline std::string hs_function_table_aob_sig;
-		static inline std::string hs_external_globals_aob_sig;
-		static inline std::string hs_type_names_aob_sig;
+		inline static std::string hs_function_table_aob_sig;
+		inline static std::string hs_external_globals_aob_sig;
+		inline static std::string hs_type_names_aob_sig;
 
 		static void init();
 	};

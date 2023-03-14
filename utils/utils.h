@@ -7,11 +7,11 @@ public:
 	/**
 	 * \brief the currently running game.
 	 */
-	static inline std::string running_game;
+	inline static std::string running_game;
 	/**
 	 * \brief full path of the drinol dll.
 	 */
-	static inline std::string dll_path;
+	inline static std::string dll_path;
 	/**
 	 * \brief initializes game stuff depending on what game got loaded.
 	 * \param game_number the id of the game that is running.

@@ -44,8 +44,8 @@ static __int64 __fastcall ui_command_overlay_push_detour(INT64 a1, char* a2, int
 		puts("Game has ended.\n");
 #endif
 		//TODO: Deinit game related hooks and stuff now that we know that the game has ended.
-		utils::running_game.clear();
 		//utils::handle_game_deinit();
+		utils::running_game.clear();
 	}
 
 	return UICommandOverlayPush_og(a1, a2, a3);

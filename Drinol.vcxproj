@@ -37,6 +37,7 @@
     <ClCompile Include="games\halo3\halo3_offsets.cpp" />
     <ClCompile Include="games\haloreach\haloreach.cpp" />
     <ClCompile Include="games\haloreach\haloreach_offsets.cpp" />
+    <ClCompile Include="games\halo1\halo1_hooks.cpp" />
     <ClCompile Include="hooks\gui\gui.cpp" />
     <ClCompile Include="hooks\gui\menu\menu.cpp" />
     <ClCompile Include="hooks\middleware\middleware.cpp" />
@@ -80,6 +81,7 @@
     <ClInclude Include="games\haloreach\haloreach.h" />
     <ClInclude Include="games\haloreach\haloreach_engine.h" />
     <ClInclude Include="games\haloreach\haloreach_offsets.h" />
+    <ClInclude Include="games\halo1\halo1_hooks.h" />
     <ClInclude Include="hooks\gui\gui.h" />
     <ClInclude Include="hooks\directx11\dx11.h" />
     <ClInclude Include="hooks\gui\menu\menu.h" />

@@ -30,11 +30,13 @@ void halo1::offsets::init()
 	fps_counter = static_cast<bool*>(game::get_hs_global("rasterizer_fps"));
 	motion_sensor_show_all_units = static_cast<bool*>(game::get_hs_global("debug_motion_sensor_draw_all_units"));
 
-	//Blamscript Functions TODO: Figure out a way to call these without crashing the game or having to hook into the main thread of the game.
-
 	game_ticks_per_second = Memcury::Scanner::FindPattern(game_ticks_per_second_aob_sig.c_str()).RelativeOffset(4).GetAs<float*>();
 
 	// for some reason, game_ticks_per_second is protected from being changed
 	DWORD old_prot;
 	VirtualProtect(game_ticks_per_second, 4, PAGE_EXECUTE_READWRITE, &old_prot);
+
+	//Print function
+	void* hs_print_address = game::get_hs_function("print");
+	_terminal_printf = Memcury::Scanner(hs_print_address).ScanFor({ Memcury::ASM::Mnemonic("CALL") }, true, 1).RelativeOffset(1).GetAs<void*>();
 }

@@ -6,5 +6,5 @@ public:
 	/**
 	 * \brief toggles the imgui console tab.
 	 */
-	static inline bool console_enabled;
+	inline static bool console_enabled;
 };
