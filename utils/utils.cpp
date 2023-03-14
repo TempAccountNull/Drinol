@@ -73,4 +73,13 @@ void utils::list_game_base_addresses()
 
 	printf("Halo 4 base : 0x%" PRIXPTR "\n", Memcury::PE::GetModuleBase());
 }
+
+void utils::handle_game_deinit()
+{
+	if (running_game == "Halo 1 Anniversary")
+	{
+		halo1::game::deinit();
+		puts("Halo 1 Uninitialized");
+	}
+}
 #endif

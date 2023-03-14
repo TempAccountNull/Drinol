@@ -1,10 +1,5 @@
 #include "halo1_hooks.h"
 
-#include <stdexcept>
-#include <minhook/include/MinHook.h>
-
-#include "halo1_offsets.h"
-
 //static void (*terminal_printf_og)(int* a1, char* string, ...);
 //
 //static void terminal_printf_detour(int* a1, char* string, ...)
@@ -43,4 +38,8 @@ void halo1::hooks::init()
 	//}
 
 	//MH_ApplyQueued();
+}
+
+void halo1::hooks::deinit()
+{
 }

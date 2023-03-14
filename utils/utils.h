@@ -22,5 +22,9 @@ public:
 	 * \brief lists some of the base addresses of the halo game dlls.
 	 */
 	static void list_game_base_addresses();
+	/**
+	 * \brief deinitializes game stuff depending on what game got loaded.
+	 */
+	static void handle_game_deinit();
 #endif
 };

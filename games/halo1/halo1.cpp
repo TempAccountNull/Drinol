@@ -17,6 +17,11 @@ void halo1::game::init() // Initialize hooks and shit for halo 1
 	hooks::init();
 }
 
+void halo1::game::deinit()
+{
+	hooks::deinit;
+}
+
 #if defined _DEBUG
 void halo1::game::test_function()
 {

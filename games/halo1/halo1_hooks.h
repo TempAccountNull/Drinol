@@ -1,7 +1,4 @@
 #pragma once
-#include <string>
-
-#include "halo1_engine.h"
 
 namespace halo1
 {
@@ -9,5 +6,6 @@ namespace halo1
 	{
 	public:
 		static void init();
+		static void deinit();
 	};
 }
