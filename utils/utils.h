@@ -17,14 +17,14 @@ public:
 	 * \param game_number the id of the game that is running.
 	 */
 	static void handle_game_init(int game_number);
-#if defined _DEBUG
-	/**
-	 * \brief lists some of the base addresses of the halo game dlls.
-	 */
-	static void list_game_base_addresses();
 	/**
 	 * \brief deinitializes game stuff depending on what game got loaded.
 	 */
 	static void handle_game_deinit();
+#if defined _DEBUG
+	/**
+	 * \brief lists some of the base addresses of the halo game dlls.
+	 */
+	static void list_game_base_addresses()
 #endif
 };
