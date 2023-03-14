@@ -54,6 +54,15 @@ void utils::handle_game_init(int game_number)
 #endif
 }
 
+void utils::handle_game_deinit()
+{
+	if (running_game == "Halo 1 Anniversary")
+	{
+		halo1::game::deinit();
+		puts("Halo 1 Uninitialized");
+	}
+}
+
 #if defined _DEBUG
 void utils::list_game_base_addresses()
 {
@@ -72,14 +81,5 @@ void utils::list_game_base_addresses()
 	Memcury::Scanner::SetTargetModule("halo4.dll");
 
 	printf("Halo 4 base : 0x%" PRIXPTR "\n", Memcury::PE::GetModuleBase());
-}
-
-void utils::handle_game_deinit()
-{
-	if (running_game == "Halo 1 Anniversary")
-	{
-		halo1::game::deinit();
-		puts("Halo 1 Uninitialized");
-	}
 }
 #endif
