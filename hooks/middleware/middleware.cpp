@@ -17,6 +17,8 @@ typedef struct {
 
 static void (*start_game_engine_og)(struct_game a1, int game_number);
 
+int current_game_number;
+
 static void __fastcall start_game_engine_detour(struct_game a1, int game_number)
 {
 	//TODO: There is probably a better way to find the currently running game in memory, more research required.
@@ -28,8 +30,7 @@ static void __fastcall start_game_engine_detour(struct_game a1, int game_number)
 	// If this gets triggered, something is wrong.
 	assert(game_number <= 6);
 
-	//TODO: Trigger game related hooks and stuff now that we know that a game has launched and what game it is.
-	utils::handle_game_init(game_number);
+	current_game_number = game_number;
 
 	return start_game_engine_og(a1, game_number);
 }
@@ -46,6 +47,14 @@ static __int64 __fastcall ui_command_overlay_push_detour(INT64 a1, char* a2, int
 		//TODO: Deinit game related hooks and stuff now that we know that the game has ended.
 		utils::handle_game_deinit();
 		utils::running_game.clear();
+		return UICommandOverlayPush_og(a1, a2, a3);
+	}
+
+	if (strcmp(a2, "LoadingScreen") == 0)
+	{
+		//TODO: Trigger game related hooks and stuff now that we know that a game has launched and what game it is.
+		utils::handle_game_init(current_game_number);
+		return UICommandOverlayPush_og(a1, a2, a3);
 	}
 
 	return UICommandOverlayPush_og(a1, a2, a3);
