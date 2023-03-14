@@ -25,6 +25,6 @@ public:
 	/**
 	 * \brief lists some of the base addresses of the halo game dlls.
 	 */
-	static void list_game_base_addresses()
+	static void list_game_base_addresses();
 #endif
 };
