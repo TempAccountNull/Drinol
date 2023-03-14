@@ -7,16 +7,13 @@
 #include "middleware/middleware.h"
 
 //TODO: possibly make the console appear in the release build or have it inside the menu?
-#if defined _DEBUG
+
 #include "console.h"
-#endif
 
 void drinol_init()
 {
-#if defined _DEBUG
 	// Initialize debug console.
 	console::init();
-#endif
 
 	puts("Drinol is loading.");
 
