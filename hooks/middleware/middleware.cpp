@@ -17,7 +17,7 @@ typedef struct {
 
 static void (*start_game_engine_og)(struct_game a1, int game_number);
 
-int current_game_number;
+bool game_running = false;
 
 static void __fastcall start_game_engine_detour(struct_game a1, int game_number)
 {
@@ -30,7 +30,11 @@ static void __fastcall start_game_engine_detour(struct_game a1, int game_number)
 	// If this gets triggered, something is wrong.
 	assert(game_number <= 6);
 
-	current_game_number = game_number;
+	if (game_running)
+	{
+		//TODO: Trigger game related hooks and stuff now that we know that a game has launched and what game it is.
+		utils::handle_game_init(game_number);
+	}
 
 	return start_game_engine_og(a1, game_number);
 }
@@ -39,21 +43,24 @@ static __int64 (*UICommandOverlayPush_og)(INT64 a1, char* a2, int a3);
 
 static __int64 __fastcall ui_command_overlay_push_detour(INT64 a1, char* a2, int a3)
 {
-	if (strcmp(a2, "RestartScreen") == 0)
+	if (strcmp(a2, "RestartScreen") == 0 || strcmp(a2, "GlobalOverlay") == 0)
 	{
+		if (game_running)
+		{
+			game_running = false;
 #if defined _DEBUG
-		puts("Game has ended.\n");
+			puts("Game has ended.\n");
 #endif
-		//TODO: Deinit game related hooks and stuff now that we know that the game has ended.
-		utils::handle_game_deinit();
-		utils::running_game.clear();
+			//TODO: Deinit game related hooks and stuff now that we know that the game has ended.
+			utils::handle_game_deinit();
+			utils::running_game.clear();
+		}
 		return UICommandOverlayPush_og(a1, a2, a3);
 	}
 
 	if (strcmp(a2, "LoadingScreen") == 0)
 	{
-		//TODO: Trigger game related hooks and stuff now that we know that a game has launched and what game it is.
-		utils::handle_game_init(current_game_number);
+		game_running = true;
 		return UICommandOverlayPush_og(a1, a2, a3);
 	}
 
