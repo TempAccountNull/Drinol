@@ -29,11 +29,10 @@ void drinol_init()
 		if (!config::create_new_main_settings())
 		{
 			puts("Failed to create new main settings config file.");
-
-			if (!config::load_main_settings())
-			{
-				puts("Failed to load new main settings config file.");
-			}
+		}
+		else if (!config::load_main_settings())
+		{
+			puts("Failed to load new main settings config file.");
 		}
 	}
 
@@ -43,11 +42,10 @@ void drinol_init()
 		if (!config::create_new_signatures())
 		{
 			puts("Failed to create new signatures config file.");
-
-			if (!config::load_signatures())
-			{
-				puts("Failed to load new signatures config file.");
-			}
+		}
+		else if (!config::load_signatures())
+		{
+			puts("Failed to load new signatures config file.");
 		}
 	}
 

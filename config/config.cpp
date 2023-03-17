@@ -68,21 +68,21 @@ bool config::create_new_main_settings()
 	ini["Console"]["consolewindow"] = "true";
 	ini["Console"]["imguiconsole"] = "false";
 
-	ini["Middleware"];
+	//ini["Middleware"];
 
-	ini["Halo1A"];
+	//ini["Halo1A"];
 
-	ini["Halo2A"];
+	//ini["Halo2A"];
 
-	ini["Halo3"];
+	//ini["Halo3"];
 
-	ini["Halo3ODST"];
+	//ini["Halo3ODST"];
 
-	ini["HaloReach"];
+	//ini["HaloReach"];
 
-	ini["Halo4"];
+	//ini["Halo4"];
 
-	ini["Halo2AMP"];
+	//ini["Halo2AMP"];
 
 	// generate an INI file (overwrites any previous file)
 	if (!file.generate(ini, true))
