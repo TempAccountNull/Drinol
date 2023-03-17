@@ -5,6 +5,7 @@
 
 #include "framework.h"
 #include "halo1_offsets.h"
+#include <spdlog/spdlog.h>
 
 static void (*terminal_printf_og)(int* a1, char* string, ...);
 
@@ -12,15 +13,15 @@ static void terminal_printf_detour(int* a1, char* string, ...)
 {
 	if (halo1::hooks::redirect_print)
 	{
-		std::string new_fmt;
+		char msgbuf[254];
 		va_list args;
 
 		va_start(args, string);
-		new_fmt = "[Halo1] Print: ";
-		new_fmt += string;
-		new_fmt += "\n";
 
-		vprintf(new_fmt.c_str(), args);
+		vsnprintf(msgbuf, sizeof(msgbuf), string, args);  // NOLINT(cert-err33-c)
+
+		spdlog::info("[Halo1] Print: {}", msgbuf);
+		va_end(args);
 	}
 
 	return terminal_printf_og(a1, string);
@@ -30,7 +31,7 @@ void halo1::hooks::init()
 {
 	MH_STATUS _terminal_printf_hook = MH_CreateHook(offsets::_terminal_printf, &terminal_printf_detour, reinterpret_cast <LPVOID*> (&terminal_printf_og));
 	if (_terminal_printf_hook != MH_OK) {
-		printf("Error hooking _terminal_printf: %d \n", _terminal_printf_hook);
+		spdlog::error("Error hooking _terminal_printf: {}", static_cast<int>(_terminal_printf_hook));
 	}
 
 	MH_QueueEnableHook(offsets::_terminal_printf);

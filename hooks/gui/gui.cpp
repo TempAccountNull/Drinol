@@ -1,17 +1,15 @@
 // Most of this code is from https://github.com/Gavpherk/Universal-IL2CPP-DX11-Kiero-Hook
 #include "gui.h"
 
-#include <algorithm>
 #include <d3d11.h>
 #include <dxgi.h>
-#include <iostream>
 
 #include "imgui.h"
-#include "utils.h"
 #include "backends/imgui_impl_dx11.h"
 #include "backends/imgui_impl_win32.h"
 #include "kiero/kiero.h"
 #include "menu/menu.h"
+#include "spdlog/spdlog.h"
 
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -103,7 +101,7 @@ void gui::init()
 	if (kiero::init(kiero::RenderType::D3D11) == kiero::Status::Success)
 	{
 #if defined _DEBUG
-		puts("kiero initialized.");
+		spdlog::debug("kiero initialized.");
 #endif
 		kiero::bind(8, (void**)&oPresent, hkPresent);
 	}

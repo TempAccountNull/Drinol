@@ -8,7 +8,11 @@
 
 //TODO: possibly make the console appear in the release build or have it inside the menu?
 
+#include "spdlog/logger.h"
+
 #include "console.h"
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/basic_file_sink.h"
 
 void drinol_init()
 {
@@ -20,32 +24,52 @@ void drinol_init()
 	//Check if config folder exists, if not, create one.
 	if (!config::create_config_folder())
 	{
-		puts("Failed to create the config folder.");
+		//puts("Failed to create the config folder.");
+		MessageBox(NULL, L"Failed to create the Drinol folder!", L"Drinol Error!", 0);
 	}
 
 	if (!config::load_main_settings())
 	{
-		puts("Failed to load main settings config file, creating a new one from scratch.");
+		//puts("Failed to load main settings config file, creating a new one from scratch.");
 		if (!config::create_new_main_settings())
 		{
-			puts("Failed to create new main settings config file.");
+			//puts("Failed to create new main settings config file.");
 		}
 		else if (!config::load_main_settings())
 		{
-			puts("Failed to load new main settings config file.");
+			//puts("Failed to load new main settings config file.");
+			MessageBox(NULL, L"Failed to generate and load the main config file!", L"Drinol Error!", 0);
 		}
 	}
 
 	if (!config::load_signatures())
 	{
-		puts("Failed to load signatures config file, creating a new one from scratch.");
+		//puts("Failed to load signatures config file, creating a new one from scratch.");
 		if (!config::create_new_signatures())
 		{
-			puts("Failed to create new signatures config file.");
+			//puts("Failed to create new signatures config file.");
 		}
 		else if (!config::load_signatures())
 		{
-			puts("Failed to load new signatures config file.");
+			//puts("Failed to load new signatures config file.");
+			MessageBox(NULL, L"Failed to generate and load the signatures config file!", L"Drinol Error!", 0);
+		}
+	}
+
+	if (console::log_to_file)
+	{
+		try
+		{
+			std::shared_ptr<spdlog::logger> logger = spdlog::basic_logger_mt("Drinol", "Drinol/logs/log.txt");
+			logger->flush_on(spdlog::level::info);
+			spdlog::set_default_logger(logger);
+		}
+		catch (const spdlog::spdlog_ex& ex)
+		{
+			std::string error = "Could not log to a file: ";
+			error += ex.what();
+
+			MessageBoxA(NULL, error.c_str(), "Drinol Error!", 0);
 		}
 	}
 
@@ -55,7 +79,7 @@ void drinol_init()
 		console::init();
 	}
 
-	puts("Drinol is loading.");
+	spdlog::info("Drinol is loading.");
 
 	// Initialize Minhook
 	if (MH_Initialize() != MH_OK)
@@ -71,11 +95,7 @@ void drinol_init()
 		gui::init();
 	}
 
-	puts("Drinol has loaded.");
-
-#if defined NDEBUG
-	MessageBox(NULL, L"Drinol has successfully initialized!", L"Hello!", 0);
-#endif
+	spdlog::info("Drinol has loaded.");
 }
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)

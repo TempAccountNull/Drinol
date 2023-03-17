@@ -1,7 +1,6 @@
 #include "utils.h"
 
 #include <cassert>
-#include <cinttypes>
 
 #include "games/halo1/halo1.h"
 
@@ -15,6 +14,8 @@
 #if defined _DEBUG
 #include "Memcury/memcury.h"
 #endif
+
+#include "spdlog/spdlog.h"
 
 void utils::handle_game_init(int game_number)
 {
@@ -50,7 +51,7 @@ void utils::handle_game_init(int game_number)
 	}
 
 #if defined _DEBUG
-	printf("%s is active.\n", running_game.c_str());
+	spdlog::debug("{} is active.", running_game.c_str());
 #endif
 }
 
@@ -67,18 +68,18 @@ void utils::list_game_base_addresses()
 {
 	Memcury::Scanner::SetTargetModule("halo1.dll");
 
-	printf("Halo 1 base : 0x%" PRIXPTR "\n", Memcury::PE::GetModuleBase());
+	spdlog::debug("Halo 1 base : {}", Memcury::PE::GetModuleBase());
 
 	Memcury::Scanner::SetTargetModule("halo2.dll");
 
-	printf("Halo 2 base : 0x%" PRIXPTR "\n", Memcury::PE::GetModuleBase());
+	spdlog::debug("Halo 2 base : {}", Memcury::PE::GetModuleBase());
 
 	Memcury::Scanner::SetTargetModule("halo3.dll");
 
-	printf("Halo 3 base : 0x%" PRIXPTR "\n", Memcury::PE::GetModuleBase());
+	spdlog::debug("Halo 3 base : {}", Memcury::PE::GetModuleBase());
 
 	Memcury::Scanner::SetTargetModule("halo4.dll");
 
-	printf("Halo 4 base : 0x%" PRIXPTR "\n", Memcury::PE::GetModuleBase());
+	spdlog::debug("Halo 4 base : {}", Memcury::PE::GetModuleBase());
 }
 #endif

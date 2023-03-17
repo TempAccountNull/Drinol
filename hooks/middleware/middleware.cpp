@@ -6,6 +6,7 @@
 #include <minhook/include/MinHook.h>
 
 #include "utils.h"
+#include "spdlog/spdlog.h"
 
 //Crappily reverse engineered struct from the MCC UE4 binary.
 typedef struct {
@@ -49,7 +50,7 @@ static __int64 __fastcall ui_command_overlay_push_detour(INT64 a1, char* a2, int
 		{
 			game_running = false;
 #if defined _DEBUG
-			puts("Game has ended.\n");
+			spdlog::debug("Game has ended.");
 #endif
 			//TODO: Deinit game related hooks and stuff now that we know that the game has ended.
 			utils::handle_game_deinit();
@@ -73,14 +74,14 @@ void middleware::init()
 
 	MH_STATUS start_game_engine_hook = MH_CreateHook(start_game_engine_t, &start_game_engine_detour, reinterpret_cast <LPVOID*> (&start_game_engine_og));
 	if (start_game_engine_hook != MH_OK) {
-		printf("Error hooking start_game_engine: %d \n", start_game_engine_hook);
+		spdlog::error("Error hooking start_game_engine: {}", static_cast<int>(start_game_engine_hook));
 	}
 
 	void* UICommandOverlayPush_t = Memcury::Scanner::FindPattern(UICommandOverlayPush_t_aob_sig.c_str()).FindFunctionBoundary(false).GetAs<void*>();
 
 	auto UICommandOverlayPush_hook = MH_CreateHook(UICommandOverlayPush_t, &ui_command_overlay_push_detour, reinterpret_cast <LPVOID*> (&UICommandOverlayPush_og));
 	if (UICommandOverlayPush_hook != MH_OK) {
-		printf("Error hooking UICommandOverlayPush: %d \n", UICommandOverlayPush_hook);
+		spdlog::error("Error hooking UICommandOverlayPush: {}", static_cast<int>(UICommandOverlayPush_hook));
 	}
 
 	MH_QueueEnableHook(start_game_engine_t);

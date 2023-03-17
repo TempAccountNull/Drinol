@@ -1,14 +1,13 @@
 #include "halo1.h"
 
-#include <cinttypes>
-
 #include "halo1_hooks.h"
 #include "halo1_offsets.h"
 #include "memcury/memcury.h"
+#include "spdlog/spdlog.h"
 
 void halo1::game::init() // Initialize hooks and shit for halo 1
 {
-	puts("Initializing Halo 1");
+	spdlog::info("Initializing Halo 1");
 
 	Memcury::Scanner::SetTargetModule("halo1.dll");
 
@@ -20,7 +19,7 @@ void halo1::game::init() // Initialize hooks and shit for halo 1
 void halo1::game::deinit()
 {
 	hooks::deinit();
-	puts("Uninitialized Halo 1");
+	spdlog::info("Uninitialized Halo 1");
 }
 
 #if defined _DEBUG
@@ -30,19 +29,23 @@ void halo1::game::test_function()
 
 void halo1::game::list_all_hs_functions()
 {
+	spdlog::info("Printing all eval functions inside the blamscript function table.");
 	for (engine::hs_script_op* function : offsets::hs_function_table->table)
 	{
-		printf("Return Type: %s Name: %s Address: 0x%" PRIXPTR "\n", offsets::hs_type_names->types[function->return_type], function->name, reinterpret_cast<uintptr_t>(function->evaluate_func));
+		spdlog::info("[HS Function] Return Type: {} Name: {} Address: {}", offsets::hs_type_names->types[function->return_type], function->name, function->evaluate_func);
 	}
+	spdlog::info("Finished printing out the functions.");
 }
 
 void halo1::game::list_all_hs_globals()
 {
+	spdlog::info("Printing all globals inside the blamscript globals table.");
 	for (engine::hs_external_global* global : offsets::hs_external_globals->globals)
 		if (global->address != nullptr) // Check if globals functionality has not been stripped from retail.
 		{
-			printf("Name: %s Address: 0x%" PRIXPTR " Parameter Type: %s \n", global->name, reinterpret_cast<uintptr_t>(global->address), offsets::hs_type_names->types[global->param_type]);
+			spdlog::info("[HS Global] Name: {} Address: {} Parameter Type: {}", global->name, global->address, offsets::hs_type_names->types[global->param_type]);
 		}
+	spdlog::info("Finished printing out the globals.");
 }
 
 #endif
@@ -59,11 +62,13 @@ void* halo1::game::get_hs_global(const char* global_name) // Gets the address of
 				return global->address;
 			}
 
-			throw std::runtime_error("halo1::game::get_global: global has been found but does not have a working address");
+			spdlog::error("halo1::game::get_global: global has been found but does not have a working address");
+			return nullptr;
 		}
 	}
 
-	throw std::runtime_error("halo1::game::get_global:: global was not found");
+	spdlog::error("halo1::game::get_global:: global was not found");
+	return nullptr;
 }
 
 void* halo1::game::get_hs_function(const char* func_name) // Gets the address of the specified function.
@@ -78,9 +83,11 @@ void* halo1::game::get_hs_function(const char* func_name) // Gets the address of
 				return function->evaluate_func;
 			}
 
-			throw std::runtime_error("halo1::game::get_hs_function: function has been found but does not have a working address");
+			spdlog::error("halo1::game::get_hs_function: function has been found but does not have a working address");
+			return nullptr;
 		}
 	}
 
-	throw std::runtime_error("halo1::game::get_hs_function:: function was not found");
+	spdlog::error("halo1::game::get_hs_function:: function was not found");
+	return nullptr;
 }

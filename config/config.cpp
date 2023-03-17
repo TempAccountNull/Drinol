@@ -12,6 +12,7 @@
 #include "gui/menu/menu.h"
 #include "middleware/middleware.h"
 #include "mINI/src/mini/ini.h"
+#include <spdlog/spdlog.h>
 
 bool config::load_main_settings()
 {
@@ -33,7 +34,41 @@ bool config::load_main_settings()
 
 	std::istringstream(ini.get("console").get("consolewindow")) >> std::boolalpha >> console::enabled;
 
+	std::istringstream(ini.get("console").get("logtofile")) >> std::boolalpha >> console::log_to_file;
+
 	std::istringstream(ini.get("console").get("imguiconsole")) >> std::boolalpha >> menu::console_enabled;
+
+	//std::string level = ini.get("Console").get("loglevel");
+
+	//TODO: Get rid of this ugly code >:( --- Does not work anyways, idk why
+	//if (level == "debug")
+	//{
+	//	spdlog::set_level(spdlog::level::debug);
+	//}
+	//else if (level == "info")
+	//{
+	//	spdlog::set_level(spdlog::level::info);
+	//}
+	//else if (level == "warn")
+	//{
+	//	spdlog::set_level(spdlog::level::warn);
+	//}
+	//else if (level == "trace")
+	//{
+	//	spdlog::set_level(spdlog::level::trace);
+	//}
+	//else if (level == "error")
+	//{
+	//	spdlog::set_level(spdlog::level::err);
+	//}
+	//else if (level == "critical")
+	//{
+	//	spdlog::set_level(spdlog::level::critical);
+	//}
+	//else if (level == "off")
+	//{
+	//	spdlog::set_level(spdlog::level::off);
+	//}
 
 	return true;
 }
@@ -67,6 +102,9 @@ bool config::create_new_main_settings()
 
 	ini["Console"]["consolewindow"] = "true";
 	ini["Console"]["imguiconsole"] = "false";
+	ini["Console"]["logtofile"] = "false";
+
+	//ini["Console"]["loglevel"] = "trace";
 
 	//ini["Middleware"];
 
