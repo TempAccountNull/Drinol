@@ -8,7 +8,7 @@
 
 void halo1::game::init() // Initialize hooks and shit for halo 1
 {
-	puts("Initializing Halo 1\n");
+	puts("Initializing Halo 1");
 
 	Memcury::Scanner::SetTargetModule("halo1.dll");
 
@@ -20,6 +20,7 @@ void halo1::game::init() // Initialize hooks and shit for halo 1
 void halo1::game::deinit()
 {
 	hooks::deinit();
+	puts("Uninitialized Halo 1");
 }
 
 #if defined _DEBUG

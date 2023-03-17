@@ -59,7 +59,6 @@ void utils::handle_game_deinit()
 	if (running_game == "Halo 1 Anniversary")
 	{
 		halo1::game::deinit();
-		puts("Halo 1 Uninitialized");
 	}
 }
 

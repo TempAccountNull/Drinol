@@ -4,6 +4,7 @@
 #include "imgui.h"
 #include "utils.h"
 #include "games/halo1/halo1.h"
+#include "games/halo1/halo1_hooks.h"
 #include "games/halo1/halo1_offsets.h"
 #include "games/halo2/halo2.h"
 #include "games/halo2/halo2_offsets.h"
@@ -96,6 +97,10 @@ void menu::render()
 						ImGui::Checkbox("Motion Sensor - Show All Units", halo1::offsets::motion_sensor_show_all_units);
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Shows all units on your motion sensor, regardless if they are moving or not.");
+
+						ImGui::Checkbox("Redirect Print", &halo1::hooks::redirect_print);
+						if (ImGui::IsItemHovered())
+							ImGui::SetTooltip("Redirects all blamscript text printing functions to the console.");
 
 						ImGui::EndTabItem();
 					}

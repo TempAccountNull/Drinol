@@ -71,14 +71,16 @@ void middleware::init()
 {
 	void* start_game_engine_t = Memcury::Scanner::FindPattern(start_game_engine_t_aob_sig.c_str()).FindFunctionBoundary(false).GetAs<void*>();
 
-	if (MH_CreateHook(start_game_engine_t, &start_game_engine_detour, reinterpret_cast <LPVOID*> (&start_game_engine_og)) != MH_OK) {
-		throw std::runtime_error("failed to hook start_game_engine");
+	MH_STATUS start_game_engine_hook = MH_CreateHook(start_game_engine_t, &start_game_engine_detour, reinterpret_cast <LPVOID*> (&start_game_engine_og));
+	if (start_game_engine_hook != MH_OK) {
+		printf("Error hooking start_game_engine: %d \n", start_game_engine_hook);
 	}
 
 	void* UICommandOverlayPush_t = Memcury::Scanner::FindPattern(UICommandOverlayPush_t_aob_sig.c_str()).FindFunctionBoundary(false).GetAs<void*>();
 
-	if (MH_CreateHook(UICommandOverlayPush_t, &ui_command_overlay_push_detour, reinterpret_cast <LPVOID*> (&UICommandOverlayPush_og)) != MH_OK) {
-		throw std::runtime_error("failed to hook UICommandOverlayPush");
+	auto UICommandOverlayPush_hook = MH_CreateHook(UICommandOverlayPush_t, &ui_command_overlay_push_detour, reinterpret_cast <LPVOID*> (&UICommandOverlayPush_og));
+	if (UICommandOverlayPush_hook != MH_OK) {
+		printf("Error hooking UICommandOverlayPush: %d \n", UICommandOverlayPush_hook);
 	}
 
 	MH_QueueEnableHook(start_game_engine_t);
