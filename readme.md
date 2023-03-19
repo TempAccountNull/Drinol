@@ -7,4 +7,4 @@ NBOTT42#6978: For assistance in developing this tool.
 
 Apoxied#1337: Halo 3 Research information that i have yet to use.
 
-SilentRunner#6097: Information borrowed from his project "MCC Toolbox".
+SilentRunner#6097: Information borrowed from his "MCC Toolbox" project.
