@@ -13,11 +13,39 @@
 #include "games/haloreach/haloreach.h"
 #include "gui/gui.h"
 
+bool show_save_modal = false;
+
+bool show_about_modal = false;
+
+bool show_restore_defaults_modal = false;
+
 void menu::render()
 {
-	ImGui::Begin("Drinol");
-	const ImGuiTabBarFlags tab_bar_flags = ImGuiTabBarFlags_None;
-	if (ImGui::BeginTabBar("DrinolTabs", tab_bar_flags))
+	ImGui::Begin("Drinol", 0, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
+
+	// Menu Bar
+	if (ImGui::BeginMenuBar())
+	{
+		if (ImGui::BeginMenu("Options"))
+		{
+			if (ImGui::MenuItem("Save Changes")) { show_save_modal = true; }
+
+			if (ImGui::MenuItem("Restore Defaults")) { show_restore_defaults_modal = true; }
+
+			//TODO: if (ImGui::MenuItem("Show Console")) { show console shit blah }
+
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("Help"))
+		{
+			if (ImGui::MenuItem("About")) { show_about_modal = true; }
+			ImGui::EndMenu();
+		}
+		ImGui::EndMenuBar();
+	}
+
+	// The meat of the menu
+	if (ImGui::BeginTabBar("DrinolTabs", ImGuiTabBarFlags_None))
 	{
 		if (ImGui::BeginTabItem("Status"))
 		{
@@ -48,7 +76,7 @@ void menu::render()
 		{
 			if (ImGui::BeginTabItem("Halo 1"))
 			{
-				if (ImGui::BeginTabBar("Halo1Tabs", tab_bar_flags))
+				if (ImGui::BeginTabBar("Halo1Tabs", ImGuiTabBarFlags_None))
 				{
 #if defined _DEBUG
 					if (ImGui::BeginTabItem("Debug"))
@@ -140,7 +168,7 @@ void menu::render()
 		{
 			if (ImGui::BeginTabItem("Halo 2"))
 			{
-				if (ImGui::BeginTabBar("Halo2Tabs", tab_bar_flags))
+				if (ImGui::BeginTabBar("Halo2Tabs", ImGuiTabBarFlags_None))
 				{
 #if defined _DEBUG
 					if (ImGui::BeginTabItem("Debug"))
@@ -177,7 +205,7 @@ void menu::render()
 		{
 			if (ImGui::BeginTabItem("Halo 3"))
 			{
-				if (ImGui::BeginTabBar("Halo3Tabs", tab_bar_flags))
+				if (ImGui::BeginTabBar("Halo3Tabs", ImGuiTabBarFlags_None))
 				{
 #if defined _DEBUG
 					if (ImGui::BeginTabItem("Debug"))
@@ -214,7 +242,7 @@ void menu::render()
 		{
 			if (ImGui::BeginTabItem("Halo 3: ODST"))
 			{
-				if (ImGui::BeginTabBar("Halo3ODSTTabs", tab_bar_flags))
+				if (ImGui::BeginTabBar("Halo3ODSTTabs", ImGuiTabBarFlags_None))
 				{
 #if defined _DEBUG
 					if (ImGui::BeginTabItem("Debug"))
@@ -251,7 +279,7 @@ void menu::render()
 		{
 			if (ImGui::BeginTabItem("Halo Reach"))
 			{
-				if (ImGui::BeginTabBar("HaloReachTabs", tab_bar_flags))
+				if (ImGui::BeginTabBar("HaloReachTabs", ImGuiTabBarFlags_None))
 				{
 #if defined _DEBUG
 					if (ImGui::BeginTabItem("Debug"))
@@ -288,10 +316,99 @@ void menu::render()
 	}
 	ImGui::End();
 
+	// All popups and other windows go below here. ------------------------------------------------>
+	//TODO: i would like to extract some of these into their own methods so things are a bit tidier, but at the moment i do not know how without breaking things.
+
+	// ImGui Console -- TODO: WIP
 	if (console_enabled)
 	{
 		ImGui::Begin("Console");
 		ImGui::Text("Blargh, this has not been implemented yet!");
 		ImGui::End();
+	}
+
+	// Save confirmation modal
+
+	// Always center this window when appearing
+	ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+	ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+	if (show_save_modal) // Yucky fix for not being able to open modals from menu bar entries: https://github.com/ocornut/imgui/issues/331#issuecomment-751372071
+	{
+		ImGui::OpenPopup("Save Changes?");
+		show_save_modal = false;
+	}
+
+	if (ImGui::BeginPopupModal("Save Changes?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Do you want to save your changes?\nThis does not do anything yet! Sorry :(");
+
+		if (ImGui::Button("OK", ImVec2(120, 0)))
+		{
+			//TODO: implement this
+			//DoShit();
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::SetItemDefaultFocus();
+		ImGui::SameLine();
+		if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+		ImGui::EndPopup();
+	}
+
+	// Restore defaults modal
+
+	// Always center this window when appearing
+	center = ImGui::GetMainViewport()->GetCenter();
+	ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+	if (show_restore_defaults_modal) // Yucky fix for not being able to open modals from menu bar entries: https://github.com/ocornut/imgui/issues/331#issuecomment-751372071
+	{
+		ImGui::OpenPopup("Restore Defaults?");
+		show_restore_defaults_modal = false;
+	}
+
+	if (ImGui::BeginPopupModal("Restore Defaults?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Do you want to retore all settings to their default?\nThis does not do anything yet! Sorry :(");
+
+		if (ImGui::Button("OK", ImVec2(120, 0)))
+		{
+			//TODO: implement this
+			//DoShit();
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::SetItemDefaultFocus();
+		ImGui::SameLine();
+		if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+		ImGui::EndPopup();
+	}
+
+	// About drinol modal
+
+	// Always center this window when appearing
+	center = ImGui::GetMainViewport()->GetCenter();
+	ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+	if (show_about_modal) // Yucky fix for not being able to open modals from menu bar entries: https://github.com/ocornut/imgui/issues/331#issuecomment-751372071
+	{
+		ImGui::OpenPopup("Drinol - About");
+		show_about_modal = false;
+	}
+
+	// about modal
+	if (ImGui::BeginPopupModal("Drinol - About", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Drinol - A Halo modding utility.");
+		ImGui::Separator();
+		ImGui::Text("Credits:\n\nNBOTT42#6978: For assistance in developing this tool.\n\nApoxied#1337: Halo 3 Research information that i have yet to use.\n\nSilentRunner#6097: Information borrowed from his project \"MCC Toolbox\".");
+		ImGui::Separator();
+		ImGui::Text("Thanks to all the halo modders and reverse engineers responsible for projects like ElDewrito and the Blam Creation Suite, without them, i would not have been inspired to make this tool.");
+
+		if (ImGui::Button("Close", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+		ImGui::SameLine();
+		if (ImGui::Button("Github Page", ImVec2(120, 0))) {
+			ShellExecute(0, 0, L"https://github.com/matty45/Drinol", 0, 0, SW_SHOW);// I dont feel that this is a secure way of opening a web page but idk
+		}
+		ImGui::EndPopup();
 	}
 }
