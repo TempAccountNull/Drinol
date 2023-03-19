@@ -30,12 +30,12 @@ void menu::render()
 		{
 			if (!utils::running_game.empty())
 			{
-				if (ImGui::MenuItem("Save Changes")) { show_save_modal = true; }
+				if (ImGui::MenuItem("Save Game Changes")) { show_save_modal = true; }
+				if (ImGui::MenuItem("Restore Game Defaults")) { show_restore_defaults_modal = true; }
 			}
 
-			if (ImGui::MenuItem("Restore Defaults")) { show_restore_defaults_modal = true; }
-
 			//TODO: if (ImGui::MenuItem("Show Console")) { show console shit blah }
+			//if (ImGui::MenuItem("Save Menu Changes")) { show_save_menu_modal = true; }
 
 			ImGui::EndMenu();
 		}
