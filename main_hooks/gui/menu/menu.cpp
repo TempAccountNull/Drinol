@@ -34,7 +34,7 @@ void menu::render()
 				if (ImGui::MenuItem("Restore Game Defaults")) { show_restore_defaults_modal = true; }
 			}
 
-			//TODO: if (ImGui::MenuItem("Show Console")) { show console shit blah }
+			if (ImGui::MenuItem("Toggle Console")) { console_enabled = !console_enabled; }
 			//if (ImGui::MenuItem("Save Menu Changes")) { show_save_menu_modal = true; }
 
 			ImGui::EndMenu();
