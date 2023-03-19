@@ -60,16 +60,16 @@
     <ClCompile Include="dependencies\imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hooks\gui\gui.cpp">
+    <ClCompile Include="main_hooks\gui\gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hooks\gui\menu\menu.cpp">
+    <ClCompile Include="main_hooks\gui\menu\menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="dependencies\kiero\kiero.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hooks\middleware\middleware.cpp">
+    <ClCompile Include="main_hooks\middleware\middleware.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="config\config.cpp">
@@ -167,16 +167,16 @@
     <ClInclude Include="dependencies\imgui\imgui_internal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="hooks\gui\gui.h">
+    <ClInclude Include="main_hooks\gui\gui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="hooks\gui\menu\menu.h">
+    <ClInclude Include="main_hooks\gui\menu\menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dependencies\kiero\kiero.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="hooks\middleware\middleware.h">
+    <ClInclude Include="main_hooks\middleware\middleware.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="config\config.h">

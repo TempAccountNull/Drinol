@@ -38,9 +38,9 @@
     <ClCompile Include="games\haloreach\haloreach.cpp" />
     <ClCompile Include="games\haloreach\haloreach_offsets.cpp" />
     <ClCompile Include="games\halo1\halo1_hooks.cpp" />
-    <ClCompile Include="hooks\gui\gui.cpp" />
-    <ClCompile Include="hooks\gui\menu\menu.cpp" />
-    <ClCompile Include="hooks\middleware\middleware.cpp" />
+    <ClCompile Include="main_hooks\gui\gui.cpp" />
+    <ClCompile Include="main_hooks\gui\menu\menu.cpp" />
+    <ClCompile Include="main_hooks\middleware\middleware.cpp" />
     <ClCompile Include="utils\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -185,10 +185,10 @@
     <ClInclude Include="games\haloreach\haloreach_engine.h" />
     <ClInclude Include="games\haloreach\haloreach_offsets.h" />
     <ClInclude Include="games\halo1\halo1_hooks.h" />
-    <ClInclude Include="hooks\gui\gui.h" />
+    <ClInclude Include="main_hooks\gui\gui.h" />
     <ClInclude Include="hooks\directx11\dx11.h" />
-    <ClInclude Include="hooks\gui\menu\menu.h" />
-    <ClInclude Include="hooks\middleware\middleware.h" />
+    <ClInclude Include="main_hooks\gui\menu\menu.h" />
+    <ClInclude Include="main_hooks\middleware\middleware.h" />
     <ClInclude Include="utils\utils.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -241,7 +241,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(ProjectDir)console;$(ProjectDir)hooks;$(ProjectDir)utils;$(ProjectDir)dependencies;$(ProjectDir);$(ProjectDir)dependencies\imgui;$(ProjectDir)dependencies\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)console;$(ProjectDir)main_hooks;$(ProjectDir)utils;$(ProjectDir)dependencies;$(ProjectDir);$(ProjectDir)dependencies\imgui;$(ProjectDir)dependencies\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -273,7 +273,7 @@
       <PreprocessorDefinitions>IMGUI_DISABLE_DEMO_WINDOWS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(ProjectDir)console;$(ProjectDir)hooks;$(ProjectDir)utils;$(ProjectDir)dependencies;$(ProjectDir);$(ProjectDir)dependencies\imgui;$(ProjectDir)dependencies\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)console;$(ProjectDir)main_hooks;$(ProjectDir)utils;$(ProjectDir)dependencies;$(ProjectDir);$(ProjectDir)dependencies\imgui;$(ProjectDir)dependencies\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
