@@ -21,10 +21,19 @@ public:
 	 * \brief deinitializes game stuff depending on what game got loaded.
 	 */
 	static void handle_game_deinit();
+	/**
+* \brief Saves the currently running games settings.
+*/
+	static void save_running_game_settings();
+	/**
+* \brief Resets the currently running games settings.
+*/
+	static void reset_running_game_settings();
 #if defined _DEBUG
 	/**
 	 * \brief lists some of the base addresses of the halo game dlls.
 	 */
 	static void list_game_base_addresses();
+
 #endif
 };

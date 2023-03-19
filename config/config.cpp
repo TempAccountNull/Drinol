@@ -14,6 +14,25 @@
 #include "mINI/src/mini/ini.h"
 #include <spdlog/spdlog.h>
 
+#include "games/halo1/halo1_hooks.h"
+
+//TODO: make spdlog log level configurable!
+
+//https://stackoverflow.com/a/29798
+inline const char* const bool_to_string(bool b)
+{
+	return b ? "true" : "false";
+}
+
+//https://www.geeksforgeeks.org/convert-float-to-string-in-cpp/
+std::string float_to_string(float floaty)
+{
+	// Convert float to string
+	std::stringstream s;
+	s << floaty; // appending the float value to the streamclass
+	return s.str(); //converting the float value to string
+}
+
 bool config::load_main_settings()
 {
 	const mINI::INIFile file(config_folder + "\\MainSettings.ini");
@@ -39,36 +58,6 @@ bool config::load_main_settings()
 	std::istringstream(ini.get("console").get("imguiconsole")) >> std::boolalpha >> menu::console_enabled;
 
 	//std::string level = ini.get("Console").get("loglevel");
-
-	//TODO: Get rid of this ugly code >:( --- Does not work anyways, idk why
-	//if (level == "debug")
-	//{
-	//	spdlog::set_level(spdlog::level::debug);
-	//}
-	//else if (level == "info")
-	//{
-	//	spdlog::set_level(spdlog::level::info);
-	//}
-	//else if (level == "warn")
-	//{
-	//	spdlog::set_level(spdlog::level::warn);
-	//}
-	//else if (level == "trace")
-	//{
-	//	spdlog::set_level(spdlog::level::trace);
-	//}
-	//else if (level == "error")
-	//{
-	//	spdlog::set_level(spdlog::level::err);
-	//}
-	//else if (level == "critical")
-	//{
-	//	spdlog::set_level(spdlog::level::critical);
-	//}
-	//else if (level == "off")
-	//{
-	//	spdlog::set_level(spdlog::level::off);
-	//}
 
 	return true;
 }
@@ -222,5 +211,101 @@ bool config::create_new_signatures()
 		// Failed to generate ini
 		return false;
 	}
+	return true;
+}
+
+// Game Specific ini files
+
+bool config::halo1_create()
+{
+	const mINI::INIFile file(config_folder + "\\Halo1.ini");
+
+	mINI::INIStructure ini;
+
+	// populate the structure
+	ini["Weapons"]["bottomless_clip"] = "false";
+	ini["Weapons"]["infinite_ammo"] = "false";
+
+	ini["Player"]["god_mode"] = "false";
+
+	ini["Game"]["ticks_per_second"] = "30.0";
+	ini["Game"]["motion_sensor_show_all_units"] = "false";
+	ini["Game"]["redirect_print"] = "false";
+
+	ini["Rendering"]["fps_counter"] = "false";
+	ini["Rendering"]["wireframe"] = "false";
+	ini["Rendering"]["atmosphere_fog"] = "true";
+	ini["Rendering"]["fog_plane"] = "true";
+	ini["Rendering"]["enviroment_diffuse"] = "true";
+
+	// generate an INI file (overwrites any previous file)
+	if (!file.generate(ini, true))
+	{
+		// Failed to generate ini
+		return false;
+	}
+	return true;
+}
+
+bool config::halo1_save()
+{
+	const mINI::INIFile file(config_folder + "\\Halo1.ini");
+
+	mINI::INIStructure ini;
+
+	// populate the structure
+	ini["Weapons"]["bottomless_clip"] = bool_to_string(*halo1::offsets::bottomless_clip);
+	ini["Weapons"]["infinite_ammo"] = bool_to_string(*halo1::offsets::infinite_ammo);
+
+	ini["Player"]["god_mode"] = bool_to_string(*halo1::offsets::god_mode);
+
+	ini["Game"]["ticks_per_second"] = float_to_string(*halo1::offsets::game_ticks_per_second);
+	ini["Game"]["motion_sensor_show_all_units"] = bool_to_string(*halo1::offsets::motion_sensor_show_all_units);
+	ini["Game"]["redirect_print"] = bool_to_string(halo1::hooks::redirect_print);
+
+	ini["Rendering"]["fps_counter"] = bool_to_string(*halo1::offsets::fps_counter);
+	ini["Rendering"]["wireframe"] = bool_to_string(*halo1::offsets::wireframe);
+	ini["Rendering"]["atmosphere_fog"] = bool_to_string(*halo1::offsets::atmosphere_fog);
+	ini["Rendering"]["fog_plane"] = bool_to_string(*halo1::offsets::fog_plane);
+	ini["Rendering"]["enviroment_diffuse"] = bool_to_string(*halo1::offsets::enviroment_diffuse);
+
+	// write to the INI file (overwrites)
+	if (!file.write(ini, true))
+	{
+		// Failed to write ini
+		return false;
+	}
+	return true;
+}
+
+bool config::halo1_load()
+{
+	const mINI::INIFile file(config_folder + "\\Halo1.ini");
+
+	mINI::INIStructure ini;
+
+	if (!file.read(ini))
+	{
+		// Failed to read ini
+		return false;
+	}
+
+	// read a value
+
+	std::istringstream(ini.get("Weapons").get("bottomless_clip")) >> std::boolalpha >> *halo1::offsets::bottomless_clip;
+	std::istringstream(ini.get("Weapons").get("infinite_ammo")) >> std::boolalpha >> *halo1::offsets::infinite_ammo;
+
+	std::istringstream(ini.get("Player").get("god_mode")) >> std::boolalpha >> *halo1::offsets::god_mode;
+
+	std::istringstream(ini.get("Game").get("ticks_per_second")) >> *halo1::offsets::game_ticks_per_second;
+	std::istringstream(ini.get("Game").get("motion_sensor_show_all_units")) >> std::boolalpha >> *halo1::offsets::motion_sensor_show_all_units;
+	std::istringstream(ini.get("Game").get("redirect_print")) >> std::boolalpha >> halo1::hooks::redirect_print;
+
+	std::istringstream(ini.get("Rendering").get("fps_counter")) >> std::boolalpha >> *halo1::offsets::fps_counter;
+	std::istringstream(ini.get("Rendering").get("wireframe")) >> std::boolalpha >> *halo1::offsets::wireframe;
+	std::istringstream(ini.get("Rendering").get("atmosphere_fog")) >> std::boolalpha >> *halo1::offsets::atmosphere_fog;
+	std::istringstream(ini.get("Rendering").get("fog_plane")) >> std::boolalpha >> *halo1::offsets::fog_plane;
+	std::istringstream(ini.get("Rendering").get("enviroment_diffuse")) >> std::boolalpha >> *halo1::offsets::enviroment_diffuse;
+
 	return true;
 }

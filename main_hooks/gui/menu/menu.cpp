@@ -28,7 +28,10 @@ void menu::render()
 	{
 		if (ImGui::BeginMenu("Options"))
 		{
-			if (ImGui::MenuItem("Save Changes")) { show_save_modal = true; }
+			if (!utils::running_game.empty())
+			{
+				if (ImGui::MenuItem("Save Changes")) { show_save_modal = true; }
+			}
 
 			if (ImGui::MenuItem("Restore Defaults")) { show_restore_defaults_modal = true; }
 
@@ -341,12 +344,11 @@ void menu::render()
 
 	if (ImGui::BeginPopupModal("Save Changes?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 	{
-		ImGui::Text("Do you want to save your changes?\nThis does not do anything yet! Sorry :(");
+		ImGui::Text("Do you want to save your changes?");
 
 		if (ImGui::Button("OK", ImVec2(120, 0)))
 		{
-			//TODO: implement this
-			//DoShit();
+			utils::save_running_game_settings();
 			ImGui::CloseCurrentPopup();
 		}
 		ImGui::SetItemDefaultFocus();
@@ -369,12 +371,11 @@ void menu::render()
 
 	if (ImGui::BeginPopupModal("Restore Defaults?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
 	{
-		ImGui::Text("Do you want to retore all settings to their default?\nThis does not do anything yet! Sorry :(");
+		ImGui::Text("Do you want to retore all settings to their default?");
 
 		if (ImGui::Button("OK", ImVec2(120, 0)))
 		{
-			//TODO: implement this
-			//DoShit();
+			utils::reset_running_game_settings();
 			ImGui::CloseCurrentPopup();
 		}
 		ImGui::SetItemDefaultFocus();

@@ -2,6 +2,7 @@
 
 #include "halo1_hooks.h"
 #include "halo1_offsets.h"
+#include "config/config.h"
 #include "memcury/memcury.h"
 #include "spdlog/spdlog.h"
 
@@ -14,6 +15,16 @@ void halo1::game::init() // Initialize hooks and shit for halo 1
 	offsets::init();
 
 	hooks::init();
+
+	//Load Settings
+	if (!config::halo1_load())
+	{
+		spdlog::error("Failed to load settings for Halo 1. Either the settings file does not exist or something bad has happened! You can ignore this error if you did not save it in the past.");
+	}
+	else
+	{
+		spdlog::info("Loaded settings for Halo 1.");
+	}
 }
 
 void halo1::game::deinit()

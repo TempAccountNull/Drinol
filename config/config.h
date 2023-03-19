@@ -32,7 +32,22 @@ public:
 	static bool load_signatures();
 	/**
  * \brief creates a new config file containing AOB signatures needed for drinol.
- * \return true if loaded successfully
+ * \return true if created successfully
  */
 	static bool create_new_signatures();
+	/**
+	 * \brief creates a new config file containing settings related to Halo 1 Anniversary.
+	 * \return true if created successfully
+	 */
+	static bool halo1_create();
+	/**
+ * \brief saves to the config file containing settings related to Halo 1 Anniversary.
+ * \return true if saved successfully
+*/
+	static bool halo1_save();
+	/**
+	 * \brief loads the config file containing settings related to Halo 1 Anniversary.
+	 * \return true if loaded successfully
+	 */
+	static bool halo1_load();
 };
