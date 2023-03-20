@@ -2,7 +2,7 @@
 
 **A work in progress tool for Halo: The Master Chief Collection with the goal of aiding modders who are testing their mods inside of MCC.**
 
-<img src="https://i.imgur.com/BYtmRAJ.jpeg" width=50% height=50%>
+<img src="https://i.imgur.com/BYtmRAJ.jpeg" width=50%>
 
   
 ## Building:
