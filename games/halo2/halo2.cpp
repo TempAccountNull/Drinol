@@ -1,5 +1,6 @@
 #include "halo2.h"
 
+#include "halo2_hooks.h"
 #include "halo2_offsets.h"
 #include "memcury/memcury.h"
 #include "spdlog/spdlog.h"
@@ -11,6 +12,8 @@ void halo2::game::init() // Initialize hooks and shit for halo 1
 	Memcury::Scanner::SetTargetModule("halo2.dll");
 
 	offsets::init();
+
+	hooks::init();
 }
 
 #if defined _DEBUG
@@ -23,7 +26,7 @@ void halo2::game::list_all_hs_functions()
 	spdlog::info("Printing all eval functions inside the blamscript function table.");
 	for (engine::_hs_script_op* function : offsets::hs_function_table->table)
 	{
-		if (function->evaluate_func != nullptr && function->evaluate_func != offsets::hs_null_evaluate)
+		if (function->evaluate_func != nullptr && function->evaluate_func != offsets::hs_null_evaluate && function->evaluate_func != offsets::hs_null_evaluate2)
 		{
 			spdlog::info("[HS Function] Return Type: {} Name: {} Address: {}", offsets::hs_type_names->types[function->return_type], function->name, function->evaluate_func);
 		}
