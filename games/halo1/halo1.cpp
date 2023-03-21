@@ -82,7 +82,7 @@ void* halo1::game::get_hs_global(const char* global_name) // Gets the address of
 	return nullptr;
 }
 
-void* halo1::game::get_hs_function(const char* func_name) // Gets the address of the specified function.
+void* halo1::game::get_eval_hs_function(const char* func_name)
 {
 	for (const engine::hs_script_op* function : offsets::hs_function_table->table)
 	{
@@ -94,11 +94,18 @@ void* halo1::game::get_hs_function(const char* func_name) // Gets the address of
 				return function->evaluate_func;
 			}
 
-			spdlog::error("halo1::game::get_hs_function: function has been found but does not have a working address");
+			spdlog::error("halo1::game::get_eval_hs_function: function has been found but does not have a working eval function");
 			return nullptr;
 		}
 	}
 
-	spdlog::error("halo1::game::get_hs_function:: function was not found");
+	spdlog::error("halo1::game::get_eval_hs_function:: function was not found");
 	return nullptr;
+}
+
+void* halo1::game::get_hs_function(const char* func_name, int to_skip)
+{
+	void* eval_function = get_eval_hs_function(func_name); // Get the address of the blamscript functions evaluate function.
+	void* function = Memcury::Scanner(eval_function).ScanFor({ Memcury::ASM::Mnemonic("CALL") }, true, to_skip).RelativeOffset(1).GetAs<void*>(); // Get the function inside of the evaluate function.
+	return function;
 }

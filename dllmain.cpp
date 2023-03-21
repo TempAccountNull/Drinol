@@ -62,7 +62,7 @@ void drinol_init()
 		{
 			std::shared_ptr<spdlog::logger> logger = spdlog::basic_logger_mt("Drinol", "Drinol/logs/log.txt");
 			logger->flush_on(spdlog::level::info);
-			spdlog::set_default_logger(logger);
+			set_default_logger(logger);
 		}
 		catch (const spdlog::spdlog_ex& ex)
 		{

@@ -61,6 +61,13 @@ void utils::handle_game_deinit()
 	if (running_game == "Halo 1 Anniversary")
 	{
 		halo1::game::deinit();
+		return;
+	}
+
+	if (running_game == "Halo 2 Anniversary")
+	{
+		halo2::game::deinit();
+		return;
 	}
 }
 
@@ -72,6 +79,16 @@ void utils::save_running_game_settings()
 		if (config::halo1_save())
 		{
 			spdlog::info("Saved settings for Halo 1!");
+			return;
+		}
+	}
+
+	if (running_game == "Halo 2 Anniversary")
+	{
+		if (config::halo2_save())
+		{
+			spdlog::info("Saved settings for Halo 2!");
+			return;
 		}
 	}
 }
@@ -92,6 +109,22 @@ void utils::reset_running_game_settings()
 		}
 
 		spdlog::info("Reset settings for Halo 1");
+	}
+
+	if (running_game == "Halo 2 Anniversary")
+	{
+		if (!config::halo2_create())
+		{
+			spdlog::error("Failed to create fresh settings for Halo 2!");
+			return;
+		}
+		if (!config::halo2_load())
+		{
+			spdlog::error("Failed to load fresh settings for Halo 2!");
+			return;
+		}
+
+		spdlog::info("Reset settings for Halo 2");
 	}
 }
 

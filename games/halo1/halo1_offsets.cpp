@@ -37,6 +37,6 @@ void halo1::offsets::init()
 	VirtualProtect(game_ticks_per_second, 4, PAGE_EXECUTE_READWRITE, &old_prot);
 
 	//Print function
-	void* hs_print_address = game::get_hs_function("print");
+	void* hs_print_address = game::get_eval_hs_function("print");
 	_terminal_printf = Memcury::Scanner(hs_print_address).ScanFor({ Memcury::ASM::Mnemonic("CALL") }, true, 1).RelativeOffset(1).GetAs<void*>();
 }

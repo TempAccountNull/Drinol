@@ -15,6 +15,7 @@
 #include <spdlog/spdlog.h>
 
 #include "games/halo1/halo1_hooks.h"
+#include "games/halo2/halo2_hooks.h"
 
 //TODO: make spdlog log level configurable!
 
@@ -306,6 +307,63 @@ bool config::halo1_load()
 	std::istringstream(ini.get("Rendering").get("atmosphere_fog")) >> std::boolalpha >> *halo1::offsets::atmosphere_fog;
 	std::istringstream(ini.get("Rendering").get("fog_plane")) >> std::boolalpha >> *halo1::offsets::fog_plane;
 	std::istringstream(ini.get("Rendering").get("enviroment_diffuse")) >> std::boolalpha >> *halo1::offsets::enviroment_diffuse;
+
+	return true;
+}
+
+bool config::halo2_create()
+{
+	const mINI::INIFile file(config_folder + "\\Halo2.ini");
+
+	mINI::INIStructure ini;
+
+	// populate the structure
+
+	ini["Game"]["redirect_print"] = "false";
+
+	// generate an INI file (overwrites any previous file)
+	if (!file.generate(ini, true))
+	{
+		// Failed to generate ini
+		return false;
+	}
+	return true;
+}
+
+bool config::halo2_save()
+{
+	const mINI::INIFile file(config_folder + "\\Halo2.ini");
+
+	mINI::INIStructure ini;
+
+	// populate the structure
+
+	ini["Game"]["redirect_print"] = bool_to_string(halo2::hooks::redirect_print);
+
+	// write to the INI file (overwrites)
+	if (!file.write(ini, true))
+	{
+		// Failed to write ini
+		return false;
+	}
+	return true;
+}
+
+bool config::halo2_load()
+{
+	const mINI::INIFile file(config_folder + "\\Halo2.ini");
+
+	mINI::INIStructure ini;
+
+	if (!file.read(ini))
+	{
+		// Failed to read ini
+		return false;
+	}
+
+	// read a value
+
+	std::istringstream(ini.get("Game").get("redirect_print")) >> std::boolalpha >> halo2::hooks::redirect_print;
 
 	return true;
 }

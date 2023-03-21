@@ -7,6 +7,7 @@
 #include "games/halo1/halo1_hooks.h"
 #include "games/halo1/halo1_offsets.h"
 #include "games/halo2/halo2.h"
+#include "games/halo2/halo2_hooks.h"
 #include "games/halo2/halo2_offsets.h"
 #include "games/halo3/halo3.h"
 #include "games/halo3odst/halo3odst.h"
@@ -189,14 +190,15 @@ void menu::render()
 					}
 #endif
 
-					if (ImGui::BeginTabItem("Rendering"))
+					if (ImGui::BeginTabItem("Game"))
 					{
-						ImGui::Checkbox("Toggle HUD", halo2::offsets::toggle_hud);
+						ImGui::Checkbox("Redirect Print", &halo2::hooks::redirect_print);
 						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("Toggles the heads up display.");
+							ImGui::SetTooltip("Redirects some engine printing functions to the console.");
 
 						ImGui::EndTabItem();
 					}
+
 					ImGui::EndTabBar();
 				}
 

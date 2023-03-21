@@ -8,7 +8,7 @@ void halo3odst::offsets::init()
 	//Blamscript Functions Table
 	hs_function_table = reinterpret_cast<engine::_hs_function_table*>(Memcury::Scanner::FindPattern(hs_function_table_aob_sig.c_str()).RelativeOffset(3).Get());
 
-	hs_null_evaluate = game::get_hs_function("voice_set_force_match_configurations");
+	hs_null_evaluate = game::get_eval_hs_function("voice_set_force_match_configurations");
 
 	//Blamscript External Globals Table
 	hs_external_globals = reinterpret_cast<engine::_hs_external_globals*>(Memcury::Scanner::FindPattern(hs_external_globals_aob_sig.c_str()).RelativeOffset(3).Get());

@@ -50,4 +50,19 @@ public:
 	 * \return true if loaded successfully
 	 */
 	static bool halo1_load();
+	/**
+ * \brief creates a new config file containing settings related to Halo 2 Anniversary.
+ * \return true if created successfully
+ */
+	static bool halo2_create();
+	/**
+* \brief saves to the config file containing settings related to Halo 2 Anniversary.
+* \return true if saved successfully
+*/
+	static bool halo2_save();
+	/**
+ * \brief loads the config file containing settings related to Halo 2 Anniversary.
+ * \return true if loaded successfully
+ */
+	static bool halo2_load();
 };
