@@ -128,7 +128,7 @@ void menu::render()
 
 						ImGui::DragFloat("Gravity", *halo1::offsets::gravity, 0.005f, -FLT_MAX, +FLT_MAX, "%.5f", ImGuiSliderFlags_None);
 						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("The gravity, nuff said.");
+							ImGui::SetTooltip("The gravity, nuff said. Note: Not savable.");
 
 						ImGui::Checkbox("Motion Sensor - Show All Units", halo1::offsets::motion_sensor_show_all_units);
 						if (ImGui::IsItemHovered())
