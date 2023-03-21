@@ -126,6 +126,10 @@ void menu::render()
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Basically the speed/time scale of the game. Default: 30.0");
 
+						ImGui::DragFloat("Gravity", *halo1::offsets::gravity, 0.005f, -FLT_MAX, +FLT_MAX, "%.5f", ImGuiSliderFlags_None);
+						if (ImGui::IsItemHovered())
+							ImGui::SetTooltip("The gravity, nuff said.");
+
 						ImGui::Checkbox("Motion Sensor - Show All Units", halo1::offsets::motion_sensor_show_all_units);
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Shows all units on your motion sensor, regardless if they are moving or not.");

@@ -32,6 +32,8 @@ void halo1::offsets::init()
 
 	game_ticks_per_second = Memcury::Scanner::FindPattern(game_ticks_per_second_aob_sig.c_str()).RelativeOffset(4).GetAs<float*>();
 
+	gravity = Memcury::Scanner(game::get_eval_hs_function("physics_get_gravity")).RelativeOffset(3).GetAs<float**>();
+
 	// for some reason, game_ticks_per_second is protected from being changed
 	DWORD old_prot;
 	VirtualProtect(game_ticks_per_second, 4, PAGE_EXECUTE_READWRITE, &old_prot);
