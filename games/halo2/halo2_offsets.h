@@ -17,6 +17,7 @@ namespace halo2
 		inline static std::string hs_function_table_aob_sig;
 		inline static std::string hs_external_globals_aob_sig;
 		inline static std::string hs_type_names_aob_sig;
+		inline static float** gravity;
 
 		static void init();
 	};

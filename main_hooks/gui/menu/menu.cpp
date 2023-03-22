@@ -196,6 +196,10 @@ void menu::render()
 
 					if (ImGui::BeginTabItem("Game"))
 					{
+						ImGui::DragFloat("Gravity", *halo2::offsets::gravity, 0.005f, -FLT_MAX, +FLT_MAX, "%.5f", ImGuiSliderFlags_None);
+						if (ImGui::IsItemHovered())
+							ImGui::SetTooltip("The gravity, nuff said. Note: Not savable.");
+
 						ImGui::Checkbox("Redirect Print", &halo2::hooks::redirect_print);
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Redirects some engine printing functions to the console.");

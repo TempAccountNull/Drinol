@@ -16,12 +16,9 @@ void halo2::offsets::init()
 	//Blamscript type names.
 	hs_type_names = reinterpret_cast<engine::_hs_type_names*>(Memcury::Scanner::FindPattern(hs_type_names_aob_sig.c_str()).RelativeOffset(3).Get());
 
-	//TODO: it would be nice to dynamically fill the imgui menu with all possible globals and functions, instead of manually defining them like below.
-	//Blamscript Globals
-
-	//_terminal_printf function
+	//_terminal_printf engine function
 	void* terminal_printf_call_address = Memcury::Scanner::FindStringRef("get achievement: %i").GetAs<void*>();
 	_terminal_printf = Memcury::Scanner(terminal_printf_call_address).ScanFor({ Memcury::ASM::Mnemonic("CALL") }, true, 0).RelativeOffset(1).GetAs<void*>();
 
-	//Blamscript Functions TODO: Figure out a way to call these without crashing the game or having to hook into the main thread of the game.
+	gravity = Memcury::Scanner(game::get_hs_function("physics_set_gravity")).RelativeOffset(11).GetAs<float**>();
 }

@@ -99,7 +99,7 @@ void* halo1::game::get_eval_hs_function(const char* func_name)
 		}
 	}
 
-	spdlog::error("halo1::game::get_eval_hs_function:: function was not found");
+	spdlog::error("halo1::game::get_eval_hs_function: function was not found");
 	return nullptr;
 }
 
