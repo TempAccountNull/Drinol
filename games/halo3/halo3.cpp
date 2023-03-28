@@ -3,6 +3,7 @@
 #include "halo3_hooks.h"
 #include "halo3_offsets.h"
 #include "utils.h"
+#include "config/config.h"
 #include "memcury/memcury.h"
 #include "spdlog/spdlog.h"
 
@@ -15,12 +16,22 @@ void halo3::game::init() // Initialize hooks and shit for halo 1
 	offsets::init();
 
 	hooks::init();
+
+	//Load Settings
+	if (!config::halo3_load())
+	{
+		spdlog::error("Failed to load settings for Halo 3. Either the settings file does not exist or something bad has happened! You can ignore this error if you did not save it in the past.");
+	}
+	else
+	{
+		spdlog::info("Loaded settings for Halo 3.");
+	}
 }
 
 void halo3::game::deinit()
 {
 	hooks::deinit();
-	spdlog::info("Uninitialized Halo 2");
+	spdlog::info("Uninitialized Halo 3");
 }
 
 #if defined _DEBUG

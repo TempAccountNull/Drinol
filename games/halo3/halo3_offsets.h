@@ -21,6 +21,13 @@ namespace halo3
 		inline static std::string hs_external_globals_aob_sig;
 		inline static std::string hs_type_names_aob_sig;
 		inline static engine::physics_constants physics_constants;
+		inline static float* motion_blur_scale_y;
+		inline static float* motion_blur_scale_x;
+		inline static float* motion_blur_max_y;
+		inline static float* motion_blur_max_x;
+		inline static int* motion_blur_taps;
+		inline static float* motion_blur_center_falloff;
+		inline static float* motion_blur_expected_dt;
 		/**
 		 * \brief This only gets initialized when you are in-game.
 		 */

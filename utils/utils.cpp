@@ -100,6 +100,46 @@ void utils::save_running_game_settings()
 			return;
 		}
 	}
+
+	if (running_game == "Halo 3")
+	{
+		if (config::halo3_save())
+		{
+			spdlog::info("Saved settings for Halo 3!");
+			return;
+		}
+	}
+}
+
+// Loads the currently running games settings.
+void utils::load_running_game_settings()
+{
+	if (running_game == "Halo 1 Anniversary")
+	{
+		if (config::halo1_load())
+		{
+			spdlog::info("Loaded settings for Halo 1!");
+			return;
+		}
+	}
+
+	if (running_game == "Halo 2 Anniversary")
+	{
+		if (config::halo2_load())
+		{
+			spdlog::info("Loaded settings for Halo 2!");
+			return;
+		}
+	}
+
+	if (running_game == "Halo 3")
+	{
+		if (config::halo3_load())
+		{
+			spdlog::info("Loaded settings for Halo 3!");
+			return;
+		}
+	}
 }
 
 void utils::reset_running_game_settings()
@@ -135,6 +175,22 @@ void utils::reset_running_game_settings()
 
 		spdlog::info("Reset settings for Halo 2");
 	}
+
+	if (running_game == "Halo 3")
+	{
+		if (!config::halo3_create())
+		{
+			spdlog::error("Failed to create fresh settings for Halo 3!");
+			return;
+		}
+		if (!config::halo3_load())
+		{
+			spdlog::error("Failed to load fresh settings for Halo 3!");
+			return;
+		}
+
+		spdlog::info("Reset settings for Halo 3");
+	}
 }
 
 //https://github.com/citizenfx/fivem/blob/f3bb0460562b1eb1a7f9652ffcf73ad7282fd45e/code/client/shared/Hooking.h#L91-L113
@@ -168,11 +224,6 @@ char* utils::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex = NULL)
 
 void utils::test_func()
 {
-	//halo3::engine::physics_constants** blargh = reinterpret_cast<halo3::engine::physics_constants**>(get_tls(L"halo3.dll", 304));
-
-	//halo3::engine::physics_constants** blargh = reinterpret_cast<halo3::engine::physics_constants**>(get_tls(L"halo3.dll"));
-
-	DebugBreak();
 }
 
 #if defined _DEBUG

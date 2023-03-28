@@ -65,4 +65,19 @@ public:
  * \return true if loaded successfully
  */
 	static bool halo2_load();
+	/**
+ * \brief creates a new config file containing settings related to Halo 3.
+ * \return true if created successfully
+ */
+	static bool halo3_create();
+	/**
+* \brief saves to the config file containing settings related to Halo 3.
+* \return true if saved successfully
+*/
+	static bool halo3_save();
+	/**
+* \brief loads the config file containing settings related to Halo 3.
+* \return true if loaded successfully
+*/
+	static bool halo3_load();
 };

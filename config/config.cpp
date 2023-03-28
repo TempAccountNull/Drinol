@@ -25,11 +25,12 @@ inline const char* const bool_to_string(bool b)
 }
 
 //https://www.geeksforgeeks.org/convert-float-to-string-in-cpp/
-std::string float_to_string(float floaty)
+template<typename T>
+std::string to_string(T value)
 {
 	// Convert float to string
 	std::stringstream s;
-	s << floaty; // appending the float value to the streamclass
+	s << value; // appending the float value to the streamclass
 	return s.str(); //converting the float value to string
 }
 
@@ -261,7 +262,7 @@ bool config::halo1_save()
 
 	ini["Player"]["god_mode"] = bool_to_string(*halo1::offsets::god_mode);
 
-	ini["Game"]["ticks_per_second"] = float_to_string(*halo1::offsets::game_ticks_per_second);
+	ini["Game"]["ticks_per_second"] = to_string(*halo1::offsets::game_ticks_per_second);
 	ini["Game"]["motion_sensor_show_all_units"] = bool_to_string(*halo1::offsets::motion_sensor_show_all_units);
 	ini["Game"]["redirect_print"] = bool_to_string(halo1::hooks::redirect_print);
 
@@ -365,6 +366,80 @@ bool config::halo2_load()
 	// read a value
 
 	std::istringstream(ini.get("Game").get("redirect_print")) >> std::boolalpha >> halo2::hooks::redirect_print;
+
+	return true;
+}
+
+bool config::halo3_create()
+{
+	const mINI::INIFile file(config_folder + "\\Halo3.ini");
+
+	mINI::INIStructure ini;
+
+	// populate the structure
+
+	ini["Rendering"]["motion_blur_expected_dt"] = "0.03";
+	ini["Rendering"]["motion_blur_taps"] = "6";
+	ini["Rendering"]["motion_blur_max_x"] = "0.03";
+	ini["Rendering"]["motion_blur_max_y"] = "0.05";
+	ini["Rendering"]["motion_blur_scale_x"] = "0.05";
+	ini["Rendering"]["motion_blur_scale_y"] = "0.15";
+	ini["Rendering"]["motion_blur_center_falloff"] = "1.4";
+
+	// generate an INI file (overwrites any previous file)
+	if (!file.generate(ini, true))
+	{
+		// Failed to generate ini
+		return false;
+	}
+	return true;
+}
+
+bool config::halo3_save()
+{
+	const mINI::INIFile file(config_folder + "\\Halo3.ini");
+
+	mINI::INIStructure ini;
+
+	// populate the structure
+
+	ini["Rendering"]["motion_blur_expected_dt"] = to_string(*halo3::offsets::motion_blur_expected_dt);
+	ini["Rendering"]["motion_blur_taps"] = to_string<int>(*halo3::offsets::motion_blur_taps);
+	ini["Rendering"]["motion_blur_max_x"] = to_string(*halo3::offsets::motion_blur_max_x);
+	ini["Rendering"]["motion_blur_max_y"] = to_string(*halo3::offsets::motion_blur_max_y);
+	ini["Rendering"]["motion_blur_scale_x"] = to_string(*halo3::offsets::motion_blur_scale_x);
+	ini["Rendering"]["motion_blur_scale_y"] = to_string(*halo3::offsets::motion_blur_scale_y);
+	ini["Rendering"]["motion_blur_center_falloff"] = to_string(*halo3::offsets::motion_blur_center_falloff);
+	// write to the INI file (overwrites)
+	if (!file.write(ini, true))
+	{
+		// Failed to write ini
+		return false;
+	}
+	return true;
+}
+
+bool config::halo3_load()
+{
+	const mINI::INIFile file(config_folder + "\\Halo3.ini");
+
+	mINI::INIStructure ini;
+
+	if (!file.read(ini))
+	{
+		// Failed to read ini
+		return false;
+	}
+
+	// read a value
+
+	std::istringstream(ini.get("Rendering").get("motion_blur_expected_dt")) >> *halo3::offsets::motion_blur_expected_dt;
+	std::istringstream(ini.get("Rendering").get("motion_blur_taps")) >> *halo3::offsets::motion_blur_taps;
+	std::istringstream(ini.get("Rendering").get("motion_blur_max_x")) >> *halo3::offsets::motion_blur_max_x;
+	std::istringstream(ini.get("Rendering").get("motion_blur_max_y")) >> *halo3::offsets::motion_blur_max_y;
+	std::istringstream(ini.get("Rendering").get("motion_blur_scale_x")) >> *halo3::offsets::motion_blur_scale_x;
+	std::istringstream(ini.get("Rendering").get("motion_blur_scale_y")) >> *halo3::offsets::motion_blur_scale_y;
+	std::istringstream(ini.get("Rendering").get("motion_blur_center_falloff")) >> *halo3::offsets::motion_blur_center_falloff;
 
 	return true;
 }

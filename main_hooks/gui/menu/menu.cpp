@@ -18,6 +18,8 @@
 #include "games/haloreach/haloreach.h"
 #include "gui/gui.h"
 
+bool show_load_modal = false;
+
 bool show_save_modal = false;
 
 bool show_about_modal = false;
@@ -35,6 +37,7 @@ void menu::render()
 		{
 			if (!utils::running_game.empty())
 			{
+				if (ImGui::MenuItem("Load Game Changes")) { show_load_modal = true; }
 				if (ImGui::MenuItem("Save Game Changes")) { show_save_modal = true; }
 				if (ImGui::MenuItem("Restore Game Defaults")) { show_restore_defaults_modal = true; }
 			}
@@ -80,6 +83,7 @@ void menu::render()
 #endif
 
 		// TODO: ideally we should show all the games and just grey out the stuff you cant interact with if a certain game is not running
+#pragma region Halo 1 Menu
 		if (utils::running_game == "Halo 1 Anniversary")
 		{
 			if (ImGui::BeginTabItem("Halo 1"))
@@ -175,7 +179,9 @@ void menu::render()
 				ImGui::EndTabItem();
 			}
 		}
+#pragma endregion
 
+#pragma region Halo 2 Menu
 		if (utils::running_game == "Halo 2 Anniversary")
 		{
 			if (ImGui::BeginTabItem("Halo 2"))
@@ -217,7 +223,9 @@ void menu::render()
 				ImGui::EndTabItem();
 			}
 		}
+#pragma endregion
 
+#pragma region Halo 3 Menu
 		if (utils::running_game == "Halo 3")
 		{
 			if (ImGui::BeginTabItem("Halo 3"))
@@ -246,9 +254,19 @@ void menu::render()
 
 					if (ImGui::BeginTabItem("Rendering"))
 					{
-						/*	ImGui::Checkbox("Toggle HUD", halo3::offsets::toggle_hud);
-							if (ImGui::IsItemHovered())
-								ImGui::SetTooltip("Toggles the heads up display.");*/
+						ImGui::DragFloat("##motion_blur_scale_x", halo3::offsets::motion_blur_scale_x, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_scale_x: %.5f", ImGuiSliderFlags_None);
+
+						ImGui::DragFloat("##motion_blur_scale_y", halo3::offsets::motion_blur_scale_y, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_scale_y: %.5f", ImGuiSliderFlags_None);
+
+						ImGui::DragFloat("##motion_blur_max_x", halo3::offsets::motion_blur_max_x, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_max_x: %.5f", ImGuiSliderFlags_None);
+
+						ImGui::DragFloat("##motion_blur_max_y", halo3::offsets::motion_blur_max_y, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_max_y: %.5f", ImGuiSliderFlags_None);
+
+						ImGui::DragInt("##motion_blur_taps", halo3::offsets::motion_blur_taps, 1, 0, 100, "motion_blur_taps: %i", ImGuiSliderFlags_None);
+
+						ImGui::DragFloat("##motion_blur_center_falloff", halo3::offsets::motion_blur_center_falloff, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_center_falloff: %.5f", ImGuiSliderFlags_None);
+
+						ImGui::DragFloat("##motion_blur_expected_dt", halo3::offsets::motion_blur_expected_dt, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_expected_dt: %.5f", ImGuiSliderFlags_None);
 
 						ImGui::EndTabItem();
 					}
@@ -258,7 +276,9 @@ void menu::render()
 				ImGui::EndTabItem();
 			}
 		}
+#pragma endregion
 
+#pragma region Halo 3: ODST Menu
 		if (utils::running_game == "Halo 3: ODST")
 		{
 			if (ImGui::BeginTabItem("Halo 3: ODST"))
@@ -295,7 +315,9 @@ void menu::render()
 				ImGui::EndTabItem();
 			}
 		}
+#pragma endregion
 
+#pragma region Halo Reach
 		if (utils::running_game == "Halo Reach")
 		{
 			if (ImGui::BeginTabItem("Halo Reach"))
@@ -332,6 +354,7 @@ void menu::render()
 				ImGui::EndTabItem();
 			}
 		}
+#pragma endregion
 
 		ImGui::EndTabBar();
 	}
@@ -367,6 +390,33 @@ void menu::render()
 		if (ImGui::Button("OK", ImVec2(120, 0)))
 		{
 			utils::save_running_game_settings();
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::SetItemDefaultFocus();
+		ImGui::SameLine();
+		if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+		ImGui::EndPopup();
+	}
+
+	// Load confirmation modal
+
+	// Always center this window when appearing
+	center = ImGui::GetMainViewport()->GetCenter();
+	ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+	if (show_load_modal) // Yucky fix for not being able to open modals from menu bar entries: https://github.com/ocornut/imgui/issues/331#issuecomment-751372071
+	{
+		ImGui::OpenPopup("Load Changes?");
+		show_load_modal = false;
+	}
+
+	if (ImGui::BeginPopupModal("Load Changes?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Do you want to load changes from storage?");
+
+		if (ImGui::Button("OK", ImVec2(120, 0)))
+		{
+			utils::load_running_game_settings();
 			ImGui::CloseCurrentPopup();
 		}
 		ImGui::SetItemDefaultFocus();

@@ -27,6 +27,10 @@ public:
 */
 	static void save_running_game_settings();
 	/**
+* \brief Loads the currently running games settings.
+*/
+	static void load_running_game_settings();
+	/**
 * \brief Resets the currently running games settings.
 */
 	static void reset_running_game_settings();
