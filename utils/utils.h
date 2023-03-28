@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <framework.h>
 
 class utils
 {
@@ -29,6 +30,7 @@ public:
 * \brief Resets the currently running games settings.
 */
 	static void reset_running_game_settings();
+
 	/**
 	 * \brief debug function for testing stuff.
 	 */
@@ -38,13 +40,12 @@ public:
 	 * \brief lists some of the base addresses of the halo game dlls.
 	 */
 	static void list_game_base_addresses();
-	/**
-	 * \brief This gets the pointer from TLS
-	 * \param game_tls_index The number from the games tls pointer
-	 * \param TLSIndex The index of the function/pointer/variable/whatever
-	 * \return
-	 */
-	static uintptr_t get_tls_pointer(unsigned int game_tls_index, int TLSIndex);
-
 #endif
+	/**
+ * \brief This gets the pointer from TLS
+ * \param module_name the name of the dll/exe that you want to get the pointer from
+ * \param TLSFunctionIndex The index of the function/pointer/variable/whatever
+ * \return
+ */
+	static char* get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex);
 };

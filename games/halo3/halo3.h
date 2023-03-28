@@ -1,4 +1,5 @@
 #pragma once
+#include "halo3_engine.h"
 
 namespace halo3
 {
@@ -26,11 +27,9 @@ namespace halo3
 * \return the functions address
 */
 		static void* get_hs_function(const char* func_name, int to_skip = 1);
-		/**
-		 * \brief Checks if the game is in progress.
-		 * \return true if in progress
-		 */
-		static bool game_in_progress();
+		static engine::physics_constants* global_physics_constants_get();
+		static void set_gravity(float gravity);
+
 #if defined _DEBUG
 		static void test_function();
 		static void list_all_hs_functions();

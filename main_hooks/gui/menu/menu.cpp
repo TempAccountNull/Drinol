@@ -1,6 +1,9 @@
 // This is our custom menu.
 #include "menu.h"
 
+#include <framework.h>
+#include <ShellAPI.h>
+
 #include "imgui.h"
 #include "utils.h"
 #include "games/halo1/halo1.h"
@@ -238,10 +241,6 @@ void menu::render()
 #endif
 					if (ImGui::BeginTabItem("Game"))
 					{
-						ImGui::SliderFloat("##Gravity", &halo3::offsets::physics_constants.gravity, 0.005f, -FLT_MAX, "Gravity %.5f", ImGuiSliderFlags_None);
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("The gravity, nuff said. Note: Not savable.");
-
 						ImGui::EndTabItem();
 					}
 

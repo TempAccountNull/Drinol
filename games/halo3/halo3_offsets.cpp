@@ -6,9 +6,6 @@
 
 void halo3::offsets::init()
 {
-	// TLS Index
-	tls_index = Memcury::Scanner::FindPattern(tls_index_aob_sig.c_str()).RelativeOffset(3).GetAs<int*>();
-
 	//Blamscript Functions Table
 	hs_function_table = reinterpret_cast<engine::_hs_function_table*>(Memcury::Scanner::FindPattern(hs_function_table_aob_sig.c_str()).RelativeOffset(3).Get());
 
@@ -25,5 +22,5 @@ void halo3::offsets::init()
 
 void halo3::offsets::game_init()
 {
-	physics_constants = *reinterpret_cast<engine::physics_constants*>(utils::get_tls_pointer(*tls_index, 304));
+	//physics_constants = *reinterpret_cast<engine::physics_constants*>(utils::get_tls_pointer(*tls_index, 304));
 }

@@ -61,8 +61,8 @@ namespace halo3::engine // Engine related structs, etc
 	{
 	public:
 		float gravity; //0x0000
-		float N00000092; //0x0004
-		float N00000072; //0x0008
+		float water_density; //0x0004
+		float air_density; //0x0008
 		void** N00000099; //0x000C
 		uint32_t N00000073; //0x0014
 		char pad_0018[4]; //0x0018

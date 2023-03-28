@@ -20,7 +20,6 @@ namespace halo3
 		inline static std::string hs_function_table_aob_sig;
 		inline static std::string hs_external_globals_aob_sig;
 		inline static std::string hs_type_names_aob_sig;
-		inline static int* tls_index;
 		inline static engine::physics_constants physics_constants;
 		/**
 		 * \brief This only gets initialized when you are in-game.

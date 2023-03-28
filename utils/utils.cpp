@@ -137,36 +137,42 @@ void utils::reset_running_game_settings()
 	}
 }
 
+//https://github.com/citizenfx/fivem/blob/f3bb0460562b1eb1a7f9652ffcf73ad7282fd45e/code/client/shared/Hooking.h#L91-L113
+char* utils::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex = NULL)
+{
+	// ah, the irony in using TLS to get TLS
+	static auto tlsIndex = ([module_name]()
+		{
+			auto base = (char*)GetModuleHandleW(module_name);
+			auto moduleBase = (PIMAGE_DOS_HEADER)base;
+			auto ntBase = (PIMAGE_NT_HEADERS)(base + moduleBase->e_lfanew);
+			auto tlsBase = (PIMAGE_TLS_DIRECTORY)(base + ntBase->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_TLS].VirtualAddress);
+
+			return reinterpret_cast<uint32_t*>(tlsBase->AddressOfIndex);
+		})();
+
+#if defined(_M_IX86)
+		LPVOID* tlsBase = (LPVOID*)__readfsdword(0x2C);
+#elif defined(_M_AMD64)
+		LPVOID* tlsBase = (LPVOID*)__readgsqword(0x58);
+#endif
+		if (!TLSFunctionIndex)
+		{
+			return (char*)tlsBase[*tlsIndex];
+		}
+		else
+		{
+			return (char*)tlsBase[*tlsIndex] + TLSFunctionIndex;
+		}
+}
+
 void utils::test_func()
 {
-	if (!*halo3::offsets::tls_index)
-		spdlog::error("Error, shit happened");
+	//halo3::engine::physics_constants** blargh = reinterpret_cast<halo3::engine::physics_constants**>(get_tls(L"halo3.dll", 304));
 
-	//uintptr_t aaa = *(INT64*)(*((INT64*)NtCurrentTeb()->ThreadLocalStoragePointer + (unsigned int)*halo3::offsets::tls_index) + 304i64);
+	//halo3::engine::physics_constants** blargh = reinterpret_cast<halo3::engine::physics_constants**>(get_tls(L"halo3.dll"));
 
-	//spdlog::info("Correct Struct Pointer: {:x}", aaa);
-
-	//uintptr_t aaa2 = utils::get_tls_pointer(*halo3::offsets::tls_index, 304);
-
-	//spdlog::info("Struct Pointer: {:x}", aaa2);
-
-	//halo3::engine::physics_constants physics_constants = *reinterpret_cast<halo3::engine::physics_constants*>(utils::get_tls_pointer(*halo3::offsets::tls_index, 304));
-
-	//if (!physics_constants.gravity)
-	//{
-	//	spdlog::error("physics_constant not working");
-	//	return;
-	//}
-
-	//spdlog::info("Gravity: {:f}", physics_constants.gravity);
-
-	bool crap = false;
-
-	BYTE* v1 = reinterpret_cast<BYTE*>(get_tls_pointer(*halo3::offsets::tls_index, 72));
-	if (v1 && v1[0xFB70] && !*v1)
-		crap = v1[1] != 0;
-
-	spdlog::info("Crap = {}", crap);
+	DebugBreak();
 }
 
 #if defined _DEBUG
@@ -190,9 +196,3 @@ void utils::list_game_base_addresses()
 }
 
 #endif
-
-uintptr_t utils::get_tls_pointer(unsigned int game_tls_index, int TLSIndex)
-{
-	uintptr_t addr = *(INT64*)(*((INT64*)NtCurrentTeb()->ThreadLocalStoragePointer + (unsigned int)game_tls_index) + TLSIndex);
-	return addr;
-}
