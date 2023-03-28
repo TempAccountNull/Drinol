@@ -6,6 +6,7 @@ namespace halo3
 	{
 	public:
 		static void init();
+		static void deinit();
 		/**
 		 * \brief gets the address of a global that is used in the blamscript/haloscript scripting system.
 		 * \param global_name the name of the global.
@@ -25,6 +26,11 @@ namespace halo3
 * \return the functions address
 */
 		static void* get_hs_function(const char* func_name, int to_skip = 1);
+		/**
+		 * \brief Checks if the game is in progress.
+		 * \return true if in progress
+		 */
+		static bool game_in_progress();
 #if defined _DEBUG
 		static void test_function();
 		static void list_all_hs_functions();

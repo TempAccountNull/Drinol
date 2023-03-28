@@ -29,11 +29,22 @@ public:
 * \brief Resets the currently running games settings.
 */
 	static void reset_running_game_settings();
+	/**
+	 * \brief debug function for testing stuff.
+	 */
+	static void test_func();
 #if defined _DEBUG
 	/**
 	 * \brief lists some of the base addresses of the halo game dlls.
 	 */
 	static void list_game_base_addresses();
+	/**
+	 * \brief This gets the pointer from TLS
+	 * \param game_tls_index The number from the games tls pointer
+	 * \param TLSIndex The index of the function/pointer/variable/whatever
+	 * \return
+	 */
+	static uintptr_t get_tls_pointer(unsigned int game_tls_index, int TLSIndex);
 
 #endif
 };

@@ -18,7 +18,7 @@ static void terminal_printf_detour(int* a1, char* string, ...)
 
 		va_start(args, string);
 
-		vsnprintf(msgbuf, sizeof(msgbuf), string, args);  // NOLINT(cert-err33-c)
+		vsnprintf(msgbuf, sizeof msgbuf, string, args);  // NOLINT(cert-err33-c)
 
 		spdlog::info("[halo2] Print: {}", msgbuf);
 		va_end(args);

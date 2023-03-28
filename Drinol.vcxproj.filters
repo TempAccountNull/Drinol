@@ -111,6 +111,9 @@
     <ClCompile Include="games\halo2\halo2_hooks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="games\halo3\halo3_hooks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\subhook\subhook.h">
@@ -552,6 +555,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="games\halo2\halo2_hooks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\ntpebteb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo3\halo3_hooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -56,4 +56,17 @@ namespace halo3::engine // Engine related structs, etc
 		// 83 is the total number of types in this array TODO: Fetch this dynamically somehow?
 	}; //Size: 0x0298
 	static_assert(sizeof(_hs_type_names) == 0x298);
+
+	class physics_constants
+	{
+	public:
+		float gravity; //0x0000
+		float N00000092; //0x0004
+		float N00000072; //0x0008
+		void** N00000099; //0x000C
+		uint32_t N00000073; //0x0014
+		char pad_0018[4]; //0x0018
+		float N0000014A; //0x001C
+	}; //Size: 0x0020
+	static_assert(sizeof(physics_constants) == 0x28);
 }

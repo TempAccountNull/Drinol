@@ -2,7 +2,6 @@
 #include "config.h"
 
 #include "console.h"
-#include "framework.h"
 #include "games/halo1/halo1_offsets.h"
 #include "games/halo2/halo2_offsets.h"
 #include "games/halo3/halo3_offsets.h"
@@ -154,6 +153,8 @@ bool config::load_signatures()
 	halo3::offsets::hs_function_table_aob_sig = ini.get("Halo3").get("hs_function_table");
 	halo3::offsets::hs_external_globals_aob_sig = ini.get("Halo3").get("hs_external_globals");
 	halo3::offsets::hs_type_names_aob_sig = ini.get("Halo3").get("hs_type_names");
+	halo3::offsets::tls_index_aob_sig = ini.get("Halo3").get("tls_index");
+	halo3::offsets::game_in_progress_aob_sig = ini.get("Halo3").get("game_in_progress");
 
 	//Halo 3 ODST Sigs
 	halo3odst::offsets::hs_function_table_aob_sig = ini.get("Halo3ODST").get("hs_function_table");
@@ -195,6 +196,8 @@ bool config::create_new_signatures()
 	ini["Halo3"]["hs_function_table"] = "48 8D 35 ?? ?? ?? ?? 48 8B D5";
 	ini["Halo3"]["hs_external_globals"] = "48 8D 05 ?? ?? ?? ?? 48 0F BF D3";
 	ini["Halo3"]["hs_type_names"] = "48 8D 05 ?? ?? ?? ?? 4C 8B C3 48 8D 0D";
+	ini["Halo3"]["tls_index"] = "44 8B 05 ?? ?? ?? ?? 33 DB 65 48 8B 04 25 58 00 00 00 41 B9 38 00 00 00";
+	ini["Halo3"]["game_in_progress"] = "E8 ?? ?? ?? ?? 84 C0 74 13 B8 C8 00 00 00";
 
 	// Halo 3 ODST sigs
 	ini["Halo3ODST"]["hs_function_table"] = "48 8D 35 ?? ?? ?? ?? 48 8B D5";

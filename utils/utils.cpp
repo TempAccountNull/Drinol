@@ -18,6 +18,9 @@
 #include "config/config.h"
 #include "spdlog/spdlog.h"
 
+#include "ntpebteb.h"
+#include "games/halo3/halo3_offsets.h"
+
 void utils::handle_game_init(int game_number)
 {
 	switch (game_number) {
@@ -67,6 +70,12 @@ void utils::handle_game_deinit()
 	if (running_game == "Halo 2 Anniversary")
 	{
 		halo2::game::deinit();
+		return;
+	}
+
+	if (running_game == "Halo 3")
+	{
+		halo3::game::deinit();
 		return;
 	}
 }
@@ -128,6 +137,38 @@ void utils::reset_running_game_settings()
 	}
 }
 
+void utils::test_func()
+{
+	if (!*halo3::offsets::tls_index)
+		spdlog::error("Error, shit happened");
+
+	//uintptr_t aaa = *(INT64*)(*((INT64*)NtCurrentTeb()->ThreadLocalStoragePointer + (unsigned int)*halo3::offsets::tls_index) + 304i64);
+
+	//spdlog::info("Correct Struct Pointer: {:x}", aaa);
+
+	//uintptr_t aaa2 = utils::get_tls_pointer(*halo3::offsets::tls_index, 304);
+
+	//spdlog::info("Struct Pointer: {:x}", aaa2);
+
+	//halo3::engine::physics_constants physics_constants = *reinterpret_cast<halo3::engine::physics_constants*>(utils::get_tls_pointer(*halo3::offsets::tls_index, 304));
+
+	//if (!physics_constants.gravity)
+	//{
+	//	spdlog::error("physics_constant not working");
+	//	return;
+	//}
+
+	//spdlog::info("Gravity: {:f}", physics_constants.gravity);
+
+	bool crap = false;
+
+	BYTE* v1 = reinterpret_cast<BYTE*>(get_tls_pointer(*halo3::offsets::tls_index, 72));
+	if (v1 && v1[0xFB70] && !*v1)
+		crap = v1[1] != 0;
+
+	spdlog::info("Crap = {}", crap);
+}
+
 #if defined _DEBUG
 void utils::list_game_base_addresses()
 {
@@ -147,4 +188,11 @@ void utils::list_game_base_addresses()
 
 	spdlog::debug("Halo 4 base : {}", Memcury::PE::GetModuleBase());
 }
+
 #endif
+
+uintptr_t utils::get_tls_pointer(unsigned int game_tls_index, int TLSIndex)
+{
+	uintptr_t addr = *(INT64*)(*((INT64*)NtCurrentTeb()->ThreadLocalStoragePointer + (unsigned int)game_tls_index) + TLSIndex);
+	return addr;
+}
