@@ -20,7 +20,6 @@ namespace halo3
 		inline static std::string hs_function_table_aob_sig;
 		inline static std::string hs_external_globals_aob_sig;
 		inline static std::string hs_type_names_aob_sig;
-		inline static engine::physics_constants physics_constants;
 		inline static float* motion_blur_scale_y;
 		inline static float* motion_blur_scale_x;
 		inline static float* motion_blur_max_y;

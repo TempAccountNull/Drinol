@@ -189,6 +189,7 @@
     <ClInclude Include="games\haloreach\haloreach_engine.h" />
     <ClInclude Include="games\haloreach\haloreach_offsets.h" />
     <ClInclude Include="games\halo1\halo1_hooks.h" />
+    <ClInclude Include="games\engine.h" />
     <ClInclude Include="main_hooks\gui\gui.h" />
     <ClInclude Include="hooks\directx11\dx11.h" />
     <ClInclude Include="main_hooks\gui\menu\menu.h" />

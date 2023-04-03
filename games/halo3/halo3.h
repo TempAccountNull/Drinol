@@ -31,7 +31,7 @@ namespace halo3
 		 * \brief Gets the physics constants/globals
 		 * \return a struct containing them
 		 */
-		static engine::physics_constants* global_physics_constants_get();
+		static engine::s_physics_constants* global_physics_constants_get();
 
 #if defined _DEBUG
 		static void test_function();

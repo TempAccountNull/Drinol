@@ -563,5 +563,8 @@
     <ClInclude Include="games\halo3\halo3_hooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="games\engine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

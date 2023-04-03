@@ -37,6 +37,7 @@ void halo3::game::deinit()
 #if defined _DEBUG
 void halo3::game::test_function()
 {
+	global_physics_constants_get();
 }
 
 void halo3::game::list_all_hs_functions()
@@ -114,8 +115,8 @@ void* halo3::game::get_hs_function(const char* func_name, int to_skip)
 	return function;
 }
 
-halo3::engine::physics_constants* halo3::game::global_physics_constants_get()
+halo3::engine::s_physics_constants* halo3::game::global_physics_constants_get()
 {
-	auto physics_constants = reinterpret_cast<halo3::engine::physics_constants**>(utils::get_tls_pointer(L"halo3.dll", 304));
+	auto physics_constants = reinterpret_cast<halo3::engine::s_physics_constants**>(utils::get_tls_pointer(L"halo3.dll", 304));
 	return *physics_constants;
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include <cstdint>
 
+#include "games/engine.h"
+
 namespace halo3::engine // Engine related structs, etc
 {
 	// search the string: hs_doc.txt to find the functions that contain the amount of globals, and functions
@@ -57,16 +59,15 @@ namespace halo3::engine // Engine related structs, etc
 	}; //Size: 0x0298
 	static_assert(sizeof(_hs_type_names) == 0x298);
 
-	class physics_constants
+	// Thanks to https://github.com/matty45/Drinol/commit/e454d79474b7923d0fc507a5efba6ddf705679f5#commitcomment-106396372
+	struct s_physics_constants
 	{
-	public:
-		float gravity; //0x0000
-		float water_density; //0x0004
-		float air_density; //0x0008
-		void** N00000099; //0x000C
-		uint32_t N00000073; //0x0014
-		char pad_0018[4]; //0x0018
-		float N0000014A; //0x001C
-	}; //Size: 0x0020
-	static_assert(sizeof(physics_constants) == 0x28);
+		real gravity;
+		real water_density;
+		real air_density;
+		real_vector3d velocity_frame;
+		long character_ground_adhesion_forces_enable_time;
+		real lip_surface_maximum_k;
+	};
+	static_assert(sizeof(s_physics_constants) == 0x20);
 }

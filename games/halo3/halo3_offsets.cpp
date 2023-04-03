@@ -31,11 +31,3 @@ void halo3::offsets::game_init()
 {
 	//physics_constants = *reinterpret_cast<engine::physics_constants*>(utils::get_tls_pointer(*tls_index, 304));
 }
-
-//[2023 - 03 - 28 04:22 : 44.214][info] motion_blur_expected_dt: 0.03
-//[2023 - 03 - 28 04:22 : 44.214][info] motion_blur_taps : 6
-//[2023 - 03 - 28 04:22 : 44.214][info] motion_blur_max_x : 0.03
-//[2023 - 03 - 28 04:22 : 44.214][info] motion_blur_max_y : 0.05
-//[2023 - 03 - 28 04:22 : 44.215][info] motion_blur_scale_x : 0.05
-//[2023 - 03 - 28 04:22 : 44.215][info] motion_blur_scale_y : 0.15
-//[2023 - 03 - 28 04:22 : 44.215][info] motion_blur_center_falloff : 1.4
