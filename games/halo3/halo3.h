@@ -34,7 +34,6 @@ namespace halo3
 		static engine::s_physics_constants* global_physics_constants_get();
 
 #if defined _DEBUG
-		static void test_function();
 		static void list_all_hs_functions();
 		static void list_all_hs_globals();
 #endif
