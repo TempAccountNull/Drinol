@@ -7,8 +7,11 @@
 #include "halo1_offsets.h"
 #include <spdlog/spdlog.h>
 
+#include "detour.h"
+
 static void (*terminal_printf_og)(int* a1, char* string, ...);
 
+detour terminal_printf_h1;
 static void terminal_printf_detour(int* a1, char* string, ...)
 {
 	if (halo1::hooks::redirect_print)
@@ -24,22 +27,17 @@ static void terminal_printf_detour(int* a1, char* string, ...)
 		va_end(args);
 	}
 
-	return terminal_printf_og(a1, string);
+	return terminal_printf_h1.stub<void>(a1, string);
 }
 
 void halo1::hooks::init()
 {
-	MH_STATUS _terminal_printf_hook = MH_CreateHook(offsets::_terminal_printf, &terminal_printf_detour, reinterpret_cast <LPVOID*> (&terminal_printf_og));
-	if (_terminal_printf_hook != MH_OK) {
-		spdlog::error("Error hooking _terminal_printf: {}", static_cast<int>(_terminal_printf_hook));
-	}
-
-	MH_QueueEnableHook(offsets::_terminal_printf);
+	terminal_printf_h1.create(reinterpret_cast<uintptr_t>(offsets::_terminal_printf), terminal_printf_detour);
 	MH_ApplyQueued();
 }
 
 void halo1::hooks::deinit()
 {
-	MH_QueueDisableHook(offsets::_terminal_printf);
+	terminal_printf_h1.disable();
 	MH_ApplyQueued();
 }

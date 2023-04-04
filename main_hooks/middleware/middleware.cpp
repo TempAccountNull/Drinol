@@ -5,6 +5,7 @@
 #include <Memcury/memcury.h>
 #include <minhook/include/MinHook.h>
 
+#include "detour.h"
 #include "utils.h"
 #include "spdlog/spdlog.h"
 
@@ -20,13 +21,14 @@ static void (*start_game_engine_og)(struct_game a1, int game_number);
 
 bool game_running = false;
 
+detour start_game_engine;
 static void __fastcall start_game_engine_detour(struct_game a1, int game_number)
 {
 	//TODO: There is probably a better way to find the currently running game in memory, more research required.
 
 	//Check if the game is already running
 	if (a1.number == game_number)
-		return start_game_engine_og(a1, game_number);
+		return start_game_engine.stub<void>(a1, game_number);
 
 	// If this gets triggered, something is wrong.
 	assert(game_number <= 6);
@@ -37,11 +39,12 @@ static void __fastcall start_game_engine_detour(struct_game a1, int game_number)
 		utils::handle_game_init(game_number);
 	}
 
-	return start_game_engine_og(a1, game_number);
+	return start_game_engine.stub<void>(a1, game_number);
 }
 
 static __int64 (*UICommandOverlayPush_og)(INT64 a1, char* a2, int a3);
 
+detour  ui_command_overlay_push;
 static __int64 __fastcall ui_command_overlay_push_detour(INT64 a1, char* a2, int a3)
 {
 	if (strcmp(a2, "RestartScreen") == 0 || strcmp(a2, "GlobalOverlay") == 0)
@@ -56,35 +59,26 @@ static __int64 __fastcall ui_command_overlay_push_detour(INT64 a1, char* a2, int
 			utils::handle_game_deinit();
 			utils::running_game.clear();
 		}
-		return UICommandOverlayPush_og(a1, a2, a3);
+		return ui_command_overlay_push.stub<__int64>(a1, a2, a3);
 	}
 
 	if (strcmp(a2, "LoadingScreen") == 0)
 	{
 		game_running = true;
-		return UICommandOverlayPush_og(a1, a2, a3);
+		return ui_command_overlay_push.stub<__int64>(a1, a2, a3);
 	}
 
-	return UICommandOverlayPush_og(a1, a2, a3);
+	return ui_command_overlay_push.stub<__int64>(a1, a2, a3);
 }
 
 void middleware::init()
 {
 	void* start_game_engine_t = Memcury::Scanner::FindPattern(start_game_engine_t_aob_sig.c_str()).FindFunctionBoundary(false).GetAs<void*>();
 
-	MH_STATUS start_game_engine_hook = MH_CreateHook(start_game_engine_t, &start_game_engine_detour, reinterpret_cast <LPVOID*> (&start_game_engine_og));
-	if (start_game_engine_hook != MH_OK) {
-		spdlog::error("Error hooking start_game_engine: {}", static_cast<int>(start_game_engine_hook));
-	}
-
 	void* UICommandOverlayPush_t = Memcury::Scanner::FindPattern(UICommandOverlayPush_t_aob_sig.c_str()).FindFunctionBoundary(false).GetAs<void*>();
 
-	auto UICommandOverlayPush_hook = MH_CreateHook(UICommandOverlayPush_t, &ui_command_overlay_push_detour, reinterpret_cast <LPVOID*> (&UICommandOverlayPush_og));
-	if (UICommandOverlayPush_hook != MH_OK) {
-		spdlog::error("Error hooking UICommandOverlayPush: {}", static_cast<int>(UICommandOverlayPush_hook));
-	}
+	start_game_engine.create(reinterpret_cast<uintptr_t>(start_game_engine_t), start_game_engine_detour);
+	ui_command_overlay_push.create(reinterpret_cast<uintptr_t>(UICommandOverlayPush_t), ui_command_overlay_push_detour);
 
-	MH_QueueEnableHook(start_game_engine_t);
-	MH_QueueEnableHook(UICommandOverlayPush_t);
 	MH_ApplyQueued();
 }

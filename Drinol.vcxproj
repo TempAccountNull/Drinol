@@ -43,6 +43,7 @@
     <ClCompile Include="main_hooks\gui\gui.cpp" />
     <ClCompile Include="main_hooks\gui\menu\menu.cpp" />
     <ClCompile Include="main_hooks\middleware\middleware.cpp" />
+    <ClCompile Include="utils\detour.cpp" />
     <ClCompile Include="utils\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +195,7 @@
     <ClInclude Include="hooks\directx11\dx11.h" />
     <ClInclude Include="main_hooks\gui\menu\menu.h" />
     <ClInclude Include="main_hooks\middleware\middleware.h" />
+    <ClInclude Include="utils\detour.h" />
     <ClInclude Include="utils\ntpebteb.h" />
     <ClInclude Include="utils\utils.h" />
   </ItemGroup>

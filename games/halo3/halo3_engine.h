@@ -70,4 +70,10 @@ namespace halo3::engine // Engine related structs, etc
 		real lip_surface_maximum_k;
 	};
 	static_assert(sizeof(s_physics_constants) == 0x20);
+
+	enum game_tls_index // TLS indexes used in Halo 3
+	{
+		in_progress = 72,
+		physics_constants = 304,
+	};
 }

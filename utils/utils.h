@@ -44,6 +44,12 @@ public:
 	 * \brief lists some of the base addresses of the halo game dlls.
 	 */
 	static void list_game_base_addresses();
+
+	/**
+	 * \brief backtraces a function
+	 * \param func
+	 */
+	static void backtrace(const char* func);
 #endif
 	/**
  * \brief This gets the pointer from TLS

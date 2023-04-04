@@ -19,7 +19,6 @@
 #include "spdlog/spdlog.h"
 
 #include "ntpebteb.h"
-#include "games/halo3/halo3_offsets.h"
 
 void utils::handle_game_init(int game_number)
 {
@@ -247,3 +246,19 @@ void utils::list_game_base_addresses()
 }
 
 #endif
+
+void utils::backtrace(const char* func) {
+	const int trace_count = 15;
+	void* trace_back[trace_count];
+	DWORD hash;
+	RtlCaptureStackBackTrace(1, trace_count, trace_back, &hash);
+	spdlog::info("%s callstack: ", func);
+	for (int i = 0; i < trace_count; i++) {
+		if (i == trace_count - 1) {
+			spdlog::info("%p\n", (uintptr_t)trace_back[i]);
+		}
+		else {
+			spdlog::info("%p:", (uintptr_t)trace_back[i]);
+		}
+	}
+}

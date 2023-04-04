@@ -235,9 +235,6 @@ void menu::render()
 #if defined _DEBUG
 					if (ImGui::BeginTabItem("Debug"))
 					{
-						if (ImGui::Button("Trigger Test Function"))
-							halo3::game::test_function();
-
 						if (ImGui::Button("Print all blamscript functions."))
 							halo3::game::list_all_hs_functions();
 

@@ -113,6 +113,6 @@ void* halo3::game::get_hs_function(const char* func_name, int to_skip)
 
 halo3::engine::s_physics_constants* halo3::game::global_physics_constants_get()
 {
-	auto physics_constants = reinterpret_cast<engine::s_physics_constants**>(utils::get_tls_pointer(L"halo3.dll", 304));
+	auto physics_constants = reinterpret_cast<engine::s_physics_constants**>(utils::get_tls_pointer(L"halo3.dll", engine::game_tls_index::physics_constants));
 	return *physics_constants;
 }
