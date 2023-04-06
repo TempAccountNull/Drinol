@@ -26,7 +26,7 @@ All you have to do now is open Drinol.sln in the new folder and build it inside 
  - **theTwist84**: Halo 3 struct information
  - **OhItsDiiTz#1337**: detour.h and cpp
 
-## Contributors
+## Contributors:
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
