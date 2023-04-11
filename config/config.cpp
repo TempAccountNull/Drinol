@@ -17,8 +17,6 @@
 #include "games/halo2/halo2_hooks.h"
 #include "logging/logging.h"
 
-//TODO: make spdlog log level configurable!
-
 //https://stackoverflow.com/a/29798
 inline const char* const bool_to_string(bool b)
 {
