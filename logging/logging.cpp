@@ -6,7 +6,14 @@ void logging::init()
 	{
 		std::vector<spdlog::sink_ptr> sinks;
 		sinks.push_back(std::make_shared<spdlog::sinks::stderr_color_sink_mt>());
-		sinks.push_back(std::make_shared<spdlog::sinks::daily_file_sink_mt>("Drinol/logs/drinol.txt", 23, 59));
+
+#if defined _DEBUG
+		const char* file_path = "Drinol/logs/drinol_debug.txt";
+#else
+		const char* file_path = "Drinol/logs/drinol_release.txt";
+#endif
+
+		sinks.push_back(std::make_shared<spdlog::sinks::daily_file_sink_mt>(file_path, 23, 59));
 		auto _logger = std::make_shared<spdlog::logger>("Drinol", begin(sinks), end(sinks));
 
 		// Gets log level from config and sets it. (also some sanity checks)
