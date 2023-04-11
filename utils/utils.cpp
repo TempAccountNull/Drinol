@@ -1,24 +1,4 @@
-#include "utils.h"
-
-#include <cassert>
-
-#include "games/halo1/halo1.h"
-
-#include "games/halo2/halo2.h"
-
-#include "games/halo3/halo3.h"
-
-#include "games/halo3odst/halo3odst.h"
-#include "games/haloreach/haloreach.h"
-
-#if defined _DEBUG
-#include "Memcury/memcury.h"
-#endif
-
-#include "config/config.h"
-#include "spdlog/spdlog.h"
-
-#include "ntpebteb.h"
+#include "stdafx.h"
 
 void utils::handle_game_init(int game_number)
 {
@@ -193,7 +173,7 @@ void utils::reset_running_game_settings()
 }
 
 //https://github.com/citizenfx/fivem/blob/f3bb0460562b1eb1a7f9652ffcf73ad7282fd45e/code/client/shared/Hooking.h#L91-L113
-char* utils::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex = NULL)
+char* utils::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
 {
 	// ah, the irony in using TLS to get TLS
 	static auto tlsIndex = ([module_name]()
@@ -221,8 +201,26 @@ char* utils::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex = NULL)
 		}
 }
 
-void utils::test_func()
+auto player_mapping_next_active_input_user(int arg) -> unsigned int {
+	auto stub = reinterpret_cast<unsigned int(*)(int)>(reinterpret_cast<UINT_PTR>(GetModuleHandle(L"halo3.dll") + 0x0E2C24));
+	return stub(arg);
+}
+
+auto object_delete(int arg) -> __int64 {
+	auto stub = reinterpret_cast<__int64(*)(int)>(reinterpret_cast<UINT_PTR>(GetModuleHandle(L"halo3.dll") + 0x3358B8));
+	return stub(arg);
+}
+
+void utils::test_func(int test_int)
 {
+	uintptr_t test = halo3::game::get_object(test_int);
+
+	spdlog::info("Object Ptr: 0x{:x} - Object Index: {}", test, test_int);
+
+	if (test)
+	{
+		object_delete(test_int);
+	}
 }
 
 #if defined _DEBUG
@@ -252,13 +250,13 @@ void utils::backtrace(const char* func) {
 	void* trace_back[trace_count];
 	DWORD hash;
 	RtlCaptureStackBackTrace(1, trace_count, trace_back, &hash);
-	spdlog::info("%s callstack: ", func);
+	printf("%s callstack: ", func);
 	for (int i = 0; i < trace_count; i++) {
 		if (i == trace_count - 1) {
-			spdlog::info("%p\n", (uintptr_t)trace_back[i]);
+			printf("%p\n", (uintptr_t)trace_back[i]);
 		}
 		else {
-			spdlog::info("%p:", (uintptr_t)trace_back[i]);
+			printf("%p:", (uintptr_t)trace_back[i]);
 		}
 	}
 }
