@@ -15,6 +15,7 @@
 
 #include "games/halo1/halo1_hooks.h"
 #include "games/halo2/halo2_hooks.h"
+#include "logging/logging.h"
 
 //TODO: make spdlog log level configurable!
 
@@ -54,11 +55,9 @@ bool config::load_main_settings()
 
 	std::istringstream(ini.get("console").get("consolewindow")) >> std::boolalpha >> console::enabled;
 
-	std::istringstream(ini.get("console").get("logtofile")) >> std::boolalpha >> console::log_to_file;
-
 	std::istringstream(ini.get("console").get("imguiconsole")) >> std::boolalpha >> menu::console_enabled;
 
-	//std::string level = ini.get("Console").get("loglevel");
+	logging::log_level = std::stoi(ini.get("Console").get("loglevel"));
 
 	return true;
 }
@@ -94,7 +93,7 @@ bool config::create_new_main_settings()
 	ini["Console"]["imguiconsole"] = "false";
 	ini["Console"]["logtofile"] = "false";
 
-	//ini["Console"]["loglevel"] = "trace";
+	ini["Console"]["loglevel"] = "0";
 
 	//ini["Middleware"];
 

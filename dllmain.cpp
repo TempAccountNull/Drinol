@@ -11,6 +11,7 @@
 #include "spdlog/logger.h"
 
 #include "console.h"
+#include "logging/logging.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/basic_file_sink.h"
 
@@ -56,28 +57,13 @@ void drinol_init()
 		}
 	}
 
-	if (console::log_to_file)
-	{
-		try
-		{
-			std::shared_ptr<spdlog::logger> logger = spdlog::basic_logger_mt("Drinol", "Drinol/logs/log.txt");
-			logger->flush_on(spdlog::level::info);
-			set_default_logger(logger);
-		}
-		catch (const spdlog::spdlog_ex& ex)
-		{
-			std::string error = "Could not log to a file: ";
-			error += ex.what();
-
-			MessageBoxA(NULL, error.c_str(), "Drinol Error!", 0);
-		}
-	}
-
 	if (console::enabled)
 	{
 		// Initialize debug console.
 		console::init();
 	}
+
+	logging::init();
 
 	spdlog::info("Drinol is loading.");
 
