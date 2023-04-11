@@ -15,7 +15,7 @@ bool detour::create(uintptr_t location, void* function) {
 		this->_function = function;
 		if (MH_CreateHook(reinterpret_cast<void*>(this->_location), this->_function, &this->_stub) == MH_OK) {
 			if (this->enable()) {
-				spdlog::debug("hook created at 0x{} going to 0x{}", this->_location, this->_function);
+				spdlog::debug("hook created at 0x{:X} going to {}", this->_location, this->_function);
 			}
 		}
 	}

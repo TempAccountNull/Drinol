@@ -215,7 +215,7 @@ void utils::test_func(int test_int)
 {
 	uintptr_t test = halo3::game::get_object(test_int);
 
-	spdlog::info("Object Ptr: 0x{:x} - Object Index: {}", test, test_int);
+	spdlog::info("Object Ptr: 0x{:X} - Object Index: {}", test, test_int);
 
 	if (test)
 	{
@@ -243,8 +243,6 @@ void utils::list_game_base_addresses()
 	spdlog::debug("Halo 4 base : {}", Memcury::PE::GetModuleBase());
 }
 
-#endif
-
 void utils::backtrace(const char* func) {
 	const int trace_count = 15;
 	void* trace_back[trace_count];
@@ -260,3 +258,5 @@ void utils::backtrace(const char* func) {
 		}
 	}
 }
+
+#endif
