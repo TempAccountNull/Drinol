@@ -228,19 +228,19 @@ void utils::list_game_base_addresses()
 {
 	Memcury::Scanner::SetTargetModule("halo1.dll");
 
-	spdlog::debug("Halo 1 base : {}", Memcury::PE::GetModuleBase());
+	spdlog::debug("Halo 1 base : 0x{:X}", Memcury::PE::GetModuleBase());
 
 	Memcury::Scanner::SetTargetModule("halo2.dll");
 
-	spdlog::debug("Halo 2 base : {}", Memcury::PE::GetModuleBase());
+	spdlog::debug("Halo 2 base : 0x{:X}", Memcury::PE::GetModuleBase());
 
 	Memcury::Scanner::SetTargetModule("halo3.dll");
 
-	spdlog::debug("Halo 3 base : {}", Memcury::PE::GetModuleBase());
+	spdlog::debug("Halo 3 base : 0x{:X}", Memcury::PE::GetModuleBase());
 
 	Memcury::Scanner::SetTargetModule("halo4.dll");
 
-	spdlog::debug("Halo 4 base : {}", Memcury::PE::GetModuleBase());
+	spdlog::debug("Halo 4 base : 0x{:X}", Memcury::PE::GetModuleBase());
 }
 
 void utils::backtrace(const char* func) {
