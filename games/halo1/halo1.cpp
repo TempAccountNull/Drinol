@@ -13,7 +13,7 @@ void halo1::game::init() // Initialize hooks and shit for halo 1
 	//Load Settings
 	if (!config::halo1_load())
 	{
-		spdlog::error("Failed to load settings for Halo 1. Either the settings file does not exist or something bad has happened! You can ignore this error if you did not save it in the past.");
+		spdlog::error("Failed to load settings for Halo 1.\nEither the settings file does not exist or something bad has happened!\nYou can ignore this error if you did not save it in the past.");
 	}
 	else
 	{
