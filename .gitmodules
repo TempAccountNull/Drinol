@@ -17,3 +17,6 @@
 [submodule "dependencies/imgui-notify"]
 	path = dependencies/imgui-notify
 	url = https://github.com/patrickcjk/imgui-notify.git
+[submodule "dependencies/ImTerm"]
+	path = dependencies/ImTerm
+	url = https://github.com/Organic-Code/ImTerm.git
