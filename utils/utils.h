@@ -38,7 +38,7 @@ public:
 	/**
 	 * \brief debug function for testing stuff.
 	 */
-	static void test_func();
+	static void test_func(int test_int = 0);
 #if defined _DEBUG
 	/**
 	 * \brief lists some of the base addresses of the halo game dlls.
@@ -57,5 +57,5 @@ public:
  * \param TLSFunctionIndex The index of the function/pointer/variable/whatever
  * \return
  */
-	static char* get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex);
+	static char* get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex = NULL);
 };
