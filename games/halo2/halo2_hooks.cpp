@@ -1,15 +1,4 @@
-#include "halo2_hooks.h"
-
-#include <cstdio>
-#include <minhook/include/MinHook.h>
-
-#include "framework.h"
-#include "halo2_offsets.h"
-#include <spdlog/spdlog.h>
-
-#include "detour.h"
-
-static void (*terminal_printf_og)(int* a1, char* string, ...);
+#include "stdafx.h"
 
 detour terminal_printf;
 static void terminal_printf_detour(int* a1, char* string, ...)

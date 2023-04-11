@@ -1,21 +1,5 @@
 // This is used for the management of config files, etc
-#include "config.h"
-
-#include "console.h"
-#include "games/halo1/halo1_offsets.h"
-#include "games/halo2/halo2_offsets.h"
-#include "games/halo3/halo3_offsets.h"
-#include "games/halo3odst/halo3odst_offsets.h"
-#include "games/haloreach/haloreach_offsets.h"
-#include "gui/gui.h"
-#include "gui/menu/menu.h"
-#include "middleware/middleware.h"
-#include "mINI/src/mini/ini.h"
-#include <spdlog/spdlog.h>
-
-#include "games/halo1/halo1_hooks.h"
-#include "games/halo2/halo2_hooks.h"
-#include "logging/logging.h"
+#include "stdafx.h"
 
 //https://stackoverflow.com/a/29798
 inline const char* const bool_to_string(bool b)

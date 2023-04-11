@@ -1,10 +1,4 @@
-#include "halo1.h"
-
-#include "halo1_hooks.h"
-#include "halo1_offsets.h"
-#include "config/config.h"
-#include "memcury/memcury.h"
-#include "spdlog/spdlog.h"
+#include "stdafx.h"
 
 void halo1::game::init() // Initialize hooks and shit for halo 1
 {
@@ -12,9 +6,9 @@ void halo1::game::init() // Initialize hooks and shit for halo 1
 
 	Memcury::Scanner::SetTargetModule("halo1.dll");
 
-	offsets::init();
+	halo1::offsets::init();
 
-	hooks::init();
+	halo1::hooks::init();
 
 	//Load Settings
 	if (!config::halo1_load())
@@ -29,7 +23,7 @@ void halo1::game::init() // Initialize hooks and shit for halo 1
 
 void halo1::game::deinit()
 {
-	hooks::deinit();
+	halo1::hooks::deinit();
 	spdlog::info("Uninitialized Halo 1");
 }
 
@@ -41,9 +35,9 @@ void halo1::game::test_function()
 void halo1::game::list_all_hs_functions()
 {
 	spdlog::info("Printing all eval functions inside the blamscript function table.");
-	for (engine::hs_script_op* function : offsets::hs_function_table->table)
+	for (halo1::engine::hs_script_op* function : halo1::offsets::hs_function_table->table)
 	{
-		spdlog::info("[HS Function] Return Type: {} Name: {} Address: {}", offsets::hs_type_names->types[function->return_type], function->name, function->evaluate_func);
+		spdlog::info("[HS Function] Return Type: {} Name: {} Address: {}", halo1::offsets::hs_type_names->types[function->return_type], function->name, function->evaluate_func);
 	}
 	spdlog::info("Finished printing out the functions.");
 }
@@ -51,10 +45,10 @@ void halo1::game::list_all_hs_functions()
 void halo1::game::list_all_hs_globals()
 {
 	spdlog::info("Printing all globals inside the blamscript globals table.");
-	for (engine::hs_external_global* global : offsets::hs_external_globals->globals)
+	for (halo1::engine::hs_external_global* global : halo1::offsets::hs_external_globals->globals)
 		if (global->address != nullptr) // Check if globals functionality has not been stripped from retail.
 		{
-			spdlog::info("[HS Global] Name: {} Address: {} Parameter Type: {}", global->name, global->address, offsets::hs_type_names->types[global->param_type]);
+			spdlog::info("[HS Global] Name: {} Address: {} Parameter Type: {}", global->name, global->address, halo1::offsets::hs_type_names->types[global->param_type]);
 		}
 	spdlog::info("Finished printing out the globals.");
 }
@@ -63,7 +57,7 @@ void halo1::game::list_all_hs_globals()
 
 void* halo1::game::get_hs_global(const char* global_name) // Gets the address of the specified global.
 {
-	for (const engine::hs_external_global* global : offsets::hs_external_globals->globals)
+	for (const halo1::engine::hs_external_global* global : halo1::offsets::hs_external_globals->globals)
 	{
 		if (strcmp(global->name, global_name) == 0)
 		{
@@ -84,7 +78,7 @@ void* halo1::game::get_hs_global(const char* global_name) // Gets the address of
 
 void* halo1::game::get_eval_hs_function(const char* func_name)
 {
-	for (const engine::hs_script_op* function : offsets::hs_function_table->table)
+	for (const halo1::engine::hs_script_op* function : halo1::offsets::hs_function_table->table)
 	{
 		if (strcmp(function->name, func_name) == 0)
 		{

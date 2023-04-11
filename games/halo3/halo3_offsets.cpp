@@ -1,8 +1,4 @@
-#include "halo3_offsets.h"
-
-#include "halo3.h"
-#include "Memcury/memcury.h"
-#include <utils.h>
+#include "stdafx.h"
 
 void halo3::offsets::init()
 {

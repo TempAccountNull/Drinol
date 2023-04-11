@@ -1,13 +1,5 @@
 // This has function hooks and other things related to the games UE4 middleware.
-#include "middleware.h"
-
-#include <cassert>
-#include <Memcury/memcury.h>
-#include <minhook/include/MinHook.h>
-
-#include "detour.h"
-#include "utils.h"
-#include "spdlog/spdlog.h"
+#include "stdafx.h"
 
 //Crappily reverse engineered struct from the MCC UE4 binary.
 typedef struct {
@@ -16,8 +8,6 @@ typedef struct {
 	DWORD  unkdword;
 	int  number; // Games index number (a number between 0 and 6)
 }struct_game;
-
-static void (*start_game_engine_og)(struct_game a1, int game_number);
 
 bool game_running = false;
 
@@ -41,8 +31,6 @@ static void __fastcall start_game_engine_detour(struct_game a1, int game_number)
 
 	return start_game_engine.stub<void>(a1, game_number);
 }
-
-static __int64 (*UICommandOverlayPush_og)(INT64 a1, char* a2, int a3);
 
 detour  ui_command_overlay_push;
 static __int64 __fastcall ui_command_overlay_push_detour(INT64 a1, char* a2, int a3)

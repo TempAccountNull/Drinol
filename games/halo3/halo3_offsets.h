@@ -15,7 +15,6 @@ namespace halo3
 		inline static void* hs_null_evaluate;
 		inline static bool* toggle_hud;
 		inline static void* game_in_progress;
-		inline static std::string tls_index_aob_sig;
 		inline static std::string game_in_progress_aob_sig;
 		inline static std::string hs_function_table_aob_sig;
 		inline static std::string hs_external_globals_aob_sig;

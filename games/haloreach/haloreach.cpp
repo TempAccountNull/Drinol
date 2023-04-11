@@ -1,8 +1,4 @@
-#include "haloreach.h"
-
-#include "haloreach_offsets.h"
-#include "memcury/memcury.h"
-#include "spdlog/spdlog.h"
+#include "stdafx.h"
 
 void haloreach::game::init() // Initialize hooks and shit for halo 1
 {

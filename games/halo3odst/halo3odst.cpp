@@ -1,8 +1,4 @@
-#include "halo3odst.h"
-
-#include "halo3odst_offsets.h"
-#include "memcury/memcury.h"
-#include "spdlog/spdlog.h"
+#include "stdafx.h"
 
 void halo3odst::game::init() // Initialize hooks and shit for halo 1
 {

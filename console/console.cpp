@@ -1,11 +1,5 @@
-//TODO: maby account for CppClangTidyCertErr33C?
 // This is for output and console related stuff.
-#include "console.h"
-
-#include <cstdio>
-#include <memory>
-
-#include "framework.h"
+#include "stdafx.h"
 
 void console::init()
 {

@@ -33,6 +33,12 @@ namespace halo3
 		 */
 		static engine::s_physics_constants* global_physics_constants_get();
 
+		/**
+ * \brief Gets a handle of an object
+ * \return object handle
+ */
+		static uintptr_t get_object(int object_index);
+
 #if defined _DEBUG
 		static void list_all_hs_functions();
 		static void list_all_hs_globals();

@@ -1,13 +1,4 @@
-#include "logging.h"
-
-#include <iostream>
-#include <ostream>
-
-#include "config/config.h"
-#include "spdlog/spdlog.h"
-#include "spdlog/cfg/env.h"
-#include "spdlog/sinks/daily_file_sink.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
+#include "stdafx.h"
 
 void logging::init()
 {

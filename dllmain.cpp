@@ -1,19 +1,4 @@
-#include <iostream>
-#include <minhook/include/MinHook.h>
-
-#include "utils.h"
-#include "config/config.h"
-#include "gui/gui.h"
-#include "middleware/middleware.h"
-
-//TODO: possibly make the console appear in the release build or have it inside the menu?
-
-#include "spdlog/logger.h"
-
-#include "console.h"
-#include "logging/logging.h"
-#include "spdlog/spdlog.h"
-#include "spdlog/sinks/basic_file_sink.h"
+#include "stdafx.h"
 
 void drinol_init()
 {

@@ -1,5 +1,4 @@
-#include "detour.h"
-#include <spdlog/spdlog.h>
+#include "stdafx.h"
 
 detour::detour() {
 }

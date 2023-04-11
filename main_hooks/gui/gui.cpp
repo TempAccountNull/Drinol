@@ -1,15 +1,5 @@
 // Most of this code is from https://github.com/Gavpherk/Universal-IL2CPP-DX11-Kiero-Hook
-#include "gui.h"
-
-#include <d3d11.h>
-#include <dxgi.h>
-
-#include "imgui.h"
-#include "backends/imgui_impl_dx11.h"
-#include "backends/imgui_impl_win32.h"
-#include "kiero/kiero.h"
-#include "menu/menu.h"
-#include "spdlog/spdlog.h"
+#include "stdafx.h"
 
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 

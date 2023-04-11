@@ -1,10 +1,4 @@
-#include "halo2.h"
-
-#include "halo2_hooks.h"
-#include "halo2_offsets.h"
-#include "config/config.h"
-#include "memcury/memcury.h"
-#include "spdlog/spdlog.h"
+#include "stdafx.h"
 
 void halo2::game::init() // Initialize hooks and shit for halo 1
 {

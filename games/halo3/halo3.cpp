@@ -1,11 +1,4 @@
-#include "halo3.h"
-
-#include "halo3_hooks.h"
-#include "halo3_offsets.h"
-#include "utils.h"
-#include "config/config.h"
-#include "memcury/memcury.h"
-#include "spdlog/spdlog.h"
+#include "stdafx.h"
 
 void halo3::game::init() // Initialize hooks and shit for halo 1
 {
@@ -115,4 +108,35 @@ halo3::engine::s_physics_constants* halo3::game::global_physics_constants_get()
 {
 	auto physics_constants = reinterpret_cast<engine::s_physics_constants**>(utils::get_tls_pointer(L"halo3.dll", engine::game_tls_index::physics_constants));
 	return *physics_constants;
+}
+
+//uintptr_t get_objecta(int index) {
+//	int* tls_index = Memcury::Scanner::FindPattern(
+//		"44 8B 05 ?? ?? ?? ?? 33 DB 65 48 8B 04 25 58 00 00 00 41 B9 38 00 00 00").RelativeOffset(3).GetAs<int*>();
+//	uintptr_t rax = 0, rcx = 0, rdx = 0;
+//	uint32_t ecx = 0;
+//	rax = __readgsqword(0x00000058);
+//	if (rax) {
+//		rcx = *tls_index;
+//		rax = *reinterpret_cast<uintptr_t*>(rax + (rcx * 8));
+//		if (rax) {
+//			rdx = *reinterpret_cast<uintptr_t*>(rax + 56);
+//			if (rdx) {
+//				rax = *reinterpret_cast<uintptr_t*>(rdx + 72);
+//				if (rax) {
+//					return *reinterpret_cast<uintptr_t*>((rax + (0x18 * index)) + 0x10);
+//				}
+//			}
+//		}
+//	}
+//	return 0;
+//}
+
+uintptr_t halo3::game::get_object(int object_index) {
+	//int* tls_index = Memcury::Scanner::FindPattern(
+	//	"44 8B 05 ?? ?? ?? ?? 33 DB 65 48 8B 04 25 58 00 00 00 41 B9 38 00 00 00").RelativeOffset(3).GetAs<int*>();
+
+	//uintptr_t uintptr = get_objecta(object_index);
+	//printf("Ass2: %p\n", uintptr);
+	return *(uintptr_t*)(*(uintptr_t*)(*(uintptr_t*)(reinterpret_cast<uintptr_t>(utils::get_tls_pointer(L"halo3.dll")) + 56i64) + 72i64) + 24i64 * object_index + 16);
 }

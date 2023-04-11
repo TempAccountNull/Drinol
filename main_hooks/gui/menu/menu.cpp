@@ -1,22 +1,5 @@
 // This is our custom menu.
-#include "menu.h"
-
-#include <framework.h>
-#include <ShellAPI.h>
-
-#include "imgui.h"
-#include "utils.h"
-#include "games/halo1/halo1.h"
-#include "games/halo1/halo1_hooks.h"
-#include "games/halo1/halo1_offsets.h"
-#include "games/halo2/halo2.h"
-#include "games/halo2/halo2_hooks.h"
-#include "games/halo2/halo2_offsets.h"
-#include "games/halo3/halo3.h"
-#include "games/halo3/halo3_offsets.h"
-#include "games/halo3odst/halo3odst.h"
-#include "games/haloreach/haloreach.h"
-#include "gui/gui.h"
+#include "stdafx.h"
 
 bool show_load_modal = false;
 
@@ -25,6 +8,8 @@ bool show_save_modal = false;
 bool show_about_modal = false;
 
 bool show_restore_defaults_modal = false;
+
+int test_int = 0;
 
 void menu::render()
 {
@@ -76,8 +61,11 @@ void menu::render()
 #if defined _DEBUG
 		if (ImGui::BeginTabItem("Debug"))
 		{
+			ImGui::DragInt("Test Int", &test_int, 1, 0, 100, "%i", ImGuiSliderFlags_None);
 			if (ImGui::Button("Trigger Test Function"))
-				utils::test_func();
+				utils::test_func(test_int);
+			if (ImGui::Button("List Game Base Addresses"))
+				utils::list_game_base_addresses();
 			ImGui::EndTabItem();
 		}
 #endif
