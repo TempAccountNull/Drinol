@@ -1,6 +1,9 @@
 // Most of this code is from https://github.com/Gavpherk/Universal-IL2CPP-DX11-Kiero-Hook
 #include "stdafx.h"
 
+bool show = false;
+bool init = false;
+
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 typedef HRESULT(__stdcall* Present) (IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
@@ -61,14 +64,29 @@ void InitImGui()
 }
 
 LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-	if (true && ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
+	ImGuiIO& io = ImGui::GetIO();
+	POINT m_pos;
+	GetCursorPos(&m_pos);
+	ScreenToClient(window, &m_pos);
+	ImGui::GetIO().MousePos.x = m_pos.x;
+	ImGui::GetIO().MousePos.y = m_pos.y;
+
+	if (uMsg == WM_KEYUP)
+	{
+		if (wParam == VK_INSERT)
+		{
+			show = !show;
+		}
+	}
+
+	if (show)
+	{
+		ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
 		return true;
+	}
 
 	return CallWindowProc(oWndProc, hWnd, uMsg, wParam, lParam);
 }
-
-bool show = false;
-bool init = false;
 
 HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags)
 {
@@ -91,12 +109,6 @@ HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT 
 
 		else
 			return oPresent(pSwapChain, SyncInterval, Flags);
-	}
-
-	// Tpggle our menu if the insert key is pressed
-	if (GetAsyncKeyState(VK_INSERT) & 1)
-	{
-		show = !show;
 	}
 
 	//if (GetAsyncKeyState(VK_DELETE) & 1)
