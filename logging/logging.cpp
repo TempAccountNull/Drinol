@@ -44,7 +44,7 @@ void logging::init()
 		}
 		}
 
-		spdlog::register_logger(_logger);
+		register_logger(_logger);
 
 		set_default_logger(_logger);
 
