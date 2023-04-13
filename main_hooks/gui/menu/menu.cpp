@@ -9,6 +9,8 @@ bool show_about_modal = false;
 
 bool show_restore_defaults_modal = false;
 
+bool show_detach_modal = false;
+
 int test_int = 0;
 
 void menu::render()
@@ -29,6 +31,7 @@ void menu::render()
 
 			if (ImGui::MenuItem("Toggle Console")) { console_enabled = !console_enabled; }
 			//if (ImGui::MenuItem("Save Menu Changes")) { show_save_menu_modal = true; }
+			if (ImGui::MenuItem("Detach Drinol")) { show_detach_modal = true; }
 
 			ImGui::EndMenu();
 		}
@@ -356,6 +359,7 @@ void menu::render()
 		ImGui::End();
 	}
 
+#pragma region modals
 	// Save confirmation modal
 
 	// Always center this window when appearing
@@ -402,6 +406,32 @@ void menu::render()
 		if (ImGui::Button("OK", ImVec2(120, 0)))
 		{
 			utils::load_running_game_settings();
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::SetItemDefaultFocus();
+		ImGui::SameLine();
+		if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+		ImGui::EndPopup();
+	}
+
+	// Detach confirmation modal
+	// Always center this window when appearing
+	center = ImGui::GetMainViewport()->GetCenter();
+	ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+	if (show_detach_modal) // Yucky fix for not being able to open modals from menu bar entries: https://github.com/ocornut/imgui/issues/331#issuecomment-751372071
+	{
+		ImGui::OpenPopup("Detach Drinol?");
+		show_detach_modal = false;
+	}
+
+	if (ImGui::BeginPopupModal("Detach Drinol?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Do you want to detach Drinol?");
+
+		if (ImGui::Button("OK", ImVec2(120, 0)))
+		{
+			utils::detach();
 			ImGui::CloseCurrentPopup();
 		}
 		ImGui::SetItemDefaultFocus();
@@ -465,4 +495,5 @@ void menu::render()
 		}
 		ImGui::EndPopup();
 	}
+#pragma endregion
 }

@@ -70,3 +70,11 @@ void middleware::init()
 
 	MH_ApplyQueued();
 }
+
+void middleware::deinit()
+{
+	start_game_engine.disable();
+	ui_command_overlay_push.disable();
+
+	MH_ApplyQueued();
+}

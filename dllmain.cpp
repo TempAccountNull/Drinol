@@ -83,10 +83,13 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 		utils::dll_path = DllPath;
 		utils::dll_path = utils::dll_path.substr(0, utils::dll_path.find_last_of("\\/"));
 
+		utils::dll_module = hinstDLL;
+
 		CreateThread(nullptr, NULL, reinterpret_cast<LPTHREAD_START_ROUTINE>(drinol_init), nullptr, NULL, nullptr);
 		break;
 
 	case DLL_PROCESS_DETACH:
+		utils::detach();
 		break;
 
 	default:

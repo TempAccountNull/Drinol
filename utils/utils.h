@@ -14,6 +14,10 @@ public:
 	 */
 	inline static std::string dll_path;
 	/**
+	 * \brief the handle of the drinol dll
+	 */
+	inline static HINSTANCE dll_module;
+	/**
 	 * \brief initializes game stuff depending on what game got loaded.
 	 * \param game_number the id of the game that is running.
 	 */
@@ -58,4 +62,8 @@ public:
  * \return
  */
 	static char* get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex = NULL);
+	/**
+	 * \brief Detaches drinol.
+	 */
+	static void detach();
 };

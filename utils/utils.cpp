@@ -260,3 +260,12 @@ void utils::backtrace(const char* func) {
 }
 
 #endif
+
+void utils::detach()
+{
+	handle_game_deinit();
+	middleware::deinit();
+	kiero::shutdown();
+	console::deinit();
+	//FreeLibraryAndExitThread(dll_module, 0);
+}
