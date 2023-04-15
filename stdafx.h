@@ -1,16 +1,17 @@
 #pragma once
 #include <cassert>
 #include <cstdio>
-#include <iostream>
-#include <memory>
-#include <minhook/include/MinHook.h>
-#include <spdlog/spdlog.h>
-
 #include <d3d11.h>
 #include <dxgi.h>
 #include <framework.h>
+#include <iostream>
+#include <memory>
 #include <ostream>
 #include <ShellAPI.h>
+#include <unordered_map>
+#include <minhook/include/MinHook.h>
+#include <spdlog/spdlog.h>
+
 #include "console.h"
 #include "detour.h"
 #include "framework.h"
@@ -24,6 +25,7 @@
 #include "games/halo1/halo1_hooks.h"
 #include "games/halo1/halo1_offsets.h"
 #include "games/halo2/halo2.h"
+#include "games/halo3/halo3_sigs.h"
 #include "games/halo2/halo2_hooks.h"
 #include "games/halo2/halo2_offsets.h"
 #include "games/halo3/halo3.h"
