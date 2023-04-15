@@ -1,6 +1,6 @@
 #  Drinol: <br/> A Modding tool for Halo MCC.
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 **A work in progress tool for Halo: The Master Chief Collection with the goal of aiding modders who are testing their mods inside of MCC and adding extra functionality to the games.**
 
