@@ -193,36 +193,22 @@ char* utils::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
 #endif
 		if (!TLSFunctionIndex)
 		{
-			return (char*)tlsBase[*tlsIndex];
+			return static_cast<char*>(tlsBase[*tlsIndex]);
 		}
 		else
 		{
-			return (char*)tlsBase[*tlsIndex] + TLSFunctionIndex;
+			return static_cast<char*>(tlsBase[*tlsIndex]) + TLSFunctionIndex;
 		}
-}
-
-auto player_mapping_next_active_input_user(int arg) -> unsigned int {
-	auto stub = reinterpret_cast<unsigned int(*)(int)>(reinterpret_cast<UINT_PTR>(GetModuleHandle(L"halo3.dll") + 0x0E2C24));
-	return stub(arg);
-}
-
-auto object_delete(int arg) -> __int64 {
-	auto stub = reinterpret_cast<__int64(*)(int)>(reinterpret_cast<UINT_PTR>(GetModuleHandle(L"halo3.dll") + 0x3358B8));
-	return stub(arg);
 }
 
 void utils::test_func(int test_int)
 {
-	uintptr_t test = halo3::game::get_object(test_int);
-
-	spdlog::info("Object Ptr: 0x{:X} - Object Index: {}", test, test_int);
-
-	if (test)
-	{
-		object_delete(test_int);
-	}
+	halo3::engine::player_datum* crap = halo3::game::local_player_datum_get();
+	crap->player_traits.m_appearance_traits.m_active_camo_setting = halo3::engine::invisible;
+	crap->player_traits.m_shield_traits.m_shield_recharge_rate_percentage_setting = halo3::engine::_shield_recharge_rate_percentage_setting_200_percent;
 }
 
+//0x00007ff8
 #if defined _DEBUG
 void utils::list_game_base_addresses()
 {
