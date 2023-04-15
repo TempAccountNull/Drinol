@@ -132,10 +132,10 @@ bool config::load_signatures()
 	halo2::offsets::hs_type_names_aob_sig = ini.get("Halo2A").get("hs_type_names");
 
 	//Halo 3 Sigs
-	halo3::offsets::hs_function_table_aob_sig = ini.get("Halo3").get("hs_function_table");
-	halo3::offsets::hs_external_globals_aob_sig = ini.get("Halo3").get("hs_external_globals");
-	halo3::offsets::hs_type_names_aob_sig = ini.get("Halo3").get("hs_type_names");
-	halo3::offsets::game_in_progress_aob_sig = ini.get("Halo3").get("game_in_progress");
+	for (std::pair<const std::string, std::string>& item : halo3::sigs::list)
+	{
+		item.second = ini.get("Halo3").get(item.first);
+	}
 
 	//Halo 3 ODST Sigs
 	halo3odst::offsets::hs_function_table_aob_sig = ini.get("Halo3ODST").get("hs_function_table");
@@ -174,10 +174,10 @@ bool config::create_new_signatures()
 	ini["Halo2A"]["hs_type_names"] = "48 8D 35 ?? ?? ?? ?? 48 8B 1C C6";
 
 	// Halo 3 sigs
-	ini["Halo3"]["hs_function_table"] = "48 8D 35 ?? ?? ?? ?? 48 8B D5";
-	ini["Halo3"]["hs_external_globals"] = "48 8D 05 ?? ?? ?? ?? 48 0F BF D3";
-	ini["Halo3"]["hs_type_names"] = "48 8D 05 ?? ?? ?? ?? 4C 8B C3 48 8D 0D";
-	ini["Halo3"]["game_in_progress"] = "E8 ?? ?? ?? ?? 84 C0 74 13 B8 C8 00 00 00";
+	for (std::pair<const std::string, std::string> item : halo3::sigs::list)
+	{
+		ini["Halo3"][item.first] = item.second;
+	}
 
 	// Halo 3 ODST sigs
 	ini["Halo3ODST"]["hs_function_table"] = "48 8D 35 ?? ?? ?? ?? 48 8B D5";
@@ -366,6 +366,7 @@ bool config::halo3_create()
 	ini["Rendering"]["motion_blur_scale_x"] = "0.05";
 	ini["Rendering"]["motion_blur_scale_y"] = "0.15";
 	ini["Rendering"]["motion_blur_center_falloff"] = "1.4";
+	ini["Game"]["player_weapon_projectiles_only"] = "false";
 
 	// generate an INI file (overwrites any previous file)
 	if (!file.generate(ini, true))
@@ -391,6 +392,7 @@ bool config::halo3_save()
 	ini["Rendering"]["motion_blur_scale_x"] = to_string(*halo3::offsets::motion_blur_scale_x);
 	ini["Rendering"]["motion_blur_scale_y"] = to_string(*halo3::offsets::motion_blur_scale_y);
 	ini["Rendering"]["motion_blur_center_falloff"] = to_string(*halo3::offsets::motion_blur_center_falloff);
+	ini["Game"]["player_weapon_projectiles_only"] = to_string(&halo3::hooks::player_weapon_projectiles_only);
 	// write to the INI file (overwrites)
 	if (!file.write(ini, true))
 	{
@@ -413,7 +415,7 @@ bool config::halo3_load()
 	}
 
 	// read a value
-
+	std::istringstream(ini.get("Game").get("player_weapon_projectiles_only")) >> std::boolalpha >> halo3::hooks::player_weapon_projectiles_only;
 	std::istringstream(ini.get("Rendering").get("motion_blur_expected_dt")) >> *halo3::offsets::motion_blur_expected_dt;
 	std::istringstream(ini.get("Rendering").get("motion_blur_taps")) >> *halo3::offsets::motion_blur_taps;
 	std::istringstream(ini.get("Rendering").get("motion_blur_max_x")) >> *halo3::offsets::motion_blur_max_x;
