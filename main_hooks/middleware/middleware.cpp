@@ -45,6 +45,7 @@ static __int64 __fastcall ui_command_overlay_push_detour(INT64 a1, char* a2, int
 #endif
 			//TODO: Deinit game related hooks and stuff now that we know that the game has ended.
 			utils::handle_game_deinit();
+			MH_RemoveDisabledHooks();
 			utils::running_game.clear();
 		}
 		return ui_command_overlay_push.stub<__int64>(a1, a2, a3);
