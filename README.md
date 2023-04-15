@@ -25,7 +25,7 @@ All you have to do now is open Drinol.sln in the new folder and build it inside 
  - **Apoxied#1337**: Halo 3 Research information that i have yet to use.
  - **SilentRunner#6097**: Information borrowed from his "MCC Toolbox"
    project.
- - **theTwist84**: Halo 3 struct information
+ - **@theTwist84**: Halo 3 struct information
  - **OhItsDiiTz#1337**: detour.h and cpp
 
 ## Contributors:
