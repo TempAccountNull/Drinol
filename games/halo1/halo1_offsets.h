@@ -1,8 +1,6 @@
 #pragma once
-#include <string>
 
 #include "halo1_engine.h"
-#include "Memcury/memcury.h"
 
 namespace halo1
 {
@@ -23,10 +21,6 @@ namespace halo1
 		inline static bool* fps_counter;
 		inline static bool* motion_sensor_show_all_units;
 		inline static float** gravity;
-		inline static std::string hs_function_table_aob_sig;
-		inline static std::string hs_external_globals_aob_sig;
-		inline static std::string hs_type_names_aob_sig;
-		inline static std::string game_ticks_per_second_aob_sig;
 		inline static void* _terminal_printf;
 
 		static void init();

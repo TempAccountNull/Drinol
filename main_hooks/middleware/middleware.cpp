@@ -60,11 +60,11 @@ static __int64 __fastcall ui_command_overlay_push_detour(INT64 a1, char* a2, int
 	return ui_command_overlay_push.stub<__int64>(a1, a2, a3);
 }
 
-void middleware::init()
+void middleware::hooks::init()
 {
-	void* start_game_engine_t = Memcury::Scanner::FindPattern(start_game_engine_t_aob_sig.c_str()).FindFunctionBoundary(false).GetAs<void*>();
+	void* start_game_engine_t = Memcury::Scanner::FindPattern(sigs::list["start_game_engine_t"].c_str()).FindFunctionBoundary(false).GetAs<void*>();
 
-	void* UICommandOverlayPush_t = Memcury::Scanner::FindPattern(UICommandOverlayPush_t_aob_sig.c_str()).FindFunctionBoundary(false).GetAs<void*>();
+	void* UICommandOverlayPush_t = Memcury::Scanner::FindPattern(sigs::list["UICommandOverlayPush_t"].c_str()).FindFunctionBoundary(false).GetAs<void*>();
 
 	start_game_engine.create(reinterpret_cast<uintptr_t>(start_game_engine_t), start_game_engine_detour);
 	ui_command_overlay_push.create(reinterpret_cast<uintptr_t>(UICommandOverlayPush_t), ui_command_overlay_push_detour);
@@ -72,7 +72,7 @@ void middleware::init()
 	MH_ApplyQueued();
 }
 
-void middleware::deinit()
+void middleware::hooks::deinit()
 {
 	start_game_engine.disable();
 	ui_command_overlay_push.disable();

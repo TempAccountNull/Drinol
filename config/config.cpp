@@ -117,19 +117,22 @@ bool config::load_signatures()
 	// read a value
 
 	//Middleware sigs
-	middleware::start_game_engine_t_aob_sig = ini.get("Middleware").get("start_game_engine_t");
-	middleware::UICommandOverlayPush_t_aob_sig = ini.get("Middleware").get("UICommandOverlayPush_t");
+	for (std::pair<const std::string, std::string>& item : middleware::sigs::list)
+	{
+		item.second = ini.get("middleware").get(item.first);
+	}
 
 	//Halo 1 Sigs
-	halo1::offsets::hs_function_table_aob_sig = ini.get("Halo1A").get("hs_function_table");
-	halo1::offsets::hs_external_globals_aob_sig = ini.get("Halo1A").get("hs_external_globals");
-	halo1::offsets::hs_type_names_aob_sig = ini.get("Halo1A").get("hs_type_names");
-	halo1::offsets::game_ticks_per_second_aob_sig = ini.get("Halo1A").get("game_ticks_per_second");
+	for (std::pair<const std::string, std::string>& item : halo1::sigs::list)
+	{
+		item.second = ini.get("halo1a").get(item.first);
+	}
 
 	//Halo 2 Sigs
-	halo2::offsets::hs_function_table_aob_sig = ini.get("Halo2A").get("hs_function_table");
-	halo2::offsets::hs_external_globals_aob_sig = ini.get("Halo2A").get("hs_external_globals");
-	halo2::offsets::hs_type_names_aob_sig = ini.get("Halo2A").get("hs_type_names");
+	for (std::pair<const std::string, std::string>& item : halo2::sigs::list)
+	{
+		item.second = ini.get("halo2a").get(item.first);
+	}
 
 	//Halo 3 Sigs
 	for (std::pair<const std::string, std::string>& item : halo3::sigs::list)
@@ -138,14 +141,17 @@ bool config::load_signatures()
 	}
 
 	//Halo 3 ODST Sigs
-	halo3odst::offsets::hs_function_table_aob_sig = ini.get("Halo3ODST").get("hs_function_table");
-	halo3odst::offsets::hs_external_globals_aob_sig = ini.get("Halo3ODST").get("hs_external_globals");
-	halo3odst::offsets::hs_type_names_aob_sig = ini.get("Halo3ODST").get("hs_type_names");
+	for (std::pair<const std::string, std::string>& item : halo3odst::sigs::list)
+	{
+		item.second = ini.get("Halo3ODST").get(item.first);
+	}
 
 	//Halo Reach Sigs
-	haloreach::offsets::hs_function_table_aob_sig = ini.get("HaloReach").get("hs_function_table");
-	haloreach::offsets::hs_external_globals_aob_sig = ini.get("HaloReach").get("hs_external_globals");
-	haloreach::offsets::hs_type_names_aob_sig = ini.get("HaloReach").get("hs_type_names");
+
+	for (std::pair<const std::string, std::string>& item : haloreach::sigs::list)
+	{
+		item.second = ini.get("HaloReach").get(item.first);
+	}
 
 	return true;
 }
@@ -159,19 +165,22 @@ bool config::create_new_signatures()
 	// populate the structure
 
 	//Middleware sigs
-	ini["Middleware"]["start_game_engine_t"] = "83 FF 06 77 1A";
-	ini["Middleware"]["UICommandOverlayPush_t"] = "41 83 C9 FF 4C 8B C5";
+	for (std::pair<const std::string, std::string> item : middleware::sigs::list)
+	{
+		ini["Middleware"][item.first] = item.second;
+	}
 
 	// Halo 1 sigs
-	ini["Halo1A"]["hs_function_table"] = "48 8D 1D ?? ?? ?? ?? 48 8D 35 ?? ?? ?? ?? 48 89 7C 24 30";
-	ini["Halo1A"]["hs_external_globals"] = "48 8D 1D ?? ?? ?? ?? BF D2 01 00 00 48 8D 35";
-	ini["Halo1A"]["hs_type_names"] = "48 8D 35 ?? ?? ?? ?? 4C 8B 0B";
-	ini["Halo1A"]["game_ticks_per_second"] = "F3 0F 5C 05 ?? ?? ?? ?? F3 0F 2C F8";
+	for (std::pair<const std::string, std::string> item : halo1::sigs::list)
+	{
+		ini["Halo1a"][item.first] = item.second;
+	}
 
 	// Halo 2 sigs
-	ini["Halo2A"]["hs_function_table"] = "48 8D 3D ?? ?? ?? ?? 48 89 74 24 30 0F 1F 40 00";
-	ini["Halo2A"]["hs_external_globals"] = "48 8D 05 ?? ?? ?? ?? 0F 1F 40 00 48 0F BF D3";
-	ini["Halo2A"]["hs_type_names"] = "48 8D 35 ?? ?? ?? ?? 48 8B 1C C6";
+	for (std::pair<const std::string, std::string> item : halo2::sigs::list)
+	{
+		ini["Halo2a"][item.first] = item.second;
+	}
 
 	// Halo 3 sigs
 	for (std::pair<const std::string, std::string> item : halo3::sigs::list)
@@ -180,14 +189,16 @@ bool config::create_new_signatures()
 	}
 
 	// Halo 3 ODST sigs
-	ini["Halo3ODST"]["hs_function_table"] = "48 8D 35 ?? ?? ?? ?? 48 8B D5";
-	ini["Halo3ODST"]["hs_external_globals"] = "48 8D 1D ?? ?? ?? ?? 4C 8B 59 48";
-	ini["Halo3ODST"]["hs_type_names"] = "48 8D 05 ?? ?? ?? ?? 4D 8B 09";
+	for (std::pair<const std::string, std::string> item : halo3odst::sigs::list)
+	{
+		ini["Halo3ODST"][item.first] = item.second;
+	}
 
 	// Halo Reach sigs
-	ini["HaloReach"]["hs_function_table"] = "4C 8D 35 ?? ?? ?? ?? 33 DB 49 8B FE";
-	ini["HaloReach"]["hs_external_globals"] = "48 8D 1D ?? ?? ?? ?? BF BC 06 00 00 4C 8B 0B";
-	ini["HaloReach"]["hs_type_names"] = "48 8D 05 ?? ?? ?? ?? 4D 8B 09";
+	for (std::pair<const std::string, std::string> item : haloreach::sigs::list)
+	{
+		ini["HaloReach"][item.first] = item.second;
+	}
 
 	// generate an INI file (overwrites any previous file)
 	if (!file.generate(ini, true))

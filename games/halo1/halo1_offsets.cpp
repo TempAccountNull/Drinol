@@ -4,16 +4,16 @@ void halo1::offsets::init()
 {
 	//Blamscript Functions Table
 	hs_function_table = reinterpret_cast<engine::_hs_function_table*>(Memcury::Scanner::FindPattern(
-		hs_function_table_aob_sig.c_str()).
+		sigs::list["hs_function_table"].c_str()).
 		RelativeOffset(3).Get());
 
 	//Blamscript External Globals Table
 	hs_external_globals = reinterpret_cast<engine::_hs_external_globals*>(Memcury::Scanner::FindPattern(
-		hs_external_globals_aob_sig.c_str()).
+		sigs::list["hs_external_globals"].c_str()).
 		RelativeOffset(3).Get());
 
 	//Blamscript type names.
-	hs_type_names = reinterpret_cast<engine::_hs_type_names*>(Memcury::Scanner::FindPattern(hs_type_names_aob_sig.c_str()).RelativeOffset(3).Get());
+	hs_type_names = reinterpret_cast<engine::_hs_type_names*>(Memcury::Scanner::FindPattern(sigs::list["hs_type_names"].c_str()).RelativeOffset(3).Get());
 
 	//TODO: it would be nice to dynamically fill the imgui menu with all possible globals and functions, instead of manually defining them like below.
 	//Blamscript Globals
@@ -27,7 +27,7 @@ void halo1::offsets::init()
 	fps_counter = static_cast<bool*>(game::get_hs_global("rasterizer_fps"));
 	motion_sensor_show_all_units = static_cast<bool*>(game::get_hs_global("debug_motion_sensor_draw_all_units"));
 
-	game_ticks_per_second = Memcury::Scanner::FindPattern(game_ticks_per_second_aob_sig.c_str()).RelativeOffset(4).GetAs<float*>();
+	game_ticks_per_second = Memcury::Scanner::FindPattern(sigs::list["game_ticks_per_second"].c_str()).RelativeOffset(4).GetAs<float*>();
 
 	gravity = Memcury::Scanner(game::get_eval_hs_function("physics_get_gravity")).RelativeOffset(3).GetAs<float**>();
 

@@ -59,7 +59,7 @@ void drinol_init()
 	}
 
 	// Initialize UE4 middleware hooks.
-	middleware::init();
+	middleware::hooks::init();
 
 	if (gui::enabled) {
 		// Initialize DX11 hook and imgui overlay.

@@ -1,15 +1,15 @@
 #pragma once
-#include "mINI/src/mini/ini.h"
 
 // This is for managing things related to the MCC UE4 middleware.
-class middleware
+namespace middleware
 {
-public:
-	/**
-	 * \brief initializes MCC UE4 middleware hook stuff.
-	 */
-	static void init();
-	static void deinit();
-	inline static std::string start_game_engine_t_aob_sig;
-	inline static std::string UICommandOverlayPush_t_aob_sig;
+	class hooks
+	{
+	public:
+		/**
+		 * \brief initializes MCC UE4 middleware hook stuff.
+		 */
+		static void init();
+		static void deinit();
+	};
 };

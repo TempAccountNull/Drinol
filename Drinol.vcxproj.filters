@@ -587,5 +587,20 @@
     <ClInclude Include="games\halo3\halo3_sigs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="games\haloreach\haloreach_sigs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo3odst\halo3odst_sigs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo2\halo2_sigs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo1\halo1_sigs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main_hooks\middleware\middleware_sigs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
