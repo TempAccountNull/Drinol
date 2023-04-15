@@ -43,8 +43,8 @@ HRESULT hkResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width
 
 	// Set up the viewport.
 	D3D11_VIEWPORT vp;
-	vp.Width = Width;
-	vp.Height = Height;
+	vp.Width = static_cast<FLOAT>(Width);
+	vp.Height = static_cast<FLOAT>(Height);
 	vp.MinDepth = 0.0f;
 	vp.MaxDepth = 1.0f;
 	vp.TopLeftX = 0;
@@ -68,11 +68,13 @@ LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 	POINT m_pos;
 	GetCursorPos(&m_pos);
 	ScreenToClient(window, &m_pos);
-	ImGui::GetIO().MousePos.x = m_pos.x;
-	ImGui::GetIO().MousePos.y = m_pos.y;
+	ImGui::GetIO().MousePos.x = static_cast<decltype(ImGui::GetIO().MousePos.x)>(m_pos.x);
+	ImGui::GetIO().MousePos.y = static_cast<decltype(ImGui::GetIO().MousePos.y)>(m_pos.y);
 
 	if (uMsg == WM_KEYUP)
 	{
+		io.MouseDrawCursor = false;
+
 		if (wParam == VK_INSERT)
 		{
 			show = !show;
@@ -82,6 +84,7 @@ LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 	if (show)
 	{
 		ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
+		io.MouseDrawCursor = true;
 		return true;
 	}
 
