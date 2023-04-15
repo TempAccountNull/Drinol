@@ -237,6 +237,17 @@ void menu::render()
 #endif
 					if (ImGui::BeginTabItem("Game"))
 					{
+						if (halo3::offsets::physics_constants != NULL)
+						{
+							ImGui::DragFloat("Gravity", &halo3::offsets::physics_constants->gravity, 0.005f, -FLT_MAX, +FLT_MAX, "%.5f", ImGuiSliderFlags_None);
+							if (ImGui::IsItemHovered())
+								ImGui::SetTooltip("The gravity, nuff said. Note: Not savable. Default: 4.1712594");
+						}
+
+						ImGui::Checkbox("Player weapon projectiles only", &halo3::hooks::player_weapon_projectiles_only);
+						if (ImGui::IsItemHovered())
+							ImGui::SetTooltip("Only the local player can fire bullets.");
+
 						ImGui::EndTabItem();
 					}
 

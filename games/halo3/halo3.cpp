@@ -88,7 +88,7 @@ void* halo3::game::get_eval_hs_function(const char* func_name) // Gets the addre
 				return function->evaluate_func;
 			}
 
-			spdlog::error("halo3::game::get_eval_hs_function: function has been found but does not have a working eval function");
+			spdlog::error("halo3::gameplayer_mapping_globals_get()::get_eval_hs_function: function has been found but does not have a working eval function");
 			return nullptr;
 		}
 	}
@@ -108,6 +108,53 @@ halo3::engine::s_physics_constants* halo3::game::global_physics_constants_get()
 {
 	auto physics_constants = reinterpret_cast<engine::s_physics_constants**>(utils::get_tls_pointer(L"halo3.dll", engine::game_tls_index::physics_constants));
 	return *physics_constants;
+}
+
+s_player_mapping_globals* halo3::game::player_mapping_globals_get()
+{
+	return offsets::player_mapping_globals;
+}
+
+halo3::engine::s_data_array* halo3::game::player_data_get()
+{
+	engine::s_thread_local_storage* tls = (engine::s_thread_local_storage*)utils::get_tls_pointer(L"halo3.dll");
+	return tls->player_data;
+}
+
+halo3::engine::player_datum* halo3::game::local_player_datum_get()
+{
+	engine::s_thread_local_storage* tls = (engine::s_thread_local_storage*)utils::get_tls_pointer(L"halo3.dll");
+	return reinterpret_cast<halo3::engine::player_datum*>(tls->player_data->data);
+}
+
+unsigned long player_mapping_first_active_output_user()
+{
+	long index = 0;
+	for (long* active_output_user = halo3::game::player_mapping_globals_get()->output_user_player_mapping; *active_output_user == -1; ++active_output_user)
+	{
+		if (++index >= 4)
+			return -1;
+	}
+
+	return index;
+}
+
+unsigned long player_mapping_get_unit_by_output_user(long output_user_index)
+{
+	assert(output_user_index != -1 && (output_user_index >= 0 && output_user_index < 4));
+
+	return halo3::game::player_mapping_globals_get()->output_user_unit_mapping[output_user_index];
+}
+
+unsigned long halo3::game::grab_local_player_unit()
+{
+	long output_user = player_mapping_first_active_output_user();
+	if (output_user == -1)
+		return -1;
+
+	long unit_index = player_mapping_get_unit_by_output_user(output_user);
+
+	return unit_index;
 }
 
 //uintptr_t get_objecta(int index) {
@@ -132,11 +179,28 @@ halo3::engine::s_physics_constants* halo3::game::global_physics_constants_get()
 //	return 0;
 //}
 
-uintptr_t halo3::game::get_object(int object_index) {
-	//int* tls_index = Memcury::Scanner::FindPattern(
-	//	"44 8B 05 ?? ?? ?? ?? 33 DB 65 48 8B 04 25 58 00 00 00 41 B9 38 00 00 00").RelativeOffset(3).GetAs<int*>();
+//uintptr_t halo3::game::get_object(int object_index) {
+//	//int* tls_index = Memcury::Scanner::FindPattern(
+//	//	"44 8B 05 ?? ?? ?? ?? 33 DB 65 48 8B 04 25 58 00 00 00 41 B9 38 00 00 00").RelativeOffset(3).GetAs<int*>();
+//
+//	//uintptr_t uintptr = get_objecta(object_index);
+//	//printf("Ass2: %p\n", uintptr);
+//	return *(uintptr_t*)(*(uintptr_t*)(*(uintptr_t*)(reinterpret_cast<uintptr_t>(utils::get_tls_pointer(L"halo3.dll")) + 56i64) + 72i64) + 24i64 * object_index + 16);
+//}
 
-	//uintptr_t uintptr = get_objecta(object_index);
-	//printf("Ass2: %p\n", uintptr);
-	return *(uintptr_t*)(*(uintptr_t*)(*(uintptr_t*)(reinterpret_cast<uintptr_t>(utils::get_tls_pointer(L"halo3.dll")) + 56i64) + 72i64) + 24i64 * object_index + 16);
+void halo3::game::object_scripting_cannot_die(int object_handle, bool cannot_die)
+{
+	return utils::GameCall<void>(offsets::object_scripting_cannot_die)(object_handle, cannot_die);
+}
+
+void* halo3::game::get_restricted_region_member_address(int alias_index, int member_index, int index)
+{
+	engine::s_thread_local_storage* tls = reinterpret_cast<engine::s_thread_local_storage*>(utils::get_tls_pointer(L"halo3.dll"));
+
+	return &tls->g_restricted_address[alias_index][offsets::g_restricted_regions[member_index].m_registered_member[index].offset];
+}
+
+long halo3::game::weapon_get_owner_unit_index(long weapon_index)
+{
+	return utils::GameCall<long>(halo3::offsets::weapon_get_owner_unit_index)(weapon_index);
 }
