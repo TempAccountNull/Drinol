@@ -66,4 +66,16 @@ public:
 	 * \brief Detaches drinol.
 	 */
 	static void detach();
+	/**
+	 * \brief
+	 * \tparam T Type Cast
+	 * \param Calls a function from inside the game. GameCall<uintptr_t>(0x00);
+	 * \return
+	 */
+	template <class T>
+	static inline T(*GameCall(uintptr_t address))(...)
+	{
+		auto func = reinterpret_cast<T(*)(...)>(address);
+		return func;
+	}
 };
