@@ -1,6 +1,6 @@
 #  Drinol: <br/> A Modding tool for Halo MCC.
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 **A work in progress tool for Halo: The Master Chief Collection with the goal of aiding modders who are testing their mods inside of MCC and adding extra functionality to the games.**
 
@@ -37,6 +37,7 @@ All you have to do now is open Drinol.sln in the new folder and build it inside 
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://twitter.com/TempAccountNull"><img src="https://avatars.githubusercontent.com/u/11286901?v=4?s=100" width="100px;" alt="TempAccountNull"/><br /><sub><b>TempAccountNull</b></sub></a><br /><a href="https://github.com/matty45/Drinol/commits?author=TempAccountNull" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/theTwist84"><img src="https://avatars.githubusercontent.com/u/6237734?v=4?s=100" width="100px;" alt="theTwister"/><br /><sub><b>theTwister</b></sub></a><br /><a href="https://github.com/matty45/Drinol/commits?author=theTwist84" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
