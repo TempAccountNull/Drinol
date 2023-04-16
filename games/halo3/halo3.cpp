@@ -34,7 +34,7 @@ void halo3::game::list_all_hs_functions()
 	spdlog::info("Printing all eval functions inside the blamscript function table.");
 	for (engine::_hs_script_op* function : offsets::hs_function_table->table)
 	{
-		if (function->evaluate_func != nullptr && function->evaluate_func != offsets::hs_null_evaluate)
+		if (function->evaluate_func != nullptr && function->evaluate_func != offsets::hs_null_evaluate && function->evaluate_func != offsets::hs_null_evaluate2)
 		{
 			spdlog::info("[HS Function] Return Type: {} Name: {} Address: {}", offsets::hs_type_names->types[function->return_type], function->name, function->evaluate_func);
 		}
@@ -83,7 +83,7 @@ void* halo3::game::get_eval_hs_function(const char* func_name) // Gets the addre
 		if (strcmp(function->name, func_name) == 0)
 		{
 			// bool has been found
-			if (function->evaluate_func != nullptr || function->evaluate_func != offsets::hs_null_evaluate)
+			if (function->evaluate_func != nullptr && function->evaluate_func != offsets::hs_null_evaluate && function->evaluate_func != offsets::hs_null_evaluate2)
 			{
 				return function->evaluate_func;
 			}
