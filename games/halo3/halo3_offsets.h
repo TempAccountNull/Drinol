@@ -15,7 +15,6 @@ namespace halo3
 		inline static s_player_mapping_globals* player_mapping_globals;
 		inline static engine::s_data_array* player_data;
 		inline static void* hs_null_evaluate;
-		inline static void* hs_null_evaluate2;
 		inline static bool* toggle_hud;
 		inline static void* game_in_progress;
 		inline static void* game_tick;
