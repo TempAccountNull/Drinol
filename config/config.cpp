@@ -73,7 +73,6 @@ bool config::create_new_main_settings()
 
 	ini["Console"]["consolewindow"] = "true";
 	ini["Console"]["imguiconsole"] = "false";
-	ini["Console"]["logtofile"] = "false";
 
 	ini["Console"]["loglevel"] = "0";
 
