@@ -7,7 +7,7 @@ void halo3::offsets::init()
 
 	hs_null_evaluate = game::get_eval_hs_function("voice_set_force_match_configurations");
 
-	hs_null_evaluate2 = game::get_eval_hs_function("gui_debug_music_state");
+	hs_null_evaluate2 = game::get_eval_hs_function("debug_scripting");
 
 	//Blamscript External Globals Table
 	hs_external_globals = reinterpret_cast<engine::_hs_external_globals*>(Memcury::Scanner::FindPattern(sigs::list["hs_external_globals"].c_str()).RelativeOffset(3).Get());
