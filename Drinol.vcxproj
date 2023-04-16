@@ -303,7 +303,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <AdditionalIncludeDirectories>$(ProjectDir)console;$(ProjectDir)main_hooks;$(ProjectDir)utils;$(ProjectDir)dependencies;$(ProjectDir);$(ProjectDir)dependencies\imgui;$(ProjectDir)dependencies\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -336,7 +336,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <AdditionalIncludeDirectories>$(ProjectDir)console;$(ProjectDir)main_hooks;$(ProjectDir)utils;$(ProjectDir)dependencies;$(ProjectDir);$(ProjectDir)dependencies\imgui;$(ProjectDir)dependencies\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
