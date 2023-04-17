@@ -1,8 +1,5 @@
 #pragma once
 
-#include "framework.h"
-#include <minhook/include/MinHook.h>
-
 class detour {
 public:
 	detour();
