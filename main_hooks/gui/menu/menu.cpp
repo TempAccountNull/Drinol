@@ -495,7 +495,7 @@ void menu::render()
 	{
 		ImGui::Text("Drinol - A Halo modding utility.");
 		ImGui::Separator();
-		ImGui::Text("Credits:\n\nNBOTT42#6978: For assistance in developing this tool.\n\nApoxied#1337: Halo 3 Research information that i have yet to use.\n\nSilentRunner#6097: Information borrowed from his \"MCC Toolbox\" project.");
+		ImGui::Text("Credits:\nTheTwist84: Halo 3 struct information\n\nNBOTT42#6978: For assistance in developing this tool.\n\nApoxied#1337: Halo 3 Research information that i have yet to use.\n\nSilentRunner#6097: Information borrowed from his \"MCC Toolbox\" project.\nOhItsDiiTz#1337: detour.h and cpp");
 		ImGui::Separator();
 		ImGui::Text("Thanks to all the halo modders and reverse engineers responsible for projects like ElDewrito and the Blam Creation Suite, without them, i would not have been inspired to make this tool.");
 
