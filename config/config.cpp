@@ -154,6 +154,13 @@ bool config::load_signatures()
 		item.second = ini.get("HaloReach").get(item.first);
 	}
 
+	//Halo 4 Sigs
+
+	for (std::pair<const std::string, std::string>& item : halo4::sigs::list)
+	{
+		item.second = ini.get("Halo4").get(item.first);
+	}
+
 	return true;
 }
 
@@ -199,6 +206,12 @@ bool config::create_new_signatures()
 	for (std::pair<const std::string, std::string> item : haloreach::sigs::list)
 	{
 		ini["HaloReach"][item.first] = item.second;
+	}
+
+	// Halo 4 sigs
+	for (std::pair<const std::string, std::string> item : halo4::sigs::list)
+	{
+		ini["Halo4"][item.first] = item.second;
 	}
 
 	// generate an INI file (overwrites any previous file)
@@ -435,6 +448,57 @@ bool config::halo3_load()
 	std::istringstream(ini.get("Rendering").get("motion_blur_scale_x")) >> *halo3::offsets::variables::motion_blur_scale_x;
 	std::istringstream(ini.get("Rendering").get("motion_blur_scale_y")) >> *halo3::offsets::variables::motion_blur_scale_y;
 	std::istringstream(ini.get("Rendering").get("motion_blur_center_falloff")) >> *halo3::offsets::variables::motion_blur_center_falloff;
+
+	return true;
+}
+
+bool config::halo4_create()
+{
+	const mINI::INIFile file(config_folder + "\\Halo4.ini");
+
+	mINI::INIStructure ini;
+
+	// populate the structure
+
+	// generate an INI file (overwrites any previous file)
+	if (!file.generate(ini, true))
+	{
+		// Failed to generate ini
+		return false;
+	}
+	return true;
+}
+
+bool config::halo4_save()
+{
+	const mINI::INIFile file(config_folder + "\\Halo4.ini");
+
+	mINI::INIStructure ini;
+
+	// populate the structure
+
+	// write to the INI file (overwrites)
+	if (!file.write(ini, true))
+	{
+		// Failed to write ini
+		return false;
+	}
+	return true;
+}
+
+bool config::halo4_load()
+{
+	const mINI::INIFile file(config_folder + "\\Halo4.ini");
+
+	mINI::INIStructure ini;
+
+	if (!file.read(ini))
+	{
+		// Failed to read ini
+		return false;
+	}
+
+	// read a value
 
 	return true;
 }

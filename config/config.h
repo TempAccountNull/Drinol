@@ -80,4 +80,7 @@ public:
 * \return true if loaded successfully
 */
 	static bool halo3_load();
+	static bool halo4_create();
+	static bool halo4_save();
+	static bool halo4_load();
 };

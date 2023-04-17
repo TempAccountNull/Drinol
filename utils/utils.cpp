@@ -17,6 +17,7 @@ void utils::handle_game_init(int game_number)
 		break;
 	case 3:
 		running_game = "Halo 4";
+		halo4::game::init();
 		break;
 	case 4:
 		running_game = "Halo 2 Anniversary MP (Groundhog)";
@@ -57,6 +58,12 @@ void utils::handle_game_deinit()
 		halo3::game::deinit();
 		return;
 	}
+
+	if (running_game == "Halo 4")
+	{
+		halo4::game::deinit();
+		return;
+	}
 }
 
 // Saves the currently running games settings.
@@ -88,6 +95,15 @@ void utils::save_running_game_settings()
 			return;
 		}
 	}
+
+	if (running_game == "Halo 4")
+	{
+		if (config::halo4_save())
+		{
+			spdlog::info("Saved settings for Halo 4!");
+			return;
+		}
+	}
 }
 
 // Loads the currently running games settings.
@@ -116,6 +132,15 @@ void utils::load_running_game_settings()
 		if (config::halo3_load())
 		{
 			spdlog::info("Loaded settings for Halo 3!");
+			return;
+		}
+	}
+
+	if (running_game == "Halo 4")
+	{
+		if (config::halo4_load())
+		{
+			spdlog::info("Loaded settings for Halo 4!");
 			return;
 		}
 	}
@@ -170,7 +195,23 @@ void utils::reset_running_game_settings()
 
 		spdlog::info("Reset settings for Halo 3");
 	}
-}
+
+	if (running_game == "Halo 4")
+	{
+		if (!config::halo4_create())
+		{
+			spdlog::error("Failed to create fresh settings for Halo 4!");
+			return;
+		}
+		if (!config::halo4_load())
+		{
+			spdlog::error("Failed to load fresh settings for Halo 4!");
+			return;
+		}
+
+		spdlog::info("Reset settings for Halo 4");
+	}
+	}
 
 //https://github.com/citizenfx/fivem/blob/f3bb0460562b1eb1a7f9652ffcf73ad7282fd45e/code/client/shared/Hooking.h#L91-L113
 char* utils::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
