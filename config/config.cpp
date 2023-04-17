@@ -1,6 +1,8 @@
 // This is used for the management of config files, etc
 #include "stdafx.h"
 
+#include "games/halo3/halo3_offsets.h"
+
 //https://stackoverflow.com/a/29798
 inline const char* const bool_to_string(bool b)
 {
@@ -395,13 +397,13 @@ bool config::halo3_save()
 
 	// populate the structure
 
-	ini["Rendering"]["motion_blur_expected_dt"] = to_string(*halo3::offsets::motion_blur_expected_dt);
-	ini["Rendering"]["motion_blur_taps"] = to_string<int>(*halo3::offsets::motion_blur_taps);
-	ini["Rendering"]["motion_blur_max_x"] = to_string(*halo3::offsets::motion_blur_max_x);
-	ini["Rendering"]["motion_blur_max_y"] = to_string(*halo3::offsets::motion_blur_max_y);
-	ini["Rendering"]["motion_blur_scale_x"] = to_string(*halo3::offsets::motion_blur_scale_x);
-	ini["Rendering"]["motion_blur_scale_y"] = to_string(*halo3::offsets::motion_blur_scale_y);
-	ini["Rendering"]["motion_blur_center_falloff"] = to_string(*halo3::offsets::motion_blur_center_falloff);
+	ini["Rendering"]["motion_blur_expected_dt"] = to_string(*halo3::offsets::variables::motion_blur_expected_dt);
+	ini["Rendering"]["motion_blur_taps"] = to_string<int>(*halo3::offsets::variables::motion_blur_taps);
+	ini["Rendering"]["motion_blur_max_x"] = to_string(*halo3::offsets::variables::motion_blur_max_x);
+	ini["Rendering"]["motion_blur_max_y"] = to_string(*halo3::offsets::variables::motion_blur_max_y);
+	ini["Rendering"]["motion_blur_scale_x"] = to_string(*halo3::offsets::variables::motion_blur_scale_x);
+	ini["Rendering"]["motion_blur_scale_y"] = to_string(*halo3::offsets::variables::motion_blur_scale_y);
+	ini["Rendering"]["motion_blur_center_falloff"] = to_string(*halo3::offsets::variables::motion_blur_center_falloff);
 	ini["Game"]["player_weapon_projectiles_only"] = to_string(&halo3::hooks::player_weapon_projectiles_only);
 	// write to the INI file (overwrites)
 	if (!file.write(ini, true))
@@ -426,13 +428,13 @@ bool config::halo3_load()
 
 	// read a value
 	std::istringstream(ini.get("Game").get("player_weapon_projectiles_only")) >> std::boolalpha >> halo3::hooks::player_weapon_projectiles_only;
-	std::istringstream(ini.get("Rendering").get("motion_blur_expected_dt")) >> *halo3::offsets::motion_blur_expected_dt;
-	std::istringstream(ini.get("Rendering").get("motion_blur_taps")) >> *halo3::offsets::motion_blur_taps;
-	std::istringstream(ini.get("Rendering").get("motion_blur_max_x")) >> *halo3::offsets::motion_blur_max_x;
-	std::istringstream(ini.get("Rendering").get("motion_blur_max_y")) >> *halo3::offsets::motion_blur_max_y;
-	std::istringstream(ini.get("Rendering").get("motion_blur_scale_x")) >> *halo3::offsets::motion_blur_scale_x;
-	std::istringstream(ini.get("Rendering").get("motion_blur_scale_y")) >> *halo3::offsets::motion_blur_scale_y;
-	std::istringstream(ini.get("Rendering").get("motion_blur_center_falloff")) >> *halo3::offsets::motion_blur_center_falloff;
+	std::istringstream(ini.get("Rendering").get("motion_blur_expected_dt")) >> *halo3::offsets::variables::motion_blur_expected_dt;
+	std::istringstream(ini.get("Rendering").get("motion_blur_taps")) >> *halo3::offsets::variables::motion_blur_taps;
+	std::istringstream(ini.get("Rendering").get("motion_blur_max_x")) >> *halo3::offsets::variables::motion_blur_max_x;
+	std::istringstream(ini.get("Rendering").get("motion_blur_max_y")) >> *halo3::offsets::variables::motion_blur_max_y;
+	std::istringstream(ini.get("Rendering").get("motion_blur_scale_x")) >> *halo3::offsets::variables::motion_blur_scale_x;
+	std::istringstream(ini.get("Rendering").get("motion_blur_scale_y")) >> *halo3::offsets::variables::motion_blur_scale_y;
+	std::istringstream(ini.get("Rendering").get("motion_blur_center_falloff")) >> *halo3::offsets::variables::motion_blur_center_falloff;
 
 	return true;
 }

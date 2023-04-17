@@ -49,11 +49,11 @@ void __cdecl weapon_barrel_create_projectiles_detour(long weapon_object_index, s
 
 void halo3::hooks::init()
 {
-	game_in_progress.create(reinterpret_cast<uintptr_t>(offsets::game_in_progress), game_in_progress_detour);
+	game_in_progress.create(reinterpret_cast<uintptr_t>(offsets::functions::game_in_progress), game_in_progress_detour);
 
-	game_tick.create(reinterpret_cast<uintptr_t>(offsets::game_tick), game_tick_detour);
+	game_tick.create(reinterpret_cast<uintptr_t>(offsets::functions::game_tick), game_tick_detour);
 
-	weapon_barrel_create_projectiles.create(reinterpret_cast<uintptr_t>(offsets::weapon_barrel_create_projectiles), weapon_barrel_create_projectiles_detour);
+	weapon_barrel_create_projectiles.create(reinterpret_cast<uintptr_t>(offsets::functions::weapon_barrel_create_projectiles), weapon_barrel_create_projectiles_detour);
 
 	MH_ApplyQueued();
 }

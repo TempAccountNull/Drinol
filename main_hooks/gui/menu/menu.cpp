@@ -237,9 +237,9 @@ void menu::render()
 #endif
 					if (ImGui::BeginTabItem("Game"))
 					{
-						if (halo3::offsets::physics_constants != NULL)
+						if (halo3::offsets::globals::physics_constants != NULL)
 						{
-							ImGui::DragFloat("Gravity", &halo3::offsets::physics_constants->gravity, 0.005f, -FLT_MAX, +FLT_MAX, "%.5f", ImGuiSliderFlags_None);
+							ImGui::DragFloat("Gravity", &halo3::offsets::globals::physics_constants->gravity, 0.005f, -FLT_MAX, +FLT_MAX, "%.5f", ImGuiSliderFlags_None);
 							if (ImGui::IsItemHovered())
 								ImGui::SetTooltip("The gravity, nuff said. Note: Not savable. Default: 4.1712594");
 						}
@@ -253,19 +253,19 @@ void menu::render()
 
 					if (ImGui::BeginTabItem("Rendering"))
 					{
-						ImGui::DragFloat("##motion_blur_scale_x", halo3::offsets::motion_blur_scale_x, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_scale_x: %.5f", ImGuiSliderFlags_None);
+						ImGui::DragFloat("##motion_blur_scale_x", halo3::offsets::variables::motion_blur_scale_x, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_scale_x: %.5f", ImGuiSliderFlags_None);
 
-						ImGui::DragFloat("##motion_blur_scale_y", halo3::offsets::motion_blur_scale_y, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_scale_y: %.5f", ImGuiSliderFlags_None);
+						ImGui::DragFloat("##motion_blur_scale_y", halo3::offsets::variables::motion_blur_scale_y, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_scale_y: %.5f", ImGuiSliderFlags_None);
 
-						ImGui::DragFloat("##motion_blur_max_x", halo3::offsets::motion_blur_max_x, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_max_x: %.5f", ImGuiSliderFlags_None);
+						ImGui::DragFloat("##motion_blur_max_x", halo3::offsets::variables::motion_blur_max_x, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_max_x: %.5f", ImGuiSliderFlags_None);
 
-						ImGui::DragFloat("##motion_blur_max_y", halo3::offsets::motion_blur_max_y, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_max_y: %.5f", ImGuiSliderFlags_None);
+						ImGui::DragFloat("##motion_blur_max_y", halo3::offsets::variables::motion_blur_max_y, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_max_y: %.5f", ImGuiSliderFlags_None);
 
-						ImGui::DragInt("##motion_blur_taps", halo3::offsets::motion_blur_taps, 1, 0, 100, "motion_blur_taps: %i", ImGuiSliderFlags_None);
+						ImGui::DragInt("##motion_blur_taps", halo3::offsets::variables::motion_blur_taps, 1, 0, 100, "motion_blur_taps: %i", ImGuiSliderFlags_None);
 
-						ImGui::DragFloat("##motion_blur_center_falloff", halo3::offsets::motion_blur_center_falloff, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_center_falloff: %.5f", ImGuiSliderFlags_None);
+						ImGui::DragFloat("##motion_blur_center_falloff", halo3::offsets::variables::motion_blur_center_falloff, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_center_falloff: %.5f", ImGuiSliderFlags_None);
 
-						ImGui::DragFloat("##motion_blur_expected_dt", halo3::offsets::motion_blur_expected_dt, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_expected_dt: %.5f", ImGuiSliderFlags_None);
+						ImGui::DragFloat("##motion_blur_expected_dt", halo3::offsets::variables::motion_blur_expected_dt, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_expected_dt: %.5f", ImGuiSliderFlags_None);
 
 						ImGui::EndTabItem();
 					}
