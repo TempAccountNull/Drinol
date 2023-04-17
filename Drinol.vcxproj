@@ -247,10 +247,14 @@
     <ClInclude Include="main_hooks\gui\menu\menu.h" />
     <ClInclude Include="main_hooks\middleware\middleware_sigs.h" />
     <ClInclude Include="main_hooks\middleware\middleware.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="utils\detour.h" />
     <ClInclude Include="utils\ntpebteb.h" />
     <ClInclude Include="utils\utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Drinol.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
