@@ -250,20 +250,20 @@ bool config::halo1_save()
 	mINI::INIStructure ini;
 
 	// populate the structure
-	ini["Weapons"]["bottomless_clip"] = bool_to_string(*halo1::offsets::bottomless_clip);
-	ini["Weapons"]["infinite_ammo"] = bool_to_string(*halo1::offsets::infinite_ammo);
+	ini["Weapons"]["bottomless_clip"] = bool_to_string(*halo1::offsets::variables::bottomless_clip);
+	ini["Weapons"]["infinite_ammo"] = bool_to_string(*halo1::offsets::variables::infinite_ammo);
 
-	ini["Player"]["god_mode"] = bool_to_string(*halo1::offsets::god_mode);
+	ini["Player"]["god_mode"] = bool_to_string(*halo1::offsets::variables::god_mode);
 
-	ini["Game"]["ticks_per_second"] = to_string(*halo1::offsets::game_ticks_per_second);
-	ini["Game"]["motion_sensor_show_all_units"] = bool_to_string(*halo1::offsets::motion_sensor_show_all_units);
+	ini["Game"]["ticks_per_second"] = to_string(*halo1::offsets::variables::game_ticks_per_second);
+	ini["Game"]["motion_sensor_show_all_units"] = bool_to_string(*halo1::offsets::variables::motion_sensor_show_all_units);
 	ini["Game"]["redirect_print"] = bool_to_string(halo1::hooks::redirect_print);
 
-	ini["Rendering"]["fps_counter"] = bool_to_string(*halo1::offsets::fps_counter);
-	ini["Rendering"]["wireframe"] = bool_to_string(*halo1::offsets::wireframe);
-	ini["Rendering"]["atmosphere_fog"] = bool_to_string(*halo1::offsets::atmosphere_fog);
-	ini["Rendering"]["fog_plane"] = bool_to_string(*halo1::offsets::fog_plane);
-	ini["Rendering"]["enviroment_diffuse"] = bool_to_string(*halo1::offsets::enviroment_diffuse);
+	ini["Rendering"]["fps_counter"] = bool_to_string(*halo1::offsets::variables::fps_counter);
+	ini["Rendering"]["wireframe"] = bool_to_string(*halo1::offsets::variables::wireframe);
+	ini["Rendering"]["atmosphere_fog"] = bool_to_string(*halo1::offsets::variables::atmosphere_fog);
+	ini["Rendering"]["fog_plane"] = bool_to_string(*halo1::offsets::variables::fog_plane);
+	ini["Rendering"]["enviroment_diffuse"] = bool_to_string(*halo1::offsets::variables::enviroment_diffuse);
 
 	// write to the INI file (overwrites)
 	if (!file.write(ini, true))
@@ -288,20 +288,20 @@ bool config::halo1_load()
 
 	// read a value
 
-	std::istringstream(ini.get("Weapons").get("bottomless_clip")) >> std::boolalpha >> *halo1::offsets::bottomless_clip;
-	std::istringstream(ini.get("Weapons").get("infinite_ammo")) >> std::boolalpha >> *halo1::offsets::infinite_ammo;
+	std::istringstream(ini.get("Weapons").get("bottomless_clip")) >> std::boolalpha >> *halo1::offsets::variables::bottomless_clip;
+	std::istringstream(ini.get("Weapons").get("infinite_ammo")) >> std::boolalpha >> *halo1::offsets::variables::infinite_ammo;
 
-	std::istringstream(ini.get("Player").get("god_mode")) >> std::boolalpha >> *halo1::offsets::god_mode;
+	std::istringstream(ini.get("Player").get("god_mode")) >> std::boolalpha >> *halo1::offsets::variables::god_mode;
 
-	std::istringstream(ini.get("Game").get("ticks_per_second")) >> *halo1::offsets::game_ticks_per_second;
-	std::istringstream(ini.get("Game").get("motion_sensor_show_all_units")) >> std::boolalpha >> *halo1::offsets::motion_sensor_show_all_units;
+	std::istringstream(ini.get("Game").get("ticks_per_second")) >> *halo1::offsets::variables::game_ticks_per_second;
+	std::istringstream(ini.get("Game").get("motion_sensor_show_all_units")) >> std::boolalpha >> *halo1::offsets::variables::motion_sensor_show_all_units;
 	std::istringstream(ini.get("Game").get("redirect_print")) >> std::boolalpha >> halo1::hooks::redirect_print;
 
-	std::istringstream(ini.get("Rendering").get("fps_counter")) >> std::boolalpha >> *halo1::offsets::fps_counter;
-	std::istringstream(ini.get("Rendering").get("wireframe")) >> std::boolalpha >> *halo1::offsets::wireframe;
-	std::istringstream(ini.get("Rendering").get("atmosphere_fog")) >> std::boolalpha >> *halo1::offsets::atmosphere_fog;
-	std::istringstream(ini.get("Rendering").get("fog_plane")) >> std::boolalpha >> *halo1::offsets::fog_plane;
-	std::istringstream(ini.get("Rendering").get("enviroment_diffuse")) >> std::boolalpha >> *halo1::offsets::enviroment_diffuse;
+	std::istringstream(ini.get("Rendering").get("fps_counter")) >> std::boolalpha >> *halo1::offsets::variables::fps_counter;
+	std::istringstream(ini.get("Rendering").get("wireframe")) >> std::boolalpha >> *halo1::offsets::variables::wireframe;
+	std::istringstream(ini.get("Rendering").get("atmosphere_fog")) >> std::boolalpha >> *halo1::offsets::variables::atmosphere_fog;
+	std::istringstream(ini.get("Rendering").get("fog_plane")) >> std::boolalpha >> *halo1::offsets::variables::fog_plane;
+	std::istringstream(ini.get("Rendering").get("enviroment_diffuse")) >> std::boolalpha >> *halo1::offsets::variables::enviroment_diffuse;
 
 	return true;
 }

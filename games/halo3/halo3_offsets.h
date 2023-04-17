@@ -6,10 +6,11 @@ namespace halo3
 {
 	class offsets
 	{
-		/**
-		 * \brief offsets to game variables
-		 */
 	public:
+
+		/**
+		 * \brief offsets to variables
+		 */
 		class variables
 		{
 		public:

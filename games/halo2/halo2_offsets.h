@@ -1,20 +1,48 @@
 #pragma once
-#include <string>
 
 #include "halo2_engine.h"
-#include "Memcury/memcury.h"
 
 namespace halo2
 {
 	class offsets
 	{
 	public:
-		inline static engine::_hs_function_table* hs_function_table;
-		inline static engine::_hs_external_globals* hs_external_globals;
-		inline static engine::_hs_type_names* hs_type_names;
-		inline static void* hs_null_evaluate;
-		inline static void* _terminal_printf;
-		inline static float** gravity;
+
+		/**
+		* \brief blamscript related functions ,tables, etc
+		*/
+		class blamscript
+		{
+		public:
+			inline static engine::_hs_function_table* hs_function_table;
+			inline static engine::_hs_type_names* hs_type_names;
+			inline static engine::_hs_external_globals* hs_external_globals;
+
+			class functions
+			{
+			public:
+				inline static void* hs_null_evaluate;
+			};
+		};
+
+		/**
+		* \brief offsets to variables
+		*/
+		class variables
+		{
+		public:
+			inline static float** gravity;
+		};
+
+		/**
+		* \brief offsets to the game functions
+		*/
+		class functions
+		{
+		public:
+
+			inline static void* _terminal_printf;
+		};
 
 		static void init();
 	};

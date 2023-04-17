@@ -17,11 +17,11 @@ void haloreach::game::test_function()
 void haloreach::game::list_all_hs_functions()
 {
 	spdlog::info("Printing all eval functions inside the blamscript function table.");
-	for (engine::_hs_script_op* function : offsets::hs_function_table->table)
+	for (engine::_hs_script_op* function : offsets::blamscript::hs_function_table->table)
 	{
-		if (function->evaluate_func != nullptr && function->evaluate_func != offsets::hs_null_evaluate)
+		if (function->evaluate_func != nullptr && function->evaluate_func != offsets::blamscript::functions::hs_null_evaluate)
 		{
-			spdlog::info("[HS Function] Return Type: {} Name: {} Address: {}", offsets::hs_type_names->types[function->return_type], function->name, function->evaluate_func);
+			spdlog::info("[HS Function] Return Type: {} Name: {} Address: {}", offsets::blamscript::hs_type_names->types[function->return_type], function->name, function->evaluate_func);
 		}
 	}
 	spdlog::info("Finished printing out the functions.");
@@ -30,10 +30,10 @@ void haloreach::game::list_all_hs_functions()
 void haloreach::game::list_all_hs_globals()
 {
 	spdlog::info("Printing all globals inside the blamscript globals table.");
-	for (engine::hs_external_global* global : offsets::hs_external_globals->globals)
+	for (engine::hs_external_global* global : offsets::blamscript::hs_external_globals->globals)
 		if (global->address != nullptr) // Check if globals functionality has not been stripped from retail.
 		{
-			spdlog::info("[HS Global] Name: {} Address: {} Parameter Type: {}", global->name, global->address, offsets::hs_type_names->types[global->param_type]);
+			spdlog::info("[HS Global] Name: {} Address: {} Parameter Type: {}", global->name, global->address, offsets::blamscript::hs_type_names->types[global->param_type]);
 		}
 	spdlog::info("Finished printing out the globals.");
 }
@@ -42,7 +42,7 @@ void haloreach::game::list_all_hs_globals()
 
 void* haloreach::game::get_hs_global(const char* global_name) // Gets the address of the specified global.
 {
-	for (const engine::hs_external_global* global : offsets::hs_external_globals->globals)
+	for (const engine::hs_external_global* global : offsets::blamscript::hs_external_globals->globals)
 	{
 		if (strcmp(global->name, global_name) == 0)
 		{
@@ -63,12 +63,12 @@ void* haloreach::game::get_hs_global(const char* global_name) // Gets the addres
 
 void* haloreach::game::get_eval_hs_function(const char* func_name) // Gets the address of the specified function.
 {
-	for (const engine::_hs_script_op* function : offsets::hs_function_table->table)
+	for (const engine::_hs_script_op* function : offsets::blamscript::hs_function_table->table)
 	{
 		if (strcmp(function->name, func_name) == 0)
 		{
 			// bool has been found
-			if (function->evaluate_func != nullptr || function->evaluate_func != offsets::hs_null_evaluate)
+			if (function->evaluate_func != nullptr || function->evaluate_func != offsets::blamscript::functions::hs_null_evaluate)
 			{
 				return function->evaluate_func;
 			}

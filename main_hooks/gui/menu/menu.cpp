@@ -99,11 +99,11 @@ void menu::render()
 
 					if (ImGui::BeginTabItem("Weapons"))
 					{
-						ImGui::Checkbox("Bottomless Clip", halo1::offsets::bottomless_clip);
+						ImGui::Checkbox("Bottomless Clip", halo1::offsets::variables::bottomless_clip);
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Gives you infinite ammo without the need to reload or worry about your weapon overheating.");
 
-						ImGui::Checkbox("Infinite Ammo", halo1::offsets::infinite_ammo);
+						ImGui::Checkbox("Infinite Ammo", halo1::offsets::variables::infinite_ammo);
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Same as bottomless clip but you have to reload, can still overheat and have infinite grenades.");
 
@@ -112,7 +112,7 @@ void menu::render()
 
 					if (ImGui::BeginTabItem("Player"))
 					{
-						ImGui::Checkbox("God Mode", halo1::offsets::god_mode);
+						ImGui::Checkbox("God Mode", halo1::offsets::variables::god_mode);
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Makes you unable to die.");
 
@@ -121,15 +121,15 @@ void menu::render()
 
 					if (ImGui::BeginTabItem("Game"))
 					{
-						ImGui::DragFloat("Game ticks per second.", halo1::offsets::game_ticks_per_second, 0.005f, -FLT_MAX, +FLT_MAX, "%.3f", ImGuiSliderFlags_None);
+						ImGui::DragFloat("Game ticks per second.", halo1::offsets::variables::game_ticks_per_second, 0.005f, -FLT_MAX, +FLT_MAX, "%.3f", ImGuiSliderFlags_None);
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Basically the speed/time scale of the game. Default: 30.0");
 
-						ImGui::DragFloat("Gravity", *halo1::offsets::gravity, 0.005f, -FLT_MAX, +FLT_MAX, "%.5f", ImGuiSliderFlags_None);
+						ImGui::DragFloat("Gravity", *halo1::offsets::variables::gravity, 0.005f, -FLT_MAX, +FLT_MAX, "%.5f", ImGuiSliderFlags_None);
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("The gravity, nuff said. Note: Not savable.");
 
-						ImGui::Checkbox("Motion Sensor - Show All Units", halo1::offsets::motion_sensor_show_all_units);
+						ImGui::Checkbox("Motion Sensor - Show All Units", halo1::offsets::variables::motion_sensor_show_all_units);
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Shows all units on your motion sensor, regardless if they are moving or not.");
 
@@ -142,23 +142,23 @@ void menu::render()
 
 					if (ImGui::BeginTabItem("Rendering"))
 					{
-						ImGui::Checkbox("FPS Counter", halo1::offsets::fps_counter);
+						ImGui::Checkbox("FPS Counter", halo1::offsets::variables::fps_counter);
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Displays a built-in fps counter. Does not work in remastered mode!");
 
-						ImGui::Checkbox("Wireframe", halo1::offsets::wireframe);
+						ImGui::Checkbox("Wireframe", halo1::offsets::variables::wireframe);
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Renders the game in wireframe. Does not work in remastered mode!");
 
-						ImGui::Checkbox("Fog", halo1::offsets::atmosphere_fog);
+						ImGui::Checkbox("Fog", halo1::offsets::variables::atmosphere_fog);
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Toggles the atmosphere fog.");
 
-						ImGui::Checkbox("Fog Plane", halo1::offsets::fog_plane);
+						ImGui::Checkbox("Fog Plane", halo1::offsets::variables::fog_plane);
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Toggles the fog plane.");
 
-						ImGui::Checkbox("Enviroment Diffuse Textures", halo1::offsets::enviroment_diffuse);
+						ImGui::Checkbox("Enviroment Diffuse Textures", halo1::offsets::variables::enviroment_diffuse);
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Toggles rendering diffuse textures on the enviroment.");
 
@@ -197,7 +197,7 @@ void menu::render()
 
 					if (ImGui::BeginTabItem("Game"))
 					{
-						ImGui::DragFloat("Gravity", *halo2::offsets::gravity, 0.005f, -FLT_MAX, +FLT_MAX, "%.5f", ImGuiSliderFlags_None);
+						ImGui::DragFloat("Gravity", *halo2::offsets::variables::gravity, 0.005f, -FLT_MAX, +FLT_MAX, "%.5f", ImGuiSliderFlags_None);
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("The gravity, nuff said. Note: Not savable.");
 

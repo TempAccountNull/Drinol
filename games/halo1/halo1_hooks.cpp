@@ -21,7 +21,7 @@ static void terminal_printf_detour(int* a1, char* string, ...)
 
 void halo1::hooks::init()
 {
-	terminal_printf_h1.create(reinterpret_cast<uintptr_t>(offsets::_terminal_printf), terminal_printf_detour);
+	terminal_printf_h1.create(reinterpret_cast<uintptr_t>(offsets::functions::_terminal_printf), terminal_printf_detour);
 	MH_ApplyQueued();
 }
 
