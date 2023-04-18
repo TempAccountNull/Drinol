@@ -7,6 +7,8 @@ void halo3odst::game::init() // Initialize hooks and shit for halo 1
 	Memcury::Scanner::SetTargetModule("halo3odst.dll");
 
 	offsets::init();
+
+	spdlog::info("Halo 3 ODST initialized ☺");
 }
 
 #if defined _DEBUG

@@ -7,6 +7,8 @@ void haloreach::game::init() // Initialize hooks and shit for halo 1
 	Memcury::Scanner::SetTargetModule("haloreach.dll");
 
 	offsets::init();
+
+	spdlog::info("Halo Reach initialized ☺");
 }
 
 #if defined _DEBUG

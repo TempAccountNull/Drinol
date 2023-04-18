@@ -2,7 +2,7 @@
 
 void halo4::game::init() // Initialize hooks and shit for halo 1
 {
-	spdlog::info("Initializing halo 4");
+	spdlog::info("Initializing Halo 4");
 
 	Memcury::Scanner::SetTargetModule("halo4.dll");
 
@@ -19,6 +19,8 @@ void halo4::game::init() // Initialize hooks and shit for halo 1
 	{
 		spdlog::info("Loaded settings for Halo 4.");
 	}
+
+	spdlog::info("Halo 4 initialized ☺");
 }
 
 #if defined _DEBUG

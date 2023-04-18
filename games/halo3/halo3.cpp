@@ -19,6 +19,8 @@ void halo3::game::init() // Initialize hooks and shit for halo 1
 	{
 		spdlog::info("Loaded settings for Halo 3.");
 	}
+
+	spdlog::info("Halo 3 initialized ☺");
 }
 
 void halo3::game::deinit()
