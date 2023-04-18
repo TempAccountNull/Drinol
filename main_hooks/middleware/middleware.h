@@ -6,6 +6,7 @@ namespace middleware
 	class hooks
 	{
 	public:
+
 		/**
 		 * \brief initializes MCC UE4 middleware hook stuff.
 		 */

@@ -19,7 +19,6 @@ void halo4::game::init() // Initialize hooks and shit for halo 1
 	{
 		spdlog::info("Loaded settings for Halo 4.");
 	}
-	spdlog::debug("Halo 4 TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(utils::get_tls_pointer(L"halo4.dll")));
 }
 
 #if defined _DEBUG

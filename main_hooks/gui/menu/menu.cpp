@@ -22,7 +22,7 @@ void menu::render()
 	{
 		if (ImGui::BeginMenu("Options"))
 		{
-			if (!utils::running_game.empty())
+			if (!utils::games::current_game_number == -1)
 			{
 				if (ImGui::MenuItem("Load Game Changes")) { show_load_modal = true; }
 				if (ImGui::MenuItem("Save Game Changes")) { show_save_modal = true; }
@@ -49,9 +49,9 @@ void menu::render()
 		if (ImGui::BeginTabItem("Status"))
 		{
 			// Status of Drinol, blah
-			if (!utils::running_game.empty())
+			if (!utils::games::current_game_number == -1)
 			{
-				ImGui::Text("Currently running game: %s", utils::running_game.c_str());
+				ImGui::Text("Currently running game: %i", utils::games::current_game_number);
 			}
 			else
 			{
@@ -75,7 +75,7 @@ void menu::render()
 
 		// TODO: ideally we should show all the games and just grey out the stuff you cant interact with if a certain game is not running
 #pragma region Halo 1 Menu
-		if (utils::running_game == "Halo 1 Anniversary")
+		if (utils::games::current_game_number == utils::games::halo1)
 		{
 			if (ImGui::BeginTabItem("Halo 1"))
 			{
@@ -173,7 +173,7 @@ void menu::render()
 #pragma endregion
 
 #pragma region Halo 2 Menu
-		if (utils::running_game == "Halo 2 Anniversary")
+		if (utils::games::current_game_number == utils::games::halo2)
 		{
 			if (ImGui::BeginTabItem("Halo 2"))
 			{
@@ -217,7 +217,7 @@ void menu::render()
 #pragma endregion
 
 #pragma region Halo 3 Menu
-		if (utils::running_game == "Halo 3")
+		if (utils::games::current_game_number == utils::games::halo3)
 		{
 			if (ImGui::BeginTabItem("Halo 3"))
 			{
@@ -278,7 +278,7 @@ void menu::render()
 #pragma endregion
 
 #pragma region Halo 3: ODST Menu
-		if (utils::running_game == "Halo 3: ODST")
+		if (utils::games::current_game_number == utils::games::halo3odst)
 		{
 			if (ImGui::BeginTabItem("Halo 3: ODST"))
 			{
@@ -317,7 +317,7 @@ void menu::render()
 #pragma endregion
 
 #pragma region Halo Reach
-		if (utils::running_game == "Halo Reach")
+		if (utils::games::current_game_number == utils::games::haloreach)
 		{
 			if (ImGui::BeginTabItem("Halo Reach"))
 			{

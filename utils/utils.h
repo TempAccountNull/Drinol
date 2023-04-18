@@ -1,14 +1,30 @@
 #pragma once
 #include <string>
-#include <framework.h>
 
 class utils
 {
 public:
-	/**
-	 * \brief the currently running game.
-	 */
-	inline static std::string running_game;
+
+	class games
+	{
+	public:
+		inline static int current_game_number;
+
+		/**
+		 * \brief list of games
+		 */
+		enum e_games
+		{
+			halo1 = 0,
+			halo2,
+			halo3,
+			halo4,
+			groundhog,
+			halo3odst,
+			haloreach,
+		};
+	};
+
 	/**
 	 * \brief full path of the drinol dll.
 	 */
@@ -43,6 +59,10 @@ public:
 	 * \brief debug function for testing stuff.
 	 */
 	static void test_func(int test_int = 0);
+	/**
+	 * \brief Prints the tls pointer of your currently running game, it will change so its best to pause the game so the address stays still, then suspend the mcc process.
+	 */
+	static void print_game_tls_pointer();
 #if defined _DEBUG
 	/**
 	 * \brief lists some of the base addresses of the halo game dlls.

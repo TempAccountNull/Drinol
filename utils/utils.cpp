@@ -3,213 +3,181 @@
 void utils::handle_game_init(int game_number)
 {
 	switch (game_number) {
-	case 0:
-		running_game = "Halo 1 Anniversary";
+	case games::e_games::halo1:
 		halo1::game::init();
 		break;
-	case 1:
-		running_game = "Halo 2 Anniversary";
+	case games::e_games::halo2:
 		halo2::game::init();
 		break;
-	case 2:
-		running_game = "Halo 3";
+	case games::e_games::halo3:
 		halo3::game::init();
 		break;
-	case 3:
-		running_game = "Halo 4";
+	case games::e_games::halo4:
 		halo4::game::init();
 		break;
-	case 4:
-		running_game = "Halo 2 Anniversary MP (Groundhog)";
+	case games::e_games::groundhog:
+		spdlog::error("Halo 2 Anniversary Multiplayer is not supported at the moment!");
 		break;
-	case 5:
-		running_game = "Halo 3: ODST";
+	case games::e_games::halo3odst:
 		halo3odst::game::init();
 		break;
-	case 6:
-		running_game = "Halo Reach";
+	case games::e_games::haloreach:
 		haloreach::game::init();
 		break;
 	default:
 		assert(game_number <= 6);
 	}
 
-#if defined _DEBUG
-	spdlog::debug("{} is active.", running_game.c_str());
-#endif
+	games::current_game_number = game_number;
 }
 
 void utils::handle_game_deinit()
 {
-	if (running_game == "Halo 1 Anniversary")
-	{
+	switch (games::current_game_number) {
+	case games::e_games::halo1:
 		halo1::game::deinit();
-		return;
-	}
-
-	if (running_game == "Halo 2 Anniversary")
-	{
+		break;
+	case games::e_games::halo2:
 		halo2::game::deinit();
-		return;
-	}
-
-	if (running_game == "Halo 3")
-	{
+		break;
+	case games::e_games::halo3:
 		halo3::game::deinit();
-		return;
-	}
-
-	if (running_game == "Halo 4")
-	{
+		break;
+	case games::e_games::halo4:
 		halo4::game::deinit();
-		return;
+		break;
+	default:
+		assert(games::current_game_number <= 6);
 	}
 }
 
 // Saves the currently running games settings.
 void utils::save_running_game_settings()
 {
-	if (running_game == "Halo 1 Anniversary")
-	{
+	switch (games::current_game_number) {
+	case games::e_games::halo1:
 		if (config::halo1_save())
 		{
 			spdlog::info("Saved settings for Halo 1!");
-			return;
 		}
-	}
-
-	if (running_game == "Halo 2 Anniversary")
-	{
+		break;
+	case games::e_games::halo2:
 		if (config::halo2_save())
 		{
 			spdlog::info("Saved settings for Halo 2!");
-			return;
 		}
-	}
-
-	if (running_game == "Halo 3")
-	{
+		break;
+	case games::e_games::halo3:
 		if (config::halo3_save())
 		{
 			spdlog::info("Saved settings for Halo 3!");
-			return;
 		}
-	}
-
-	if (running_game == "Halo 4")
-	{
+		break;
+	case games::e_games::halo4:
 		if (config::halo4_save())
 		{
 			spdlog::info("Saved settings for Halo 4!");
-			return;
 		}
+		break;
+	default:
+		assert(games::current_game_number <= 6);
 	}
 }
 
 // Loads the currently running games settings.
 void utils::load_running_game_settings()
 {
-	if (running_game == "Halo 1 Anniversary")
-	{
+	switch (games::current_game_number) {
+	case games::e_games::halo1:
 		if (config::halo1_load())
 		{
 			spdlog::info("Loaded settings for Halo 1!");
-			return;
 		}
-	}
-
-	if (running_game == "Halo 2 Anniversary")
-	{
+		break;
+	case games::e_games::halo2:
 		if (config::halo2_load())
 		{
 			spdlog::info("Loaded settings for Halo 2!");
-			return;
 		}
-	}
-
-	if (running_game == "Halo 3")
-	{
+		break;
+	case games::e_games::halo3:
 		if (config::halo3_load())
 		{
 			spdlog::info("Loaded settings for Halo 3!");
-			return;
 		}
-	}
-
-	if (running_game == "Halo 4")
-	{
+		break;
+	case games::e_games::halo4:
 		if (config::halo4_load())
 		{
 			spdlog::info("Loaded settings for Halo 4!");
-			return;
 		}
+		break;
+	default:
+		assert(games::current_game_number <= 6);
 	}
 }
 
 void utils::reset_running_game_settings()
 {
-	if (running_game == "Halo 1 Anniversary")
-	{
+	switch (games::current_game_number) {
+	case games::e_games::halo1:
 		if (!config::halo1_create())
 		{
 			spdlog::error("Failed to create fresh settings for Halo 1!");
-			return;
+			break;
 		}
 		if (!config::halo1_load())
 		{
 			spdlog::error("Failed to load fresh settings for Halo 1!");
-			return;
+			break;
 		}
 
 		spdlog::info("Reset settings for Halo 1");
-	}
-
-	if (running_game == "Halo 2 Anniversary")
-	{
+		break;
+	case games::e_games::halo2:
 		if (!config::halo2_create())
 		{
 			spdlog::error("Failed to create fresh settings for Halo 2!");
-			return;
+			break;
 		}
 		if (!config::halo2_load())
 		{
 			spdlog::error("Failed to load fresh settings for Halo 2!");
-			return;
+			break;
 		}
 
 		spdlog::info("Reset settings for Halo 2");
-	}
-
-	if (running_game == "Halo 3")
-	{
+		break;
+	case games::e_games::halo3:
 		if (!config::halo3_create())
 		{
 			spdlog::error("Failed to create fresh settings for Halo 3!");
-			return;
+			break;
 		}
 		if (!config::halo3_load())
 		{
 			spdlog::error("Failed to load fresh settings for Halo 3!");
-			return;
+			break;
 		}
 
 		spdlog::info("Reset settings for Halo 3");
-	}
-
-	if (running_game == "Halo 4")
-	{
+		break;
+	case games::e_games::halo4:
 		if (!config::halo4_create())
 		{
 			spdlog::error("Failed to create fresh settings for Halo 4!");
-			return;
+			break;
 		}
 		if (!config::halo4_load())
 		{
 			spdlog::error("Failed to load fresh settings for Halo 4!");
-			return;
+			break;
 		}
 
 		spdlog::info("Reset settings for Halo 4");
+		break;
+	default:
+		assert(games::current_game_number <= 6);
 	}
 }
 
@@ -252,6 +220,33 @@ void utils::test_func(int test_int)
 	//	c_restricted_memory region = halo4::offsets::globals::g_restricted_regions[i];
 	//	spdlog::debug("{}", region.m_registered_member_count);
 	//}
+	print_game_tls_pointer();
+}
+
+void utils::print_game_tls_pointer()
+{
+	switch (games::current_game_number) {
+	case games::e_games::halo1:
+		spdlog::debug("Halo 1 TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"halo1.dll")));
+		break;
+	case games::e_games::halo2:
+		spdlog::debug("Halo 2 TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"halo2.dll")));
+		break;
+	case games::e_games::halo3:
+		spdlog::debug("Halo 3 TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"halo3.dll")));
+		break;
+	case games::e_games::halo3odst:
+		spdlog::debug("Halo 3 ODST TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"halo3odst.dll")));
+		break;
+	case games::e_games::haloreach:
+		spdlog::debug("Halo Reach TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"haloreach.dll")));
+		break;
+	case games::e_games::halo4:
+		spdlog::debug("Halo 4 TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"halo4.dll")));
+		break;
+	default:
+		assert(games::current_game_number <= 6);
+	}
 }
 
 void utils::list_game_base_addresses()
