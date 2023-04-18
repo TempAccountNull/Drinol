@@ -3,6 +3,9 @@
 
 typedef float real; // Blam calls floats reals, idk why
 
+typedef unsigned long long qword;
+static_assert(sizeof(qword) == 0x8);
+
 typedef unsigned long datum_index;
 static_assert(sizeof(datum_index) == 0x4);
 
