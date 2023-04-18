@@ -1,22 +1,16 @@
 #include "stdafx.h"
 
-detour game_in_progress;
-
-detour game_tick;
-
-detour weapon_barrel_create_projectiles;
-
 static bool __cdecl game_in_progress_detour()
 {
-	if (game_in_progress.stub<bool>())
+	if (halo3::hooks::game_in_progress.stub<bool>())
 	{
 		halo3::offsets::game_init();
-		spdlog::info("Halo 3 game is in progress.");
-		game_in_progress.disable();
+		spdlog::debug("Halo 3 game is in progress.");
+		halo3::hooks::game_in_progress.disable();
 		MH_ApplyQueued();
 	}
 
-	return game_in_progress.stub<bool>();
+	return halo3::hooks::game_in_progress.stub<bool>();
 }
 
 static void __cdecl game_tick_detour()
@@ -29,7 +23,7 @@ static void __cdecl game_tick_detour()
 		halo3::hooks::game_tick_test = false;
 	}
 
-	return game_tick.stub<void>();
+	return halo3::hooks::game_tick.stub<void>();
 }
 
 void __cdecl weapon_barrel_create_projectiles_detour(long weapon_object_index, short barrel_index, struct s_predicted_weapon_fire_data const* fire_data, long unk1, bool unk2)
@@ -44,7 +38,7 @@ void __cdecl weapon_barrel_create_projectiles_detour(long weapon_object_index, s
 		}
 	}
 
-	return weapon_barrel_create_projectiles.stub<void>(weapon_object_index, barrel_index, fire_data, unk1, unk2);
+	return halo3::hooks::weapon_barrel_create_projectiles.stub<void>(weapon_object_index, barrel_index, fire_data, unk1, unk2);
 }
 
 void halo3::hooks::init()
