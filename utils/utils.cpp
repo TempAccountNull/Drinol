@@ -211,7 +211,7 @@ void utils::reset_running_game_settings()
 
 		spdlog::info("Reset settings for Halo 4");
 	}
-	}
+}
 
 //https://github.com/citizenfx/fivem/blob/f3bb0460562b1eb1a7f9652ffcf73ad7282fd45e/code/client/shared/Hooking.h#L91-L113
 char* utils::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
@@ -219,10 +219,11 @@ char* utils::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
 	// ah, the irony in using TLS to get TLS
 	static auto tlsIndex = ([module_name]()
 		{
-			auto base = (char*)GetModuleHandleW(module_name);
-			auto moduleBase = (PIMAGE_DOS_HEADER)base;
-			auto ntBase = (PIMAGE_NT_HEADERS)(base + moduleBase->e_lfanew);
-			auto tlsBase = (PIMAGE_TLS_DIRECTORY)(base + ntBase->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_TLS].VirtualAddress);
+			auto base = reinterpret_cast<char*>(GetModuleHandleW(module_name));
+			auto moduleBase = reinterpret_cast<PIMAGE_DOS_HEADER>(base);
+			auto ntBase = reinterpret_cast<PIMAGE_NT_HEADERS>(base + moduleBase->e_lfanew);
+			auto tlsBase = reinterpret_cast<PIMAGE_TLS_DIRECTORY>(base + ntBase->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_TLS].
+				VirtualAddress);
 
 			return reinterpret_cast<uint32_t*>(tlsBase->AddressOfIndex);
 		})();
@@ -230,7 +231,7 @@ char* utils::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
 #if defined(_M_IX86)
 		LPVOID* tlsBase = (LPVOID*)__readfsdword(0x2C);
 #elif defined(_M_AMD64)
-		LPVOID* tlsBase = (LPVOID*)__readgsqword(0x58);
+		LPVOID* tlsBase = reinterpret_cast<LPVOID*>(__readgsqword(0x58));
 #endif
 		if (!TLSFunctionIndex)
 		{
@@ -242,15 +243,17 @@ char* utils::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
 		}
 }
 
-void utils::test_func(int test_int)
-{
-	halo3::engine::player_datum* crap = halo3::game::local_player_datum_get();
-	crap->player_traits.m_appearance_traits.m_active_camo_setting = halo3::engine::invisible;
-	crap->player_traits.m_shield_traits.m_shield_recharge_rate_percentage_setting = halo3::engine::_shield_recharge_rate_percentage_setting_200_percent;
-}
-
 //0x00007ff8
 #if defined _DEBUG
+
+void utils::test_func(int test_int)
+{
+	//for (int i = 1; i <= 5; ++i) {
+	//	c_restricted_memory region = halo4::offsets::globals::g_restricted_regions[i];
+	//	spdlog::debug("{}", region.m_registered_member_count);
+	//}
+}
+
 void utils::list_game_base_addresses()
 {
 	Memcury::Scanner::SetTargetModule("halo1.dll");
