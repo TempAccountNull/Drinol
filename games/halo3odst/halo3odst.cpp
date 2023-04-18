@@ -7,7 +7,6 @@ void halo3odst::game::init() // Initialize hooks and shit for halo 1
 	Memcury::Scanner::SetTargetModule("halo3odst.dll");
 
 	offsets::init();
-	spdlog::debug("Halo 3 ODST TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(utils::get_tls_pointer(L"halo3odst.dll")));
 }
 
 #if defined _DEBUG

@@ -19,8 +19,6 @@ void halo3::game::init() // Initialize hooks and shit for halo 1
 	{
 		spdlog::info("Loaded settings for Halo 3.");
 	}
-
-	spdlog::debug("Halo 3 TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(utils::get_tls_pointer(L"halo3.dll")));
 }
 
 void halo3::game::deinit()

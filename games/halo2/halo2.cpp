@@ -19,7 +19,6 @@ void halo2::game::init() // Initialize hooks and shit for halo 1
 	{
 		spdlog::info("Loaded settings for Halo 2.");
 	}
-	spdlog::debug("Halo 2 TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(utils::get_tls_pointer(L"halo2.dll")));
 }
 
 void halo2::game::deinit()
