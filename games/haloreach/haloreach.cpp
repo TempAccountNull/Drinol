@@ -7,6 +7,7 @@ void haloreach::game::init() // Initialize hooks and shit for halo 1
 	Memcury::Scanner::SetTargetModule("haloreach.dll");
 
 	offsets::init();
+	spdlog::debug("Halo Reach TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(utils::get_tls_pointer(L"haloreach.dll")));
 }
 
 #if defined _DEBUG
