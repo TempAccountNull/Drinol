@@ -5,7 +5,7 @@ void logging::init()
 	try
 	{
 		std::vector<spdlog::sink_ptr> sinks;
-		sinks.push_back(std::make_shared<spdlog::sinks::stderr_color_sink_mt>());
+		sinks.push_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());
 
 #if defined _DEBUG
 		const char* file_path = "Drinol/logs/drinol_debug.txt";
