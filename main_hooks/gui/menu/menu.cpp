@@ -501,8 +501,12 @@ void menu::render()
 
 		if (ImGui::Button("Close", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
 		ImGui::SameLine();
-		if (ImGui::Button("Github Page", ImVec2(120, 0))) {
+		if (ImGui::Button("Github Repo", ImVec2(120, 0))) {
 			ShellExecute(0, 0, L"https://github.com/matty45/Drinol", 0, 0, SW_SHOW);// I dont feel that this is a secure way of opening a web page but idk
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Discord Server", ImVec2(120, 0))) {
+			ShellExecute(0, 0, L"https://discord.gg/AkyKYTkPSJ", 0, 0, SW_SHOW);// I dont feel that this is a secure way of opening a web page but idk
 		}
 		ImGui::EndPopup();
 	}
