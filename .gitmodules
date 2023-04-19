@@ -17,6 +17,3 @@
 [submodule "dependencies/imgui-notify"]
 	path = dependencies/imgui-notify
 	url = https://github.com/patrickcjk/imgui-notify.git
-[submodule "dependencies/fmt"]
-	path = dependencies/fmt
-	url = https://github.com/fmtlib/fmt.git
