@@ -20,6 +20,9 @@ git clone --recurse-submodules https://github.com/matty45/Drinol.git
 ```
 All you have to do now is open Drinol.sln in the new folder and build it inside of Visual Studio.
 
+## Discord:
+We have a official discord server [here](https://discord.gg/AkyKYTkPSJ), feel free to contact us if you wanna hang out, help develop this tool or ask for support.
+
   ## Credits:
  - **NBOTT42#6978**: For assistance in developing this tool.
  - **Apoxied#1337**: Halo 3 Research information that i have yet to use.
