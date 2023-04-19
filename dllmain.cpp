@@ -50,6 +50,8 @@ void drinol_init()
 
 	logging::init();
 
+	spdlog::info(format(fmt::fg(fmt::terminal_color::bright_yellow) | fmt::emphasis::bold, "Welcome to Drinol! | https://github.com/matty45/Drinol"));
+
 	spdlog::info("Drinol is loading.");
 
 	// Initialize Minhook
