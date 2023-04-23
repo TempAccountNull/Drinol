@@ -10,7 +10,7 @@ void drinol_init()
 	//Check if config folder exists, if not, create one.
 	if (!config::create_config_folder())
 	{
-		//puts("Failed to create the config folder.");
+		//spdlog::error("Failed to create the config folder.");
 		MessageBox(NULL, L"Failed to create the Drinol folder!", L"Drinol Error!", 0);
 	}
 
@@ -19,26 +19,45 @@ void drinol_init()
 		//puts("Failed to load main settings config file, creating a new one from scratch.");
 		if (!config::create_new_main_settings())
 		{
-			//puts("Failed to create new main settings config file.");
+			//spdlog::error("Failed to create new main settings config file.");
 		}
 		else if (!config::load_main_settings())
 		{
-			//puts("Failed to load new main settings config file.");
+			//spdlog::error("Failed to load new main settings config file.");
 			MessageBox(NULL, L"Failed to generate and load the main config file!", L"Drinol Error!", 0);
 		}
 	}
 
 	if (!config::load_signatures())
 	{
-		//puts("Failed to load signatures config file, creating a new one from scratch.");
+		//spdlog::error("Failed to load signatures config file, creating a new one from scratch.");
+
+		std::string file_name = config::config_folder + "\\Signatures.ini";
+		std::remove(file_name.c_str()); // delete file
+
 		if (!config::create_new_signatures())
 		{
-			//puts("Failed to create new signatures config file.");
+			//spdlog::error("Failed to create new signatures config file.");
 		}
-		else if (!config::load_signatures())
+		//else if (!config::load_signatures())
+		//{
+		//	//spdlog::error("Failed to load new signatures config file.");
+		//	MessageBox(NULL, L"Failed to generate and load the signatures config file!", L"Drinol Error!", 0);
+		//}
+	}
+
+	// Check if loaded signatures are valid. Warning, nasty bugs may occur if the sig lists have empty entries. TODO: Prevent bugs?
+	if (!config::validate_sigs())
+	{
+		//spdlog::error("Could not validate existing signatures, generating new signatures file instead.");
+
+		std::string file_name = config::config_folder + "\\Signatures.ini";
+		std::remove(file_name.c_str()); // delete file
+
+		if (!config::create_new_signatures())
 		{
-			//puts("Failed to load new signatures config file.");
-			MessageBox(NULL, L"Failed to generate and load the signatures config file!", L"Drinol Error!", 0);
+			//spdlog::error("Failed to create new signatures config file.");
+			MessageBox(NULL, L"Could not validate existing signatures, tried to generate a new signatures file to no avail......", L"Drinol Error!", 0);
 		}
 	}
 

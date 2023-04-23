@@ -171,7 +171,7 @@ bool config::create_new_signatures()
 	mINI::INIStructure ini;
 
 	// populate the structure
-
+	// TODO: Merge these for loops
 	//Middleware sigs
 	for (std::pair<const std::string, std::string> item : middleware::sigs::list)
 	{
@@ -220,6 +220,69 @@ bool config::create_new_signatures()
 		// Failed to generate ini
 		return false;
 	}
+	return true;
+}
+
+bool config::validate_sigs()
+{
+	// TODO: Merge these for loops
+
+	for (std::pair<const std::string, std::string> element : middleware::sigs::list)
+	{
+		if (element.first.empty() || element.second.empty())
+		{
+			return false;
+		}
+	}
+
+	for (std::pair<const std::string, std::string> element : halo1::sigs::list)
+	{
+		if (element.first.empty() || element.second.empty())
+		{
+			return false;
+		}
+	}
+
+	for (std::pair<const std::string, std::string> element : halo2::sigs::list)
+	{
+		if (element.first.empty() || element.second.empty())
+		{
+			return false;
+		}
+	}
+
+	for (std::pair<const std::string, std::string> element : halo3::sigs::list)
+	{
+		if (element.first.empty() || element.second.empty())
+		{
+			return false;
+		}
+	}
+
+	for (std::pair<const std::string, std::string> element : halo3odst::sigs::list)
+	{
+		if (element.first.empty() || element.second.empty())
+		{
+			return false;
+		}
+	}
+
+	for (std::pair<const std::string, std::string> element : haloreach::sigs::list)
+	{
+		if (element.first.empty() || element.second.empty())
+		{
+			return false;
+		}
+	}
+
+	for (std::pair<const std::string, std::string> element : halo4::sigs::list)
+	{
+		if (element.first.empty() || element.second.empty())
+		{
+			return false;
+		}
+	}
+
 	return true;
 }
 

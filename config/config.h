@@ -36,6 +36,11 @@ public:
  */
 	static bool create_new_signatures();
 	/**
+	 * \brief Checks the signatures to make sure they are valid (not empty)
+	 * \return true if valid
+	 */
+	static bool validate_sigs();
+	/**
 	 * \brief creates a new config file containing settings related to Halo 1 Anniversary.
 	 * \return true if created successfully
 	 */
