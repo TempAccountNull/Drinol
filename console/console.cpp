@@ -6,11 +6,7 @@ FILE* fDummy; // Dummy file for freopen_s
 void console::init()
 {
 	//Initialize Console
-#if defined _DEBUG
 	AllocConsole();
-#else
-	AttachConsole(GetCurrentProcessId());
-#endif
 
 	SetConsoleTitleA("Drinol - WIP");
 
