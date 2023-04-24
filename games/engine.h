@@ -21,6 +21,16 @@ union real_vector3d
 };
 static_assert(sizeof(real_vector3d) == 0xC);
 
+struct real_matrix4x3
+{
+	real scale;
+	real_vector3d forward;
+	real_vector3d left;
+	real_vector3d up;
+	real_vector3d center;
+};
+static_assert(sizeof(real_matrix4x3) == 0x34);
+
 // From https://github.com/theTwist84/ManagedDonkey/blob/90f18b3000a9d5d3f54f4de1cb280656faf2a9c7/game/source/game/player_mapping.hpp
 struct s_player_mapping_globals
 {
