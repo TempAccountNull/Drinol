@@ -8,7 +8,11 @@ void console::init()
 	//Initialize Console
 	AllocConsole();
 
-	SetConsoleTitleA("Drinol - WIP");
+#if defined _DEBUG
+	SetConsoleTitleA("Drinol - WIP - Debug Build");
+#else
+	SetConsoleTitleA("Drinol - WIP - Release Build");
+#endif
 
 	//Redirect output to console
 	freopen_s(&fDummy, "CONIN$", "r", stdin);
