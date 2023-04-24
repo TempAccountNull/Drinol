@@ -8,7 +8,7 @@ public:
 	class games
 	{
 	public:
-		inline static int current_game_number;
+		inline static int current_game_number = -1;
 
 		/**
 		 * \brief list of games
