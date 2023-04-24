@@ -24,7 +24,9 @@ void console::init()
 	if (!GetConsoleMode(hStdOut, &mode))
 	{
 		DWORD error = ::GetLastError();
-		MessageBox(NULL, L"Could not get console mode. : " + error, L"Drinol Error!", 0);
+		std::wstring text = L"Could not get console mode. : ";
+		text.append(std::to_wstring(error));
+		MessageBox(NULL, text.c_str(), L"Drinol Error!", 0);
 	}
 
 	mode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
@@ -33,7 +35,9 @@ void console::init()
 	if (!SetConsoleMode(hStdOut, mode))
 	{
 		DWORD error = ::GetLastError();
-		MessageBox(NULL, L"Could not set console mode. : " + error, L"Drinol Error!", 0);
+		std::wstring text = L"Could not set console mode. : ";
+		text.append(std::to_wstring(error));
+		MessageBox(NULL, text.c_str(), L"Drinol Error!", 0);
 	}
 }
 
