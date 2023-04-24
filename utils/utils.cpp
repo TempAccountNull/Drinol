@@ -56,25 +56,25 @@ void utils::save_running_game_settings()
 {
 	switch (games::current_game_number) {
 	case games::e_games::halo1:
-		if (config::halo1_save())
+		if (config::games::halo_1::save())
 		{
 			spdlog::info("Saved settings for Halo 1!");
 		}
 		break;
 	case games::e_games::halo2:
-		if (config::halo2_save())
+		if (config::games::halo_2::save())
 		{
 			spdlog::info("Saved settings for Halo 2!");
 		}
 		break;
 	case games::e_games::halo3:
-		if (config::halo3_save())
+		if (config::games::halo_3::save())
 		{
 			spdlog::info("Saved settings for Halo 3!");
 		}
 		break;
 	case games::e_games::halo4:
-		if (config::halo4_save())
+		if (config::games::halo_4::save())
 		{
 			spdlog::info("Saved settings for Halo 4!");
 		}
@@ -89,25 +89,25 @@ void utils::load_running_game_settings()
 {
 	switch (games::current_game_number) {
 	case games::e_games::halo1:
-		if (config::halo1_load())
+		if (config::games::halo_1::load())
 		{
 			spdlog::info("Loaded settings for Halo 1!");
 		}
 		break;
 	case games::e_games::halo2:
-		if (config::halo2_load())
+		if (config::games::halo_2::load())
 		{
 			spdlog::info("Loaded settings for Halo 2!");
 		}
 		break;
 	case games::e_games::halo3:
-		if (config::halo3_load())
+		if (config::games::halo_3::load())
 		{
 			spdlog::info("Loaded settings for Halo 3!");
 		}
 		break;
 	case games::e_games::halo4:
-		if (config::halo4_load())
+		if (config::games::halo_4::load())
 		{
 			spdlog::info("Loaded settings for Halo 4!");
 		}
@@ -121,12 +121,12 @@ void utils::reset_running_game_settings()
 {
 	switch (games::current_game_number) {
 	case games::e_games::halo1:
-		if (!config::halo1_create())
+		if (!config::games::halo_1::create())
 		{
 			spdlog::error("Failed to create fresh settings for Halo 1!");
 			break;
 		}
-		if (!config::halo1_load())
+		if (!config::games::halo_1::load())
 		{
 			spdlog::error("Failed to load fresh settings for Halo 1!");
 			break;
@@ -135,12 +135,12 @@ void utils::reset_running_game_settings()
 		spdlog::info("Reset settings for Halo 1");
 		break;
 	case games::e_games::halo2:
-		if (!config::halo2_create())
+		if (!config::games::halo_2::create())
 		{
 			spdlog::error("Failed to create fresh settings for Halo 2!");
 			break;
 		}
-		if (!config::halo2_load())
+		if (!config::games::halo_2::load())
 		{
 			spdlog::error("Failed to load fresh settings for Halo 2!");
 			break;
@@ -149,12 +149,12 @@ void utils::reset_running_game_settings()
 		spdlog::info("Reset settings for Halo 2");
 		break;
 	case games::e_games::halo3:
-		if (!config::halo3_create())
+		if (!config::games::halo_3::create())
 		{
 			spdlog::error("Failed to create fresh settings for Halo 3!");
 			break;
 		}
-		if (!config::halo3_load())
+		if (!config::games::halo_3::load())
 		{
 			spdlog::error("Failed to load fresh settings for Halo 3!");
 			break;
@@ -163,12 +163,12 @@ void utils::reset_running_game_settings()
 		spdlog::info("Reset settings for Halo 3");
 		break;
 	case games::e_games::halo4:
-		if (!config::halo4_create())
+		if (!config::games::halo_4::create())
 		{
 			spdlog::error("Failed to create fresh settings for Halo 4!");
 			break;
 		}
-		if (!config::halo4_load())
+		if (!config::games::halo_4::load())
 		{
 			spdlog::error("Failed to load fresh settings for Halo 4!");
 			break;

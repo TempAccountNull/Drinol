@@ -11,7 +11,7 @@ void halo2::game::init() // Initialize hooks and shit for halo 1
 	hooks::init();
 
 	//Load Settings
-	if (!config::halo2_load())
+	if (!config::games::halo_2::load())
 	{
 		spdlog::error("Failed to load settings for Halo 2.\nEither the settings file does not exist or something bad has happened!\nYou can ignore this error if you did not save it in the past.");
 	}

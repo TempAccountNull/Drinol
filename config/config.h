@@ -40,52 +40,88 @@ public:
 	 * \return true if valid
 	 */
 	static bool validate_sigs();
-	/**
-	 * \brief creates a new config file containing settings related to Halo 1 Anniversary.
-	 * \return true if created successfully
-	 */
-	static bool halo1_create();
-	/**
- * \brief saves to the config file containing settings related to Halo 1 Anniversary.
- * \return true if saved successfully
-*/
-	static bool halo1_save();
-	/**
-	 * \brief loads the config file containing settings related to Halo 1 Anniversary.
-	 * \return true if loaded successfully
-	 */
-	static bool halo1_load();
-	/**
- * \brief creates a new config file containing settings related to Halo 2 Anniversary.
- * \return true if created successfully
- */
-	static bool halo2_create();
-	/**
-* \brief saves to the config file containing settings related to Halo 2 Anniversary.
-* \return true if saved successfully
-*/
-	static bool halo2_save();
-	/**
- * \brief loads the config file containing settings related to Halo 2 Anniversary.
- * \return true if loaded successfully
- */
-	static bool halo2_load();
-	/**
- * \brief creates a new config file containing settings related to Halo 3.
- * \return true if created successfully
- */
-	static bool halo3_create();
-	/**
-* \brief saves to the config file containing settings related to Halo 3.
-* \return true if saved successfully
-*/
-	static bool halo3_save();
-	/**
-* \brief loads the config file containing settings related to Halo 3.
-* \return true if loaded successfully
-*/
-	static bool halo3_load();
-	static bool halo4_create();
-	static bool halo4_save();
-	static bool halo4_load();
+
+	class games
+	{
+	public:
+		class halo_1
+		{
+		public:
+			/**
+			 * \brief creates a new config file containing settings related to Halo 1 Anniversary.
+			 * \return true if created successfully
+			 */
+			static bool create();
+			/**
+		 * \brief saves to the config file containing settings related to Halo 1 Anniversary.
+		 * \return true if saved successfully
+		*/
+			static bool save();
+			/**
+			 * \brief loads the config file containing settings related to Halo 1 Anniversary.
+			 * \return true if loaded successfully
+			 */
+			static bool load();
+		};
+
+		class halo_2
+		{
+		public:
+			/**
+			 * \brief creates a new config file containing settings related to Halo 1 Anniversary.
+			 * \return true if created successfully
+			 */
+			static bool create();
+			/**
+		 * \brief saves to the config file containing settings related to Halo 1 Anniversary.
+		 * \return true if saved successfully
+		*/
+			static bool save();
+			/**
+			 * \brief loads the config file containing settings related to Halo 1 Anniversary.
+			 * \return true if loaded successfully
+			 */
+			static bool load();
+		};
+
+		class halo_3
+		{
+		public:
+			/**
+			 * \brief creates a new config file containing settings related to Halo 1 Anniversary.
+			 * \return true if created successfully
+			 */
+			static bool create();
+			/**
+		 * \brief saves to the config file containing settings related to Halo 1 Anniversary.
+		 * \return true if saved successfully
+		*/
+			static bool save();
+			/**
+			 * \brief loads the config file containing settings related to Halo 1 Anniversary.
+			 * \return true if loaded successfully
+			 */
+			static bool load();
+		};
+
+		class halo_4
+		{
+		public:
+			/**
+			 * \brief creates a new config file containing settings related to Halo 1 Anniversary.
+			 * \return true if created successfully
+			 */
+			static bool create();
+			/**
+		 * \brief saves to the config file containing settings related to Halo 1 Anniversary.
+		 * \return true if saved successfully
+		*/
+			static bool save();
+			/**
+			 * \brief loads the config file containing settings related to Halo 1 Anniversary.
+			 * \return true if loaded successfully
+			 */
+			static bool load();
+		};
+	};
 };

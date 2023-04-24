@@ -288,7 +288,7 @@ bool config::validate_sigs()
 
 // Game Specific ini files
 
-bool config::halo1_create()
+bool config::games::halo_1::create()
 {
 	const mINI::INIFile file(config_folder + "\\Halo1.ini");
 
@@ -319,7 +319,7 @@ bool config::halo1_create()
 	return true;
 }
 
-bool config::halo1_save()
+bool config::games::halo_1::save()
 {
 	const mINI::INIFile file(config_folder + "\\Halo1.ini");
 
@@ -350,7 +350,7 @@ bool config::halo1_save()
 	return true;
 }
 
-bool config::halo1_load()
+bool config::games::halo_1::load()
 {
 	const mINI::INIFile file(config_folder + "\\Halo1.ini");
 
@@ -382,7 +382,7 @@ bool config::halo1_load()
 	return true;
 }
 
-bool config::halo2_create()
+bool config::games::halo_2::create()
 {
 	const mINI::INIFile file(config_folder + "\\Halo2.ini");
 
@@ -401,7 +401,7 @@ bool config::halo2_create()
 	return true;
 }
 
-bool config::halo2_save()
+bool config::games::halo_2::save()
 {
 	const mINI::INIFile file(config_folder + "\\Halo2.ini");
 
@@ -420,7 +420,7 @@ bool config::halo2_save()
 	return true;
 }
 
-bool config::halo2_load()
+bool config::games::halo_2::load()
 {
 	const mINI::INIFile file(config_folder + "\\Halo2.ini");
 
@@ -439,7 +439,7 @@ bool config::halo2_load()
 	return true;
 }
 
-bool config::halo3_create()
+bool config::games::halo_3::create()
 {
 	const mINI::INIFile file(config_folder + "\\Halo3.ini");
 
@@ -465,7 +465,7 @@ bool config::halo3_create()
 	return true;
 }
 
-bool config::halo3_save()
+bool config::games::halo_3::save()
 {
 	const mINI::INIFile file(config_folder + "\\Halo3.ini");
 
@@ -490,7 +490,7 @@ bool config::halo3_save()
 	return true;
 }
 
-bool config::halo3_load()
+bool config::games::halo_3::load()
 {
 	const mINI::INIFile file(config_folder + "\\Halo3.ini");
 
@@ -515,7 +515,7 @@ bool config::halo3_load()
 	return true;
 }
 
-bool config::halo4_create()
+bool config::games::halo_4::create()
 {
 	const mINI::INIFile file(config_folder + "\\Halo4.ini");
 
@@ -532,7 +532,7 @@ bool config::halo4_create()
 	return true;
 }
 
-bool config::halo4_save()
+bool config::games::halo_4::save()
 {
 	const mINI::INIFile file(config_folder + "\\Halo4.ini");
 
@@ -549,7 +549,7 @@ bool config::halo4_save()
 	return true;
 }
 
-bool config::halo4_load()
+bool config::games::halo_4::load()
 {
 	const mINI::INIFile file(config_folder + "\\Halo4.ini");
 
