@@ -69,6 +69,8 @@ void menu::render()
 				utils::test_func(test_int);
 			if (ImGui::Button("List Game Base Addresses"))
 				utils::list_game_base_addresses();
+			if (ImGui::Button("Print Game TLS Pointer"))
+				utils::print_game_tls_pointer();
 			ImGui::EndTabItem();
 		}
 #endif
