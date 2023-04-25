@@ -9,6 +9,19 @@ static_assert(sizeof(qword) == 0x8);
 typedef unsigned long datum_index;
 static_assert(sizeof(datum_index) == 0x4);
 
+union real_rectangle2d
+{
+	struct
+	{
+		real top;
+		real left;
+		real bottom;
+		real right;
+	};
+	real n[4];
+};
+static_assert(sizeof(real_rectangle2d) == 0x10);
+
 union real_vector3d
 {
 	struct
@@ -30,6 +43,17 @@ struct real_matrix4x3
 	real_vector3d center;
 };
 static_assert(sizeof(real_matrix4x3) == 0x34);
+
+struct render_projection
+{
+	real_matrix4x3 world_to_view;
+	real_matrix4x3 view_to_world;
+	real_rectangle2d projection_bounds;
+	real projection_matrix[4][4];
+	real __unknownB8;
+	real __unknownBC;
+};
+static_assert(sizeof(render_projection) == 0xC0);
 
 // From https://github.com/theTwist84/ManagedDonkey/blob/90f18b3000a9d5d3f54f4de1cb280656faf2a9c7/game/source/game/player_mapping.hpp
 struct s_player_mapping_globals
