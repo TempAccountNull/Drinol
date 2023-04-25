@@ -7,6 +7,8 @@ void haloreach::offsets::init()
 
 	blamscript::functions::hs_null_evaluate = game::get_eval_hs_function("voice_force_global_repeater_use");
 
+	blamscript::functions::hs_null_evaluate2 = game::get_eval_hs_function("debug_scripting");
+
 	//Blamscript External Globals Table
 	blamscript::hs_external_globals = reinterpret_cast<engine::_hs_external_globals*>(Memcury::Scanner::FindPattern(sigs::list["hs_external_globals"].c_str()).RelativeOffset(3).Get());
 
