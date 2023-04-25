@@ -41,6 +41,8 @@ bool config::main::load()
 
 	std::istringstream(ini.get("console").get("imguiconsole")) >> std::boolalpha >> menu::console_enabled;
 
+	std::istringstream(ini.get("console").get("logtofile")) >> std::boolalpha >> logging::log_to_file;
+
 	logging::log_level = std::stoi(ini.get("Console").get("loglevel"));
 
 	return true;
@@ -75,6 +77,8 @@ bool config::main::create()
 
 	ini["Console"]["consolewindow"] = "true";
 	ini["Console"]["imguiconsole"] = "false";
+
+	ini["Console"]["logtofile"] = "true";
 
 	ini["Console"]["loglevel"] = "0";
 
