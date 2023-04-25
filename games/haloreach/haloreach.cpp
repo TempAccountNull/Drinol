@@ -23,7 +23,7 @@ void haloreach::game::list_all_hs_functions()
 	{
 		if (function->evaluate_func != nullptr && function->evaluate_func != offsets::blamscript::functions::hs_null_evaluate)
 		{
-			spdlog::info("[HS Function] Return Type: {} Name: {} Address: {}", offsets::blamscript::hs_type_names->types[function->return_type], function->name, function->evaluate_func);
+			spdlog::info("[HS Function] Return Type: {} Name: {} Offset: {:X}", offsets::blamscript::hs_type_names->types[function->return_type], function->name, utils::get_offset(reinterpret_cast<uintptr_t>(function->evaluate_func)));
 		}
 	}
 	spdlog::info("Finished printing out the functions.");
@@ -35,7 +35,7 @@ void haloreach::game::list_all_hs_globals()
 	for (engine::hs_external_global* global : offsets::blamscript::hs_external_globals->globals)
 		if (global->address != nullptr) // Check if globals functionality has not been stripped from retail.
 		{
-			spdlog::info("[HS Global] Name: {} Address: {} Parameter Type: {}", global->name, global->address, offsets::blamscript::hs_type_names->types[global->param_type]);
+			spdlog::info("[HS Global] Name: {} Offset: {:X} Parameter Type: {}", global->name, utils::get_offset(reinterpret_cast<uintptr_t>(global->address)), offsets::blamscript::hs_type_names->types[global->param_type]);
 		}
 	spdlog::info("Finished printing out the globals.");
 }

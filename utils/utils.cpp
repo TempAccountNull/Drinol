@@ -221,6 +221,16 @@ void utils::test_func(int test_int)
 	print_game_tls_pointer();
 }
 
+uintptr_t utils::get_offset(uintptr_t address)
+{
+	uintptr_t base = Memcury::PE::GetModuleBase();
+
+	uintptr_t offset = address;
+	offset = offset - base;
+
+	return offset;
+}
+
 void utils::print_game_tls_pointer()
 {
 	switch (games::current_game_number) {

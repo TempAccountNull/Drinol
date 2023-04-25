@@ -55,15 +55,20 @@ public:
 */
 	static void reset_running_game_settings();
 
+#if defined _DEBUG
+
 	/**
-	 * \brief debug function for testing stuff.
-	 */
+ * \brief debug function for testing stuff.
+ */
 	static void test_func(int test_int = 0);
+
+	static uintptr_t get_offset(uintptr_t address);
+
 	/**
 	 * \brief Prints the tls pointer of your currently running game, it will change so its best to pause the game so the address stays still, then suspend the mcc process.
 	 */
 	static void print_game_tls_pointer();
-#if defined _DEBUG
+
 	/**
 	 * \brief lists some of the base addresses of the halo game dlls.
 	 */
@@ -74,14 +79,17 @@ public:
 	 * \param func
 	 */
 	static void backtrace(const char* func);
-#endif
+
 	/**
- * \brief This gets the pointer from TLS
- * \param module_name the name of the dll/exe that you want to get the pointer from
- * \param TLSFunctionIndex The index of the function/pointer/variable/whatever
- * \return
- */
+* \brief This gets the pointer from TLS
+* \param module_name the name of the dll/exe that you want to get the pointer from
+* \param TLSFunctionIndex The index of the function/pointer/variable/whatever
+* \return the tls pointer
+*/
 	static char* get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex = NULL);
+
+#endif
+
 	/**
 	 * \brief Detaches drinol.
 	 */
