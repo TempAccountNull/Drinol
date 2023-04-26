@@ -80,6 +80,8 @@ public:
 	 */
 	static void backtrace(const char* func);
 
+#endif
+
 	/**
 * \brief This gets the pointer from TLS
 * \param module_name the name of the dll/exe that you want to get the pointer from
@@ -87,8 +89,6 @@ public:
 * \return the tls pointer
 */
 	static char* get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex = NULL);
-
-#endif
 
 	/**
 	 * \brief Detaches drinol.
