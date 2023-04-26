@@ -13,15 +13,15 @@ void haloreach::game::init() // Initialize hooks and shit for halo 1
 	spdlog::info("Halo Reach initialized ☺");
 }
 
-#if defined _DEBUG
-void haloreach::game::test_function()
-{
-}
-
 void haloreach::game::deinit()
 {
 	hooks::deinit();
 	spdlog::info("Uninitialized Halo Reach");
+}
+
+#if defined _DEBUG
+void haloreach::game::test_function()
+{
 }
 
 void haloreach::game::list_all_hs_functions()
