@@ -132,6 +132,12 @@
     <ClCompile Include="games\halo4\halo4_hooks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="games\haloreach\haloreach_hooks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="version_checking\version_checking.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\subhook\subhook.h">
@@ -627,6 +633,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="games\halo4\halo4_hooks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\haloreach\haloreach_hooks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="version_checking\version_checking.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

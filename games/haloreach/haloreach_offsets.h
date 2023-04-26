@@ -2,6 +2,7 @@
 #include <string>
 
 #include "haloreach_engine.h"
+#include "memcury/memcury.h"
 
 namespace haloreach
 {
@@ -24,6 +25,17 @@ namespace haloreach
 				inline static void* hs_null_evaluate;
 				inline static void* hs_null_evaluate2;
 			};
+		};
+
+		/**
+ * \brief offsets to the game functions
+ */
+		class functions
+		{
+		public:
+			inline static uintptr_t player_mapping_get_unit_by_output_user;
+			inline static uintptr_t game_tick;
+			inline static uintptr_t weapon_has_infinite_ammo;
 		};
 
 		static void init();

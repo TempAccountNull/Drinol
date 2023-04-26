@@ -7,16 +7,16 @@
 #include <iostream>
 #include <memory>
 #include <ostream>
+#include <regex>
 #include <ShellAPI.h>
 #include <unordered_map>
-#include <minhook/include/MinHook.h>
-#include <spdlog/spdlog.h>
 
 #include "console.h"
 #include "detour.h"
 #include "framework.h"
 #include "imgui.h"
 #include "ntpebteb.h"
+#include "Psapi.h"
 #include "utils.h"
 #include "backends/imgui_impl_dx11.h"
 #include "backends/imgui_impl_win32.h"
@@ -41,6 +41,7 @@
 #include "games/halo4/halo4_offsets.h"
 #include "games/halo4/halo4_sigs.h"
 #include "games/haloreach/haloreach.h"
+#include "games/haloreach/haloreach_hooks.h"
 #include "games/haloreach/haloreach_offsets.h"
 #include "games/haloreach/haloreach_sigs.h"
 #include "gui/gui.h"
@@ -51,11 +52,14 @@
 #include "Memcury/memcury.h"
 #include "middleware/middleware.h"
 #include "middleware/middleware_sigs.h"
+#include "minhook/include/MinHook.h"
 #include "mINI/src/mini/ini.h"
 #include "spdlog/logger.h"
+#include "spdlog/spdlog.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/cfg/env.h"
 #include "spdlog/fmt/bundled/color.h"
 #include "spdlog/sinks/basic_file_sink.h"
 #include "spdlog/sinks/daily_file_sink.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
+#include "version_checking/version_checking.h"

@@ -69,9 +69,11 @@ void drinol_init()
 
 	logging::init();
 
-	spdlog::info(format(fmt::fg(fmt::terminal_color::bright_yellow) | fmt::emphasis::bold, "Welcome to Drinol! | https://github.com/matty45/Drinol"));
+	spdlog::info(format(fmt::fg(fmt::terminal_color::bright_cyan) | fmt::emphasis::bold, "Welcome to Drinol! | https://github.com/matty45/Drinol"));
 
 	spdlog::info("Drinol is loading.");
+
+	version_checking::validate();
 
 	// Initialize Minhook
 	if (MH_Initialize() != MH_OK)

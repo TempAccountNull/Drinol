@@ -4,24 +4,30 @@ void utils::handle_game_init(int game_number)
 {
 	switch (game_number) {
 	case games::e_games::halo1:
+		version_checking::validate_game_dll("halo1");
 		halo1::game::init();
 		break;
 	case games::e_games::halo2:
+		version_checking::validate_game_dll("halo2");
 		halo2::game::init();
 		break;
 	case games::e_games::halo3:
+		version_checking::validate_game_dll("halo3");
 		halo3::game::init();
 		break;
 	case games::e_games::halo4:
+		version_checking::validate_game_dll("halo4");
 		halo4::game::init();
 		break;
 	case games::e_games::groundhog:
 		spdlog::error("Halo 2 Anniversary Multiplayer is not supported at the moment!");
 		break;
 	case games::e_games::halo3odst:
+		version_checking::validate_game_dll("halo3odst");
 		halo3odst::game::init();
 		break;
 	case games::e_games::haloreach:
+		version_checking::validate_game_dll("haloreach");
 		haloreach::game::init();
 		break;
 	default:
@@ -45,6 +51,9 @@ void utils::handle_game_deinit()
 		break;
 	case games::e_games::halo4:
 		halo4::game::deinit();
+		break;
+	case games::e_games::haloreach:
+		haloreach::game::deinit();
 		break;
 	default:
 		assert(games::current_game_number <= 6);
@@ -214,11 +223,7 @@ char* utils::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
 
 void utils::test_func(int test_int)
 {
-	//for (int i = 1; i <= 5; ++i) {
-	//	c_restricted_memory region = halo4::offsets::globals::g_restricted_regions[i];
-	//	spdlog::debug("{}", region.m_registered_member_count);
-	//}
-	print_game_tls_pointer();
+	haloreach::hooks::infinite_ammo = true;
 }
 
 uintptr_t utils::get_offset(uintptr_t address)

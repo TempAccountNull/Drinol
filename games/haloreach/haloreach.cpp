@@ -8,12 +8,20 @@ void haloreach::game::init() // Initialize hooks and shit for halo 1
 
 	offsets::init();
 
+	hooks::init();
+
 	spdlog::info("Halo Reach initialized ☺");
 }
 
 #if defined _DEBUG
 void haloreach::game::test_function()
 {
+}
+
+void haloreach::game::deinit()
+{
+	hooks::deinit();
+	spdlog::info("Uninitialized Halo Reach");
 }
 
 void haloreach::game::list_all_hs_functions()
@@ -89,4 +97,9 @@ void* haloreach::game::get_hs_function(const char* func_name, int to_skip)
 	void* eval_function = get_eval_hs_function(func_name); // Get the address of the blamscript functions evaluate function.
 	void* function = Memcury::Scanner(eval_function).ScanFor({ Memcury::ASM::Mnemonic("CALL") }, true, to_skip).RelativeOffset(1).GetAs<void*>(); // Get the function inside of the evaluate function.
 	return function;
+}
+
+long haloreach::game::player_mapping_get_unit_by_output_user(unsigned int output_user_index)
+{
+	return utils::GameCall<long>(offsets::functions::player_mapping_get_unit_by_output_user)(output_user_index);
 }

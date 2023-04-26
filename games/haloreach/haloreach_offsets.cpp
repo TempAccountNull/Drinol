@@ -20,4 +20,10 @@ void haloreach::offsets::init()
 	//toggle_hud = static_cast<bool*>(game::get_hs_global("disable_hud"));
 
 	//Blamscript Functions TODO: Figure out a way to call these without crashing the game or having to hook into the main thread of the game.
+
+	functions::player_mapping_get_unit_by_output_user = Memcury::Scanner::FindPattern(sigs::list["player_mapping_get_unit_by_output_user"].c_str()).FindFunctionBoundary().Get();
+
+	functions::game_tick = Memcury::Scanner::FindPattern(sigs::list["game_tick"].c_str()).FindFunctionBoundary().Get();
+
+	functions::weapon_has_infinite_ammo = Memcury::Scanner::FindPattern(sigs::list["weapon_has_infinite_ammo"].c_str()).FindFunctionBoundary().Get();
 }
