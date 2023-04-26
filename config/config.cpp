@@ -484,7 +484,7 @@ bool config::games::halo_3::save()
 	ini["Rendering"]["motion_blur_scale_x"] = to_string(*halo3::offsets::variables::motion_blur_scale_x);
 	ini["Rendering"]["motion_blur_scale_y"] = to_string(*halo3::offsets::variables::motion_blur_scale_y);
 	ini["Rendering"]["motion_blur_center_falloff"] = to_string(*halo3::offsets::variables::motion_blur_center_falloff);
-	ini["Game"]["player_weapon_projectiles_only"] = to_string(&halo3::hooks::player_weapon_projectiles_only);
+	ini["Game"]["player_weapon_projectiles_only"] = bool_to_string(halo3::hooks::player_weapon_projectiles_only);
 	// write to the INI file (overwrites)
 	if (!file.write(ini, true))
 	{

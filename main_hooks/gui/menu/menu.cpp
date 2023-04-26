@@ -22,7 +22,7 @@ void menu::render()
 	{
 		if (ImGui::BeginMenu("Options"))
 		{
-			if (!utils::games::current_game_number == -1)
+			if (utils::games::current_game_number != -1)
 			{
 				if (ImGui::MenuItem("Load Game Changes")) { show_load_modal = true; }
 				if (ImGui::MenuItem("Save Game Changes")) { show_save_modal = true; }
