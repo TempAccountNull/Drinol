@@ -1,7 +1,5 @@
 #include "stdafx.h"
 
-std::string COMPATIBLE_DRINOL_VERSION = "1.3073.0.0";
-
 char mcc_exe_path[MAX_PATH];
 
 std::string get_file_version_number(LPCSTR filename)
