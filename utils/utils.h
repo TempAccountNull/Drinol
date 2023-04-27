@@ -95,6 +95,10 @@ public:
 	 */
 	static void detach();
 	/**
+	 * \brief A message that pops up on the first use of drinol, that warns the user not to use this tool to gain an unfair advantage.
+	 */
+	static void cheat_nag();
+	/**
 	 * \brief
 	 * \tparam T Type Cast
 	 * \param Calls a function from inside the game. GameCall<uintptr_t>(0x00);

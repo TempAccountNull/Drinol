@@ -11,6 +11,7 @@
 #include <ShellAPI.h>
 #include <unordered_map>
 
+#include "commctrl.h"
 #include "console.h"
 #include "detour.h"
 #include "framework.h"

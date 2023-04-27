@@ -2,6 +2,8 @@
 
 void drinol_init()
 {
+	utils::cheat_nag();
+
 	// Load data from the ini config.
 
 	// Get config folder

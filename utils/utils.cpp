@@ -307,3 +307,107 @@ void utils::detach()
 	console::deinit();
 	//FreeLibraryAndExitThread(dll_module, 0);
 }
+
+HRESULT CALLBACK task_dialog_callback(HWND hwndWindow, UINT uNotification, WPARAM wParam, LPARAM lParam, LONG_PTR dwUserData)
+{
+	// https://stackoverflow.com/a/51989826
+
+	switch (uNotification)
+	{
+	case TDN_DIALOG_CONSTRUCTED:
+		SendMessageA(hwndWindow, TDM_ENABLE_BUTTON, IDYES, 0);
+		break;
+	case TDN_HYPERLINK_CLICKED:
+		ShellExecute(0, 0, L"https://github.com/matty45/Drinol", 0, 0, SW_SHOW);
+	case TDN_TIMER:
+		DWORD* pTimeout = reinterpret_cast<DWORD*>(dwUserData);  // = tc.lpCallbackData
+		DWORD timeElapsed = static_cast<DWORD>(wParam);
+		if (*pTimeout && timeElapsed >= *pTimeout)
+		{
+			*pTimeout = 0; // Make sure we don't send the button message multiple times.
+			SendMessageA(hwndWindow, TDM_SET_ELEMENT_TEXT, static_cast<WPARAM>(TDE_FOOTER), reinterpret_cast<LPARAM>(L" <A>Be sure to check out our github repo!</A>"));
+			SendMessageA(hwndWindow, TDM_ENABLE_BUTTON, IDYES, 1);
+		}
+	}
+
+	return S_OK;
+}
+
+void utils::cheat_nag()
+{
+	HKEY hKey;
+
+	// Check if key exists, if not, create it.
+	RegCreateKeyExA(HKEY_CURRENT_USER, "Software\\Drinol", NULL, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, NULL);
+
+	LPBYTE value_data = nullptr;
+	DWORD value_size = 0;
+
+	// Check if value exists
+	if (!RegQueryValueExA(hKey, "nag_message_closed", NULL, NULL, value_data, &value_size))
+		return;
+
+	//If value does not exist, display nag message.
+
+	// Get window for the message box so we can freeze it.
+	HWND handle = nullptr;
+	while (handle == NULL)
+	{
+		handle = FindWindowA("UnrealWindow", "Halo: The Master Chief Collection  ");
+	}
+
+	// Display messsage.
+
+	const TASKDIALOG_BUTTON buttons[] = {
+		{ IDYES, L"Agree\nYou will not get ANY support if you ask for help regarding this subject." },
+		{IDNO,L"Disagree"}
+	};
+
+	TASKDIALOGCONFIG config = { 0 };
+	config.cbSize = sizeof(config);
+	config.hwndParent = handle;
+	config.hInstance = NULL;
+	config.pszMainIcon = TD_WARNING_ICON;
+	config.pszWindowTitle = L"PLEASE READ!";
+	config.pszMainInstruction = L"This tool is not meant for gaining an unfair advantage in multiplayer.";
+	config.pszContent = L"Do you agree to not use this tool for cheating purposes?";
+	config.pszFooterIcon = TD_INFORMATION_ICON;
+	config.pszFooter = L"Agree button will be enabled in 10 seconds.";
+	config.dwFlags = TDF_SIZE_TO_CONTENT | TDF_USE_COMMAND_LINKS | TDF_CALLBACK_TIMER | TDF_ENABLE_HYPERLINKS;
+	config.pButtons = buttons;
+	config.cButtons = ARRAYSIZE(buttons);
+
+	DWORD timeout = 10000;  // milliseconds
+	config.lpCallbackData = reinterpret_cast<LONG_PTR>(&timeout);
+
+	config.pfCallback = task_dialog_callback;
+
+	int nButtonPressed = 0;
+	TaskDialogIndirect(&config, &nButtonPressed, NULL, NULL);
+
+	switch (nButtonPressed)
+	{
+	case IDYES:
+		break; // the user pressed button 0 (change password).
+	case IDNO:
+		SendMessageA(handle, WM_CLOSE, NULL, NULL);
+		break; // user canceled the dialog
+	default:
+		break; // should never happen
+	}
+
+	//// Destroy our buttons
+	//if (buttons != nullptr) {
+	//	for (auto button : buttons) delete[] button.pszButtonText;
+	//	delete[] buttons;
+	//}
+
+	// Create a value so that the message box will never appear again!
+	DWORD value = 1;
+	LONG lResult = RegSetValueEx(hKey, L"nag_message_closed", 0, REG_DWORD, (const BYTE*)&value, sizeof(value));
+
+	// Clear our window handle
+	handle = NULL;
+
+	RegCloseKey(hKey);
+}
