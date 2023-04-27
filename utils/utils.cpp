@@ -391,7 +391,7 @@ void utils::cheat_nag()
 		break; // the user pressed button 0 (change password).
 	case IDNO:
 		SendMessageA(handle, WM_CLOSE, NULL, NULL);
-		break; // user canceled the dialog
+		return;
 	default:
 		break; // should never happen
 	}
