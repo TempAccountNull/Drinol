@@ -370,7 +370,7 @@ void utils::cheat_nag()
 	config.pszMainIcon = TD_WARNING_ICON;
 	config.pszWindowTitle = L"PLEASE READ!";
 	config.pszMainInstruction = L"This tool is not meant for gaining an unfair advantage in multiplayer.";
-	config.pszContent = L"Do you agree to not use this tool for cheating purposes?";
+	config.pszContent = L"Do you agree not to use this for cheating?";
 	config.pszFooterIcon = TD_INFORMATION_ICON;
 	config.pszFooter = L"Agree button will be enabled in 10 seconds.";
 	config.dwFlags = TDF_SIZE_TO_CONTENT | TDF_USE_COMMAND_LINKS | TDF_CALLBACK_TIMER | TDF_ENABLE_HYPERLINKS;
