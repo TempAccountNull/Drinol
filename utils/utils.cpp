@@ -63,130 +63,114 @@ void utils::handle_game_deinit()
 // Saves the currently running games settings.
 void utils::save_running_game_settings()
 {
+	std::string logMessage;
+
 	switch (games::current_game_number) {
 	case games::e_games::halo1:
 		if (config::games::halo_1::save())
 		{
-			spdlog::info("Saved settings for Halo 1!");
+			logMessage = "Saved settings for Halo 1!";
 		}
 		break;
 	case games::e_games::halo2:
 		if (config::games::halo_2::save())
 		{
-			spdlog::info("Saved settings for Halo 2!");
+			logMessage = "Saved settings for Halo 2!";
 		}
 		break;
 	case games::e_games::halo3:
 		if (config::games::halo_3::save())
 		{
-			spdlog::info("Saved settings for Halo 3!");
+			logMessage = "Saved settings for Halo 3!";
 		}
 		break;
 	case games::e_games::halo4:
 		if (config::games::halo_4::save())
 		{
-			spdlog::info("Saved settings for Halo 4!");
+			logMessage = "Saved settings for Halo 4!";
 		}
 		break;
 	default:
 		assert(games::current_game_number <= 6);
+	}
+
+	if (!logMessage.empty())
+	{
+		spdlog::info(logMessage);
 	}
 }
 
 // Loads the currently running games settings.
 void utils::load_running_game_settings()
 {
+	std::string logMessage;
+
 	switch (games::current_game_number) {
 	case games::e_games::halo1:
 		if (config::games::halo_1::load())
 		{
-			spdlog::info("Loaded settings for Halo 1!");
+			logMessage = "Loaded settings for Halo 1!";
 		}
 		break;
 	case games::e_games::halo2:
 		if (config::games::halo_2::load())
 		{
-			spdlog::info("Loaded settings for Halo 2!");
+			logMessage = "Loaded settings for Halo 2!";
 		}
 		break;
 	case games::e_games::halo3:
 		if (config::games::halo_3::load())
 		{
-			spdlog::info("Loaded settings for Halo 3!");
+			logMessage = "Loaded settings for Halo 3!";
 		}
 		break;
 	case games::e_games::halo4:
 		if (config::games::halo_4::load())
 		{
-			spdlog::info("Loaded settings for Halo 4!");
+			logMessage = "Loaded settings for Halo 4!";
 		}
 		break;
 	default:
 		assert(games::current_game_number <= 6);
 	}
+
+	if (!logMessage.empty())
+	{
+		spdlog::info(logMessage);
+	}
 }
 
 void utils::reset_running_game_settings()
 {
+	std::string game_name;
+	bool success = false;
+
 	switch (games::current_game_number) {
 	case games::e_games::halo1:
-		if (!config::games::halo_1::create())
-		{
-			spdlog::error("Failed to create fresh settings for Halo 1!");
-			break;
-		}
-		if (!config::games::halo_1::load())
-		{
-			spdlog::error("Failed to load fresh settings for Halo 1!");
-			break;
-		}
-
-		spdlog::info("Reset settings for Halo 1");
+		game_name = "Halo 1";
+		success = config::games::halo_1::create() && config::games::halo_1::load();
 		break;
 	case games::e_games::halo2:
-		if (!config::games::halo_2::create())
-		{
-			spdlog::error("Failed to create fresh settings for Halo 2!");
-			break;
-		}
-		if (!config::games::halo_2::load())
-		{
-			spdlog::error("Failed to load fresh settings for Halo 2!");
-			break;
-		}
-
-		spdlog::info("Reset settings for Halo 2");
+		game_name = "Halo 2";
+		success = config::games::halo_2::create() && config::games::halo_2::load();
 		break;
 	case games::e_games::halo3:
-		if (!config::games::halo_3::create())
-		{
-			spdlog::error("Failed to create fresh settings for Halo 3!");
-			break;
-		}
-		if (!config::games::halo_3::load())
-		{
-			spdlog::error("Failed to load fresh settings for Halo 3!");
-			break;
-		}
-
-		spdlog::info("Reset settings for Halo 3");
+		game_name = "Halo 3";
+		success = config::games::halo_3::create() && config::games::halo_3::load();
 		break;
 	case games::e_games::halo4:
-		if (!config::games::halo_4::create())
-		{
-			spdlog::error("Failed to create fresh settings for Halo 4!");
-			break;
-		}
-		if (!config::games::halo_4::load())
-		{
-			spdlog::error("Failed to load fresh settings for Halo 4!");
-			break;
-		}
-
-		spdlog::info("Reset settings for Halo 4");
+		game_name = "Halo 4";
+		success = config::games::halo_4::create() && config::games::halo_4::load();
 		break;
 	default:
 		assert(games::current_game_number <= 6);
+	}
+
+	if (success) {
+		spdlog::info("Reset settings for {}", game_name);
+	}
+	else {
+		spdlog::error("Failed to create/load fresh settings for {}!", game_name);
 	}
 }
 
