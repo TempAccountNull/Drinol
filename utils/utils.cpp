@@ -296,7 +296,6 @@ void utils::detach()
 	middleware::hooks::deinit();
 	kiero::shutdown();
 	console::deinit();
-	//FreeLibraryAndExitThread(dll_module, 0);
 }
 
 HRESULT CALLBACK task_dialog_callback(HWND hwndWindow, UINT uNotification, WPARAM wParam, LPARAM lParam, LONG_PTR dwUserData)

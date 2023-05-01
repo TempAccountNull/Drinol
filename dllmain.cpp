@@ -75,6 +75,8 @@ void drinol_init()
 
 	spdlog::info("Drinol is loading.");
 
+	spdlog::debug("Drinol files directory: {}", config::main::config_folder);
+
 	version_checking::validate();
 
 	// Initialize Minhook
@@ -115,6 +117,7 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 
 	case DLL_PROCESS_DETACH:
 		utils::detach();
+		FreeLibraryAndExitThread(hinstDLL, 0);
 		break;
 
 	default:

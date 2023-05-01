@@ -9,10 +9,11 @@ void logging::init()
 		// Console logger
 		sinks.push_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());
 
+		auto file_path = config::main::config_folder;
 #if defined _DEBUG
-		const char* file_path = "Drinol/logs/drinol_debug.txt";
+		file_path.append("/logs/drinol_debug.txt");
 #else
-		const char* file_path = "Drinol/logs/drinol_release.txt";
+		file_path.append("/logs/drinol_release.txt");
 #endif
 
 		if (log_to_file)

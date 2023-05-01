@@ -47,10 +47,10 @@ void console::init()
 
 void console::deinit()
 {
-	if (_fcloseall() != 0)
-	{
-		MessageBox(NULL, L"Could not close the console.", L"Drinol Error!", 0);
-	};
+	//if (_fcloseall() != 0)
+	//{
+	//	MessageBox(NULL, L"Could not close the console.", L"Drinol Error!", 0);
+	//};
 	FreeConsole();
 
 	// Since for some reason we cannot close the console properly, we have to hide it :'(
