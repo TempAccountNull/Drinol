@@ -177,29 +177,36 @@ void utils::reset_running_game_settings()
 //https://github.com/citizenfx/fivem/blob/f3bb0460562b1eb1a7f9652ffcf73ad7282fd45e/code/client/shared/Hooking.h#L91-L113
 char* utils::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
 {
-	// ah, the irony in using TLS to get TLS
-	static uint32_t* tlsIndex = ([module_name]()
-		{
-			char* base = reinterpret_cast<char*>(GetModuleHandleW(module_name));
-			PIMAGE_DOS_HEADER moduleBase = reinterpret_cast<PIMAGE_DOS_HEADER>(base);
-			PIMAGE_NT_HEADERS ntBase = reinterpret_cast<PIMAGE_NT_HEADERS>(base + moduleBase->e_lfanew);
-			PIMAGE_TLS_DIRECTORY tlsBase = reinterpret_cast<PIMAGE_TLS_DIRECTORY>(base + ntBase->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_TLS].VirtualAddress);
-			return reinterpret_cast<uint32_t*>(tlsBase->AddressOfIndex);
-		})();
+	static uint32_t* tlsIndex = nullptr;
+
+	while (!tlsIndex)
+	{
+		// ah, the irony in using TLS to get TLS
+		tlsIndex = ([module_name]()
+			{
+				char* base = reinterpret_cast<char*>(GetModuleHandleW(module_name));
+				PIMAGE_DOS_HEADER moduleBase = reinterpret_cast<PIMAGE_DOS_HEADER>(base);
+				PIMAGE_NT_HEADERS ntBase = reinterpret_cast<PIMAGE_NT_HEADERS>(base + moduleBase->e_lfanew);
+				PIMAGE_TLS_DIRECTORY tlsBase = reinterpret_cast<PIMAGE_TLS_DIRECTORY>(base + ntBase->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_TLS].VirtualAddress);
+				return reinterpret_cast<uint32_t*>(tlsBase->AddressOfIndex);
+			})();
+	}
 
 #if defined(_M_IX86)
-		LPVOID* tlsBase = (LPVOID*)__readfsdword(0x2C);
+	LPVOID* tlsBase = (LPVOID*)__readfsdword(0x2C);
 #elif defined(_M_AMD64)
-		LPVOID* tlsBase = reinterpret_cast<LPVOID*>(__readgsqword(0x58));
+	LPVOID* tlsBase = reinterpret_cast<LPVOID*>(__readgsqword(0x58));
 #endif
+
+	if (tlsBase && tlsIndex != nullptr)
+	{
 		if (!TLSFunctionIndex)
-		{
 			return static_cast<char*>(tlsBase[*tlsIndex]);
-		}
 		else
-		{
-			return static_cast<char*>(tlsBase[*tlsIndex]) + TLSFunctionIndex;
-		}
+			return static_cast<char*>(tlsBase[*tlsIndex]) + TLSFunctionIndex; //return static_cast<char*>(tlsBase[*tlsIndex]);
+	}
+	else
+		spdlog::error("utils::get_tls_pointer: NULL POINTER!!!!");
 }
 
 //0x00007ff8
