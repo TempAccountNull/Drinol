@@ -62,33 +62,7 @@ public:
  */
 	static void test_func(int test_int = 0);
 
-	static uintptr_t get_offset(uintptr_t address);
-
-	/**
-	 * \brief Prints the tls pointer of your currently running game, it will change so its best to pause the game so the address stays still, then suspend the mcc process.
-	 */
-	static void print_game_tls_pointer();
-
-	/**
-	 * \brief lists some of the base addresses of the halo game dlls.
-	 */
-	static void list_game_base_addresses();
-
-	/**
-	 * \brief backtraces a function
-	 * \param func
-	 */
-	static void backtrace(const char* func);
-
 #endif
-
-	/**
-* \brief This gets the pointer from TLS
-* \param module_name the name of the dll/exe that you want to get the pointer from
-* \param TLSFunctionIndex The index of the function/pointer/variable/whatever
-* \return the tls pointer
-*/
-	static char* get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex = NULL);
 
 	/**
 	 * \brief Detaches drinol.
@@ -98,16 +72,58 @@ public:
 	 * \brief A message that pops up on the first use of drinol, that warns the user not to use this tool to gain an unfair advantage.
 	 */
 	static void cheat_nag();
-	/**
-	 * \brief
-	 * \tparam T Type Cast
-	 * \param Calls a function from inside the game. GameCall<uintptr_t>(0x00);
-	 * \return
-	 */
-	template <class T>
-	static inline T(*GameCall(uintptr_t address))(...)
+
+	class memory
 	{
-		auto func = reinterpret_cast<T(*)(...)>(address);
-		return func;
-	}
+	public:
+		/**
+		 * \brief
+		 * \tparam T Type Cast
+		 * \param Calls a function from inside the game. GameCall<uintptr_t>(0x00);
+		 * \return
+		 */
+		template <class T>
+		static inline T(*GameCall(uintptr_t address))(...)
+		{
+			auto func = reinterpret_cast<T(*)(...)>(address);
+			return func;
+		}
+
+		/**
+	* \brief This gets the pointer from TLS
+	* \param module_name the name of the dll/exe that you want to get the pointer from
+	* \param TLSFunctionIndex The index of the function/pointer/variable/whatever
+	* \return the tls pointer
+	*/
+		static char* get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex = NULL);
+
+		/**
+		 * \brief Patches bytes, nuff said.
+		 * \param dst
+		 * \param src
+		 * \param size
+		 */
+		static void patch(BYTE* dst, BYTE* src, unsigned int size);
+
+#if defined _DEBUG
+		static uintptr_t get_offset(uintptr_t address);
+
+		/**
+		 * \brief Prints the tls pointer of your currently running game, it will change so its best to pause the game so the address stays still, then suspend the mcc process.
+		 */
+		static void print_game_tls_pointer();
+
+		/**
+		 * \brief lists some of the base addresses of the halo game dlls.
+		 */
+		static void list_game_base_addresses();
+
+		/**
+		 * \brief backtraces a function
+		 * \param func
+		 */
+		static void backtrace(const char* func);
+
+#endif
+	};
 };

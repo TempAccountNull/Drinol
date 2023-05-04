@@ -38,7 +38,7 @@ void halo3::game::list_all_hs_functions()
 	{
 		if (function->evaluate_func != nullptr && function->evaluate_func != offsets::blamscript::functions::hs_null_evaluate && function->evaluate_func != offsets::blamscript::functions::hs_null_evaluate2)
 		{
-			spdlog::info("[HS Function] Return Type: {} Name: {} Offset: 0x{:X}", offsets::blamscript::hs_type_names->types[function->return_type], function->name, utils::get_offset(reinterpret_cast<uintptr_t>(function->evaluate_func)));
+			spdlog::info("[HS Function] Return Type: {} Name: {} Offset: 0x{:X}", offsets::blamscript::hs_type_names->types[function->return_type], function->name, utils::memory::get_offset(reinterpret_cast<uintptr_t>(function->evaluate_func)));
 		}
 	}
 	spdlog::info("Finished printing out the functions.");
@@ -50,7 +50,7 @@ void halo3::game::list_all_hs_globals()
 	for (engine::hs_external_global* global : offsets::blamscript::hs_external_globals->globals)
 		if (global->address != nullptr) // Check if globals functionality has not been stripped from retail.
 		{
-			spdlog::info("[HS Global] Name: {} Offset: 0x{:X} Parameter Type: {}", global->name, utils::get_offset(reinterpret_cast<uintptr_t>(global->address)), offsets::blamscript::hs_type_names->types[global->param_type]);
+			spdlog::info("[HS Global] Name: {} Offset: 0x{:X} Parameter Type: {}", global->name, utils::memory::get_offset(reinterpret_cast<uintptr_t>(global->address)), offsets::blamscript::hs_type_names->types[global->param_type]);
 		}
 	spdlog::info("Finished printing out the globals.");
 }
@@ -108,7 +108,7 @@ void* halo3::game::get_hs_function(const char* func_name, int to_skip)
 
 halo3::engine::s_physics_constants* halo3::game::global_physics_constants_get()
 {
-	auto physics_constants = reinterpret_cast<engine::s_physics_constants**>(utils::get_tls_pointer(L"halo3.dll", engine::game_tls_index::physics_constants));
+	auto physics_constants = reinterpret_cast<engine::s_physics_constants**>(utils::memory::get_tls_pointer(L"halo3.dll", engine::game_tls_index::physics_constants));
 	return *physics_constants;
 }
 
@@ -119,13 +119,13 @@ s_player_mapping_globals* halo3::game::player_mapping_globals_get()
 
 halo3::engine::s_data_array* halo3::game::player_data_get()
 {
-	engine::s_thread_local_storage* tls = (engine::s_thread_local_storage*)utils::get_tls_pointer(L"halo3.dll");
+	engine::s_thread_local_storage* tls = (engine::s_thread_local_storage*)utils::memory::get_tls_pointer(L"halo3.dll");
 	return tls->player_data;
 }
 
 halo3::engine::player_datum* halo3::game::local_player_datum_get()
 {
-	engine::s_thread_local_storage* tls = (engine::s_thread_local_storage*)utils::get_tls_pointer(L"halo3.dll");
+	engine::s_thread_local_storage* tls = (engine::s_thread_local_storage*)utils::memory::get_tls_pointer(L"halo3.dll");
 	return reinterpret_cast<halo3::engine::player_datum*>(tls->player_data->data);
 }
 
@@ -187,22 +187,22 @@ unsigned long halo3::game::grab_local_player_unit()
 //
 //	//uintptr_t uintptr = get_objecta(object_index);
 //	//printf("Ass2: %p\n", uintptr);
-//	return *(uintptr_t*)(*(uintptr_t*)(*(uintptr_t*)(reinterpret_cast<uintptr_t>(utils::get_tls_pointer(L"halo3.dll")) + 56i64) + 72i64) + 24i64 * object_index + 16);
+//	return *(uintptr_t*)(*(uintptr_t*)(*(uintptr_t*)(reinterpret_cast<uintptr_t>(utils::memory::get_tls_pointer(L"halo3.dll")) + 56i64) + 72i64) + 24i64 * object_index + 16);
 //}
 
 void halo3::game::object_scripting_cannot_die(int object_handle, bool cannot_die)
 {
-	return utils::GameCall<void>(offsets::functions::object_scripting_cannot_die)(object_handle, cannot_die);
+	return utils::memory::GameCall<void>(offsets::functions::object_scripting_cannot_die)(object_handle, cannot_die);
 }
 
 void* halo3::game::get_restricted_region_member_address(int alias_index, int member_index, int index)
 {
-	engine::s_thread_local_storage* tls = reinterpret_cast<engine::s_thread_local_storage*>(utils::get_tls_pointer(L"halo3.dll"));
+	engine::s_thread_local_storage* tls = reinterpret_cast<engine::s_thread_local_storage*>(utils::memory::get_tls_pointer(L"halo3.dll"));
 
 	return &tls->g_restricted_address[alias_index][offsets::globals::g_restricted_regions[member_index].m_registered_member[index].offset];
 }
 
 long halo3::game::weapon_get_owner_unit_index(long weapon_index)
 {
-	return utils::GameCall<long>(offsets::functions::weapon_get_owner_unit_index)(weapon_index);
+	return utils::memory::GameCall<long>(offsets::functions::weapon_get_owner_unit_index)(weapon_index);
 }

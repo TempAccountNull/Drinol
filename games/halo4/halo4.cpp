@@ -37,7 +37,7 @@ void halo4::game::deinit()
 
 void* halo4::game::get_restricted_region_member_address(int alias_index, int member_index, int index)
 {
-	engine::s_thread_local_storage* tls = reinterpret_cast<engine::s_thread_local_storage*>(utils::get_tls_pointer(L"halo4.dll"));
+	engine::s_thread_local_storage* tls = reinterpret_cast<engine::s_thread_local_storage*>(utils::memory::get_tls_pointer(L"halo4.dll"));
 
 	return &tls->g_restricted_address[alias_index][offsets::globals::g_restricted_regions[member_index].m_registered_member[index].offset];
 }

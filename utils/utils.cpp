@@ -175,7 +175,7 @@ void utils::reset_running_game_settings()
 }
 
 //https://github.com/citizenfx/fivem/blob/f3bb0460562b1eb1a7f9652ffcf73ad7282fd45e/code/client/shared/Hooking.h#L91-L113
-char* utils::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
+char* utils::memory::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
 {
 	static uint32_t* tlsIndex = nullptr;
 
@@ -208,87 +208,6 @@ char* utils::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
 	else
 		spdlog::error("utils::get_tls_pointer: NULL POINTER!!!!");
 }
-
-//0x00007ff8
-#if defined _DEBUG
-
-void utils::test_func(int test_int)
-{
-	haloreach::hooks::infinite_ammo = true;
-}
-
-uintptr_t utils::get_offset(uintptr_t address)
-{
-	uintptr_t base = Memcury::PE::GetModuleBase();
-
-	uintptr_t offset = address;
-	offset = offset - base;
-
-	return offset;
-}
-
-void utils::print_game_tls_pointer()
-{
-	switch (games::current_game_number) {
-	case games::e_games::halo1:
-		spdlog::debug("Halo 1 TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"halo1.dll")));
-		break;
-	case games::e_games::halo2:
-		spdlog::debug("Halo 2 TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"halo2.dll")));
-		break;
-	case games::e_games::halo3:
-		spdlog::debug("Halo 3 TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"halo3.dll")));
-		break;
-	case games::e_games::halo3odst:
-		spdlog::debug("Halo 3 ODST TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"halo3odst.dll")));
-		break;
-	case games::e_games::haloreach:
-		spdlog::debug("Halo Reach TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"haloreach.dll")));
-		break;
-	case games::e_games::halo4:
-		spdlog::debug("Halo 4 TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"halo4.dll")));
-		break;
-	default:
-		assert(games::current_game_number <= 6);
-	}
-}
-
-void utils::list_game_base_addresses()
-{
-	Memcury::Scanner::SetTargetModule("halo1.dll");
-
-	spdlog::debug("Halo 1 base : 0x{:X}", Memcury::PE::GetModuleBase());
-
-	Memcury::Scanner::SetTargetModule("halo2.dll");
-
-	spdlog::debug("Halo 2 base : 0x{:X}", Memcury::PE::GetModuleBase());
-
-	Memcury::Scanner::SetTargetModule("halo3.dll");
-
-	spdlog::debug("Halo 3 base : 0x{:X}", Memcury::PE::GetModuleBase());
-
-	Memcury::Scanner::SetTargetModule("halo4.dll");
-
-	spdlog::debug("Halo 4 base : 0x{:X}", Memcury::PE::GetModuleBase());
-}
-
-void utils::backtrace(const char* func) {
-	const int trace_count = 15;
-	void* trace_back[trace_count];
-	DWORD hash;
-	RtlCaptureStackBackTrace(1, trace_count, trace_back, &hash);
-	printf("%s callstack: ", func);
-	for (int i = 0; i < trace_count; i++) {
-		if (i == trace_count - 1) {
-			printf("%p\n", (uintptr_t)trace_back[i]);
-		}
-		else {
-			printf("%p:", (uintptr_t)trace_back[i]);
-		}
-	}
-}
-
-#endif
 
 void utils::detach()
 {
@@ -401,3 +320,93 @@ void utils::cheat_nag()
 
 	RegCloseKey(hKey);
 }
+
+void utils::memory::patch(BYTE* dst, BYTE* src, unsigned int size)
+{
+	DWORD oldprotect;
+	VirtualProtect(dst, size, PAGE_EXECUTE_READWRITE, &oldprotect);
+
+	memcpy(dst, src, size);
+	VirtualProtect(dst, size, oldprotect, &oldprotect);
+}
+
+//0x00007ff8
+#if defined _DEBUG
+
+void utils::test_func(int test_int)
+{
+	haloreach::hooks::infinite_ammo = true;
+}
+
+uintptr_t utils::memory::get_offset(uintptr_t address)
+{
+	uintptr_t base = Memcury::PE::GetModuleBase();
+
+	uintptr_t offset = address;
+	offset = offset - base;
+
+	return offset;
+}
+
+void utils::memory::print_game_tls_pointer()
+{
+	switch (games::current_game_number) {
+	case games::e_games::halo1:
+		spdlog::debug("Halo 1 TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"halo1.dll")));
+		break;
+	case games::e_games::halo2:
+		spdlog::debug("Halo 2 TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"halo2.dll")));
+		break;
+	case games::e_games::halo3:
+		spdlog::debug("Halo 3 TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"halo3.dll")));
+		break;
+	case games::e_games::halo3odst:
+		spdlog::debug("Halo 3 ODST TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"halo3odst.dll")));
+		break;
+	case games::e_games::haloreach:
+		spdlog::debug("Halo Reach TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"haloreach.dll")));
+		break;
+	case games::e_games::halo4:
+		spdlog::debug("Halo 4 TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"halo4.dll")));
+		break;
+	default:
+		assert(games::current_game_number <= 6);
+	}
+}
+
+void utils::memory::list_game_base_addresses()
+{
+	Memcury::Scanner::SetTargetModule("halo1.dll");
+
+	spdlog::debug("Halo 1 base : 0x{:X}", Memcury::PE::GetModuleBase());
+
+	Memcury::Scanner::SetTargetModule("halo2.dll");
+
+	spdlog::debug("Halo 2 base : 0x{:X}", Memcury::PE::GetModuleBase());
+
+	Memcury::Scanner::SetTargetModule("halo3.dll");
+
+	spdlog::debug("Halo 3 base : 0x{:X}", Memcury::PE::GetModuleBase());
+
+	Memcury::Scanner::SetTargetModule("halo4.dll");
+
+	spdlog::debug("Halo 4 base : 0x{:X}", Memcury::PE::GetModuleBase());
+}
+
+void utils::memory::backtrace(const char* func) {
+	const int trace_count = 15;
+	void* trace_back[trace_count];
+	DWORD hash;
+	RtlCaptureStackBackTrace(1, trace_count, trace_back, &hash);
+	printf("%s callstack: ", func);
+	for (int i = 0; i < trace_count; i++) {
+		if (i == trace_count - 1) {
+			printf("%p\n", (uintptr_t)trace_back[i]);
+		}
+		else {
+			printf("%p:", (uintptr_t)trace_back[i]);
+		}
+	}
+}
+
+#endif
