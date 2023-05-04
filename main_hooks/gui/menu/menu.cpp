@@ -139,6 +139,18 @@ void menu::render()
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Redirects all blamscript text printing functions to the console.");
 
+						if (ImGui::Checkbox("Toggle AI", &halo1::game::toggle_ai_bool))
+						{
+							// E8 98 28 1A 00
+							//TODO: make the src bytes gotten dynamically
+							if (halo1::game::toggle_ai_bool)
+								utils::memory::patch(static_cast<BYTE*>(halo1::offsets::function_calls::ai_update), (BYTE*)"\x90\x90\x90\x90\x90", 0x05);
+							else
+								utils::memory::patch(static_cast<BYTE*>(halo1::offsets::function_calls::ai_update), halo1::offsets::function_calls::ai_update_og_bytes, 0x05);
+						}
+						if (ImGui::IsItemHovered())
+							ImGui::SetTooltip("Toggles the games AI.");
+
 						ImGui::EndTabItem();
 					}
 

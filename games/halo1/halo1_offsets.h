@@ -1,6 +1,7 @@
 #pragma once
 
 #include "halo1_engine.h"
+#include "memcury/memcury.h"
 
 namespace halo1
 {
@@ -26,6 +27,17 @@ namespace halo1
 			inline static bool* fps_counter;
 			inline static bool* motion_sensor_show_all_units;
 			inline static float** gravity;
+		};
+
+		/**
+		 * \brief offsets to function calls in the games code
+		 */
+		class function_calls
+		{
+		public:
+
+			inline static void* ai_update;
+			inline static BYTE* ai_update_og_bytes = new BYTE[0x05];
 		};
 
 		/**

@@ -26,6 +26,12 @@ namespace halo1
 * \return the functions address
 */
 		static void* get_hs_function(const char* func_name, int to_skip = 1);
+
+		/**
+		 * \brief this is used from imgui to toggle the games ai
+		 */
+		static inline bool toggle_ai_bool = false;
+
 #if defined _DEBUG
 		static void test_function();
 		static void list_all_hs_functions();

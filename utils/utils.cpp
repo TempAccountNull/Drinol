@@ -234,7 +234,7 @@ HRESULT CALLBACK task_dialog_callback(HWND hwndWindow, UINT uNotification, WPARA
 		if (*pTimeout && timeElapsed >= *pTimeout)
 		{
 			*pTimeout = 0; // Make sure we don't send the button message multiple times.
-			SendMessageA(hwndWindow, TDM_SET_ELEMENT_TEXT, static_cast<WPARAM>(TDE_FOOTER), reinterpret_cast<LPARAM>(L" <A>Be sure to check out our github repo!</A>"));
+			SendMessageA(hwndWindow, TDM_SET_ELEMENT_TEXT, TDE_FOOTER, reinterpret_cast<LPARAM>(L" <A>Be sure to check out our github repo!</A>"));
 			SendMessageA(hwndWindow, TDM_ENABLE_BUTTON, IDYES, 1);
 		}
 	}
@@ -330,12 +330,27 @@ void utils::memory::patch(BYTE* dst, BYTE* src, unsigned int size)
 	VirtualProtect(dst, size, oldprotect, &oldprotect);
 }
 
+//void utils::memory::nop(BYTE* dst, BYTE* src, unsigned int size)
+//{
+//	utils::memory::patch()
+//}
+
+void utils::memory::store_memory_bytes(BYTE* stored_bytes, void* src_address, unsigned int size)
+{
+	DWORD oldprotect;
+	VirtualProtect(src_address, size, PAGE_EXECUTE_READWRITE, &oldprotect);
+
+	memcpy(stored_bytes, src_address, size);
+
+	VirtualProtect(src_address, size, oldprotect, &oldprotect);
+}
+
 //0x00007ff8
 #if defined _DEBUG
 
 void utils::test_func(int test_int)
 {
-	haloreach::hooks::infinite_ammo = true;
+	spdlog::info("ai_update_call offset: 0x{:X}", memory::get_offset(reinterpret_cast<uintptr_t>(halo1::offsets::function_calls::ai_update)));
 }
 
 uintptr_t utils::memory::get_offset(uintptr_t address)

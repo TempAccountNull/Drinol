@@ -101,5 +101,5 @@ void* haloreach::game::get_hs_function(const char* func_name, int to_skip)
 
 long haloreach::game::player_mapping_get_unit_by_output_user(unsigned int output_user_index)
 {
-	return utils::memory::GameCall<long>(offsets::functions::player_mapping_get_unit_by_output_user)(output_user_index);
+	return utils::memory::game_call<long>(offsets::functions::player_mapping_get_unit_by_output_user)(output_user_index);
 }

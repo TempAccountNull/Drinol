@@ -83,7 +83,7 @@ public:
 		 * \return
 		 */
 		template <class T>
-		static inline T(*GameCall(uintptr_t address))(...)
+		static inline T(*game_call(uintptr_t address))(...)
 		{
 			auto func = reinterpret_cast<T(*)(...)>(address);
 			return func;
@@ -104,6 +104,12 @@ public:
 		 * \param size
 		 */
 		static void patch(BYTE* dst, BYTE* src, unsigned int size);
+
+		/**
+		 * \brief Reads bytes from a memory address and stores them into stored_bytes
+		 * \return the bytes, fool
+		 */
+		static void store_memory_bytes(BYTE* stored_bytes, void* src_address, unsigned size);
 
 #if defined _DEBUG
 		static uintptr_t get_offset(uintptr_t address);

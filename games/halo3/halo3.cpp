@@ -192,7 +192,7 @@ unsigned long halo3::game::grab_local_player_unit()
 
 void halo3::game::object_scripting_cannot_die(int object_handle, bool cannot_die)
 {
-	return utils::memory::GameCall<void>(offsets::functions::object_scripting_cannot_die)(object_handle, cannot_die);
+	return utils::memory::game_call<void>(offsets::functions::object_scripting_cannot_die)(object_handle, cannot_die);
 }
 
 void* halo3::game::get_restricted_region_member_address(int alias_index, int member_index, int index)
@@ -204,5 +204,5 @@ void* halo3::game::get_restricted_region_member_address(int alias_index, int mem
 
 long halo3::game::weapon_get_owner_unit_index(long weapon_index)
 {
-	return utils::memory::GameCall<long>(offsets::functions::weapon_get_owner_unit_index)(weapon_index);
+	return utils::memory::game_call<long>(offsets::functions::weapon_get_owner_unit_index)(weapon_index);
 }
