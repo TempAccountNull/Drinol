@@ -142,7 +142,7 @@ void menu::render()
 						if (ImGui::Checkbox("Toggle AI", &halo1::game::toggle_ai_bool))
 						{
 							// E8 98 28 1A 00
-							//TODO: make the src bytes gotten dynamically
+							//TODO: make this be able to be loaded from ini
 							if (halo1::game::toggle_ai_bool)
 								utils::memory::patch(static_cast<BYTE*>(halo1::offsets::function_calls::ai_update), (BYTE*)"\x90\x90\x90\x90\x90", 0x05);
 							else
