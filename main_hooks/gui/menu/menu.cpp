@@ -509,7 +509,7 @@ void menu::render()
 	{
 		ImGui::Text("Drinol - A Halo modding utility.");
 		ImGui::Separator();
-		ImGui::Text("This tool is currently being tested on MCC version: %s", version_checking::COMPATIBLE_DRINOL_VERSION);
+		ImGui::Text("This tool is currently being tested on MCC version: %s", version_checking::COMPATIBLE_DRINOL_VERSION.c_str());
 		ImGui::Separator();
 		ImGui::Text("Credits:\nTheTwist84: Halo 3 struct information\n\nNBOTT42#6978: For assistance in developing this tool.\n\nApoxied#1337: Halo 3 Research information that i have yet to use.\n\nSilentRunner#6097: Information borrowed from his \"MCC Toolbox\" project.\nOhItsDiiTz#1337: detour.h and cpp");
 		ImGui::Separator();
