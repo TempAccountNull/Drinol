@@ -379,7 +379,6 @@ bool config::games::halo_1::load()
 	std::istringstream(ini.get("Game").get("redirect_print")) >> std::boolalpha >> halo1::hooks::redirect_print;
 
 	std::istringstream(ini.get("Game").get("toggle_ai")) >> std::boolalpha >> halo1::game::toggle_ai_bool;
-	halo1::game::toggle_ai(halo1::game::toggle_ai_bool); // This is so it actually god damn loads, TODO: maby do this without having to call a function?
 
 	std::istringstream(ini.get("Rendering").get("fps_counter")) >> std::boolalpha >> *halo1::offsets::variables::fps_counter;
 	std::istringstream(ini.get("Rendering").get("wireframe")) >> std::boolalpha >> *halo1::offsets::variables::wireframe;
