@@ -105,3 +105,13 @@ void* halo1::game::get_hs_function(const char* func_name, int to_skip)
 	void* function = Memcury::Scanner(eval_function).ScanFor({ Memcury::ASM::Mnemonic("CALL") }, true, to_skip).RelativeOffset(1).GetAs<void*>(); // Get the function inside of the evaluate function.
 	return function;
 }
+
+void halo1::game::toggle_ai(bool toggle)
+{
+	// E8 98 28 1A 00
+	//TODO: make this be able to be loaded from ini
+	if (toggle)
+		utils::memory::patch(static_cast<BYTE*>(halo1::offsets::function_calls::ai_update), (BYTE*)"\x90\x90\x90\x90\x90", 0x05);
+	else
+		utils::memory::patch(static_cast<BYTE*>(halo1::offsets::function_calls::ai_update), halo1::offsets::function_calls::ai_update_og_bytes, 0x05);
+}

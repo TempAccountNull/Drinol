@@ -338,6 +338,7 @@ bool config::games::halo_1::save()
 	ini["Game"]["ticks_per_second"] = to_string(*halo1::offsets::variables::game_ticks_per_second);
 	ini["Game"]["motion_sensor_show_all_units"] = bool_to_string(*halo1::offsets::variables::motion_sensor_show_all_units);
 	ini["Game"]["redirect_print"] = bool_to_string(halo1::hooks::redirect_print);
+	ini["Game"]["toggle_ai"] = bool_to_string(halo1::game::toggle_ai_bool);
 
 	ini["Rendering"]["fps_counter"] = bool_to_string(*halo1::offsets::variables::fps_counter);
 	ini["Rendering"]["wireframe"] = bool_to_string(*halo1::offsets::variables::wireframe);
@@ -376,6 +377,9 @@ bool config::games::halo_1::load()
 	std::istringstream(ini.get("Game").get("ticks_per_second")) >> *halo1::offsets::variables::game_ticks_per_second;
 	std::istringstream(ini.get("Game").get("motion_sensor_show_all_units")) >> std::boolalpha >> *halo1::offsets::variables::motion_sensor_show_all_units;
 	std::istringstream(ini.get("Game").get("redirect_print")) >> std::boolalpha >> halo1::hooks::redirect_print;
+
+	std::istringstream(ini.get("Game").get("toggle_ai")) >> std::boolalpha >> halo1::game::toggle_ai_bool;
+	halo1::game::toggle_ai(halo1::game::toggle_ai_bool); // This is so it actually god damn loads, TODO: maby do this without having to call a function?
 
 	std::istringstream(ini.get("Rendering").get("fps_counter")) >> std::boolalpha >> *halo1::offsets::variables::fps_counter;
 	std::istringstream(ini.get("Rendering").get("wireframe")) >> std::boolalpha >> *halo1::offsets::variables::wireframe;
