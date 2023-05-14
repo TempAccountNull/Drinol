@@ -180,7 +180,7 @@ LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 	{
 		io.MouseDrawCursor = false;
 
-		if (wParam == VK_INSERT)
+		if (wParam == gui::toggle_ui_keybind)
 		{
 			show = !show;
 		}

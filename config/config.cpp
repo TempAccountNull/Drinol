@@ -37,6 +37,8 @@ bool config::main::load()
 
 	gui::ui_ini_path = ini.get("UI").get("imguiinidir");
 
+	gui::toggle_ui_keybind = std::stoul(ini.get("UI").get("toggle_ui_keybind"), nullptr, 16);
+
 	std::istringstream(ini.get("console").get("consolewindow")) >> std::boolalpha >> console::enabled;
 
 	std::istringstream(ini.get("console").get("imguiconsole")) >> std::boolalpha >> menu::console_enabled;
@@ -74,6 +76,7 @@ bool config::main::create()
 	// populate the structure
 	ini["UI"]["hookdx11"] = "true";
 	ini["UI"]["imguiinidir"] = config_folder + "\\UI.ini";
+	ini["UI"]["toggle_ui_keybind"] = "0x2D";
 
 	ini["Console"]["consolewindow"] = "true";
 	ini["Console"]["imguiconsole"] = "false";
@@ -290,6 +293,7 @@ bool config::sigs::validate()
 	return true;
 }
 
+#pragma region game_configs
 // Game Specific ini files
 
 bool config::games::halo_1::create()
@@ -572,3 +576,5 @@ bool config::games::halo_4::load()
 
 	return true;
 }
+
+#pragma endregion

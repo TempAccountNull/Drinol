@@ -17,4 +17,5 @@ public:
 	 * \brief the path to the ini file that imgui will store its settings in.
 	 */
 	inline static std::string ui_ini_path;
+	inline static unsigned long long toggle_ui_keybind = 0x0D;
 };
