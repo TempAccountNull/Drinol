@@ -4,7 +4,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 **A work in progress tool for Halo: The Master Chief Collection with the goal of aiding modders who are testing their mods inside of MCC and adding extra functionality to the games.**
 
-For information about this tool, please check out the [wiki.](https://github.com/matty45/Drinol/wiki)
+For more information about this tool, please check out the [wiki.](https://github.com/matty45/Drinol/wiki)
 
 <img src="https://i.imgur.com/BYtmRAJ.jpeg" width=50%>
 
