@@ -118,6 +118,10 @@ void drinol_init(LPVOID hInstance)
 			if (GetAsyncKeyState(gui::toggle_ui_keybind) & 1)
 				g_Overlay->bShowWindow ^= 1;
 		}
+
+		// Toggle wireframe
+		if (GetAsyncKeyState(gui::toggle_wireframe_keybind) & 1)
+			gui::render_wireframe ^= 1;
 	}
 
 	//	Exit

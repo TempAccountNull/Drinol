@@ -31,6 +31,8 @@ bool config::main::load()
 
 	// read a value
 
+	gui::toggle_wireframe_keybind = std::stoul(ini.get("Render").get("toggle_wireframe_keybind"), nullptr, 16);
+
 	utils::detach_keybind = std::stoul(ini.get("General").get("detach_keybind"), nullptr, 16);
 
 	std::istringstream(ini.get("UI").get("hookdx11")) >> std::boolalpha >> gui::enabled;
@@ -75,6 +77,8 @@ bool config::main::create()
 
 	// populate the structure
 	ini["General"]["detach_keybind"] = "0x23";
+
+	ini["Render"]["toggle_wireframe_keybind"] = "0x24";
 
 	ini["UI"]["hookdx11"] = "true";
 	ini["UI"]["imguiinidir"] = config_folder + "\\UI.ini";

@@ -7,7 +7,9 @@ typedef uintptr_t PTR;
 typedef LRESULT(CALLBACK* WNDPROC)(HWND, UINT, WPARAM, LPARAM);
 typedef HRESULT(__stdcall* Present) (IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
 typedef HRESULT(__stdcall* ResizeBuffers)(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
+typedef void(__stdcall* DrawIndexed)(ID3D11DeviceContext* p_context, UINT index_count, UINT start_index_location, INT base_vertex_location);
 
+DrawIndexed oDrawIndexed;
 Present						oPresent;
 ResizeBuffers				oResizeBuffers;
 HWND						window = NULL;
@@ -56,6 +58,31 @@ HRESULT hkResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width
 	g_Overlay->SyncWindow(window);	//	Synchronize new window settings for overlay context
 
 	return hr;
+}
+
+void hkDrawIndexed(ID3D11DeviceContext* p_context, const UINT index_count, const UINT start_index_location, const INT base_vertex_location)
+{
+	if (gui::render_wireframe)
+	{
+		ID3D11RasterizerState* r_state;
+		D3D11_RASTERIZER_DESC r_desc;
+
+		// cd3d is the ID3D11DeviceContext
+		p_context->RSGetState(&r_state); // retrieve the current state
+		if (r_state != nullptr)
+		{
+			r_state->GetDesc(&r_desc);    // get the desc of the state
+
+			r_desc.FillMode = D3D11_FILL_WIREFRAME; // change the ONE setting
+			// create a whole new rasterizer state
+			// d3d is the ID3D11Device
+			pDevice->CreateRasterizerState(&r_desc, &r_state);
+
+			p_context->RSSetState(r_state);    // set the new rasterizer state
+		}
+	}
+
+	return oDrawIndexed(p_context, index_count, start_index_location, base_vertex_location);
 }
 
 void InitImGui()
@@ -121,6 +148,7 @@ void gui::init()
 #endif
 		kiero::bind(8, (void**)&oPresent, hkPresent);
 		kiero::bind(13, (void**)&oResizeBuffers, hkResizeBuffers);
+		kiero::bind(73, (void**)&oDrawIndexed, hkDrawIndexed);
 	}
 
 #if defined _DEBUG

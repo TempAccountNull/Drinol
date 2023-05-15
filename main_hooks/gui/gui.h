@@ -18,6 +18,8 @@ public:
 	 */
 	inline static std::string ui_ini_path;
 	inline static unsigned long long toggle_ui_keybind = 0x0D;	//	VK_INSERT ?
+	static inline int toggle_wireframe_keybind = 0x24;
+
 	void ApplyImGuiStyle(bool is_dark_style, float alpha_threshold);
 
 	/// <summary>
@@ -34,6 +36,11 @@ public:
 	};
 	bool binit = false;	//	Is GUI Initialized
 	bool bShowWindow = false;	//	Is Menu Shown
+
+	/**
+	 * \brief Forces DX11 to render everything in wireframe
+	 */
+	static inline bool render_wireframe = false;
 	VOID WINAPI Overlay(bool bShowMenu);
 
 	// Helper Functions for Canvas
