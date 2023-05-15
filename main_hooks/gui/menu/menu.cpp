@@ -559,7 +559,7 @@ void menu::RenderHUD()
 	text += COMMIT_HASH;
 #endif
 
-	draw->AddText(ImGui::GetFont(), 15.f, { 10.f, 10.f }, IM_COL32(255, 255, 255, 127), text.c_str(), text.c_str() + strlen(text.c_str()), 800, 0);
+	draw->AddText(ImGui::GetFont(), 15.f, { 50.f, 10.f }, IM_COL32(255, 255, 255, 127), text.c_str(), text.c_str() + strlen(text.c_str()), 800, 0);
 
 	//	End
 	ImGui::End();
