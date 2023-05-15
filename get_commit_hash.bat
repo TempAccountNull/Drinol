@@ -1,5 +1,5 @@
 REM @echo off
-IF EXIST version.h DEL /F version.h
+DEL /F version.h
 
 REM Commit Hash
 FOR /F "tokens=*" %%g IN ('git log -1 --pretty^=format:^%%h') do (SET COMMIT_HASH=%%g)
