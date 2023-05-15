@@ -87,8 +87,8 @@ void drinol_init(LPVOID hInstance)
 
 	// Initialize UE4 middleware hooks.
 	middleware::hooks::init();
-	
-	if (gui::enabled) 
+
+	if (gui::enabled)
 	{
 		// Initialize DX11 hook and imgui overlay.
 		g_Overlay = std::make_unique<gui>();		//	Global reference to overlay variables (show window)
@@ -97,24 +97,26 @@ void drinol_init(LPVOID hInstance)
 	}
 
 	spdlog::info("Drinol has loaded.");
-	
+
 	//	Executing Main Thread
 	while (g_Running)
 	{
 		//	Exit Key
-		if (GetAsyncKeyState(VK_END) & 1) 
+		if (GetAsyncKeyState(utils::detach_keybind) & 1)
 		{
 			g_Killswitch = TRUE;
 			g_Running = FALSE;
 		}
 
 		//	Show Hide Menu
-		//if (GetAsyncKeyState(gui::toggle_ui_keybind) & 1)  0x0D not sure what key this is
-		if (GetAsyncKeyState(VK_INSERT) & 1)
-			g_Overlay->bShowWindow ^= 1;
+		if (gui::enabled)
+		{
+			if (GetAsyncKeyState(gui::toggle_ui_keybind) & 1)
+				g_Overlay->bShowWindow ^= 1;
+		}
 	}
 
-	//	Exit 
+	//	Exit
 	utils::detach();
 	FreeLibraryAndExitThread((HMODULE)hInstance, EXIT_SUCCESS);
 }

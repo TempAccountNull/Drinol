@@ -1,5 +1,5 @@
 #pragma once
-#include <xstring>
+#include "stdafx.h"
 
 class gui
 {
@@ -17,12 +17,12 @@ public:
 	 * \brief the path to the ini file that imgui will store its settings in.
 	 */
 	inline static std::string ui_ini_path;
-	inline static unsigned long long toggle_ui_keybind = 0x0D;	//	VK_INSERT ? 
+	inline static unsigned long long toggle_ui_keybind = 0x0D;	//	VK_INSERT ?
 	void ApplyImGuiStyle(bool is_dark_style, float alpha_threshold);
-	
-		/// <summary>
-	/// 
-	/// </summary>
+
+	/// <summary>
+///
+/// </summary>
 	struct Window
 	{
 		std::string		TITLE;
@@ -32,8 +32,8 @@ public:
 		float			Width;
 		float			Height;
 	};
-	bool binit			= false;	//	Is GUI Initialized
-	bool bShowWindow	= false;	//	Is Menu Shown
+	bool binit = false;	//	Is GUI Initialized
+	bool bShowWindow = false;	//	Is Menu Shown
 	VOID WINAPI Overlay(bool bShowMenu);
 
 	// Helper Functions for Canvas

@@ -1,8 +1,6 @@
 // This is used for the management of config files, etc
 #include "stdafx.h"
 
-#include "games/halo3/halo3_offsets.h"
-
 //https://stackoverflow.com/a/29798
 inline const char* const bool_to_string(bool b)
 {
@@ -32,6 +30,8 @@ bool config::main::load()
 	}
 
 	// read a value
+
+	utils::detach_keybind = std::stoul(ini.get("General").get("detach_keybind"), nullptr, 16);
 
 	std::istringstream(ini.get("UI").get("hookdx11")) >> std::boolalpha >> gui::enabled;
 
@@ -74,6 +74,8 @@ bool config::main::create()
 	mINI::INIStructure ini;
 
 	// populate the structure
+	ini["General"]["detach_keybind"] = "0x23";
+
 	ini["UI"]["hookdx11"] = "true";
 	ini["UI"]["imguiinidir"] = config_folder + "\\UI.ini";
 	ini["UI"]["toggle_ui_keybind"] = "0x2D";

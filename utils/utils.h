@@ -33,6 +33,8 @@ public:
 	 * \brief the handle of the drinol dll
 	 */
 	inline static HINSTANCE dll_module;
+
+	inline static int detach_keybind = 0x23;
 	/**
 	 * \brief initializes game stuff depending on what game got loaded.
 	 * \param game_number the id of the game that is running.
