@@ -509,7 +509,7 @@ void menu::render()
 		ImGui::Separator();
 		ImGui::Text("This tool is currently being tested on MCC version: %s", version_checking::COMPATIBLE_DRINOL_VERSION.c_str());
 		ImGui::Separator();
-		ImGui::Text("Credits:\nNBOTT42#6978: For assistance in developing this tool.\n\nApoxied#1337: Halo 3 Research information that I have yet to use.\n\nSilentRunner#6097: Information borrowed from his \"MCC Toolbox\" project.\n\n@theTwist84: Halo 3 struct information.\n\nOhItsDiiTz#1337: detour.h and detour.cpp and his undivided attention to this project when he has the time to help.\n\n@xCENTx: Initialization and heavy cleanup to make drinol run more efficently.");
+		ImGui::Text("Credits:\n\nNBOTT42#6978: For assistance in developing this tool.\n\nApoxied#1337: Halo 3 Research information that I have yet to use.\n\nSilentRunner#6097: Information borrowed from his \"MCC Toolbox\" project.\n\n@theTwist84: Halo 3 struct information.\n\nOhItsDiiTz#1337: detour.h and detour.cpp and his undivided attention to this project when he has the time to help.\n\n@xCENTx: Initialization and heavy cleanup to make drinol run more efficently.");
 		ImGui::Separator();
 		ImGui::Text("Thanks to all the halo modders and reverse engineers responsible for projects like ElDewrito and the Blam Creation Suite, without them, i would not have been inspired to make this tool.");
 
