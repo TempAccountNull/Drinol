@@ -552,10 +552,10 @@ void menu::RenderHUD()
 	ImDrawList* draw = ImGui::GetWindowDrawList();
 
 #if defined _DEBUG
-	std::string text = "Drinol - WIP - Debug Build - ";
+	std::string text = "Drinol - Debug - ";
 	text += COMMIT_HASH;
 #else
-	std::string text = "Drinol - WIP - Release Build - ";
+	std::string text = "Drinol - Release - ";
 	text += COMMIT_HASH;
 #endif
 

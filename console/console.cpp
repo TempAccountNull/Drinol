@@ -9,9 +9,13 @@ void console::init()
 	AllocConsole();
 
 #if defined _DEBUG
-	SetConsoleTitleA("Drinol - WIP - Debug Build");
+	std::string text = "Drinol - Debug - ";
+	text += COMMIT_HASH;
+	SetConsoleTitleA(text.c_str());
 #else
-	SetConsoleTitleA("Drinol - WIP - Release Build");
+	std::string text = "Drinol - Release - ";
+	text += COMMIT_HASH;
+	SetConsoleTitleA(text.c_str());
 #endif
 
 	//Redirect output to console
@@ -47,8 +51,8 @@ void console::init()
 
 void console::deinit()
 {
-    fclose(stdin);
-    fclose(stderr);
-    fclose(stdout);
-    FreeConsole();
+	fclose(stdin);
+	fclose(stderr);
+	fclose(stdout);
+	FreeConsole();
 }
