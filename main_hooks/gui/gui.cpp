@@ -1,8 +1,6 @@
 // Most of this code is from https://github.com/Gavpherk/Universal-IL2CPP-DX11-Kiero-Hook
 #include "stdafx.h"
 
-bool show = false;
-bool init = false;
 
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -168,28 +166,43 @@ void InitImGui()
 	SetupImGuiStyle(true, 0.5f);
 }
 
-LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-	ImGuiIO& io = ImGui::GetIO();
-	POINT m_pos;
-	GetCursorPos(&m_pos);
-	ScreenToClient(window, &m_pos);
-	ImGui::GetIO().MousePos.x = static_cast<decltype(ImGui::GetIO().MousePos.x)>(m_pos.x);
-	ImGui::GetIO().MousePos.y = static_cast<decltype(ImGui::GetIO().MousePos.y)>(m_pos.y);
+//	Overlay 
+VOID WINAPI Overlay(bool bShowMenu)
+{
+	//	Begin Draw Scene
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+	ImGui::GetIO().MouseDrawCursor = bShowMenu;		//	Draw Cursor
 
-	if (uMsg == WM_KEYUP)
+	//	Render Options
+	switch (bShowMenu)
 	{
-		io.MouseDrawCursor = false;
-
-		if (wParam == gui::toggle_ui_keybind)
-		{
-			show = !show;
-		}
+		case TRUE: menu::render();		break;	//	Render Menu
+		case FALSE: menu::RenderHUD();	break;	//	Render Drawing Elements (Can be used as a watermark and drawing other static elemnts on the HUD)
 	}
 
-	if (show)
+	//	End Draw Scene
+	ImGui::EndFrame();
+	ImGui::Render();
+	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+}
+
+//	Used to restore active window context upon disinjecting the dll from the process.
+DWORD WINAPI tempPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags)
+{
+	oPresent(pSwapChain, SyncInterval, Flags);
+	return NULL;
+}
+
+LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
+{
+	//	When menu is shown we want to utilize the imgui wndproc handler
+	//	Likewise , when shutting down we do not want to get locked into DearImGuis WndProc Handler
+	if (g_Overlay->bShowWindow && g_Running && !g_Killswitch)
 	{
 		ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
-		io.MouseDrawCursor = true;
 		return true;
 	}
 
@@ -198,7 +211,8 @@ LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 
 HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags)
 {
-	if (!init)
+	//	Should be moved to its own initialization function
+	if (!g_Overlay->binit)
 	{
 		if (SUCCEEDED(pSwapChain->GetDevice(__uuidof(ID3D11Device), (void**)&pDevice)))
 		{
@@ -212,36 +226,20 @@ HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT 
 			pBackBuffer->Release();
 			oWndProc = (WNDPROC)SetWindowLongPtr(window, GWLP_WNDPROC, (LONG_PTR)WndProc);
 			InitImGui();
-			init = true;
+			g_Overlay->binit = true;
 		}
-
 		else
 			return oPresent(pSwapChain, SyncInterval, Flags);
 	}
 
-	//if (GetAsyncKeyState(VK_DELETE) & 1)
-	//{
-	//	kiero::shutdown();
-	//	return 0;
-	//}
-
-	if (show)
-	{
-		ImGui_ImplDX11_NewFrame();
-		ImGui_ImplWin32_NewFrame();
-		ImGui::NewFrame();
-
-		// Render our menu!
-		menu::render();
-
-		ImGui::Render();
-
-		pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
-		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-	}
+	if (g_Running && !g_Killswitch)
+		Overlay(g_Overlay->bShowWindow);	//	Render Overlay
 	return oPresent(pSwapChain, SyncInterval, Flags);
 }
 
+// Initializes the main Graphical User Interface
+// Kiero is used for this procedure
+// A Dear ImGui window is displayed
 void gui::init()
 {
 	if (kiero::init(kiero::RenderType::D3D11) == kiero::Status::Success)
