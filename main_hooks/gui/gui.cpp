@@ -4,30 +4,36 @@
 
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
+typedef uintptr_t PTR;
+typedef LRESULT(CALLBACK* WNDPROC)(HWND, UINT, WPARAM, LPARAM);
 typedef HRESULT(__stdcall* Present) (IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
 typedef HRESULT(__stdcall* ResizeBuffers)(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
-typedef LRESULT(CALLBACK* WNDPROC)(HWND, UINT, WPARAM, LPARAM);
-typedef uintptr_t PTR;
 
-Present oPresent;
-ResizeBuffers oResizeBuffers;
-HWND window = NULL;
-WNDPROC oWndProc;
-ID3D11Device* pDevice = NULL;
-ID3D11DeviceContext* pContext = NULL;
-ID3D11RenderTargetView* mainRenderTargetView;
+
+Present						oPresent;
+ResizeBuffers				oResizeBuffers;
+HWND						window = NULL;
+WNDPROC						oWndProc;
+ID3D11Device*				pDevice = NULL;
+ID3D11DeviceContext*		pContext = NULL;
+ID3D11RenderTargetView*		mainRenderTargetView;
 
 HRESULT hkResizeBuffers(IDXGISwapChain* pThis, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
 
 //dx11 ResizeBuffers Hook
 HRESULT hkResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags)
 {
-	if (mainRenderTargetView) {
+	if (mainRenderTargetView) 
+	{
 		pContext->OMSetRenderTargets(0, 0, 0);
 		mainRenderTargetView->Release();
 	}
 
 	HRESULT hr = oResizeBuffers(pSwapChain, BufferCount, Width, Height, NewFormat, SwapChainFlags);
+
+	DXGI_SWAP_CHAIN_DESC sd;
+	pSwapChain->GetDesc(&sd);
+	window = sd.OutputWindow;
 
 	ID3D11Texture2D* pBuffer;
 	pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&pBuffer);
@@ -38,7 +44,8 @@ HRESULT hkResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width
 	pBuffer->Release();
 
 	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
-
+	
+	
 	// Set up the viewport.
 	D3D11_VIEWPORT vp;
 	vp.Width = static_cast<FLOAT>(Width);
@@ -48,10 +55,81 @@ HRESULT hkResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width
 	vp.TopLeftX = 0;
 	vp.TopLeftY = 0;
 	pContext->RSSetViewports(1, &vp);
+
+
+	g_Overlay->SyncWindow(window);	//	Synchronize new window settings for overlay context
+
 	return hr;
 }
 
-void SetupImGuiStyle(bool is_dark_style, float alpha_threshold)
+void InitImGui()
+{
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
+	io.IniFilename = gui::ui_ini_path.c_str();
+	ImGui_ImplWin32_Init(window);
+	ImGui_ImplDX11_Init(pDevice, pContext);
+}
+
+LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
+{
+	//	When menu is shown we want to utilize the imgui wndproc handler
+	//	Likewise , when shutting down we do not want to get locked into DearImGuis WndProc Handler
+	if (g_Overlay->bShowWindow && g_Running && !g_Killswitch)
+	{
+		ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
+		return true;
+	}
+	return CallWindowProc(oWndProc, hWnd, uMsg, wParam, lParam);
+}
+
+HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags)
+{
+	//	Should be moved to its own initialization function
+	if (!g_Overlay->binit)
+	{
+		if (SUCCEEDED(pSwapChain->GetDevice(__uuidof(ID3D11Device), (void**)&pDevice)))
+		{
+			pDevice->GetImmediateContext(&pContext);
+			DXGI_SWAP_CHAIN_DESC sd;
+			pSwapChain->GetDesc(&sd);
+			window = sd.OutputWindow;
+			ID3D11Texture2D* pBackBuffer;
+			pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
+			pDevice->CreateRenderTargetView(pBackBuffer, NULL, &mainRenderTargetView);
+			pBackBuffer->Release();
+			oWndProc = (WNDPROC)SetWindowLongPtr(window, GWLP_WNDPROC, (LONG_PTR)WndProc);
+			InitImGui();
+			g_Overlay->SyncWindow(window);
+			g_Overlay->binit = true;
+		}
+		else
+			return oPresent(pSwapChain, SyncInterval, Flags);
+	}
+
+	if (g_Running && !g_Killswitch)
+		g_Overlay->Overlay(g_Overlay->bShowWindow);	//	Render Overlay
+	return oPresent(pSwapChain, SyncInterval, Flags);
+}
+
+// Initializes the main Graphical User Interface
+// Kiero is used for this procedure
+// A Dear ImGui window is displayed
+void gui::init()
+{
+	if (kiero::init(kiero::RenderType::D3D11) == kiero::Status::Success)
+	{
+#if defined _DEBUG
+		spdlog::debug("kiero initialized.");
+#endif
+		kiero::bind(8, (void**)&oPresent, hkPresent);
+		kiero::bind(13, (void**)&oResizeBuffers, hkResizeBuffers);
+	}
+}
+
+// Custom Dear ImGui Style
+void gui::ApplyImGuiStyle(bool is_dark_style, float alpha_threshold)
 {
 	//Use a ternary operator
 	is_dark_style ? ImGui::StyleColorsDark() : ImGui::StyleColorsLight();
@@ -154,20 +232,47 @@ void SetupImGuiStyle(bool is_dark_style, float alpha_threshold)
 	style.Colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.800000011920929f, 0.800000011920929f, 0.800000011920929f, 0.3499999940395355f);
 }
 
-void InitImGui()
+// Helper Functions
+void gui::SyncWindow(HWND window)
 {
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO();
-	io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
-	io.IniFilename = gui::ui_ini_path.c_str();
-	ImGui_ImplWin32_Init(window);
-	ImGui_ImplDX11_Init(pDevice, pContext);
+	RECT temprect;
+	GetWindowRect(window, &temprect);
+	float position[2]	= { temprect.left, temprect.top };
+	float width			= temprect.right - temprect.left; 
+	float height		= temprect.bottom - temprect.top;
+	
+	// Position
+	p_window.PosX	= position[0];
+	p_window.PosY	= position[1];
 
-	SetupImGuiStyle(true, 0.5f);
+	// Size ( x , y)
+	p_window.Height = height;
+	p_window.Width	= width;
+}
+
+void gui::GetWindowSize(float* in)
+{
+	in[0] = p_window.Width;
+	in[1] = p_window.Height;
+}
+
+void gui::GetWindowPosition(float* in)
+{
+	in[0] = p_window.PosX;
+	in[1] = p_window.PosY;
+}
+
+void gui::GetCenterScreen(float* in)
+{
+	float result[2];
+	GetWindowSize(result);
+
+	in[0] = result[0] / 2;
+	in[1] = result[1] / 2;
 }
 
 //	Overlay 
-VOID WINAPI Overlay(bool bShowMenu)
+VOID WINAPI gui::Overlay(bool bShowMenu)
 {
 	//	Begin Draw Scene
 	ImGui_ImplDX11_NewFrame();
@@ -178,8 +283,8 @@ VOID WINAPI Overlay(bool bShowMenu)
 	//	Render Options
 	switch (bShowMenu)
 	{
-		case TRUE: menu::render();		break;	//	Render Menu
-		case FALSE: menu::RenderHUD();	break;	//	Render Drawing Elements (Can be used as a watermark and drawing other static elemnts on the HUD)
+	case TRUE: menu::render();		break;	//	Render Menu
+	case FALSE: menu::RenderHUD();	break;	//	Render Drawing Elements (Can be used as a watermark and drawing other static elemnts on the HUD)
 	}
 
 	//	End Draw Scene
@@ -187,67 +292,4 @@ VOID WINAPI Overlay(bool bShowMenu)
 	ImGui::Render();
 	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-}
-
-//	Used to restore active window context upon disinjecting the dll from the process.
-DWORD WINAPI tempPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags)
-{
-	oPresent(pSwapChain, SyncInterval, Flags);
-	return NULL;
-}
-
-LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
-{
-	//	When menu is shown we want to utilize the imgui wndproc handler
-	//	Likewise , when shutting down we do not want to get locked into DearImGuis WndProc Handler
-	if (g_Overlay->bShowWindow && g_Running && !g_Killswitch)
-	{
-		ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
-		return true;
-	}
-
-	return CallWindowProc(oWndProc, hWnd, uMsg, wParam, lParam);
-}
-
-HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags)
-{
-	//	Should be moved to its own initialization function
-	if (!g_Overlay->binit)
-	{
-		if (SUCCEEDED(pSwapChain->GetDevice(__uuidof(ID3D11Device), (void**)&pDevice)))
-		{
-			pDevice->GetImmediateContext(&pContext);
-			DXGI_SWAP_CHAIN_DESC sd;
-			pSwapChain->GetDesc(&sd);
-			window = sd.OutputWindow;
-			ID3D11Texture2D* pBackBuffer;
-			pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
-			pDevice->CreateRenderTargetView(pBackBuffer, NULL, &mainRenderTargetView);
-			pBackBuffer->Release();
-			oWndProc = (WNDPROC)SetWindowLongPtr(window, GWLP_WNDPROC, (LONG_PTR)WndProc);
-			InitImGui();
-			g_Overlay->binit = true;
-		}
-		else
-			return oPresent(pSwapChain, SyncInterval, Flags);
-	}
-
-	if (g_Running && !g_Killswitch)
-		Overlay(g_Overlay->bShowWindow);	//	Render Overlay
-	return oPresent(pSwapChain, SyncInterval, Flags);
-}
-
-// Initializes the main Graphical User Interface
-// Kiero is used for this procedure
-// A Dear ImGui window is displayed
-void gui::init()
-{
-	if (kiero::init(kiero::RenderType::D3D11) == kiero::Status::Success)
-	{
-#if defined _DEBUG
-		spdlog::debug("kiero initialized.");
-#endif
-		kiero::bind(8, (void**)&oPresent, hkPresent);
-		kiero::bind(13, (void**)&oResizeBuffers, hkResizeBuffers);
-	}
 }

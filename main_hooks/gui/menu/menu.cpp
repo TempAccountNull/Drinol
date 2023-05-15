@@ -15,6 +15,7 @@ int test_int = 0;
 
 void menu::render()
 {
+	g_Overlay->ApplyImGuiStyle(true, 0.5f);
 	ImGui::Begin("Drinol", 0, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
 	// Menu Bar
@@ -526,18 +527,30 @@ void menu::render()
 #pragma endregion
 }
 
+// The goal of this window is to display important information to the user without handling any form of input / interactions
 void menu::RenderHUD()
 {
-	//	Begin
+	float size[2];
+	g_Overlay->GetWindowSize(size);
+
+	ImVec4*		colors			= ImGui::GetStyle().Colors;
+	colors[ImGuiCol_WindowBg]	= ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+	colors[ImGuiCol_Border]		= ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+
+	ImGuiStyle* style2			= &ImGui::GetStyle();
+	style2->WindowRounding		= NULL;
+
+	//	Render Window
+	ImGui::SetNextWindowPos({ 0, 0 }, ImGuiCond_Always);
+	ImGui::SetNextWindowSize({ size[0], size[1] }, ImGuiCond_Always);
 	if (!ImGui::Begin(("##HUDWindow"), NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoInputs))
 	{
 		ImGui::End();
 		return;
 	}
 
-
 	auto draw = ImGui::GetWindowDrawList();
-	auto text = "Drinol";
+	auto text = "Drinol HUD";
 	draw->AddText(ImGui::GetFont(), 15.f, { 10.f, 10.f }, IM_COL32_WHITE, text, text + strlen(text), 800, 0);
 
 	//	End

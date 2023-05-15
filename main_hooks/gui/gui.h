@@ -17,8 +17,31 @@ public:
 	 * \brief the path to the ini file that imgui will store its settings in.
 	 */
 	inline static std::string ui_ini_path;
-	inline static unsigned long long toggle_ui_keybind = 0x0D;	//	VK_INSERT ?
+	inline static unsigned long long toggle_ui_keybind = 0x0D;	//	VK_INSERT ? 
+	void ApplyImGuiStyle(bool is_dark_style, float alpha_threshold);
+	
+		/// <summary>
+	/// 
+	/// </summary>
+	struct Window
+	{
+		std::string		TITLE;
+		HWND			hHANDLE;
+		float			PosX;
+		float			PosY;
+		float			Width;
+		float			Height;
+	};
 	bool binit			= false;	//	Is GUI Initialized
 	bool bShowWindow	= false;	//	Is Menu Shown
+	VOID WINAPI Overlay(bool bShowMenu);
+
+	// Helper Functions for Canvas
+	void SyncWindow(HWND window);	//	Obtains target process main window information
+	void GetWindowSize(float* in);
+	void GetWindowPosition(float* in);
+	void GetCenterScreen(float* in);
+private:
+	Window p_window;
 };
 inline std::unique_ptr<gui> g_Overlay;
