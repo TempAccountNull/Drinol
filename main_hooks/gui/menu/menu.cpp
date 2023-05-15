@@ -452,7 +452,7 @@ void menu::render()
 
 		if (ImGui::Button("OK", ImVec2(120, 0)))
 		{
-			g_Killswitch = TRUE;	//	Hopefully triggers present fast enough to restore mouse to game context 
+			g_Killswitch = TRUE;	//	Hopefully triggers present fast enough to restore mouse to game context
 			g_Running = FALSE;		//
 			//	utils::detach();	//	 No longer needed , this will be handled at the end of the execution thread
 			ImGui::CloseCurrentPopup();
@@ -509,7 +509,7 @@ void menu::render()
 		ImGui::Separator();
 		ImGui::Text("This tool is currently being tested on MCC version: %s", version_checking::COMPATIBLE_DRINOL_VERSION.c_str());
 		ImGui::Separator();
-		ImGui::Text("Credits:\nTheTwist84: Halo 3 struct information\n\nNBOTT42#6978: For assistance in developing this tool.\n\nApoxied#1337: Halo 3 Research information that i have yet to use.\n\nSilentRunner#6097: Information borrowed from his \"MCC Toolbox\" project.\nOhItsDiiTz#1337: detour.h and cpp");
+		ImGui::Text("Credits:\nNBOTT42#6978: For assistance in developing this tool.\n\nApoxied#1337: Halo 3 Research information that I have yet to use.\n\nSilentRunner#6097: Information borrowed from his \"MCC Toolbox\" project.\n\n@theTwist84: Halo 3 struct information.\n\nOhItsDiiTz#1337: detour.h and detour.cpp and his undivided attention to this project when he has the time to help.\n\n@xCENTx: Initialization and heavy cleanup to make drinol run more efficently.");
 		ImGui::Separator();
 		ImGui::Text("Thanks to all the halo modders and reverse engineers responsible for projects like ElDewrito and the Blam Creation Suite, without them, i would not have been inspired to make this tool.");
 
@@ -533,12 +533,12 @@ void menu::RenderHUD()
 	float size[2];
 	g_Overlay->GetWindowSize(size);
 
-	ImVec4*		colors			= ImGui::GetStyle().Colors;
-	colors[ImGuiCol_WindowBg]	= ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
-	colors[ImGuiCol_Border]		= ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+	ImVec4* colors = ImGui::GetStyle().Colors;
+	colors[ImGuiCol_WindowBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+	colors[ImGuiCol_Border] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
 
-	ImGuiStyle* style2			= &ImGui::GetStyle();
-	style2->WindowRounding		= NULL;
+	ImGuiStyle* style2 = &ImGui::GetStyle();
+	style2->WindowRounding = NULL;
 
 	//	Render Window
 	ImGui::SetNextWindowPos({ 0, 0 }, ImGuiCond_Always);

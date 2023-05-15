@@ -1,7 +1,6 @@
 // Most of this code is from https://github.com/Gavpherk/Universal-IL2CPP-DX11-Kiero-Hook
 #include "stdafx.h"
 
-
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 typedef uintptr_t PTR;
@@ -9,21 +8,20 @@ typedef LRESULT(CALLBACK* WNDPROC)(HWND, UINT, WPARAM, LPARAM);
 typedef HRESULT(__stdcall* Present) (IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
 typedef HRESULT(__stdcall* ResizeBuffers)(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
 
-
 Present						oPresent;
 ResizeBuffers				oResizeBuffers;
 HWND						window = NULL;
 WNDPROC						oWndProc;
-ID3D11Device*				pDevice = NULL;
-ID3D11DeviceContext*		pContext = NULL;
-ID3D11RenderTargetView*		mainRenderTargetView;
+ID3D11Device* pDevice = NULL;
+ID3D11DeviceContext* pContext = NULL;
+ID3D11RenderTargetView* mainRenderTargetView;
 
 HRESULT hkResizeBuffers(IDXGISwapChain* pThis, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
 
 //dx11 ResizeBuffers Hook
 HRESULT hkResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags)
 {
-	if (mainRenderTargetView) 
+	if (mainRenderTargetView)
 	{
 		pContext->OMSetRenderTargets(0, 0, 0);
 		mainRenderTargetView->Release();
@@ -44,8 +42,7 @@ HRESULT hkResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width
 	pBuffer->Release();
 
 	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
-	
-	
+
 	// Set up the viewport.
 	D3D11_VIEWPORT vp;
 	vp.Width = static_cast<FLOAT>(Width);
@@ -55,7 +52,6 @@ HRESULT hkResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width
 	vp.TopLeftX = 0;
 	vp.TopLeftY = 0;
 	pContext->RSSetViewports(1, &vp);
-
 
 	g_Overlay->SyncWindow(window);	//	Synchronize new window settings for overlay context
 
@@ -72,7 +68,7 @@ void InitImGui()
 	ImGui_ImplDX11_Init(pDevice, pContext);
 }
 
-LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
+LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	//	When menu is shown we want to utilize the imgui wndproc handler
 	//	Likewise , when shutting down we do not want to get locked into DearImGuis WndProc Handler
@@ -126,6 +122,10 @@ void gui::init()
 		kiero::bind(8, (void**)&oPresent, hkPresent);
 		kiero::bind(13, (void**)&oResizeBuffers, hkResizeBuffers);
 	}
+
+#if defined _DEBUG
+	spdlog::debug("DX11 Hooked.");
+#endif
 }
 
 // Custom Dear ImGui Style
@@ -237,17 +237,17 @@ void gui::SyncWindow(HWND window)
 {
 	RECT temprect;
 	GetWindowRect(window, &temprect);
-	float position[2]	= { temprect.left, temprect.top };
-	float width			= temprect.right - temprect.left; 
-	float height		= temprect.bottom - temprect.top;
-	
+	float position[2] = { temprect.left, temprect.top };
+	float width = temprect.right - temprect.left;
+	float height = temprect.bottom - temprect.top;
+
 	// Position
-	p_window.PosX	= position[0];
-	p_window.PosY	= position[1];
+	p_window.PosX = position[0];
+	p_window.PosY = position[1];
 
 	// Size ( x , y)
 	p_window.Height = height;
-	p_window.Width	= width;
+	p_window.Width = width;
 }
 
 void gui::GetWindowSize(float* in)
@@ -271,7 +271,7 @@ void gui::GetCenterScreen(float* in)
 	in[1] = result[1] / 2;
 }
 
-//	Overlay 
+//	Overlay
 VOID WINAPI gui::Overlay(bool bShowMenu)
 {
 	//	Begin Draw Scene
