@@ -13,11 +13,12 @@ We have a official discord server [here](https://discord.gg/AkyKYTkPSJ), feel fr
 
   ## Credits:
  - **NBOTT42#6978**: For assistance in developing this tool.
- - **Apoxied#1337**: Halo 3 Research information that i have yet to use.
+ - **Apoxied#1337**: Halo 3 Research information that I have yet to use.
  - **SilentRunner#6097**: Information borrowed from his "MCC Toolbox"
    project.
- - **@theTwist84**: Halo 3 struct information
- - **OhItsDiiTz#1337**: detour.h and cpp
+ - **@theTwist84**: Halo 3 struct information.
+ - **OhItsDiiTz#1337**: detour.h and detour.cpp and his undivided attention to this project when he has the time to help.
+ - **@xCENTx**: Initialization and heavy cleanup to make drinol run more efficently.
 
 ## Contributors:
 
