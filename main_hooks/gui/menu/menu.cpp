@@ -451,7 +451,9 @@ void menu::render()
 
 		if (ImGui::Button("OK", ImVec2(120, 0)))
 		{
-			utils::detach();
+			g_Killswitch = TRUE;	//	Hopefully triggers present fast enough to restore mouse to game context 
+			g_Running = FALSE;		//
+			//	utils::detach();	//	 No longer needed , this will be handled at the end of the execution thread
 			ImGui::CloseCurrentPopup();
 		}
 		ImGui::SetItemDefaultFocus();
@@ -522,4 +524,22 @@ void menu::render()
 		ImGui::EndPopup();
 	}
 #pragma endregion
+}
+
+void menu::RenderHUD()
+{
+	//	Begin
+	if (!ImGui::Begin(("##HUDWindow"), NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoInputs))
+	{
+		ImGui::End();
+		return;
+	}
+
+
+	auto draw = ImGui::GetWindowDrawList();
+	auto text = "Drinol";
+	draw->AddText(ImGui::GetFont(), 15.f, { 10.f, 10.f }, IM_COL32_WHITE, text, text + strlen(text), 800, 0);
+
+	//	End
+	ImGui::End();
 }
