@@ -539,7 +539,6 @@ void menu::RenderHUD()
 
 	ImGuiStyle* style2 = &ImGui::GetStyle();
 	style2->WindowRounding = NULL;
-	style2->Alpha = 0.5f;
 
 	//	Render Window
 	ImGui::SetNextWindowPos({ 0, 0 }, ImGuiCond_Always);
