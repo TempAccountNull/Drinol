@@ -539,6 +539,7 @@ void menu::RenderHUD()
 
 	ImGuiStyle* style2 = &ImGui::GetStyle();
 	style2->WindowRounding = NULL;
+	style2->Alpha = 0.5f;
 
 	//	Render Window
 	ImGui::SetNextWindowPos({ 0, 0 }, ImGuiCond_Always);
@@ -559,7 +560,7 @@ void menu::RenderHUD()
 	text += COMMIT_HASH;
 #endif
 
-	draw->AddText(ImGui::GetFont(), 15.f, { 10.f, 10.f }, IM_COL32_WHITE, text.c_str(), text.c_str() + strlen(text.c_str()), 800, 0);
+	draw->AddText(ImGui::GetFont(), 15.f, { 10.f, 10.f }, IM_COL32(255, 255, 255, 127), text.c_str(), text.c_str() + strlen(text.c_str()), 800, 0);
 
 	//	End
 	ImGui::End();
