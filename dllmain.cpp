@@ -71,7 +71,11 @@ void drinol_init(LPVOID hInstance)
 
 	logging::init();
 
-	spdlog::info(format(fmt::fg(fmt::terminal_color::bright_cyan) | fmt::emphasis::bold, "Welcome to Drinol! | https://github.com/matty45/Drinol"));
+	spdlog::info(format(fmt::fg(fmt::terminal_color::bright_cyan) | fmt::emphasis::bold, "Welcome to Drinol! | https://github.com/matty45/Drinol | Branch: {}", CURRENT_BRANCH));
+
+	// Print commit details
+	spdlog::info("Commit: {} - {} - {}", COMMIT_HASH, COMMIT_DATE, COMMIT_SUBJECT);
+	spdlog::info("Commit Author: {}", COMMIT_AUTHOR);
 
 	spdlog::info("Drinol is loading.");
 

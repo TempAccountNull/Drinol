@@ -549,9 +549,17 @@ void menu::RenderHUD()
 		return;
 	}
 
-	auto draw = ImGui::GetWindowDrawList();
-	auto text = "Drinol HUD";
-	draw->AddText(ImGui::GetFont(), 15.f, { 10.f, 10.f }, IM_COL32_WHITE, text, text + strlen(text), 800, 0);
+	ImDrawList* draw = ImGui::GetWindowDrawList();
+
+#if defined _DEBUG
+	std::string text = "Drinol - WIP - Debug Build - ";
+	text += COMMIT_HASH;
+#else
+	std::string text = "Drinol - WIP - Release Build - ";
+	text += COMMIT_HASH;
+#endif
+
+	draw->AddText(ImGui::GetFont(), 15.f, { 10.f, 10.f }, IM_COL32_WHITE, text.c_str(), text.c_str() + strlen(text.c_str()), 800, 0);
 
 	//	End
 	ImGui::End();

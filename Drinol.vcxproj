@@ -263,6 +263,7 @@
     <ClInclude Include="utils\detour.h" />
     <ClInclude Include="utils\ntpebteb.h" />
     <ClInclude Include="utils\utils.h" />
+    <ClInclude Include="version.h" />
     <ClInclude Include="version_checking\version_checking.h" />
   </ItemGroup>
   <ItemGroup>
@@ -341,6 +342,10 @@
     <CustomBuildStep>
       <Command>call $(ProjectDir)UninstallDrinol.bat</Command>
     </CustomBuildStep>
+    <PreBuildEvent>
+      <Message>Getting commit info and putting it into version.h</Message>
+      <Command> call "$(ProjectDir)get_commit_hash.bat"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -374,6 +379,10 @@
     <CustomBuildStep>
       <Command>call $(ProjectDir)UninstallDrinol.bat</Command>
     </CustomBuildStep>
+    <PreBuildEvent>
+      <Message>Getting commit info and putting it into version.h</Message>
+      <Command> call "$(ProjectDir)get_commit_hash.bat"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
