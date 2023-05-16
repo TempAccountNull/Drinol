@@ -28,21 +28,10 @@ namespace halo3
 */
 		static void* get_hs_function(const char* func_name, int to_skip = 1);
 		/**
-		 * \brief Gets the physics constants/globals
-		 * \return a struct containing them
-		 */
-		static engine::s_physics_constants* global_physics_constants_get();
-		/**
 		 * \brief Gets the player mapping constants/globals
 		 * \return a struct containing them
 		 */
 		static s_player_mapping_globals* player_mapping_globals_get();
-		/**
-		 * \brief Gets an array of the players
-		 * \return
-		 */
-		static engine::s_data_array* player_data_get();
-		static halo3::engine::player_datum* local_player_datum_get();
 		/**
 		 * \brief Gets the handle of your local players unit.
 		 * \return
@@ -74,6 +63,19 @@ namespace halo3
 		 * \return
 		 */
 		static long weapon_get_owner_unit_index(long weapon_index);
+		/**
+		 * \brief Checks if team is an enemy
+		 * \param team_1
+		 * \param team_2
+		 * \return
+		 */
+		static bool game_team_is_enemy(long team_1, long team_2);
+		/**
+		 * \brief Gets the team from the unit index
+		 * \param unit_index
+		 * \return team_index
+		 */
+		static DWORD get_unit_team(int unit_index);
 
 		/**
  * \brief Gets a handle of an object

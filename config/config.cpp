@@ -28,6 +28,7 @@ std::string int_to_hex_string(T i)
 	return stream.str();
 }
 
+#pragma region main_config
 bool config::main::save()
 {
 	const mINI::INIFile file(config_folder + "\\MainSettings.ini");
@@ -158,7 +159,9 @@ bool config::main::create()
 	}
 	return true;
 }
+#pragma endregion
 
+#pragma region sigs_config
 bool config::sigs::load()
 {
 	const mINI::INIFile file(main::config_folder + "\\Signatures.ini");
@@ -341,6 +344,7 @@ bool config::sigs::validate()
 
 	return true;
 }
+#pragma endregion
 
 #pragma region game_configs
 // Game Specific ini files
@@ -515,6 +519,7 @@ bool config::games::halo_3::create()
 	ini["Rendering"]["motion_blur_scale_y"] = "0.15";
 	ini["Rendering"]["motion_blur_center_falloff"] = "1.4";
 	ini["Game"]["player_weapon_projectiles_only"] = "false";
+	ini["Game"]["player_ally_projectiles_only"] = "false";
 
 	// generate an INI file (overwrites any previous file)
 	if (!file.generate(ini, true))
@@ -541,6 +546,8 @@ bool config::games::halo_3::save()
 	ini["Rendering"]["motion_blur_scale_y"] = to_string(*halo3::offsets::variables::motion_blur_scale_y);
 	ini["Rendering"]["motion_blur_center_falloff"] = to_string(*halo3::offsets::variables::motion_blur_center_falloff);
 	ini["Game"]["player_weapon_projectiles_only"] = bool_to_string(halo3::hooks::player_weapon_projectiles_only);
+	ini["Game"]["player_ally_projectiles_only"] = bool_to_string(halo3::hooks::player_ally_projectiles_only);
+
 	// write to the INI file (overwrites)
 	if (!file.write(ini, true))
 	{
@@ -564,6 +571,7 @@ bool config::games::halo_3::load()
 
 	// read a value
 	std::istringstream(ini.get("Game").get("player_weapon_projectiles_only")) >> std::boolalpha >> halo3::hooks::player_weapon_projectiles_only;
+	std::istringstream(ini.get("Game").get("player_ally_projectiles_only")) >> std::boolalpha >> halo3::hooks::player_ally_projectiles_only;
 	std::istringstream(ini.get("Rendering").get("motion_blur_expected_dt")) >> *halo3::offsets::variables::motion_blur_expected_dt;
 	std::istringstream(ini.get("Rendering").get("motion_blur_taps")) >> *halo3::offsets::variables::motion_blur_taps;
 	std::istringstream(ini.get("Rendering").get("motion_blur_max_x")) >> *halo3::offsets::variables::motion_blur_max_x;

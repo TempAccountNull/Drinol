@@ -106,27 +106,9 @@ void* halo3::game::get_hs_function(const char* func_name, int to_skip)
 	return function;
 }
 
-halo3::engine::s_physics_constants* halo3::game::global_physics_constants_get()
-{
-	auto physics_constants = reinterpret_cast<engine::s_physics_constants**>(utils::memory::get_tls_pointer(L"halo3.dll", engine::game_tls_index::physics_constants));
-	return *physics_constants;
-}
-
 s_player_mapping_globals* halo3::game::player_mapping_globals_get()
 {
 	return offsets::globals::player_mapping_globals;
-}
-
-halo3::engine::s_data_array* halo3::game::player_data_get()
-{
-	engine::s_thread_local_storage* tls = (engine::s_thread_local_storage*)utils::memory::get_tls_pointer(L"halo3.dll");
-	return tls->player_data;
-}
-
-halo3::engine::player_datum* halo3::game::local_player_datum_get()
-{
-	engine::s_thread_local_storage* tls = (engine::s_thread_local_storage*)utils::memory::get_tls_pointer(L"halo3.dll");
-	return reinterpret_cast<halo3::engine::player_datum*>(tls->player_data->data);
 }
 
 unsigned long player_mapping_first_active_output_user()
@@ -210,4 +192,26 @@ void* halo3::game::get_restricted_region_member_address(int alias_index, int mem
 long halo3::game::weapon_get_owner_unit_index(long weapon_index)
 {
 	return utils::memory::game_call<long>(offsets::functions::weapon_get_owner_unit_index)(weapon_index);
+}
+
+bool halo3::game::game_team_is_enemy(long team_1, long team_2)
+{
+	return utils::memory::game_call<bool>(offsets::functions::game_team_is_enemy)(team_1, team_2);
+}
+
+struct struct_v6 // Dont know what the heck this is .-.
+{
+	BYTE gap0[372];
+	DWORD team_index;
+};
+
+DWORD halo3::game::get_unit_team(int unit_index)
+{
+	struct_v6* ass = utils::memory::game_call<struct_v6*>(halo3::offsets::functions::object_try_and_get_and_verify_type)(unit_index, 0x1003u);
+
+	if (ass)
+	{
+		return ass->team_index;
+	}
+	return -1;
 }

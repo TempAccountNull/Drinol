@@ -46,6 +46,8 @@ namespace halo3
 			inline static void* weapon_barrel_create_projectiles;
 			inline static uintptr_t weapon_get_owner_unit_index;
 			inline static uintptr_t game_time_set_rate_scale_direct;
+			inline static uintptr_t object_try_and_get_and_verify_type;
+			inline static uintptr_t game_team_is_enemy;
 		};
 
 		/**

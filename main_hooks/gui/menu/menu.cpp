@@ -466,6 +466,10 @@ void menu::render()
 						if (ImGui::IsItemHovered())
 							ImGui::SetTooltip("Only the local player can fire bullets.");
 
+						ImGui::Checkbox("Player ally weapon projectiles only", &halo3::hooks::player_ally_projectiles_only);
+						if (ImGui::IsItemHovered())
+							ImGui::SetTooltip("Only the local player and their allies can file bullets.");
+
 						ImGui::EndTabItem();
 					}
 

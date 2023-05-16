@@ -37,6 +37,10 @@ void halo3::offsets::init()
 
 	functions::game_time_set_rate_scale_direct = Memcury::Scanner::FindPattern(sigs::list["game_time_set_rate_scale_direct"].c_str()).Get();
 
+	functions::object_try_and_get_and_verify_type = Memcury::Scanner::FindPattern(sigs::list["object_try_and_get_and_verify_type"].c_str()).Get();
+
+	functions::game_team_is_enemy = Memcury::Scanner::FindPattern(sigs::list["game_team_is_enemy"].c_str()).Get();
+
 	variables::region_member_indexes::physics_constants_member_index = Memcury::Scanner::FindPattern(sigs::list["physics_constants_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();
 
 	variables::region_member_indexes::player_mapping_globals_member_index = Memcury::Scanner::FindPattern(sigs::list["player_mapping_globals_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();

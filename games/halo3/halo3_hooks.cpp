@@ -36,6 +36,19 @@ void __cdecl weapon_barrel_create_projectiles_detour(long weapon_object_index, s
 		}
 	}
 
+	if (halo3::hooks::player_ally_projectiles_only)
+	{
+		long unit_index = halo3::game::weapon_get_owner_unit_index(weapon_object_index);
+		long local_player_unit_index = halo3::game::grab_local_player_unit();
+		long local_player_team = halo3::game::get_unit_team(local_player_unit_index);
+		int unit_team = halo3::game::get_unit_team(unit_index);
+		bool unit_is_enemy = halo3::game::game_team_is_enemy(local_player_team, unit_team);
+		if (unit_is_enemy)
+		{
+			return;
+		}
+	}
+
 	return halo3::hooks::weapon_barrel_create_projectiles.stub<void>(weapon_object_index, barrel_index, fire_data, unk1, unk2);
 }
 

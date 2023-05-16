@@ -21,7 +21,9 @@ namespace halo3
 			{"object_scripting_cannot_die","33 C0 83 F9 ? 74 ? 8B 15 ? ? ? ? 65 48 8B 04 25 ? ? ? ? 41 B8"},
 			{"weapon_barrel_create_projectiles","E8 ?? ?? ?? ?? B8 FD FF 00 00 66 21 84 2F B4 01 00 00"},
 			{"weapon_get_owner_unit_index","E8 ?? ?? ?? ?? 41 8B C9 44 8B D8"},
-			{"game_time_set_rate_scale_direct","65 48 8B 04 25 58 00 00 00 8B 0D ?? ?? ?? ?? F3 0F 5F 05"}
+			{"game_time_set_rate_scale_direct","65 48 8B 04 25 58 00 00 00 8B 0D ?? ?? ?? ?? F3 0F 5F 05"},
+			{"object_try_and_get_and_verify_type","40 53 48 83 EC 20 65 48 8B 04 25 58 00 00 00 8B DA 8B D1"},
+			{"game_team_is_enemy","48 83 EC ? 44 8B 05 ? ? ? ? 41 B1"}
 		};
 	};
 }
