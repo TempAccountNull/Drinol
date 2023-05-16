@@ -181,7 +181,7 @@ void settings_window(bool* show)
 
 			ImGui::Checkbox("Display ImGui Console", &menu::console_enabled);
 			if (ImGui::IsItemHovered())
-				ImGui::SetTooltip("Displays the Drinol ImGui console. Requires a restart.");
+				ImGui::SetTooltip("Displays the Drinol ImGui console.");
 
 			ImGui::EndTabItem();
 		}
