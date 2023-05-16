@@ -230,8 +230,6 @@ void menu::render()
 				if (ImGui::MenuItem("Restore Game Defaults")) { show_restore_defaults_modal = true; }
 			}
 
-			if (ImGui::MenuItem("Toggle Console")) { console_enabled = !console_enabled; }
-
 			if (ImGui::MenuItem("Settings")) { settings_window_open = true; }
 			if (ImGui::MenuItem("Detach Drinol")) { show_detach_modal = true; }
 
@@ -698,9 +696,13 @@ void menu::RenderHUD()
 #if defined _DEBUG
 	std::string text = "Drinol - Debug - ";
 	text += COMMIT_HASH;
+	if (OLDEST_CHANGED_FILE_BEFORE_COMMIT)
+		text += " - Mod";
 #else
 	std::string text = "Drinol - Release - ";
 	text += COMMIT_HASH;
+	if (OLDEST_CHANGED_FILE_BEFORE_COMMIT)
+		text += " - Mod";
 #endif
 
 	draw->AddText(ImGui::GetFont(), 15.f, { 50.f, 10.f }, IM_COL32(255, 255, 255, 127), text.c_str(), text.c_str() + strlen(text.c_str()), 800, 0);

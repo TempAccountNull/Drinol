@@ -16,6 +16,10 @@ FOR /F "tokens=*" %%g IN ('git log -1 --pretty^=format:^"^%%cn ^<^%%ce^>^"') do 
 REM Current Branch
 FOR /F "tokens=*" %%g IN ('git rev-parse --abbrev-ref HEAD') do (SET CURRENT_BRANCH=%%g)
 
+REM Changed Files
+FOR /F "tokens=*" %%g IN ('git diff-index --name-only HEAD') do (SET CHANGED_FILES_BEFORE_COMMIT=%%g)
+
+
 
 echo #pragma once >> version.h
 
@@ -24,3 +28,4 @@ echo #define COMMIT_DATE "%COMMIT_DATE%" >> version.h
 echo #define COMMIT_SUBJECT "%COMMIT_SUBJECT%" >> version.h
 echo #define COMMIT_AUTHOR "%COMMIT_AUTHOR%" >> version.h
 echo #define CURRENT_BRANCH "%CURRENT_BRANCH%" >> version.h
+echo #define OLDEST_CHANGED_FILE_BEFORE_COMMIT "%OLDEST_CHANGED_FILE_BEFORE_COMMIT%" >> version.h
