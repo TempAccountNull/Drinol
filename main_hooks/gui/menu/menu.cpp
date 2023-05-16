@@ -252,6 +252,15 @@ void menu::render()
 							ImGui::DragFloat("Gravity", &halo3::offsets::globals::physics_constants->gravity, 0.005f, -FLT_MAX, +FLT_MAX, "%.5f", ImGuiSliderFlags_None);
 							if (ImGui::IsItemHovered())
 								ImGui::SetTooltip("The gravity, nuff said. Note: Not savable. Default: 4.1712594");
+
+							ImGui::DragFloat("Game Speed", &halo3::game::game_speed, 0.005f, 0.1f, 1.0f, "%.5f", ImGuiSliderFlags_None);
+							if (ImGui::IsItemHovered())
+								ImGui::SetTooltip("This changes the games speed, default is 1.0 i think.");
+							ImGui::SameLine();
+							if (ImGui::Button("Change"))
+							{
+								halo3::hooks::game_tick_test = true;
+							}
 						}
 
 						ImGui::Checkbox("Player weapon projectiles only", &halo3::hooks::player_weapon_projectiles_only);

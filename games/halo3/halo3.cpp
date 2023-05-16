@@ -195,6 +195,11 @@ void halo3::game::object_scripting_cannot_die(int object_handle, bool cannot_die
 	return utils::memory::game_call<void>(offsets::functions::object_scripting_cannot_die)(object_handle, cannot_die);
 }
 
+void halo3::game::game_time_set_rate_scale_direct(float speed)
+{
+	return utils::memory::game_call<void>(offsets::functions::game_time_set_rate_scale_direct)(speed);
+}
+
 void* halo3::game::get_restricted_region_member_address(int alias_index, int member_index, int index)
 {
 	engine::s_thread_local_storage* tls = reinterpret_cast<engine::s_thread_local_storage*>(utils::memory::get_tls_pointer(L"halo3.dll"));

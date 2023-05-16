@@ -4,6 +4,8 @@ void drinol_init(LPVOID hInstance)
 {
 	utils::cheat_nag();
 
+	srand(static_cast <unsigned> (time(0)));
+
 	// Load data from the ini config.
 
 	// Get config folder

@@ -54,6 +54,11 @@ namespace halo3
 		 * \return
 		 */
 		static void object_scripting_cannot_die(int object_handle, bool cannot_die);
+		/**
+		 * \brief Lets you change the games speed.
+		 * \param speed
+		 */
+		static void game_time_set_rate_scale_direct(float speed);
 
 		/**
 		 * \brief Grabs the address from the restricted region member
@@ -80,5 +85,9 @@ namespace halo3
 		static void list_all_hs_functions();
 		static void list_all_hs_globals();
 #endif
+		/**
+		 * \brief the games speed
+		 */
+		static inline float game_speed;
 	};
 }

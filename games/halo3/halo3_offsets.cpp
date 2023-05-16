@@ -35,6 +35,8 @@ void halo3::offsets::init()
 
 	functions::object_scripting_cannot_die = Memcury::Scanner::FindPattern(sigs::list["object_scripting_cannot_die"].c_str()).Get();
 
+	functions::game_time_set_rate_scale_direct = Memcury::Scanner::FindPattern(sigs::list["game_time_set_rate_scale_direct"].c_str()).Get();
+
 	variables::region_member_indexes::physics_constants_member_index = Memcury::Scanner::FindPattern(sigs::list["physics_constants_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();
 
 	variables::region_member_indexes::player_mapping_globals_member_index = Memcury::Scanner::FindPattern(sigs::list["player_mapping_globals_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();

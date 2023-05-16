@@ -17,9 +17,7 @@ static void __cdecl game_tick_detour()
 {
 	if (halo3::hooks::game_tick_test)
 	{
-		long player_unit = halo3::game::grab_local_player_unit();
-
-		halo3::game::object_scripting_cannot_die(player_unit, true);
+		halo3::game::game_time_set_rate_scale_direct(halo3::game::game_speed);
 		halo3::hooks::game_tick_test = false;
 	}
 
