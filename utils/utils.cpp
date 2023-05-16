@@ -350,7 +350,8 @@ void utils::memory::store_memory_bytes(BYTE* stored_bytes, void* src_address, un
 
 void utils::test_func(int test_int)
 {
-	spdlog::info("ai_update_call offset: 0x{:X}", memory::get_offset(reinterpret_cast<uintptr_t>(halo1::offsets::function_calls::ai_update)));
+	halo3::engine::game_time_globals_definition* poopshitdick = static_cast<halo3::engine::game_time_globals_definition*>(halo3::game::get_restricted_region_member_address(2, 3, *halo3::offsets::variables::region_member_indexes::game_time_globals_member_index));
+	poopshitdick->speed = 0.1f;
 }
 
 uintptr_t utils::memory::get_offset(uintptr_t address)

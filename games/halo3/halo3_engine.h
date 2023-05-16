@@ -59,6 +59,33 @@ namespace halo3::engine // Engine related structs, etc
 	}; //Size: 0x0298
 	static_assert(sizeof(_hs_type_names) == 0x298);
 
+	class s_game_tick_time_samples
+	{
+	public:
+		uint32_t flags; //0x0000
+		float N00000EAC; //0x0004
+		float N00000EAE; //0x0008
+		float N00000EB7; //0x000C
+		uint32_t N00000EB9; //0x0010
+	}; //Size: 0x0014
+	static_assert(sizeof(s_game_tick_time_samples) == 0x14);
+
+	class game_time_globals_definition
+	{
+	public:
+		bool initialized; //0x0000
+		uint8_t N00000E99; //0x0001
+		uint16_t flags; //0x0002
+		uint16_t tick_rate; //0x0004
+		uint16_t N00000E9A; //0x0006
+		float seconds_per_tick; //0x0008
+		uint32_t elapsed_ticks; //0x000C
+		float speed; //0x0010
+		float game_ticks_leftover; //0x0014
+		class s_game_tick_time_samples time_samples; //0x0018
+	}; //Size: 0x002C
+	static_assert(sizeof(game_time_globals_definition) == 0x2C);
+
 	// Thanks to https://github.com/matty45/Drinol/commit/e454d79474b7923d0fc507a5efba6ddf705679f5#commitcomment-106396372
 	struct s_physics_constants
 	{

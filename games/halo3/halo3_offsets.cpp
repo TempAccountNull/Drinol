@@ -39,6 +39,8 @@ void halo3::offsets::init()
 
 	variables::region_member_indexes::player_mapping_globals_member_index = Memcury::Scanner::FindPattern(sigs::list["player_mapping_globals_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();
 
+	variables::region_member_indexes::game_time_globals_member_index = Memcury::Scanner::FindPattern(sigs::list["game_time_globals_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();
+
 	variables::region_member_indexes::player_data_member_index = Memcury::Scanner::FindPattern(sigs::list["player_data_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();
 }
 
@@ -51,5 +53,6 @@ void halo3::offsets::game_init()
 {
 	globals::physics_constants = static_cast<engine::s_physics_constants*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::physics_constants_member_index));
 	globals::player_mapping_globals = static_cast<s_player_mapping_globals*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::player_mapping_globals_member_index));
+	globals::game_time_globals = static_cast<engine::game_time_globals_definition*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::game_time_globals_member_index));
 	globals::player_data = static_cast<decltype(globals::player_data)>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::player_data_member_index));
 }

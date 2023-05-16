@@ -20,6 +20,7 @@ namespace halo3
 				inline static int* physics_constants_member_index;
 				inline static int* player_mapping_globals_member_index;
 				inline static int* player_data_member_index;
+				inline static int* game_time_globals_member_index;
 			};
 
 			inline static float* motion_blur_scale_y;
@@ -75,6 +76,7 @@ namespace halo3
 			inline static engine::s_data_array* player_data;
 
 			inline static c_restricted_memory* g_restricted_regions;
+			inline static engine::game_time_globals_definition* game_time_globals;
 		};
 
 	public:
