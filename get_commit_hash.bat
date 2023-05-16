@@ -11,13 +11,13 @@ REM Commit Date
 FOR /F "tokens=*" %%g IN ('git log -1 --pretty^=format:^%%ad') do (SET COMMIT_DATE=%%g)
 
 REM Commit Author and Email
-FOR /F "tokens=*" %%g IN ('git log -1 --pretty^=format:^"^%%cn ^<^%%ce^>^"') do (SET COMMIT_AUTHOR=%%g)
+FOR /F "tokens=*" %%g IN ('git log -1 --pretty^=format:^"^%%cn^"') do (SET COMMIT_AUTHOR=%%g)
 
 REM Current Branch
 FOR /F "tokens=*" %%g IN ('git rev-parse --abbrev-ref HEAD') do (SET CURRENT_BRANCH=%%g)
 
 REM Changed Files
-FOR /F "tokens=*" %%g IN ('git diff-index --name-only HEAD') do (SET CHANGED_FILES_BEFORE_COMMIT=%%g)
+FOR /F "tokens=*" %%g IN ('git diff-index --name-only HEAD') do (SET OLDEST_CHANGED_FILE_BEFORE_COMMIT=%%g)
 
 
 

@@ -17,7 +17,7 @@ void console::init()
 #else
 	std::string text = "Drinol - Release - ";
 	text += COMMIT_HASH;
-	if (OLDEST_CHANGED_FILE_BEFORE_COMMIT)
+	if (sizeof(OLDEST_CHANGED_FILE_BEFORE_COMMIT) > 1)
 		text += " - Mod";
 	SetConsoleTitleA(text.c_str());
 #endif
