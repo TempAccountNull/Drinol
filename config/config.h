@@ -24,6 +24,11 @@ public:
 		 */
 		static bool load();
 		/**
+		 * \brief saves the config file containing the main settings of drinol.
+		 * \return true if saved successfully
+		 */
+		static bool save();
+		/**
 		 * \brief Create a directory to store all the config files (keeps things tidy :p)
 		 * \return true if created successfully
 		 */

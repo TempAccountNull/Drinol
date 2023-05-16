@@ -345,6 +345,40 @@ void utils::memory::store_memory_bytes(BYTE* stored_bytes, void* src_address, un
 	VirtualProtect(src_address, size, oldprotect, &oldprotect);
 }
 
+//https://cpp.hotexamples.com/examples/-/-/GetKeyNameTextA/cpp-getkeynametexta-function-examples.html#0x2c44d0247cd42dfffc97108642151a9d9a982ec31f298c4329e9162e1fdd9647-39,,56,
+std::string utils::keys::get_key_name(BYTE key)
+{
+	DWORD sc = MapVirtualKeyA(key, 0);
+	// check key for ascii
+	BYTE buf[256];
+	memset(buf, 0, 256);
+	WORD temp;
+	DWORD asc = (key <= 32);
+	if (!asc && (key != VK_DIVIDE)) asc = ToAscii(key, sc, buf, &temp, 1);
+	// set bits
+	sc <<= 16;
+	sc |= 0x1 << 25;  // <- don't care
+	if (!asc) sc |= 0x1 << 24; // <- extended bit
+	// convert to ansi string
+	if (GetKeyNameTextA(sc, (char*)buf, sizeof(buf)))
+		return (char*)buf;
+	else return "";
+}
+
+bool utils::keys::is_key_pressed(int keyCode) {
+	return (GetAsyncKeyState(keyCode) & 0x8000) != 0;
+}
+
+int utils::keys::capture_next_key()
+{
+	for (int keyCode = 0; keyCode < 256; ++keyCode) {
+		if (utils::keys::is_key_pressed(keyCode)) {
+			return keyCode;
+		}
+	}
+	return 0;
+}
+
 //0x00007ff8
 #if defined _DEBUG
 

@@ -107,23 +107,26 @@ void drinol_init(LPVOID hInstance)
 	//	Executing Main Thread
 	while (g_Running)
 	{
-		//	Exit Key
-		if (GetAsyncKeyState(utils::detach_keybind) & 1)
+		if (!menu::settings_window_open) // This will stop people from accidentally pressing hot-keys when they are trying to change them.
 		{
-			g_Killswitch = TRUE;
-			g_Running = FALSE;
-		}
+			//	Exit Key
+			if (GetAsyncKeyState(utils::detach_keybind) & 1)
+			{
+				g_Killswitch = TRUE;
+				g_Running = FALSE;
+			}
 
-		//	Show Hide Menu
-		if (gui::enabled)
-		{
-			if (GetAsyncKeyState(gui::toggle_ui_keybind) & 1)
-				g_Overlay->bShowWindow ^= 1;
-		}
+			//	Show Hide Menu
+			if (gui::enabled)
+			{
+				if (GetAsyncKeyState(gui::toggle_ui_keybind) & 1)
+					g_Overlay->bShowWindow ^= 1;
+			}
 
-		// Toggle wireframe
-		if (GetAsyncKeyState(gui::toggle_wireframe_keybind) & 1)
-			gui::render_wireframe ^= 1;
+			// Toggle wireframe
+			if (GetAsyncKeyState(gui::toggle_wireframe_keybind) & 1)
+				gui::render_wireframe ^= 1;
+		}
 	}
 
 	//	Exit

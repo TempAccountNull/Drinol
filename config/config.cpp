@@ -17,6 +17,49 @@ std::string to_string(T value)
 	return s.str(); //converting the float value to string
 }
 
+//https://stackoverflow.com/a/5100745
+template< typename T >
+std::string int_to_hex_string(T i)
+{
+	std::stringstream stream;
+	stream << "0x"
+		//<< std::setfill('0') << std::setw(sizeof(T) * 2)
+		<< std::hex << i;
+	return stream.str();
+}
+
+bool config::main::save()
+{
+	const mINI::INIFile file(config_folder + "\\MainSettings.ini");
+
+	mINI::INIStructure ini;
+
+	// populate the structure
+
+	ini["General"]["detach_keybind"] = int_to_hex_string(utils::detach_keybind);
+
+	ini["Render"]["toggle_wireframe_keybind"] = int_to_hex_string(gui::toggle_wireframe_keybind);
+
+	ini["UI"]["hookdx11"] = bool_to_string(gui::enabled);
+	ini["UI"]["imguiinidir"] = gui::ui_ini_path;
+	ini["UI"]["toggle_ui_keybind"] = int_to_hex_string(gui::toggle_ui_keybind);
+
+	ini["Console"]["consolewindow"] = bool_to_string(console::enabled);
+	ini["Console"]["imguiconsole"] = bool_to_string(menu::console_enabled);
+
+	ini["Console"]["logtofile"] = bool_to_string(logging::log_to_file);
+
+	ini["Console"]["loglevel"] = to_string(logging::log_level);
+
+	// write to the INI file (overwrites)
+	if (!file.write(ini, true))
+	{
+		// Failed to write ini
+		return false;
+	}
+	return true;
+}
+
 bool config::main::load()
 {
 	const mINI::INIFile file(config_folder + "\\MainSettings.ini");

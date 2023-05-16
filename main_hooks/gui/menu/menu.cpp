@@ -1,17 +1,217 @@
 // This is our custom menu.
 #include "stdafx.h"
 
-bool show_load_modal = false;
+#pragma region modal_funcs
+void menu::about_modal()
+{
+	// about modal
+	if (ImGui::BeginPopupModal("Drinol - About", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Drinol - A Halo modding utility.");
+		ImGui::Separator();
+		ImGui::Text("This tool is currently being tested on MCC version: %s", version_checking::COMPATIBLE_DRINOL_VERSION.c_str());
+		ImGui::Separator();
+		ImGui::Text("Credits:\n\nNBOTT42#6978: For assistance in developing this tool.\n\nApoxied#1337: Halo 3 Research information that I have yet to use.\n\nSilentRunner#6097: Information borrowed from his \"MCC Toolbox\" project.\n\n@theTwist84: Halo 3 struct information.\n\nOhItsDiiTz#1337: detour.h and detour.cpp and his undivided attention to this project when he has the time to help.\n\n@xCENTx: Initialization and heavy cleanup to make drinol run more efficently.");
+		ImGui::Separator();
+		ImGui::Text("Thanks to all the halo modders and reverse engineers responsible for projects like ElDewrito and the Blam Creation Suite, without them, i would not have been inspired to make this tool.");
 
-bool show_save_modal = false;
+		if (ImGui::Button("Close", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+		ImGui::SameLine();
+		if (ImGui::Button("Github Repo", ImVec2(120, 0))) {
+			ShellExecute(0, 0, L"https://github.com/matty45/Drinol", 0, 0, SW_SHOW);// I dont feel that this is a secure way of opening a web page but idk
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Discord Server", ImVec2(120, 0))) {
+			ShellExecute(0, 0, L"https://discord.gg/AkyKYTkPSJ", 0, 0, SW_SHOW);// I dont feel that this is a secure way of opening a web page but idk
+		}
+		ImGui::EndPopup();
+	}
+}
 
-bool show_about_modal = false;
+void menu::restore_defaults_modal()
+{
+	if (ImGui::BeginPopupModal("Restore Defaults?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Do you want to retore all settings to their default?");
 
-bool show_restore_defaults_modal = false;
+		if (ImGui::Button("OK", ImVec2(120, 0)))
+		{
+			utils::reset_running_game_settings();
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::SetItemDefaultFocus();
+		ImGui::SameLine();
+		if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+		ImGui::EndPopup();
+	}
+}
 
-bool show_detach_modal = false;
+void menu::detach_modal()
+{
+	if (ImGui::BeginPopupModal("Detach Drinol?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Do you want to detach Drinol?");
 
-int test_int = 0;
+		if (ImGui::Button("OK", ImVec2(120, 0)))
+		{
+			g_Killswitch = TRUE;	//	Hopefully triggers present fast enough to restore mouse to game context
+			g_Running = FALSE;		//
+			//	utils::detach();	//	 No longer needed , this will be handled at the end of the execution thread
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::SetItemDefaultFocus();
+		ImGui::SameLine();
+		if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+		ImGui::EndPopup();
+	}
+}
+
+void menu::load_changes_modal()
+{
+	if (ImGui::BeginPopupModal("Load Changes?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Do you want to load changes from storage?");
+
+		if (ImGui::Button("OK", ImVec2(120, 0)))
+		{
+			utils::load_running_game_settings();
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::SetItemDefaultFocus();
+		ImGui::SameLine();
+		if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+		ImGui::EndPopup();
+	}
+}
+
+void menu::save_changes_modal()
+{
+	if (ImGui::BeginPopupModal("Save Changes?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	{
+		ImGui::Text("Do you want to save your changes?");
+
+		if (ImGui::Button("OK", ImVec2(120, 0)))
+		{
+			utils::save_running_game_settings();
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::SetItemDefaultFocus();
+		ImGui::SameLine();
+		if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+		ImGui::EndPopup();
+	}
+}
+
+#pragma endregion
+#pragma region window_funcs
+
+std::string detach_key = utils::keys::get_key_name(utils::detach_keybind);
+std::string toggle_wireframe_key = utils::keys::get_key_name(gui::toggle_wireframe_keybind);
+std::string toggle_ui_key = utils::keys::get_key_name(gui::toggle_ui_keybind);
+void settings_window(bool* show)
+{
+	ImGui::Begin("Settings", show);
+
+	if (ImGui::BeginTabBar("DrinolTabs", ImGuiTabBarFlags_None))
+	{
+		if (ImGui::BeginTabItem("Keybinds"))
+		{
+			ImGui::Text("To change the hot-keys, just hold the key you want then click on the respective button.");
+			ImGui::Text("NOTE: There is a bug which sometimes makes drinol think the insert key is the enter key, for some reason they both use the same hex value.");
+
+			if (ImGui::Button(detach_key.c_str()))
+			{
+				int key = utils::keys::capture_next_key();
+				if (key)
+				{
+					detach_key = utils::keys::get_key_name(key);
+					utils::detach_keybind = key;
+				}
+			}
+			ImGui::SameLine();
+			ImGui::Text("Detach Key");
+			if (ImGui::IsItemHovered())
+				ImGui::SetTooltip("This is the keybind used for detaching drinol. Only really useful if you are injecting it.");
+
+			if (ImGui::Button(toggle_wireframe_key.c_str()))
+			{
+				int key = utils::keys::capture_next_key();
+				if (key)
+				{
+					toggle_wireframe_key = utils::keys::get_key_name(key);
+					gui::toggle_wireframe_keybind = key;
+				}
+			}
+			ImGui::SameLine();
+			ImGui::Text("Toggle Wireframe Key");
+			if (ImGui::IsItemHovered())
+				ImGui::SetTooltip("This is the keybind used for toggling wireframe.");
+
+			if (ImGui::Button(toggle_ui_key.c_str()))
+			{
+				int key = utils::keys::capture_next_key();
+				if (key)
+				{
+					toggle_ui_key = utils::keys::get_key_name(key);
+					gui::toggle_ui_keybind = key;
+				}
+			}
+			ImGui::SameLine();
+			ImGui::Text("Toggle UI Key");
+			if (ImGui::IsItemHovered())
+				ImGui::SetTooltip("This is the keybind used for toggling the Drinol menu.");
+
+			ImGui::EndTabItem();
+		}
+
+		if (ImGui::BeginTabItem("UI"))
+		{
+			ImGui::Checkbox("Hook DX11", &gui::enabled);
+			if (ImGui::IsItemHovered())
+				ImGui::SetTooltip("Toggle hooking DX11 if you dont want drinol to touch anything graphics api related.\nRequires a restart");
+
+			ImGui::EndTabItem();
+		}
+
+		if (ImGui::BeginTabItem("Console"))
+		{
+			ImGui::Checkbox("Display Console", &console::enabled);
+			if (ImGui::IsItemHovered())
+				ImGui::SetTooltip("Displays the Drinol console. Requires a restart.");
+
+			ImGui::Checkbox("Display ImGui Console", &menu::console_enabled);
+			if (ImGui::IsItemHovered())
+				ImGui::SetTooltip("Displays the Drinol ImGui console. Requires a restart.");
+
+			ImGui::EndTabItem();
+		}
+
+		if (ImGui::BeginTabItem("Logging"))
+		{
+			ImGui::Checkbox("Log to file", &logging::log_to_file);
+			if (ImGui::IsItemHovered())
+				ImGui::SetTooltip("Logs drinols output to a file. Requires a restart.");
+
+			ImGui::Combo("Log Level", &logging::log_level, "trace\0debug\0info\0warn\0err\0critical\0off");
+			if (ImGui::IsItemHovered())
+				ImGui::SetTooltip("Changes drinols log level. Requires a restart.");
+
+			ImGui::EndTabItem();
+		}
+	}
+	ImGui::EndTabBar();
+
+	ImGui::Separator();
+
+	if (ImGui::Button("Save Changes"))
+	{
+		//TODO: Need to add a confirmation modal, however the modal system needs to be streamlined first.
+		config::main::save();
+	}
+
+	ImGui::End();
+}
+#pragma endregion
 
 void menu::render()
 {
@@ -31,7 +231,8 @@ void menu::render()
 			}
 
 			if (ImGui::MenuItem("Toggle Console")) { console_enabled = !console_enabled; }
-			//if (ImGui::MenuItem("Save Menu Changes")) { show_save_menu_modal = true; }
+
+			if (ImGui::MenuItem("Settings")) { settings_window_open = true; }
 			if (ImGui::MenuItem("Detach Drinol")) { show_detach_modal = true; }
 
 			ImGui::EndMenu();
@@ -381,6 +582,8 @@ void menu::render()
 	// All popups and other windows go below here. ------------------------------------------------>
 	//TODO: i would like to extract some of these into their own methods so things are a bit tidier, but at the moment i do not know how without breaking things.
 
+#pragma region windows
+
 	// ImGui Console -- TODO: WIP
 	if (console_enabled)
 	{
@@ -389,6 +592,13 @@ void menu::render()
 		ImGui::End();
 	}
 
+	// Settings Window
+	if (settings_window_open)
+	{
+		settings_window(&settings_window_open);
+	}
+
+#pragma endregion
 #pragma region modals
 	// Save confirmation modal
 
@@ -402,20 +612,7 @@ void menu::render()
 		show_save_modal = false;
 	}
 
-	if (ImGui::BeginPopupModal("Save Changes?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-	{
-		ImGui::Text("Do you want to save your changes?");
-
-		if (ImGui::Button("OK", ImVec2(120, 0)))
-		{
-			utils::save_running_game_settings();
-			ImGui::CloseCurrentPopup();
-		}
-		ImGui::SetItemDefaultFocus();
-		ImGui::SameLine();
-		if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
-		ImGui::EndPopup();
-	}
+	save_changes_modal();
 
 	// Load confirmation modal
 
@@ -429,20 +626,7 @@ void menu::render()
 		show_load_modal = false;
 	}
 
-	if (ImGui::BeginPopupModal("Load Changes?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-	{
-		ImGui::Text("Do you want to load changes from storage?");
-
-		if (ImGui::Button("OK", ImVec2(120, 0)))
-		{
-			utils::load_running_game_settings();
-			ImGui::CloseCurrentPopup();
-		}
-		ImGui::SetItemDefaultFocus();
-		ImGui::SameLine();
-		if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
-		ImGui::EndPopup();
-	}
+	load_changes_modal();
 
 	// Detach confirmation modal
 	// Always center this window when appearing
@@ -455,22 +639,7 @@ void menu::render()
 		show_detach_modal = false;
 	}
 
-	if (ImGui::BeginPopupModal("Detach Drinol?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-	{
-		ImGui::Text("Do you want to detach Drinol?");
-
-		if (ImGui::Button("OK", ImVec2(120, 0)))
-		{
-			g_Killswitch = TRUE;	//	Hopefully triggers present fast enough to restore mouse to game context
-			g_Running = FALSE;		//
-			//	utils::detach();	//	 No longer needed , this will be handled at the end of the execution thread
-			ImGui::CloseCurrentPopup();
-		}
-		ImGui::SetItemDefaultFocus();
-		ImGui::SameLine();
-		if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
-		ImGui::EndPopup();
-	}
+	detach_modal();
 
 	// Restore defaults modal
 
@@ -484,20 +653,7 @@ void menu::render()
 		show_restore_defaults_modal = false;
 	}
 
-	if (ImGui::BeginPopupModal("Restore Defaults?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-	{
-		ImGui::Text("Do you want to retore all settings to their default?");
-
-		if (ImGui::Button("OK", ImVec2(120, 0)))
-		{
-			utils::reset_running_game_settings();
-			ImGui::CloseCurrentPopup();
-		}
-		ImGui::SetItemDefaultFocus();
-		ImGui::SameLine();
-		if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
-		ImGui::EndPopup();
-	}
+	restore_defaults_modal();
 
 	// About drinol modal
 
@@ -511,28 +667,7 @@ void menu::render()
 		show_about_modal = false;
 	}
 
-	// about modal
-	if (ImGui::BeginPopupModal("Drinol - About", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-	{
-		ImGui::Text("Drinol - A Halo modding utility.");
-		ImGui::Separator();
-		ImGui::Text("This tool is currently being tested on MCC version: %s", version_checking::COMPATIBLE_DRINOL_VERSION.c_str());
-		ImGui::Separator();
-		ImGui::Text("Credits:\n\nNBOTT42#6978: For assistance in developing this tool.\n\nApoxied#1337: Halo 3 Research information that I have yet to use.\n\nSilentRunner#6097: Information borrowed from his \"MCC Toolbox\" project.\n\n@theTwist84: Halo 3 struct information.\n\nOhItsDiiTz#1337: detour.h and detour.cpp and his undivided attention to this project when he has the time to help.\n\n@xCENTx: Initialization and heavy cleanup to make drinol run more efficently.");
-		ImGui::Separator();
-		ImGui::Text("Thanks to all the halo modders and reverse engineers responsible for projects like ElDewrito and the Blam Creation Suite, without them, i would not have been inspired to make this tool.");
-
-		if (ImGui::Button("Close", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
-		ImGui::SameLine();
-		if (ImGui::Button("Github Repo", ImVec2(120, 0))) {
-			ShellExecute(0, 0, L"https://github.com/matty45/Drinol", 0, 0, SW_SHOW);// I dont feel that this is a secure way of opening a web page but idk
-		}
-		ImGui::SameLine();
-		if (ImGui::Button("Discord Server", ImVec2(120, 0))) {
-			ShellExecute(0, 0, L"https://discord.gg/AkyKYTkPSJ", 0, 0, SW_SHOW);// I dont feel that this is a secure way of opening a web page but idk
-		}
-		ImGui::EndPopup();
-	}
+	about_modal();
 #pragma endregion
 }
 

@@ -75,6 +75,26 @@ public:
 	 */
 	static void cheat_nag();
 
+	/**
+	 * \brief Keyboard input related utility funtionc
+	 */
+	class keys
+	{
+	public:
+		/**
+		 * \brief This gets the name of the key from the key code.
+		 */
+		static std::string get_key_name(BYTE key);
+		static bool is_key_pressed(int keyCode);
+		/**
+		 * \brief Captures the next key press and returns its value.
+		 */
+		static int capture_next_key();
+	};
+
+	/**
+	 * \brief Memory related utility functions
+	 */
 	class memory
 	{
 	public:
