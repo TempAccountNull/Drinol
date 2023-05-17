@@ -24,6 +24,11 @@ static void __cdecl game_tick_detour()
 	return halo3::hooks::game_tick.stub<void>();
 }
 
+static void __cdecl main_render_game_detour()
+{
+	return halo3::hooks::main_render_game.stub<void>();
+}
+
 void __cdecl weapon_barrel_create_projectiles_detour(long weapon_object_index, short barrel_index, struct s_predicted_weapon_fire_data const* fire_data, long unk1, bool unk2)
 {
 	if (halo3::hooks::player_weapon_projectiles_only)
@@ -58,6 +63,8 @@ void halo3::hooks::init()
 
 	game_tick.create(reinterpret_cast<uintptr_t>(offsets::functions::game_tick), game_tick_detour);
 
+	main_render_game.create(reinterpret_cast<uintptr_t>(offsets::functions::main_render_game), main_render_game_detour);
+
 	weapon_barrel_create_projectiles.create(reinterpret_cast<uintptr_t>(offsets::functions::weapon_barrel_create_projectiles), weapon_barrel_create_projectiles_detour);
 
 	MH_ApplyQueued();
@@ -67,6 +74,7 @@ void halo3::hooks::deinit()
 {
 	game_in_progress.disable();
 	game_tick.disable();
+	main_render_game.disable();
 	weapon_barrel_create_projectiles.disable();
 	MH_ApplyQueued();
 }

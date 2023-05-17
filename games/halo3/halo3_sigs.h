@@ -23,7 +23,8 @@ namespace halo3
 			{"weapon_get_owner_unit_index","E8 ?? ?? ?? ?? 41 8B C9 44 8B D8"},
 			{"game_time_set_rate_scale_direct","65 48 8B 04 25 58 00 00 00 8B 0D ?? ?? ?? ?? F3 0F 5F 05"},
 			{"object_try_and_get_and_verify_type","40 53 48 83 EC 20 65 48 8B 04 25 58 00 00 00 8B DA 8B D1"},
-			{"game_team_is_enemy","48 83 EC ? 44 8B 05 ? ? ? ? 41 B1"}
+			{"game_team_is_enemy","48 83 EC ? 44 8B 05 ? ? ? ? 41 B1"},
+			{"main_render_game","48 8B C4 55 56 57 41 54 41 55 41 56 41 57 48 8D A8 38 FD FF FF"}
 		};
 	};
 }

@@ -29,6 +29,8 @@ void halo3::offsets::init()
 
 	functions::game_tick = Memcury::Scanner::FindPattern(sigs::list["game_tick"].c_str()).RelativeOffset(1).GetAs<void*>();
 
+	functions::main_render_game = Memcury::Scanner::FindPattern(sigs::list["main_render_game"].c_str()).GetAs<void*>();
+
 	functions::weapon_barrel_create_projectiles = Memcury::Scanner::FindPattern(sigs::list["weapon_barrel_create_projectiles"].c_str()).RelativeOffset(1).GetAs<void*>();
 
 	functions::weapon_get_owner_unit_index = Memcury::Scanner::FindPattern(sigs::list["weapon_get_owner_unit_index"].c_str()).RelativeOffset(1).Get();
