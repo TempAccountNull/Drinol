@@ -299,306 +299,20 @@ void menu::render()
 #endif
 
 		// TODO: ideally we should show all the games and just grey out the stuff you cant interact with if a certain game is not running
-#pragma region Halo 1 Menu
 		if (utils::games::current_game_number == utils::games::halo1)
-		{
-			if (ImGui::BeginTabItem("Halo 1"))
-			{
-				if (ImGui::BeginTabBar("Halo1Tabs", ImGuiTabBarFlags_None))
-				{
-#if defined _DEBUG
-					if (ImGui::BeginTabItem("Debug"))
-					{
-						if (ImGui::Button("Trigger Test Function"))
-							halo1::game::test_function();
+			HaloCombatEvolved::DrawMenu();
 
-						if (ImGui::Button("Print all blamscript functions."))
-							halo1::game::list_all_hs_functions();
-
-						if (ImGui::Button("Print all blamscript globals."))
-							halo1::game::list_all_hs_globals();
-
-						ImGui::EndTabItem();
-					}
-#endif
-
-					if (ImGui::BeginTabItem("Weapons"))
-					{
-						ImGui::Checkbox("Bottomless Clip", halo1::offsets::variables::bottomless_clip);
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("Gives you infinite ammo without the need to reload or worry about your weapon overheating.");
-
-						ImGui::Checkbox("Infinite Ammo", halo1::offsets::variables::infinite_ammo);
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("Same as bottomless clip but you have to reload, can still overheat and have infinite grenades.");
-
-						ImGui::EndTabItem();
-					}
-
-					if (ImGui::BeginTabItem("Player"))
-					{
-						ImGui::Checkbox("God Mode", halo1::offsets::variables::god_mode);
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("Makes you unable to die.");
-
-						ImGui::EndTabItem();
-					}
-
-					if (ImGui::BeginTabItem("Game"))
-					{
-						ImGui::DragFloat("Game ticks per second.", halo1::offsets::variables::game_ticks_per_second, 0.005f, -FLT_MAX, +FLT_MAX, "%.3f", ImGuiSliderFlags_None);
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("Basically the speed/time scale of the game. Default: 30.0");
-
-						ImGui::DragFloat("Gravity", *halo1::offsets::variables::gravity, 0.005f, -FLT_MAX, +FLT_MAX, "%.5f", ImGuiSliderFlags_None);
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("The gravity, nuff said. Note: Not savable.");
-
-						ImGui::Checkbox("Motion Sensor - Show All Units", halo1::offsets::variables::motion_sensor_show_all_units);
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("Shows all units on your motion sensor, regardless if they are moving or not.");
-
-						ImGui::Checkbox("Redirect Print", &halo1::hooks::redirect_print);
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("Redirects all blamscript text printing functions to the console.");
-
-						if (ImGui::Checkbox("Toggle AI", &halo1::game::toggle_ai_bool))
-						{
-							halo1::game::toggle_ai(halo1::game::toggle_ai_bool);
-						}
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("Toggles the games AI.");
-
-						ImGui::EndTabItem();
-					}
-
-					if (ImGui::BeginTabItem("Rendering"))
-					{
-						ImGui::Checkbox("FPS Counter", halo1::offsets::variables::fps_counter);
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("Displays a built-in fps counter. Does not work in remastered mode!");
-
-						ImGui::Checkbox("Wireframe", halo1::offsets::variables::wireframe);
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("Renders the game in wireframe. Does not work in remastered mode!");
-
-						ImGui::Checkbox("Fog", halo1::offsets::variables::atmosphere_fog);
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("Toggles the atmosphere fog.");
-
-						ImGui::Checkbox("Fog Plane", halo1::offsets::variables::fog_plane);
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("Toggles the fog plane.");
-
-						ImGui::Checkbox("Enviroment Diffuse Textures", halo1::offsets::variables::enviroment_diffuse);
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("Toggles rendering diffuse textures on the enviroment.");
-
-						ImGui::EndTabItem();
-					}
-					ImGui::EndTabBar();
-				}
-
-				ImGui::EndTabItem();
-			}
-		}
-#pragma endregion
-
-#pragma region Halo 2 Menu
 		if (utils::games::current_game_number == utils::games::halo2)
-		{
-			if (ImGui::BeginTabItem("Halo 2"))
-			{
-				if (ImGui::BeginTabBar("Halo2Tabs", ImGuiTabBarFlags_None))
-				{
-#if defined _DEBUG
-					if (ImGui::BeginTabItem("Debug"))
-					{
-						if (ImGui::Button("Trigger Test Function"))
-							halo2::game::test_function();
+			Halo2::DrawMenu();
 
-						if (ImGui::Button("Print all blamscript functions."))
-							halo2::game::list_all_hs_functions();
-
-						if (ImGui::Button("Print all blamscript globals."))
-							halo2::game::list_all_hs_globals();
-
-						ImGui::EndTabItem();
-					}
-#endif
-
-					if (ImGui::BeginTabItem("Game"))
-					{
-						ImGui::DragFloat("Gravity", *halo2::offsets::variables::gravity, 0.005f, -FLT_MAX, +FLT_MAX, "%.5f", ImGuiSliderFlags_None);
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("The gravity, nuff said. Note: Not savable.");
-
-						ImGui::Checkbox("Redirect Print", &halo2::hooks::redirect_print);
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("Redirects some engine printing functions to the console.");
-
-						ImGui::EndTabItem();
-					}
-
-					ImGui::EndTabBar();
-				}
-
-				ImGui::EndTabItem();
-			}
-		}
-#pragma endregion
-
-#pragma region Halo 3 Menu
 		if (utils::games::current_game_number == utils::games::halo3)
-		{
-			if (ImGui::BeginTabItem("Halo 3"))
-			{
-				if (ImGui::BeginTabBar("Halo3Tabs", ImGuiTabBarFlags_None))
-				{
-#if defined _DEBUG
-					if (ImGui::BeginTabItem("Debug"))
-					{
-						if (ImGui::Button("Print all blamscript functions."))
-							halo3::game::list_all_hs_functions();
+			Halo3::DrawMenu();
 
-						if (ImGui::Button("Print all blamscript globals."))
-							halo3::game::list_all_hs_globals();
-
-						ImGui::EndTabItem();
-					}
-#endif
-					if (ImGui::BeginTabItem("Game"))
-					{
-						if (halo3::offsets::globals::physics_constants != NULL)
-						{
-							ImGui::DragFloat("Gravity", &halo3::offsets::globals::physics_constants->gravity, 0.005f, -FLT_MAX, +FLT_MAX, "%.5f", ImGuiSliderFlags_None);
-							if (ImGui::IsItemHovered())
-								ImGui::SetTooltip("The gravity, nuff said. Note: Not savable. Default: 4.1712594");
-
-							ImGui::DragFloat("Game Speed", &halo3::game::game_speed, 0.005f, 0.1f, 1.0f, "%.5f", ImGuiSliderFlags_None);
-							if (ImGui::IsItemHovered())
-								ImGui::SetTooltip("This changes the games speed, default is 1.0 i think.");
-							ImGui::SameLine();
-							if (ImGui::Button("Change"))
-							{
-								halo3::hooks::game_tick_test = true;
-							}
-						}
-
-						ImGui::Checkbox("Player weapon projectiles only", &halo3::hooks::player_weapon_projectiles_only);
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("Only the local player can fire bullets.");
-
-						ImGui::Checkbox("Player ally weapon projectiles only", &halo3::hooks::player_ally_projectiles_only);
-						if (ImGui::IsItemHovered())
-							ImGui::SetTooltip("Only the local player and their allies can file bullets.");
-
-						ImGui::EndTabItem();
-					}
-
-					if (ImGui::BeginTabItem("Rendering"))
-					{
-						ImGui::DragFloat("##motion_blur_scale_x", halo3::offsets::variables::motion_blur_scale_x, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_scale_x: %.5f", ImGuiSliderFlags_None);
-
-						ImGui::DragFloat("##motion_blur_scale_y", halo3::offsets::variables::motion_blur_scale_y, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_scale_y: %.5f", ImGuiSliderFlags_None);
-
-						ImGui::DragFloat("##motion_blur_max_x", halo3::offsets::variables::motion_blur_max_x, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_max_x: %.5f", ImGuiSliderFlags_None);
-
-						ImGui::DragFloat("##motion_blur_max_y", halo3::offsets::variables::motion_blur_max_y, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_max_y: %.5f", ImGuiSliderFlags_None);
-
-						ImGui::DragInt("##motion_blur_taps", halo3::offsets::variables::motion_blur_taps, 1, 0, 100, "motion_blur_taps: %i", ImGuiSliderFlags_None);
-
-						ImGui::DragFloat("##motion_blur_center_falloff", halo3::offsets::variables::motion_blur_center_falloff, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_center_falloff: %.5f", ImGuiSliderFlags_None);
-
-						ImGui::DragFloat("##motion_blur_expected_dt", halo3::offsets::variables::motion_blur_expected_dt, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_expected_dt: %.5f", ImGuiSliderFlags_None);
-
-						ImGui::EndTabItem();
-					}
-					ImGui::EndTabBar();
-				}
-
-				ImGui::EndTabItem();
-			}
-		}
-#pragma endregion
-
-#pragma region Halo 3: ODST Menu
 		if (utils::games::current_game_number == utils::games::halo3odst)
-		{
-			if (ImGui::BeginTabItem("Halo 3: ODST"))
-			{
-				if (ImGui::BeginTabBar("Halo3ODSTTabs", ImGuiTabBarFlags_None))
-				{
-#if defined _DEBUG
-					if (ImGui::BeginTabItem("Debug"))
-					{
-						if (ImGui::Button("Trigger Test Function"))
-							halo3odst::game::test_function();
+			Halo3ODST::DrawMenu();
 
-						if (ImGui::Button("Print all blamscript functions."))
-							halo3odst::game::list_all_hs_functions();
-
-						if (ImGui::Button("Print all blamscript globals."))
-							halo3odst::game::list_all_hs_globals();
-
-						ImGui::EndTabItem();
-					}
-#endif
-
-					if (ImGui::BeginTabItem("Rendering"))
-					{
-						/*	ImGui::Checkbox("Toggle HUD", halo3::offsets::toggle_hud);
-							if (ImGui::IsItemHovered())
-								ImGui::SetTooltip("Toggles the heads up display.");*/
-
-						ImGui::EndTabItem();
-					}
-					ImGui::EndTabBar();
-				}
-
-				ImGui::EndTabItem();
-			}
-		}
-#pragma endregion
-
-#pragma region Halo Reach
 		if (utils::games::current_game_number == utils::games::haloreach)
-		{
-			if (ImGui::BeginTabItem("Halo Reach"))
-			{
-				if (ImGui::BeginTabBar("HaloReachTabs", ImGuiTabBarFlags_None))
-				{
-#if defined _DEBUG
-					if (ImGui::BeginTabItem("Debug"))
-					{
-						if (ImGui::Button("Trigger Test Function"))
-							haloreach::game::test_function();
-
-						if (ImGui::Button("Print all blamscript functions."))
-							haloreach::game::list_all_hs_functions();
-
-						if (ImGui::Button("Print all blamscript globals."))
-							haloreach::game::list_all_hs_globals();
-
-						ImGui::EndTabItem();
-					}
-#endif
-
-					if (ImGui::BeginTabItem("Rendering"))
-					{
-						/*	ImGui::Checkbox("Toggle HUD", halo3::offsets::toggle_hud);
-							if (ImGui::IsItemHovered())
-								ImGui::SetTooltip("Toggles the heads up display.");*/
-
-						ImGui::EndTabItem();
-					}
-					ImGui::EndTabBar();
-				}
-
-				ImGui::EndTabItem();
-			}
-		}
-#pragma endregion
+			HaloReach::DrawMenu();
 
 		ImGui::EndTabBar();
 	}
@@ -744,4 +458,308 @@ void menu::RenderHUD()
 
 	//	End
 	ImGui::End();
+}
+
+
+
+// Individual Game Menus
+
+void menu::HaloCombatEvolved::DrawMenu()
+{
+	if (ImGui::BeginTabItem("Halo 1"))
+	{
+		if (ImGui::BeginTabBar("Halo1Tabs", ImGuiTabBarFlags_None))
+		{
+#if defined _DEBUG
+			if (ImGui::BeginTabItem("Debug"))
+			{
+				if (ImGui::Button("Trigger Test Function"))
+					halo1::game::test_function();
+
+				if (ImGui::Button("Print all blamscript functions."))
+					halo1::game::list_all_hs_functions();
+
+				if (ImGui::Button("Print all blamscript globals."))
+					halo1::game::list_all_hs_globals();
+
+				ImGui::EndTabItem();
+			}
+#endif
+
+			if (ImGui::BeginTabItem("Weapons"))
+			{
+				g_Overlay->CheckboxWithToolTip("Bottomless Clip", 
+					"Gives you infinite ammo without the need to reload or worry about your weapon overheating.", 
+					halo1::offsets::variables::bottomless_clip);
+
+				g_Overlay->CheckboxWithToolTip("Infinite Ammo",
+					"Same as bottomless clip but you have to reload, can still overheat and have infinite grenades.",
+					halo1::offsets::variables::infinite_ammo);
+
+				ImGui::EndTabItem();
+			}
+
+			if (ImGui::BeginTabItem("Player"))
+			{
+				g_Overlay->CheckboxWithToolTip("God Mode",
+					"Makes you unable to die.",
+					halo1::offsets::variables::god_mode);
+
+				ImGui::EndTabItem();
+			}
+
+			if (ImGui::BeginTabItem("Game"))
+			{
+				g_Overlay->DragFloatWithToolTip("Game ticks per second.",
+					"Basically the speed/time scale of the game. Default: 30.0",
+					halo1::offsets::variables::game_ticks_per_second,
+					0.005f,
+					-FLT_MAX,
+					+FLT_MAX);
+
+				g_Overlay->DragFloatWithToolTip("Gravity",
+					"The gravity, nuff said. Note: Not savable.",
+					*halo1::offsets::variables::gravity,
+					0.005f,
+					-FLT_MAX,
+					+FLT_MAX,
+					"%.5f");
+
+				g_Overlay->CheckboxWithToolTip("Motion Sensor - Show All Units",
+					"Shows all units on your motion sensor, regardless if they are moving or not.",
+					halo1::offsets::variables::motion_sensor_show_all_units);
+
+				g_Overlay->CheckboxWithToolTip("Redirect Print",
+					"Redirects all blamscript text printing functions to the console.",
+					&halo1::hooks::redirect_print);
+
+				g_Overlay->CheckboxWithToolTip("Toggle AI",
+					"Toggles the games AI.",
+					&halo1::game::toggle_ai_bool);
+
+				ImGui::EndTabItem();
+			}
+
+			if (ImGui::BeginTabItem("Rendering"))
+			{
+				g_Overlay->CheckboxWithToolTip("FPS Counter",
+					"Displays a built-in fps counter. Does not work in remastered mode!",
+					halo1::offsets::variables::fps_counter);
+
+				g_Overlay->CheckboxWithToolTip("Wireframe",
+					"Renders the game in wireframe. Does not work in remastered mode!",
+					halo1::offsets::variables::wireframe);
+
+				g_Overlay->CheckboxWithToolTip("Fog",
+					"Toggles the atmosphere fog.",
+					halo1::offsets::variables::atmosphere_fog);
+
+				g_Overlay->CheckboxWithToolTip("Fog Plane",
+					"Toggles the fog plane.",
+					halo1::offsets::variables::fog_plane);
+
+				g_Overlay->CheckboxWithToolTip("Enviroment Diffuse Textures",
+					"Toggles rendering diffuse textures on the enviroment.",
+					halo1::offsets::variables::enviroment_diffuse);
+
+				ImGui::EndTabItem();
+			}
+			ImGui::EndTabBar();
+		}
+
+		ImGui::EndTabItem();
+	}
+}
+
+void menu::Halo2::DrawMenu()
+{
+	if (ImGui::BeginTabItem("Halo 2"))
+	{
+		if (ImGui::BeginTabBar("Halo2Tabs", ImGuiTabBarFlags_None))
+		{
+#if defined _DEBUG
+			if (ImGui::BeginTabItem("Debug"))
+			{
+				if (ImGui::Button("Trigger Test Function"))
+					halo2::game::test_function();
+
+				if (ImGui::Button("Print all blamscript functions."))
+					halo2::game::list_all_hs_functions();
+
+				if (ImGui::Button("Print all blamscript globals."))
+					halo2::game::list_all_hs_globals();
+
+				ImGui::EndTabItem();
+			}
+#endif
+
+			if (ImGui::BeginTabItem("Game"))
+			{
+				ImGui::DragFloat("Gravity", *halo2::offsets::variables::gravity, 0.005f, -FLT_MAX, +FLT_MAX, "%.5f", ImGuiSliderFlags_None);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip("The gravity, nuff said. Note: Not savable.");
+
+				ImGui::Checkbox("Redirect Print", &halo2::hooks::redirect_print);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip("Redirects some engine printing functions to the console.");
+
+				ImGui::EndTabItem();
+			}
+
+			ImGui::EndTabBar();
+		}
+
+		ImGui::EndTabItem();
+	}
+}
+
+void menu::Halo3::DrawMenu()
+{
+	if (ImGui::BeginTabItem("Halo 3"))
+	{
+		if (ImGui::BeginTabBar("Halo3Tabs", ImGuiTabBarFlags_None))
+		{
+#if defined _DEBUG
+			if (ImGui::BeginTabItem("Debug"))
+			{
+				if (ImGui::Button("Print all blamscript functions."))
+					halo3::game::list_all_hs_functions();
+
+				if (ImGui::Button("Print all blamscript globals."))
+					halo3::game::list_all_hs_globals();
+
+				ImGui::EndTabItem();
+			}
+#endif
+			if (ImGui::BeginTabItem("Game"))
+			{
+				if (halo3::offsets::globals::physics_constants != NULL)
+				{
+					ImGui::DragFloat("Gravity", &halo3::offsets::globals::physics_constants->gravity, 0.005f, -FLT_MAX, +FLT_MAX, "%.5f", ImGuiSliderFlags_None);
+					if (ImGui::IsItemHovered())
+						ImGui::SetTooltip("The gravity, nuff said. Note: Not savable. Default: 4.1712594");
+
+					ImGui::DragFloat("Game Speed", &halo3::game::game_speed, 0.005f, 0.1f, 1.0f, "%.5f", ImGuiSliderFlags_None);
+					if (ImGui::IsItemHovered())
+						ImGui::SetTooltip("This changes the games speed, default is 1.0 i think.");
+					ImGui::SameLine();
+					if (ImGui::Button("Change"))
+					{
+						halo3::hooks::game_tick_test = true;
+					}
+				}
+
+				ImGui::Checkbox("Player weapon projectiles only", &halo3::hooks::player_weapon_projectiles_only);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip("Only the local player can fire bullets.");
+
+				ImGui::Checkbox("Player ally weapon projectiles only", &halo3::hooks::player_ally_projectiles_only);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip("Only the local player and their allies can file bullets.");
+
+				ImGui::EndTabItem();
+			}
+
+			if (ImGui::BeginTabItem("Rendering"))
+			{
+				ImGui::DragFloat("##motion_blur_scale_x", halo3::offsets::variables::motion_blur_scale_x, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_scale_x: %.5f", ImGuiSliderFlags_None);
+
+				ImGui::DragFloat("##motion_blur_scale_y", halo3::offsets::variables::motion_blur_scale_y, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_scale_y: %.5f", ImGuiSliderFlags_None);
+
+				ImGui::DragFloat("##motion_blur_max_x", halo3::offsets::variables::motion_blur_max_x, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_max_x: %.5f", ImGuiSliderFlags_None);
+
+				ImGui::DragFloat("##motion_blur_max_y", halo3::offsets::variables::motion_blur_max_y, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_max_y: %.5f", ImGuiSliderFlags_None);
+
+				ImGui::DragInt("##motion_blur_taps", halo3::offsets::variables::motion_blur_taps, 1, 0, 100, "motion_blur_taps: %i", ImGuiSliderFlags_None);
+
+				ImGui::DragFloat("##motion_blur_center_falloff", halo3::offsets::variables::motion_blur_center_falloff, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_center_falloff: %.5f", ImGuiSliderFlags_None);
+
+				ImGui::DragFloat("##motion_blur_expected_dt", halo3::offsets::variables::motion_blur_expected_dt, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_expected_dt: %.5f", ImGuiSliderFlags_None);
+
+				ImGui::EndTabItem();
+			}
+			ImGui::EndTabBar();
+		}
+
+		ImGui::EndTabItem();
+	}
+}
+
+void menu::Halo3ODST::DrawMenu()
+{
+	if (ImGui::BeginTabItem("Halo 3: ODST"))
+	{
+		if (ImGui::BeginTabBar("Halo3ODSTTabs", ImGuiTabBarFlags_None))
+		{
+#if defined _DEBUG
+			if (ImGui::BeginTabItem("Debug"))
+			{
+				if (ImGui::Button("Trigger Test Function"))
+					halo3odst::game::test_function();
+
+				if (ImGui::Button("Print all blamscript functions."))
+					halo3odst::game::list_all_hs_functions();
+
+				if (ImGui::Button("Print all blamscript globals."))
+					halo3odst::game::list_all_hs_globals();
+
+				ImGui::EndTabItem();
+			}
+#endif
+
+			if (ImGui::BeginTabItem("Rendering"))
+			{
+				/*	ImGui::Checkbox("Toggle HUD", halo3::offsets::toggle_hud);
+					if (ImGui::IsItemHovered())
+						ImGui::SetTooltip("Toggles the heads up display.");*/
+
+				ImGui::EndTabItem();
+			}
+			ImGui::EndTabBar();
+		}
+
+		ImGui::EndTabItem();
+	}
+}
+
+void menu::HaloReach::DrawMenu()
+{
+	if (ImGui::BeginTabItem("Halo Reach"))
+	{
+		if (ImGui::BeginTabBar("HaloReachTabs", ImGuiTabBarFlags_None))
+		{
+#if defined _DEBUG
+			if (ImGui::BeginTabItem("Debug"))
+			{
+				if (ImGui::Button("Trigger Test Function"))
+					haloreach::game::test_function();
+
+				if (ImGui::Button("Print all blamscript functions."))
+					haloreach::game::list_all_hs_functions();
+
+				if (ImGui::Button("Print all blamscript globals."))
+					haloreach::game::list_all_hs_globals();
+
+				ImGui::EndTabItem();
+			}
+#endif
+
+			if (ImGui::BeginTabItem("Rendering"))
+			{
+				/*	ImGui::Checkbox("Toggle HUD", halo3::offsets::toggle_hud);
+					if (ImGui::IsItemHovered())
+						ImGui::SetTooltip("Toggles the heads up display.");*/
+
+				ImGui::EndTabItem();
+			}
+			ImGui::EndTabBar();
+		}
+
+		ImGui::EndTabItem();
+	}
+}
+
+void menu::Halo4::DrawMenu()
+{
+
 }

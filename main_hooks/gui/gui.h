@@ -63,6 +63,7 @@ public:
 	BOOL IMGUI_API	ButtonWithToolTip(const char* title, const char* tip, const ImVec2& size = { 0, 0 });			//	Button with a tooltip
 	BOOL IMGUI_API	CheckboxWithToolTip(const char* label, const char* tip, bool* v);								//	Checkbox with a tooltip
 	BOOL IMGUI_API	ComboWithToolTip(const char* label, const char* tip, int* current_item, const char* items_separated_by_zeros, int popup_max_height_in_items = -1);				//	Combo with a tooltip
+	BOOL IMGUI_API	DragFloatWithToolTip(const char* label, const char* tip, float* v, float v_speed = 1.0f, float v_min = 0.0f, float v_max = 0.0f, const char* format = "%.3f", ImGuiSliderFlags flags = 0);	//	Drag Float with tool tip
 	VOID IMGUI_API	Text(const ImVec2& pos, float fontsize, const ImVec4& color, const char* text, const char* text_end, float wrap_width, const ImVec4* cpu_fine_clip_rect);		//	Simplified draw text call
 	VOID IMGUI_API	Line(const ImVec2& pointA, const ImVec2& pointB, const ImVec4& color, float thickness);			//	Draws a line from pointA to pointB
 	VOID IMGUI_API	CleanText(const ImVec2& pos, const ImVec4& color, const char* text, float fontsize);			//	Draws text with a black outline

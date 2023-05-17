@@ -306,6 +306,18 @@ BOOL IMGUI_API	gui::ComboWithToolTip(const char* label, const char* tip, int* cu
 }
 
 //---------------------------------------------------------------------------------------------------
+//	Drag Float with a tooltip
+BOOL IMGUI_API gui::DragFloatWithToolTip(const char* label, const char* tip, float* v, float v_speed, float v_min, float v_max, const char* format, ImGuiSliderFlags flags)
+{
+	bool result = ImGui::DragFloat(label, v, v_speed, v_min, v_max, format, flags);
+
+	if (ImGui::IsItemHovered())
+		ImGui::SetTooltip(tip);
+
+	return result;
+}
+
+//---------------------------------------------------------------------------------------------------
 //	Simplified draw text call
 VOID IMGUI_API gui::Text(const ImVec2& pos, float fontsize, const ImVec4& color, const char* text, const char* text_end, float wrap_width, const ImVec4* cpu_fine_clip_rect)
 {
