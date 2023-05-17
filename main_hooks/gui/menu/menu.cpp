@@ -175,10 +175,11 @@ void settings_window(bool* show)
 
 		if (ImGui::BeginTabItem("Console"))
 		{
-			g_Overlay->CheckboxWithToolTip("Display Console",
+			if (g_Overlay->CheckboxWithToolTip("Display Console",
 				"Displays the Drinol console. Requires a restart.",
-				&console::enabled
-			);
+				&g_Console->bShowWindow
+			))
+				ShowWindow(GetConsoleWindow(), &g_Console->bShowWindow ? SW_SHOW : SW_HIDE);
 
 			g_Overlay->CheckboxWithToolTip("Display ImGui Console",
 				"Displays the Drinol ImGui console.",

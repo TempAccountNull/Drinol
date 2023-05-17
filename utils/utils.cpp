@@ -214,7 +214,7 @@ void utils::detach()
 	handle_game_deinit();
 	middleware::hooks::deinit();
 	kiero::shutdown();
-	console::deinit();
+	g_Console->Destroy();
 }
 
 HRESULT CALLBACK task_dialog_callback(HWND hwndWindow, UINT uNotification, WPARAM wParam, LPARAM lParam, LONG_PTR dwUserData)
