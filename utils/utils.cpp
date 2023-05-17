@@ -177,7 +177,7 @@ void utils::reset_running_game_settings()
 //https://github.com/citizenfx/fivem/blob/f3bb0460562b1eb1a7f9652ffcf73ad7282fd45e/code/client/shared/Hooking.h#L91-L113
 char* utils::memory::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
 {
-	static uint32_t* tlsIndex = nullptr;
+	uint32_t* tlsIndex = nullptr;
 
 	while (!tlsIndex)
 	{
