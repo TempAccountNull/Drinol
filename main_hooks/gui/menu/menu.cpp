@@ -5,7 +5,7 @@
 void menu::about_modal()
 {
 	// about modal
-	if (ImGui::BeginPopupModal("Drinol - About", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	if (ImGui::BeginPopupModal("Drinol - About", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoDecoration))
 	{
 		ImGui::Text("Drinol - A Halo modding utility.");
 		ImGui::Separator();
@@ -13,17 +13,23 @@ void menu::about_modal()
 		ImGui::Separator();
 		ImGui::Text("Credits:\n\nNBOTT42#6978: For assistance in developing this tool.\n\nApoxied#1337: Halo 3 Research information that I have yet to use.\n\nSilentRunner#6097: Information borrowed from his \"MCC Toolbox\" project.\n\n@theTwist84: Halo 3 struct information.\n\nOhItsDiiTz#1337: detour.h and detour.cpp and his undivided attention to this project when he has the time to help.\n\n@xCENTx: Initialization and heavy cleanup to make drinol run more efficently.");
 		ImGui::Separator();
-		ImGui::Text("Thanks to all the halo modders and reverse engineers responsible for projects like ElDewrito and the Blam Creation Suite, without them, i would not have been inspired to make this tool.");
+		ImGui::TextWrapped("Thanks to all the halo modders and reverse engineers responsible for projects like ElDewrito and the Blam Creation Suite, without them, i would not have been inspired to make this tool.");
+		ImGui::Separator();
+		ImGui::Spacing();
 
-		if (ImGui::Button("Close", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+		auto width = ImGui::GetWindowSize().x;
+		ImVec2 size = { ((width - 32.f) / 3), 25.f };
+		if (ImGui::Button("Close", size)) { ImGui::CloseCurrentPopup(); }
 		ImGui::SameLine();
-		if (ImGui::Button("Github Repo", ImVec2(120, 0))) {
+		if (ImGui::Button("Github Repo", size)) {
 			ShellExecute(0, 0, L"https://github.com/matty45/Drinol", 0, 0, SW_SHOW);// I dont feel that this is a secure way of opening a web page but idk
 		}
 		ImGui::SameLine();
-		if (ImGui::Button("Discord Server", ImVec2(120, 0))) {
+		if (ImGui::Button("Discord Server", size)) {
 			ShellExecute(0, 0, L"https://discord.gg/AkyKYTkPSJ", 0, 0, SW_SHOW);// I dont feel that this is a secure way of opening a web page but idk
 		}
+		ImGui::SameLine();	//	prevents window from constantly expanding 
+		ImGui::SetWindowSize({ ImGui::GetWindowContentRegionWidth(), 0 });	//	sets window size
 		ImGui::EndPopup();
 	}
 }
@@ -110,14 +116,14 @@ std::string toggle_wireframe_key = utils::keys::get_key_name(gui::toggle_wirefra
 std::string toggle_ui_key = utils::keys::get_key_name(gui::toggle_ui_keybind);
 void settings_window(bool* show)
 {
-	ImGui::Begin("Settings", show);
+	ImGui::Begin("Settings", show, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoDecoration);
 
 	if (ImGui::BeginTabBar("DrinolTabs", ImGuiTabBarFlags_None))
 	{
 		if (ImGui::BeginTabItem("Keybinds"))
 		{
-			ImGui::Text("To change the hot-keys, just hold the key you want then click on the respective button.");
-			ImGui::Text("NOTE: There is a bug which sometimes makes drinol think the insert key is the enter key, for some reason they both use the same hex value.");
+			ImGui::TextWrapped("To change the hot-keys, just hold the key you want then click on the respective button.");
+			ImGui::TextWrapped("NOTE: There is a bug which sometimes makes drinol think the insert key is the enter key, for some reason they both use the same hex value.");
 
 			if (ImGui::Button(detach_key.c_str()))
 			{
@@ -129,9 +135,7 @@ void settings_window(bool* show)
 				}
 			}
 			ImGui::SameLine();
-			ImGui::Text("Detach Key");
-			if (ImGui::IsItemHovered())
-				ImGui::SetTooltip("This is the keybind used for detaching drinol. Only really useful if you are injecting it.");
+			g_Overlay->TextWithToolTip("Detach Key", "This is the keybind used for detaching drinol. Only really useful if you are injecting it.");
 
 			if (ImGui::Button(toggle_wireframe_key.c_str()))
 			{
@@ -143,9 +147,7 @@ void settings_window(bool* show)
 				}
 			}
 			ImGui::SameLine();
-			ImGui::Text("Toggle Wireframe Key");
-			if (ImGui::IsItemHovered())
-				ImGui::SetTooltip("This is the keybind used for toggling wireframe.");
+			g_Overlay->TextWithToolTip("Toggle Wireframe Key", "This is the keybind used for toggling wireframe.");
 
 			if (ImGui::Button(toggle_ui_key.c_str()))
 			{
@@ -157,44 +159,47 @@ void settings_window(bool* show)
 				}
 			}
 			ImGui::SameLine();
-			ImGui::Text("Toggle UI Key");
-			if (ImGui::IsItemHovered())
-				ImGui::SetTooltip("This is the keybind used for toggling the Drinol menu.");
+			g_Overlay->TextWithToolTip("Toggle UI Key", "This is the keybind used for toggling the Drinol menu.");
 
 			ImGui::EndTabItem();
 		}
 
 		if (ImGui::BeginTabItem("UI"))
 		{
-			ImGui::Checkbox("Hook DX11", &gui::enabled);
-			if (ImGui::IsItemHovered())
-				ImGui::SetTooltip("Toggle hooking DX11 if you dont want drinol to touch anything graphics api related.\nRequires a restart");
-
+			g_Overlay->CheckboxWithToolTip("Hook DX11", 
+				"Toggle hooking DX11 if you dont want drinol to touch anything graphics api related.\nRequires a restart", 
+				&gui::enabled
+			);
 			ImGui::EndTabItem();
 		}
 
 		if (ImGui::BeginTabItem("Console"))
 		{
-			ImGui::Checkbox("Display Console", &console::enabled);
-			if (ImGui::IsItemHovered())
-				ImGui::SetTooltip("Displays the Drinol console. Requires a restart.");
+			g_Overlay->CheckboxWithToolTip("Display Console",
+				"Displays the Drinol console. Requires a restart.",
+				&console::enabled
+			);
 
-			ImGui::Checkbox("Display ImGui Console", &menu::console_enabled);
-			if (ImGui::IsItemHovered())
-				ImGui::SetTooltip("Displays the Drinol ImGui console.");
+			g_Overlay->CheckboxWithToolTip("Display ImGui Console",
+				"Displays the Drinol ImGui console.",
+				&menu::console_enabled
+			);
 
 			ImGui::EndTabItem();
 		}
 
 		if (ImGui::BeginTabItem("Logging"))
 		{
-			ImGui::Checkbox("Log to file", &logging::log_to_file);
-			if (ImGui::IsItemHovered())
-				ImGui::SetTooltip("Logs drinols output to a file. Requires a restart.");
+			g_Overlay->CheckboxWithToolTip("Log to file",
+				"Logs drinols output to a file. Requires a restart.",
+				&logging::log_to_file
+			);
 
-			ImGui::Combo("Log Level", &logging::log_level, "trace\0debug\0info\0warn\0err\0critical\0off");
-			if (ImGui::IsItemHovered())
-				ImGui::SetTooltip("Changes drinols log level. Requires a restart.");
+			g_Overlay->ComboWithToolTip("Log Level",
+				"Changes drinols log level. Requires a restart.",
+				&logging::log_level,
+				"trace\0debug\0info\0warn\0err\0critical\0off"
+			);
 
 			ImGui::EndTabItem();
 		}
@@ -202,12 +207,19 @@ void settings_window(bool* show)
 	ImGui::EndTabBar();
 
 	ImGui::Separator();
+	ImGui::Spacing();
 
-	if (ImGui::Button("Save Changes"))
+	if (g_Overlay->ButtonWithToolTip("Save Changes", "Saves all changes to user configuration file and closes this window.\nNOTE: Some changes may require a restart", { ImGui::GetContentRegionAvail().x, 25.f }))
 	{
-		//TODO: Need to add a confirmation modal, however the modal system needs to be streamlined first.
-		config::main::save();
+		menu::settings_window_open = FALSE;
+		config::main::save();	//TODO: Need to add a confirmation modal, however the modal system needs to be streamlined first.
 	}
+
+	ImGui::Separator();
+	ImGui::Spacing();
+
+	if (g_Overlay->ButtonWithToolTip("Close Settings Window", "Closes this window without saving any changes.", { ImGui::GetContentRegionAvail().x, 25.f }))
+		menu::settings_window_open = FALSE;
 
 	ImGui::End();
 }
