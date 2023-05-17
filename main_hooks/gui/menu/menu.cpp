@@ -213,6 +213,8 @@ void settings_window(bool* show)
 }
 #pragma endregion
 
+bool someBool = false;
+int someInteger = 4;
 void menu::render()
 {
 	g_Overlay->ApplyImGuiStyle(true, 0.5f);
@@ -257,6 +259,15 @@ void menu::render()
 			{
 				ImGui::Text("No game is running currently.");
 			}
+
+#if _DEBUG
+			ImGui::SeparatorText("Debug Test ImGui Widgets");
+			g_Overlay->TextWithToolTip("someText", "WithToolTip");
+			g_Overlay->TextColoredWithToolTip({ 1.0f, 0.0f, 0.0f, 1.0f }, "someColorText", "WithToolTip");
+			g_Overlay->ButtonWithToolTip("someButton", "WithToolTip");
+			g_Overlay->CheckboxWithToolTip("someBoolean", "WithToolTip", &someBool);
+			g_Overlay->ComboWithToolTip("TestCombo", "WithToolTip", &someInteger, "\0Option1\0Option2\0Options3");
+#endif
 
 			ImGui::EndTabItem();
 		}
@@ -697,19 +708,27 @@ void menu::RenderHUD()
 
 	ImDrawList* draw = ImGui::GetWindowDrawList();
 
-#if defined _DEBUG
-	std::string text = "Drinol - Debug - ";
-	text += COMMIT_HASH;
-	if (sizeof(OLDEST_CHANGED_FILE_BEFORE_COMMIT) > 1)
-		text += " - Mod";
-#else
-	std::string text = "Drinol - Release - ";
-	text += COMMIT_HASH;
-	if (sizeof(OLDEST_CHANGED_FILE_BEFORE_COMMIT) > 1)
-		text += " - Mod";
-#endif
 
-	draw->AddText(ImGui::GetFont(), 15.f, { 50.f, 10.f }, IM_COL32(255, 255, 255, 127), text.c_str(), text.c_str() + strlen(text.c_str()), 800, 0);
+
+	char data[0x128];	//	296 chars max length
+	const char* _data = "";
+	const char* modified = "";
+#if defined _DEBUG 
+	_data = "Drinol - Debug - %s";
+	if (sizeof(OLDEST_CHANGED_FILE_BEFORE_COMMIT) > 1)
+		modified = " - Mod";
+#else
+	_data = "Drinol - Release - %s";
+	if (sizeof(OLDEST_CHANGED_FILE_BEFORE_COMMIT) > 1)
+		modified = " - Mod";
+#endif
+	sprintf_s(data, _data, COMMIT_HASH, modified);
+	g_Overlay->CleanText({ 50.f, 10.f }, { 1.0f, 1.0f, 1.0f, 0.49f }, data, 15.f);
+	memset(data, NULL, sizeof(data));	//	free memory
+
+#if _DEBUG
+	g_Overlay->CleanLine({ 0.0f, 0.0f }, { 100.0f, 50.0f }, { 1.0f, 0.0f, 0.0f, 0.50f }, 1.0f);
+#endif
 
 	//	End
 	ImGui::End();

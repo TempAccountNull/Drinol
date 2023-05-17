@@ -1,6 +1,14 @@
 #pragma once
 #include "stdafx.h"
 
+// Define Custom Colors
+#define IM_COL32_RED        IM_COL32(255,0,0,255)       // red		= 0xFF0000FF
+#define IM_COL32_BLUE       IM_COL32(0,0,255,255)       // blue		= 0x0000FFFF
+#define IM_COL32_GREEN      IM_COL32(0,255,0,255)       // green	= 0x00FF00FF
+#define IM_COL32_YELLOW     IM_COL32(255,255,0,255)     // yellow	= 0xFFFF00FF
+#define IM_COL32_PINK       IM_COL32(255,0,255,255)     // pink		= 0xFF00FFFF
+#define IM_COL32_CYAN       IM_COL32(0,255,255,255)     // cyan		= 0x00FFFFFF
+
 class gui
 {
 public:
@@ -20,34 +28,45 @@ public:
 	inline static unsigned long long toggle_ui_keybind = 0x0D;	//	VK_INSERT ?
 	static inline int toggle_wireframe_keybind = 0x24;
 
-	void ApplyImGuiStyle(bool is_dark_style, float alpha_threshold);
-
-	/// <summary>
-///
-/// </summary>
-	struct Window
-	{
-		std::string		TITLE;
-		HWND			hHANDLE;
-		float			PosX;
-		float			PosY;
-		float			Width;
-		float			Height;
-	};
-	bool binit = false;	//	Is GUI Initialized
-	bool bShowWindow = false;	//	Is Menu Shown
-
 	/**
 	 * \brief Forces DX11 to render everything in wireframe
 	 */
 	static inline bool render_wireframe = false;
-	VOID WINAPI Overlay(bool bShowMenu);
 
-	// Helper Functions for Canvas
-	void SyncWindow(HWND window);	//	Obtains target process main window information
-	void GetWindowSize(float* in);
-	void GetWindowPosition(float* in);
-	void GetCenterScreen(float* in);
+
+	/**
+	 * \brief Used to store information about a process window / canvas
+	 */
+	struct Window
+	{
+		const char*		TITLE;
+		HWND			wndwHandle;
+		float			Position[2];
+		float			Size[2];
+	};
+	bool binit = false;								//	Is GUI Initialized
+	bool bShowWindow = false;						//	Is Menu Shown
+
+
+	// Helper Functions for DirectX Canvas
+	VOID WINAPI		InitImGui();					//	Initializes Dear ImGui
+	VOID WINAPI		Overlay(bool bShowMenu);		//	Main Overlay Render Function
+	void			SyncWindow(HWND window);		//	Obtains target process main window information
+	void			GetWindowSize(float* in);		//	Obtains dxWindow Size
+	void			GetWindowPosition(float* in);	//	Obtains dxWindow Position
+	void			GetCenterScreen(float* in);		//	Obtains dxWindow Center Point
+
+	// CUSTOM IMGUI FUNCTIONS
+	void			ApplyImGuiStyle(bool is_dark_style, float alpha_threshold);	
+	VOID IMGUI_API	TextWithToolTip(const char* text, const char* tip, ...);										//  Text with a tooltip 
+	VOID IMGUI_API	TextColoredWithToolTip(const ImVec4& color, const char* text, const char* tip, ...);			//	Colored text with a tooltip
+	BOOL IMGUI_API	ButtonWithToolTip(const char* title, const char* tip, const ImVec2& size = { 0, 0 });			//	Button with a tooltip
+	BOOL IMGUI_API	CheckboxWithToolTip(const char* label, const char* tip, bool* v);								//	Checkbox with a tooltip
+	BOOL IMGUI_API	ComboWithToolTip(const char* label, const char* tip, int* current_item, const char* items_separated_by_zeros, int popup_max_height_in_items = -1);				//	Combo with a tooltip
+	VOID IMGUI_API	Text(const ImVec2& pos, float fontsize, const ImVec4& color, const char* text, const char* text_end, float wrap_width, const ImVec4* cpu_fine_clip_rect);		//	Simplified draw text call
+	VOID IMGUI_API	Line(const ImVec2& pointA, const ImVec2& pointB, const ImVec4& color, float thickness);			//	Draws a line from pointA to pointB
+	VOID IMGUI_API	CleanText(const ImVec2& pos, const ImVec4& color, const char* text, float fontsize);			//	Draws text with a black outline
+	VOID IMGUI_API	CleanLine(const ImVec2& pointA, const ImVec2& pointB, const ImVec4& color, float thickness);	//	Draws a line from pointA to pointB with an outline
 private:
 	Window p_window;
 };

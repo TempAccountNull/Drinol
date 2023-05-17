@@ -1,7 +1,9 @@
 // Most of this code is from https://github.com/Gavpherk/Universal-IL2CPP-DX11-Kiero-Hook
 #include "stdafx.h"
 
-extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+//---------------------------------------------------------------------------------------------------
+// # Forward Declarations
 
 typedef uintptr_t PTR;
 typedef LRESULT(CALLBACK* WNDPROC)(HWND, UINT, WPARAM, LPARAM);
@@ -9,17 +11,26 @@ typedef HRESULT(__stdcall* Present) (IDXGISwapChain* pSwapChain, UINT SyncInterv
 typedef HRESULT(__stdcall* ResizeBuffers)(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
 typedef void(__stdcall* DrawIndexed)(ID3D11DeviceContext* p_context, UINT index_count, UINT start_index_location, INT base_vertex_location);
 
-DrawIndexed oDrawIndexed;
-Present						oPresent;
-ResizeBuffers				oResizeBuffers;
-HWND						window = NULL;
+HWND						window;
 WNDPROC						oWndProc;
-ID3D11Device* pDevice = NULL;
-ID3D11DeviceContext* pContext = NULL;
-ID3D11RenderTargetView* mainRenderTargetView;
+Present						oPresent;
+DrawIndexed					oDrawIndexed;
+ResizeBuffers				oResizeBuffers;
+ID3D11Device*				pDevice;
+ID3D11DeviceContext*		pContext;
+ID3D11RenderTargetView*		mainRenderTargetView;
 
+
+//---------------------------------------------------------------------------------------------------
+//	# Hooks
+
+//---------------------------------------------------------------------------------------------------
+extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+//---------------------------------------------------------------------------------------------------
 HRESULT hkResizeBuffers(IDXGISwapChain* pThis, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
 
+//---------------------------------------------------------------------------------------------------
 //dx11 ResizeBuffers Hook
 HRESULT hkResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags)
 {
@@ -60,6 +71,7 @@ HRESULT hkResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width
 	return hr;
 }
 
+//---------------------------------------------------------------------------------------------------
 void hkDrawIndexed(ID3D11DeviceContext* p_context, const UINT index_count, const UINT start_index_location, const INT base_vertex_location)
 {
 	if (gui::render_wireframe)
@@ -85,16 +97,8 @@ void hkDrawIndexed(ID3D11DeviceContext* p_context, const UINT index_count, const
 	return oDrawIndexed(p_context, index_count, start_index_location, base_vertex_location);
 }
 
-void InitImGui()
-{
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO();
-	io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
-	io.IniFilename = gui::ui_ini_path.c_str();
-	ImGui_ImplWin32_Init(window);
-	ImGui_ImplDX11_Init(pDevice, pContext);
-}
 
+//---------------------------------------------------------------------------------------------------
 LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	//	When menu is shown we want to utilize the imgui wndproc handler
@@ -107,6 +111,7 @@ LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 	return CallWindowProc(oWndProc, hWnd, uMsg, wParam, lParam);
 }
 
+//---------------------------------------------------------------------------------------------------
 HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags)
 {
 	//	Should be moved to its own initialization function
@@ -123,7 +128,7 @@ HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT 
 			pDevice->CreateRenderTargetView(pBackBuffer, NULL, &mainRenderTargetView);
 			pBackBuffer->Release();
 			oWndProc = (WNDPROC)SetWindowLongPtr(window, GWLP_WNDPROC, (LONG_PTR)WndProc);
-			InitImGui();
+			g_Overlay->InitImGui();
 			g_Overlay->SyncWindow(window);
 			g_Overlay->binit = true;
 		}
@@ -136,6 +141,19 @@ HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT 
 	return oPresent(pSwapChain, SyncInterval, Flags);
 }
 
+
+//---------------------------------------------------------------------------------------------------
+VOID WINAPI gui::InitImGui()
+{
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
+	io.IniFilename = gui::ui_ini_path.c_str();
+	ImGui_ImplWin32_Init(window);
+	ImGui_ImplDX11_Init(pDevice, pContext);
+}
+
+//---------------------------------------------------------------------------------------------------
 // Initializes the main Graphical User Interface
 // Kiero is used for this procedure
 // A Dear ImGui window is displayed
@@ -154,6 +172,171 @@ void gui::init()
 #if defined _DEBUG
 	spdlog::debug("DX11 Hooked.");
 #endif
+}
+
+//---------------------------------------------------------------------------------------------------
+//	Obtains window data and passes it to p_window pointer
+void gui::SyncWindow(HWND window)
+{
+	RECT temprect;
+	GetWindowRect(window, &temprect);
+	float position[2]	= { temprect.left, temprect.top };
+	float size[2]		= { (temprect.right - temprect.left), (temprect.bottom - temprect.top) };
+
+	// Position
+	for (int i = 0; i < 2; i++)
+		p_window.Position[i] = position[i];
+
+	// Size ( x , y)
+	for (int i = 0; i < 2; i++)
+		p_window.Size[i] = position[i];
+}
+
+//---------------------------------------------------------------------------------------------------
+//	gets the current dxWindow Size
+void gui::GetWindowSize(float* in)
+{
+	for (int i = 0; i < 2; i++)
+		in[i] = p_window.Size[i];
+}
+
+//---------------------------------------------------------------------------------------------------
+//	gets the current dxWindow Position
+void gui::GetWindowPosition(float* in)
+{
+	for (int i = 0; i < 2; i++)
+		in[i] = p_window.Position[i];
+}
+
+//---------------------------------------------------------------------------------------------------
+//	gets the current dxWindow center screen point
+void gui::GetCenterScreen(float* in)
+{
+	float result[2];
+	GetWindowSize(result);
+
+	for (int i = 0; i < 2; i++)
+		in[i] = result[i] / 2;
+}
+
+//---------------------------------------------------------------------------------------------------
+//	Main Overlay Render Function
+VOID WINAPI gui::Overlay(bool bShowMenu)
+{
+	//	Begin Draw Scene
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+	ImGui::GetIO().MouseDrawCursor = bShowMenu;		//	Draw Cursor
+
+	//	Render Options
+	switch (bShowMenu)
+	{
+	case TRUE: menu::render();		break;	//	Render Menu
+	case FALSE: menu::RenderHUD();	break;	//	Render Drawing Elements (Can be used as a watermark and drawing other static elemnts on the HUD)
+	}
+
+	//	End Draw Scene
+	ImGui::EndFrame();
+	ImGui::Render();
+	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+}
+
+//---------------------------------------------------------------------------------------------------
+//  Text with a tooltip 
+VOID IMGUI_API gui::TextWithToolTip(const char* text, const char* tip, ...)
+{
+	va_list args;
+	va_start(args, tip);
+	ImGui::TextV(text, args);
+	va_end(args);
+
+	if (ImGui::IsItemHovered())
+		ImGui::SetTooltip(tip);
+}
+
+//---------------------------------------------------------------------------------------------------
+//	Colored text with a tooltip
+VOID IMGUI_API gui::TextColoredWithToolTip(const ImVec4& color, const char* text, const char* tip, ...)
+{
+	va_list args;
+	va_start(args, tip);
+	ImGui::TextColoredV(color, text, args);
+	va_end(args);
+
+	if (ImGui::IsItemHovered())
+		ImGui::SetTooltip(tip);
+}
+
+//---------------------------------------------------------------------------------------------------
+//	Button with a tooltip
+BOOL IMGUI_API gui::ButtonWithToolTip(const char* title, const char* tip, const ImVec2& size)
+{
+	bool result = ImGui::Button(title, size);
+
+	if (ImGui::IsItemHovered())
+		ImGui::SetTooltip(tip);
+
+	return result;
+}
+
+//---------------------------------------------------------------------------------------------------
+//	Checkbox with a tooltip
+BOOL IMGUI_API gui::CheckboxWithToolTip(const char* label, const char* tip, bool* v)
+{
+	bool result = ImGui::Checkbox(label, v);
+
+	if (ImGui::IsItemHovered())
+		ImGui::SetTooltip(tip);
+
+	return result;
+}
+
+//---------------------------------------------------------------------------------------------------
+//	Combo with a tooltip
+BOOL IMGUI_API	gui::ComboWithToolTip(const char* label, const char* tip, int* current_item, const char* items_separated_by_zeros, int popup_max_height_in_items)
+{
+	bool result = ImGui::Combo(label, current_item, items_separated_by_zeros, popup_max_height_in_items);
+
+	if (ImGui::IsItemHovered())
+		ImGui::SetTooltip(tip);
+
+	return result;
+}
+
+//---------------------------------------------------------------------------------------------------
+//	Simplified draw text call
+VOID IMGUI_API gui::Text(const ImVec2& pos, float fontsize, const ImVec4& color, const char* text, const char* text_end, float wrap_width, const ImVec4* cpu_fine_clip_rect)
+{
+	ImGui::GetWindowDrawList()->AddText(ImGui::GetFont(), fontsize, pos, ImColor(color), text, text_end, wrap_width, cpu_fine_clip_rect);
+}
+
+//---------------------------------------------------------------------------------------------------
+// Draws a line from pointA to pointB
+VOID IMGUI_API gui::Line(const ImVec2& pointA, const ImVec2& pointB, const ImVec4& color, float thickness)
+{
+	ImGui::GetWindowDrawList()->AddLine(pointA, pointB, ImColor(color), thickness);
+}
+
+//---------------------------------------------------------------------------------------------------
+//	Draws text with a black outline
+VOID IMGUI_API gui::CleanText(const ImVec2& pos, const ImVec4& color, const char* text, float fontsize)
+{
+	Text(ImVec2(pos.x + 1.f, pos.y + 1.f), fontsize, ImColor(IM_COL32_BLACK), text, text + strlen(text), 800, 0);
+	Text(ImVec2(pos.x - 1.f, pos.y - 1.f), fontsize, ImColor(IM_COL32_BLACK), text, text + strlen(text), 800, 0);
+	Text(ImVec2(pos.x, pos.y - 1.f), fontsize, ImColor(IM_COL32_BLACK), text, text + strlen(text), 800, 0);
+	Text(ImVec2(pos.x, pos.y + 1.f), fontsize, ImColor(IM_COL32_BLACK), text, text + strlen(text), 800, 0);
+	Text(pos, fontsize, color, text, text + strlen(text), 800, 0);
+}
+
+//---------------------------------------------------------------------------------------------------
+// Draws a line from pointA to pointB with a black outline
+VOID IMGUI_API gui::CleanLine(const ImVec2& a, const ImVec2& b, const ImVec4& color, float thickness)
+{
+	Line(a, b, { 0.f, 0.f, 0.f, color.w }, (thickness + 0.25f));
+	Line(a, b, { 1.f, 1.f, 1.f, (color.w - 0.2f)}, (thickness + 0.15f));
+	Line(a, b, color, thickness);
 }
 
 // Custom Dear ImGui Style
@@ -258,66 +441,4 @@ void gui::ApplyImGuiStyle(bool is_dark_style, float alpha_threshold)
 	style.Colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1.0f, 1.0f, 1.0f, 0.699999988079071f);
 	style.Colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.800000011920929f, 0.800000011920929f, 0.800000011920929f, 0.2000000029802322f);
 	style.Colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.800000011920929f, 0.800000011920929f, 0.800000011920929f, 0.3499999940395355f);
-}
-
-// Helper Functions
-void gui::SyncWindow(HWND window)
-{
-	RECT temprect;
-	GetWindowRect(window, &temprect);
-	float position[2] = { temprect.left, temprect.top };
-	float width = temprect.right - temprect.left;
-	float height = temprect.bottom - temprect.top;
-
-	// Position
-	p_window.PosX = position[0];
-	p_window.PosY = position[1];
-
-	// Size ( x , y)
-	p_window.Height = height;
-	p_window.Width = width;
-}
-
-void gui::GetWindowSize(float* in)
-{
-	in[0] = p_window.Width;
-	in[1] = p_window.Height;
-}
-
-void gui::GetWindowPosition(float* in)
-{
-	in[0] = p_window.PosX;
-	in[1] = p_window.PosY;
-}
-
-void gui::GetCenterScreen(float* in)
-{
-	float result[2];
-	GetWindowSize(result);
-
-	in[0] = result[0] / 2;
-	in[1] = result[1] / 2;
-}
-
-//	Overlay
-VOID WINAPI gui::Overlay(bool bShowMenu)
-{
-	//	Begin Draw Scene
-	ImGui_ImplDX11_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-	ImGui::NewFrame();
-	ImGui::GetIO().MouseDrawCursor = bShowMenu;		//	Draw Cursor
-
-	//	Render Options
-	switch (bShowMenu)
-	{
-	case TRUE: menu::render();		break;	//	Render Menu
-	case FALSE: menu::RenderHUD();	break;	//	Render Drawing Elements (Can be used as a watermark and drawing other static elemnts on the HUD)
-	}
-
-	//	End Draw Scene
-	ImGui::EndFrame();
-	ImGui::Render();
-	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
-	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }

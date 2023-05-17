@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\GUI">
+      <UniqueIdentifier>{3430aa95-092f-4c52-888c-506629dd78e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Games">
+      <UniqueIdentifier>{25be3254-e11b-455d-96c1-e5d0dbad7d16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\ImGui">
+      <UniqueIdentifier>{ae272e8d-cba0-4307-9f98-699fb268a970}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Minhook">
+      <UniqueIdentifier>{2031cd14-fd46-4775-8550-235ac15c5276}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Games">
+      <UniqueIdentifier>{a4d5c753-2fe5-49b8-a9bb-00f89f76f97a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI">
+      <UniqueIdentifier>{1eaa95e9-f787-4f70-9ee9-4bef5ab1d168}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -21,97 +39,13 @@
     <ClCompile Include="console\console.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dependencies\minhook\src\hde\hde32.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dependencies\minhook\src\hde\hde64.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dependencies\minhook\src\buffer.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dependencies\minhook\src\hook.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dependencies\minhook\src\trampoline.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="utils\utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dependencies\imgui\backends\imgui_impl_win32.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dependencies\imgui\imgui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dependencies\imgui\backends\imgui_impl_dx11.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dependencies\imgui\imgui_demo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dependencies\imgui\imgui_draw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dependencies\imgui\imgui_tables.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dependencies\imgui\imgui_widgets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main_hooks\gui\gui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main_hooks\gui\menu\menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dependencies\kiero\kiero.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main_hooks\middleware\middleware.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="config\config.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="games\halo1\halo1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="games\halo1\halo1_offsets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="games\halo2\halo2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="games\halo2\halo2_offsets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="games\halo3\halo3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="games\halo3\halo3_offsets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="games\halo3odst\halo3odst.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="games\halo3odst\halo3odst_offsets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="games\haloreach\haloreach.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="games\haloreach\haloreach_offsets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="games\halo1\halo1_hooks.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="games\halo2\halo2_hooks.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="games\halo3\halo3_hooks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="utils\detour.cpp">
@@ -123,20 +57,104 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="games\halo4\halo4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="games\halo4\halo4_offsets.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="games\halo4\halo4_hooks.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="games\haloreach\haloreach_hooks.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="version_checking\version_checking.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main_hooks\gui\gui.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="games\halo1\halo1.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="games\halo1\halo1_hooks.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="games\halo1\halo1_offsets.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="games\halo2\halo2.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="games\halo2\halo2_hooks.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="games\halo2\halo2_offsets.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="games\halo3\halo3.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="games\halo3\halo3_hooks.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="games\halo3\halo3_offsets.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="games\halo3odst\halo3odst.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="games\halo3odst\halo3odst_offsets.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="games\halo4\halo4.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="games\halo4\halo4_hooks.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="games\halo4\halo4_offsets.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="games\haloreach\haloreach_hooks.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="games\haloreach\haloreach_offsets.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="games\haloreach\haloreach.cpp">
+      <Filter>Source Files\Games</Filter>
+    </ClCompile>
+    <ClCompile Include="main_hooks\gui\menu\menu.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="dependencies\imgui\imgui.cpp">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="dependencies\imgui\imgui_demo.cpp">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="dependencies\imgui\imgui_draw.cpp">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="dependencies\imgui\backends\imgui_impl_dx11.cpp">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="dependencies\imgui\backends\imgui_impl_win32.cpp">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="dependencies\imgui\imgui_tables.cpp">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="dependencies\imgui\imgui_widgets.cpp">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="dependencies\minhook\src\hde\hde32.c">
+      <Filter>Resource Files\Minhook</Filter>
+    </ClCompile>
+    <ClCompile Include="dependencies\minhook\src\hde\hde64.c">
+      <Filter>Resource Files\Minhook</Filter>
+    </ClCompile>
+    <ClCompile Include="dependencies\minhook\src\hook.c">
+      <Filter>Resource Files\Minhook</Filter>
+    </ClCompile>
+    <ClCompile Include="dependencies\minhook\src\trampoline.c">
+      <Filter>Resource Files\Minhook</Filter>
+    </ClCompile>
+    <ClCompile Include="dependencies\minhook\src\buffer.c">
+      <Filter>Resource Files\Minhook</Filter>
+    </ClCompile>
+    <ClCompile Include="dependencies\kiero\kiero.cpp">
+      <Filter>Source Files\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,64 +164,13 @@
     <ClInclude Include="console\console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dependencies\minhook\src\hde\hde32.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\minhook\src\hde\hde64.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="dependencies\minhook\src\hde\pstdint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\minhook\src\hde\table32.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\minhook\src\hde\table64.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\minhook\src\buffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\minhook\src\trampoline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="utils\utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="hooks\directx11\dx11.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\imgui\backends\imgui_impl_win32.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\imgui\imgui.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\imgui\imstb_rectpack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\imgui\imstb_textedit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\imgui\imstb_truetype.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\imgui\imconfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\imgui\backends\imgui_impl_dx11.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\imgui\imgui_internal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="main_hooks\gui\gui.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="main_hooks\gui\menu\menu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dependencies\kiero\kiero.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="main_hooks\middleware\middleware.h">
@@ -215,58 +182,10 @@
     <ClInclude Include="dependencies\mINI\src\mini\ini.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="games\halo1\halo1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo1\halo1_offsets.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="dependencies\memcury\memcury.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="games\halo1\halo1_engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo2\halo2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo2\halo2_engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo2\halo2_offsets.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="framework.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo3\halo3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo3\halo3_engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo3\halo3_offsets.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo3odst\halo3odst.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo3odst\halo3odst_engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo3odst\halo3odst_offsets.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\haloreach\haloreach.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\haloreach\haloreach_engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\haloreach\haloreach_offsets.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo1\halo1_hooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="dependencies\spdlog\include\spdlog\cfg\argv.h">
@@ -578,13 +497,7 @@
     <ClInclude Include="dependencies\spdlog\include\spdlog\version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="games\halo2\halo2_hooks.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="utils\ntpebteb.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo3\halo3_hooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="games\engine.h">
@@ -599,43 +512,10 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="games\halo3\halo3_sigs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\haloreach\haloreach_sigs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo3odst\halo3odst_sigs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo2\halo2_sigs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo1\halo1_sigs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="main_hooks\middleware\middleware_sigs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo4\halo4.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo4\halo4_engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo4\halo4_offsets.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo4\halo4_sigs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\halo4\halo4_hooks.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="games\haloreach\haloreach_hooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="version_checking\version_checking.h">
@@ -643,6 +523,144 @@
     </ClInclude>
     <ClInclude Include="version.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo1\halo1.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo1\halo1_engine.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo1\halo1_hooks.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo1\halo1_offsets.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo1\halo1_sigs.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo2\halo2.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo2\halo2_engine.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo2\halo2_hooks.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo2\halo2_offsets.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo2\halo2_sigs.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo3\halo3.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo3\halo3_engine.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo3\halo3_hooks.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo3\halo3_offsets.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo3\halo3_sigs.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo3odst\halo3odst.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo3odst\halo3odst_engine.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo3odst\halo3odst_offsets.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo3odst\halo3odst_sigs.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo4\halo4.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo4\halo4_engine.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo4\halo4_hooks.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo4\halo4_offsets.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo4\halo4_sigs.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\haloreach\haloreach.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\haloreach\haloreach_engine.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\haloreach\haloreach_hooks.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\haloreach\haloreach_offsets.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="games\haloreach\haloreach_sigs.h">
+      <Filter>Header Files\Games</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\imgui\imstb_truetype.h">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\imgui\imconfig.h">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\imgui\imgui.h">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\imgui\backends\imgui_impl_dx11.h">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\imgui\backends\imgui_impl_win32.h">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\imgui\imgui_internal.h">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\imgui\imstb_rectpack.h">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\imgui\imstb_textedit.h">
+      <Filter>Resource Files\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\minhook\src\trampoline.h">
+      <Filter>Resource Files\Minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\minhook\src\hde\table32.h">
+      <Filter>Resource Files\Minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\minhook\src\hde\table64.h">
+      <Filter>Resource Files\Minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\minhook\src\buffer.h">
+      <Filter>Resource Files\Minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\minhook\src\hde\hde32.h">
+      <Filter>Resource Files\Minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\minhook\src\hde\hde64.h">
+      <Filter>Resource Files\Minhook</Filter>
+    </ClInclude>
+    <ClInclude Include="main_hooks\gui\gui.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="dependencies\kiero\kiero.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="main_hooks\gui\menu\menu.h">
+      <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
