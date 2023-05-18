@@ -28,7 +28,7 @@ void menu::about_modal()
 		if (ImGui::Button("Discord Server", size)) {
 			ShellExecute(0, 0, L"https://discord.gg/AkyKYTkPSJ", 0, 0, SW_SHOW);// I dont feel that this is a secure way of opening a web page but idk
 		}
-		ImGui::SameLine();	//	prevents window from constantly expanding 
+		ImGui::SameLine();	//	prevents window from constantly expanding
 		ImGui::SetWindowSize({ ImGui::GetWindowContentRegionWidth(), 0 });	//	sets window size
 		ImGui::EndPopup();
 	}
@@ -166,8 +166,8 @@ void settings_window(bool* show)
 
 		if (ImGui::BeginTabItem("UI"))
 		{
-			g_Overlay->CheckboxWithToolTip("Hook DX11", 
-				"Toggle hooking DX11 if you dont want drinol to touch anything graphics api related.\nRequires a restart", 
+			g_Overlay->CheckboxWithToolTip("Hook DX11",
+				"Toggle hooking DX11 if you dont want drinol to touch anything graphics api related.\nRequires a restart",
 				&gui::enabled
 			);
 			ImGui::EndTabItem();
@@ -273,15 +273,6 @@ void menu::render()
 				ImGui::Text("No game is running currently.");
 			}
 
-#if _DEBUG
-			ImGui::SeparatorText("Debug Test ImGui Widgets");
-			g_Overlay->TextWithToolTip("someText", "WithToolTip");
-			g_Overlay->TextColoredWithToolTip({ 1.0f, 0.0f, 0.0f, 1.0f }, "someColorText", "WithToolTip");
-			g_Overlay->ButtonWithToolTip("someButton", "WithToolTip");
-			g_Overlay->CheckboxWithToolTip("someBoolean", "WithToolTip", &someBool);
-			g_Overlay->ComboWithToolTip("TestCombo", "WithToolTip", &someInteger, "\0Option1\0Option2\0Options3");
-#endif
-
 			ImGui::EndTabItem();
 		}
 
@@ -295,6 +286,14 @@ void menu::render()
 				utils::memory::list_game_base_addresses();
 			if (ImGui::Button("Print Game TLS Pointer"))
 				utils::memory::print_game_tls_pointer();
+
+			ImGui::SeparatorText("Debug Test ImGui Widgets");
+			g_Overlay->TextWithToolTip("someText", "WithToolTip");
+			g_Overlay->TextColoredWithToolTip({ 1.0f, 0.0f, 0.0f, 1.0f }, "someColorText", "WithToolTip");
+			g_Overlay->ButtonWithToolTip("someButton", "WithToolTip");
+			g_Overlay->CheckboxWithToolTip("someBoolean", "WithToolTip", &someBool);
+			g_Overlay->ComboWithToolTip("TestCombo", "WithToolTip", &someInteger, "\0Option1\0Option2\0Options3");
+
 			ImGui::EndTabItem();
 		}
 #endif
@@ -435,12 +434,10 @@ void menu::RenderHUD()
 
 	ImDrawList* draw = ImGui::GetWindowDrawList();
 
-
-
 	char data[0x128];	//	296 chars max length
 	const char* _data = "";
 	const char* modified = "";
-#if defined _DEBUG 
+#if defined _DEBUG
 	_data = "Drinol - Debug - %s";
 	if (sizeof(OLDEST_CHANGED_FILE_BEFORE_COMMIT) > 1)
 		modified = " - Mod";
@@ -460,8 +457,6 @@ void menu::RenderHUD()
 	//	End
 	ImGui::End();
 }
-
-
 
 // Individual Game Menus
 
@@ -489,8 +484,8 @@ void menu::HaloCombatEvolved::DrawMenu()
 
 			if (ImGui::BeginTabItem("Weapons"))
 			{
-				g_Overlay->CheckboxWithToolTip("Bottomless Clip", 
-					"Gives you infinite ammo without the need to reload or worry about your weapon overheating.", 
+				g_Overlay->CheckboxWithToolTip("Bottomless Clip",
+					"Gives you infinite ammo without the need to reload or worry about your weapon overheating.",
 					halo1::offsets::variables::bottomless_clip);
 
 				g_Overlay->CheckboxWithToolTip("Infinite Ammo",
@@ -762,5 +757,4 @@ void menu::HaloReach::DrawMenu()
 
 void menu::Halo4::DrawMenu()
 {
-
 }
