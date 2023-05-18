@@ -32,6 +32,7 @@ void drinol_init(LPVOID hInstance)
 		}
 	}
 
+#ifndef USE_BUILTIN_SIGS
 	if (!config::sigs::load())
 	{
 		//spdlog::error("Failed to load signatures config file, creating a new one from scratch.");
@@ -64,12 +65,13 @@ void drinol_init(LPVOID hInstance)
 			MessageBox(NULL, L"Could not validate existing signatures, tried to generate a new signatures file to no avail......", L"Drinol Error!", 0);
 		}
 	}
+#endif
 
 	if (console::enabled)
 	{
 		// Initialize debug console.
 		g_Console = std::make_unique<console>();
-		g_Console->Initialize ();
+		g_Console->Initialize();
 	}
 
 	logging::init();

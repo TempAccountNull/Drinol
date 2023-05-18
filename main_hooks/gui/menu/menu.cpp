@@ -450,7 +450,7 @@ void menu::RenderHUD()
 	g_Overlay->CleanText({ 50.f, 10.f }, { 1.0f, 1.0f, 1.0f, 0.49f }, data, 15.f);
 	memset(data, NULL, sizeof(data));	//	free memory
 
-#if _DEBUG
+#if DEBUG_LINE_HUD_DRAWING
 	g_Overlay->CleanLine({ 0.0f, 0.0f }, { 100.0f, 50.0f }, { 1.0f, 0.0f, 0.0f, 0.50f }, 1.0f);
 #endif
 

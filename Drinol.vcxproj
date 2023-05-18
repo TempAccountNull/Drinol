@@ -316,7 +316,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>USE_BUILTIN_SIGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <AdditionalIncludeDirectories>$(ProjectDir)console;$(ProjectDir)main_hooks;$(ProjectDir)utils;$(ProjectDir)dependencies;$(ProjectDir);$(ProjectDir)dependencies\imgui;$(ProjectDir)dependencies\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
