@@ -1,7 +1,6 @@
 // Most of this code is from https://github.com/Gavpherk/Universal-IL2CPP-DX11-Kiero-Hook
 #include "stdafx.h"
 
-
 //---------------------------------------------------------------------------------------------------
 // # Forward Declarations
 
@@ -16,10 +15,9 @@ WNDPROC						oWndProc;
 Present						oPresent;
 DrawIndexed					oDrawIndexed;
 ResizeBuffers				oResizeBuffers;
-ID3D11Device*				pDevice;
-ID3D11DeviceContext*		pContext;
-ID3D11RenderTargetView*		mainRenderTargetView;
-
+ID3D11Device* pDevice;
+ID3D11DeviceContext* pContext;
+ID3D11RenderTargetView* mainRenderTargetView;
 
 //---------------------------------------------------------------------------------------------------
 //	# Hooks
@@ -97,7 +95,6 @@ void hkDrawIndexed(ID3D11DeviceContext* p_context, const UINT index_count, const
 	return oDrawIndexed(p_context, index_count, start_index_location, base_vertex_location);
 }
 
-
 //---------------------------------------------------------------------------------------------------
 LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -141,7 +138,6 @@ HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT 
 	return oPresent(pSwapChain, SyncInterval, Flags);
 }
 
-
 //---------------------------------------------------------------------------------------------------
 VOID WINAPI gui::InitImGui()
 {
@@ -180,8 +176,8 @@ void gui::SyncWindow(HWND window)
 {
 	RECT temprect;
 	GetWindowRect(window, &temprect);
-	float position[2]	= { temprect.left, temprect.top };
-	float size[2]		= { (temprect.right - temprect.left), (temprect.bottom - temprect.top) };
+	float position[2] = { temprect.left, temprect.top };
+	float size[2] = { (temprect.right - temprect.left), (temprect.bottom - temprect.top) };
 
 	// Position
 	for (int i = 0; i < 2; i++)
@@ -244,7 +240,7 @@ VOID WINAPI gui::Overlay(bool bShowMenu)
 }
 
 //---------------------------------------------------------------------------------------------------
-//  Text with a tooltip 
+//  Text with a tooltip
 VOID IMGUI_API gui::TextWithToolTip(const char* text, const char* tip, ...)
 {
 	va_list args;
@@ -347,7 +343,7 @@ VOID IMGUI_API gui::CleanText(const ImVec2& pos, const ImVec4& color, const char
 VOID IMGUI_API gui::CleanLine(const ImVec2& a, const ImVec2& b, const ImVec4& color, float thickness)
 {
 	Line(a, b, { 0.f, 0.f, 0.f, color.w }, (thickness + 0.25f));
-	Line(a, b, { 1.f, 1.f, 1.f, (color.w - 0.2f)}, (thickness + 0.15f));
+	Line(a, b, { 1.f, 1.f, 1.f, (color.w - 0.2f) }, (thickness + 0.15f));
 	Line(a, b, color, thickness);
 }
 
@@ -453,4 +449,27 @@ void gui::ApplyImGuiStyle(bool is_dark_style, float alpha_threshold)
 	style.Colors[ImGuiCol_NavWindowingHighlight] = ImVec4(1.0f, 1.0f, 1.0f, 0.699999988079071f);
 	style.Colors[ImGuiCol_NavWindowingDimBg] = ImVec4(0.800000011920929f, 0.800000011920929f, 0.800000011920929f, 0.2000000029802322f);
 	style.Colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.800000011920929f, 0.800000011920929f, 0.800000011920929f, 0.3499999940395355f);
+}
+
+//Add RAINBOW! - Thanks NightFyre <3
+ImVec4 gui::SV_RAINBOW(float saturation, float value, float opacity, float speed, float hue)
+{
+	float HSV_RAINBOW_SPEED = speed;
+	static float HSV_RAINBOW_HUE = hue;
+
+	HSV_RAINBOW_HUE -= HSV_RAINBOW_SPEED;
+	if (HSV_RAINBOW_HUE < -1.f) HSV_RAINBOW_HUE += 1.f;
+	for (int i = 0; i < 860; i++)
+	{
+		float hue = HSV_RAINBOW_HUE + 1.f / (float)860 * i;
+		if (hue < 0.f) hue += 1.f;
+
+		float out_r;
+		float out_g;
+		float out_b;
+		ImGui::ColorConvertHSVtoRGB(hue, saturation / 255, value / 255, out_r, out_g, out_b);
+
+		return ImVec4(opacity, out_r, out_g, out_b);
+	}
+	return {};
 }

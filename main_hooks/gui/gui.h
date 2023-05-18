@@ -33,20 +33,18 @@ public:
 	 */
 	static inline bool render_wireframe = false;
 
-
 	/**
 	 * \brief Used to store information about a process window / canvas
 	 */
 	struct Window
 	{
-		const char*		TITLE;
+		const char* TITLE;
 		HWND			wndwHandle;
 		float			Position[2];
 		float			Size[2];
 	};
 	bool binit = false;								//	Is GUI Initialized
 	bool bShowWindow = false;						//	Is Menu Shown
-
 
 	// Helper Functions for DirectX Canvas
 	VOID WINAPI		InitImGui();					//	Initializes Dear ImGui
@@ -57,8 +55,9 @@ public:
 	void			GetCenterScreen(float* in);		//	Obtains dxWindow Center Point
 
 	// CUSTOM IMGUI FUNCTIONS
-	void			ApplyImGuiStyle(bool is_dark_style, float alpha_threshold);	
-	VOID IMGUI_API	TextWithToolTip(const char* text, const char* tip, ...);										//  Text with a tooltip 
+	void			ApplyImGuiStyle(bool is_dark_style, float alpha_threshold);
+	static ImVec4 SV_RAINBOW(float saturation, float value, float opacity, float speed = 0.002f, float hue = 0);
+	VOID IMGUI_API	TextWithToolTip(const char* text, const char* tip, ...);										//  Text with a tooltip
 	VOID IMGUI_API	TextColoredWithToolTip(const ImVec4& color, const char* text, const char* tip, ...);			//	Colored text with a tooltip
 	BOOL IMGUI_API	ButtonWithToolTip(const char* title, const char* tip, const ImVec2& size = { 0, 0 });			//	Button with a tooltip
 	BOOL IMGUI_API	CheckboxWithToolTip(const char* label, const char* tip, bool* v);								//	Checkbox with a tooltip
