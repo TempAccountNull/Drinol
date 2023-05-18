@@ -68,7 +68,8 @@ void drinol_init(LPVOID hInstance)
 	if (console::enabled)
 	{
 		// Initialize debug console.
-		console::init();
+		g_Console = std::make_unique<console>();
+		g_Console->Initialize ();
 	}
 
 	logging::init();
