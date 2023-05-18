@@ -215,3 +215,30 @@ DWORD halo3::game::get_unit_team(int unit_index)
 	}
 	return -1;
 }
+
+void halo3::game::render::draw_engine_text(std::string text, int XPos, int YPos, float scale, real_argb_color colour = real_argb_color(255, 255, 255, 255))
+{
+	halo3::engine::c_rasterizer_draw_string draw_string;
+	halo3::engine::c_font_cache_mt_safe font_cache;
+	short_rectangle2d bounds{};
+
+	//Game Calls
+	utils::memory::game_call<halo3::engine::c_rasterizer_draw_string*>(Memcury::PE::GetModuleBase() + 0x28126c)(&draw_string); // c_rasterizer_draw_string rasterizer_draw_string;
+	utils::memory::game_call<halo3::engine::c_font_cache_mt_safe*>(Memcury::PE::GetModuleBase() + 0x177dcc)(&font_cache); // c_font_cache_mt_safe font_cache;
+
+	utils::memory::game_call<void>(Memcury::PE::GetModuleBase() + 0x1febcc)(&draw_string, halo3::engine::e_font_id::Conduit_32);
+
+	draw_string.m_scale = scale; // Text Scale
+
+	draw_string.m_color = colour; // Text colour
+
+	utils::memory::game_call<void>(Memcury::PE::GetModuleBase() + 0x26430c)(&bounds); // set bounds
+
+	//Position
+	bounds.y0 += YPos;
+	bounds.x0 += XPos;
+
+	utils::memory::game_call<void>(Memcury::PE::GetModuleBase() + 0x1fece4)(&draw_string, &bounds); // set bounds
+	utils::memory::game_call<bool>(Memcury::PE::GetModuleBase() + 0x1fed4c)(&draw_string, &font_cache, text.c_str());
+	utils::memory::game_call<void>(Memcury::PE::GetModuleBase() + 0x177ae4)(&font_cache.m_locked); //Deinit font cache
+}

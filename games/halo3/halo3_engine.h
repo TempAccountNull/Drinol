@@ -328,4 +328,74 @@ namespace halo3::engine // Engine related structs, etc
 		physics_constants = 304,
 		player_mapping_globals = 272
 	};
+
+	struct c_font_cache_scope_lock
+	{
+		volatile bool m_value;
+	};
+
+	struct c_font_cache_base
+	{
+		struct c_font_cache_base_vtbl* __vftable /*VFT*/;
+	};
+
+	struct c_font_cache_mt_safe : c_font_cache_base
+	{
+		c_font_cache_scope_lock m_locked;
+	};
+
+	//Original fonts Font _ Font size
+	enum e_font_id
+	{
+		FixedSys_9 = 0,
+		Conduit_16 = 1,
+		Conduit_32 = 2,
+		Conduit_32_2 = 3,
+		Conduit_23 = 4,
+		fixedsys_9_2 = 5,
+		Conduit_18 = 6,
+		larabie_10 = 7,
+		conduit_18 = 8,
+		Conduit_16_2 = 9,
+		pragmata_14 = 10,
+	};
+
+	struct __declspec(align(8)) c_draw_string
+	{
+		qword __vftable;
+		qword flags;
+		qword m_font;
+		DWORD dword18;
+		int m_justification;
+		int m_drop_shadow_style;
+		real_argb_color m_color;
+		real_argb_color m_shadow_color;
+		real m_scale;
+		real m_display_resolution_scale_adjustment;
+		DWORD dword4C;
+		char char50;
+		BYTE gap51[87];
+		qword qwordA8;
+		qword qwordB0;
+		qword dwordB8;
+		__declspec(align(8)) char charC0;
+		BYTE gapC1[87];
+		qword qword118;
+		qword qword120;
+	};
+
+	struct c_rasterizer_draw_string : c_draw_string
+	{
+		real_point2d m_rotation_origin;
+		real m_rotation;
+		real m_sine_rotation;
+		real m_cosine_rotation;
+		bool unk13C;
+		DWORD dword140;
+		DWORD dword144;
+		DWORD dword148;
+		char char14C;
+		BYTE gap14D[1791];
+		DWORD dword84C;
+	};
 }

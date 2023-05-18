@@ -43,6 +43,8 @@ public:
 	static inline bool render_wireframe = false;
 	VOID WINAPI Overlay(bool bShowMenu);
 
+	static ImVec4 SV_RAINBOW(float saturation, float value, float opacity, float speed = 0.002f, float hue = 0);
+
 	// Helper Functions for Canvas
 	void SyncWindow(HWND window);	//	Obtains target process main window information
 	void GetWindowSize(float* in);

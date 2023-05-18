@@ -321,3 +321,26 @@ VOID WINAPI gui::Overlay(bool bShowMenu)
 	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }
+
+//Add RAINBOW! - Thanks NightFyre <3
+ImVec4 gui::SV_RAINBOW(float saturation, float value, float opacity, float speed, float hue)
+{
+	float HSV_RAINBOW_SPEED = speed;
+	static float HSV_RAINBOW_HUE = hue;
+
+	HSV_RAINBOW_HUE -= HSV_RAINBOW_SPEED;
+	if (HSV_RAINBOW_HUE < -1.f) HSV_RAINBOW_HUE += 1.f;
+	for (int i = 0; i < 860; i++)
+	{
+		float hue = HSV_RAINBOW_HUE + 1.f / (float)860 * i;
+		if (hue < 0.f) hue += 1.f;
+
+		float out_r;
+		float out_g;
+		float out_b;
+		ImGui::ColorConvertHSVtoRGB(hue, saturation / 255, value / 255, out_r, out_g, out_b);
+
+		return ImVec4(opacity, out_r, out_g, out_b);
+	}
+	return {};
+}

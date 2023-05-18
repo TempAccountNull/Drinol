@@ -11,7 +11,7 @@ namespace halo3
 
 		inline static detour weapon_barrel_create_projectiles;
 
-		inline static detour main_render_game;
+		inline static detour director_render;
 
 		inline static bool game_tick_test = false;
 		inline static bool player_weapon_projectiles_only;

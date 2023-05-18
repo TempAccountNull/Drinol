@@ -29,7 +29,7 @@ void halo3::offsets::init()
 
 	functions::game_tick = Memcury::Scanner::FindPattern(sigs::list["game_tick"].c_str()).RelativeOffset(1).GetAs<void*>();
 
-	functions::main_render_game = Memcury::Scanner::FindPattern(sigs::list["main_render_game"].c_str()).GetAs<void*>();
+	functions::director_render = Memcury::Scanner::FindPattern(sigs::list["director_render"].c_str()).GetAs<void*>();
 
 	functions::weapon_barrel_create_projectiles = Memcury::Scanner::FindPattern(sigs::list["weapon_barrel_create_projectiles"].c_str()).RelativeOffset(1).GetAs<void*>();
 
@@ -42,6 +42,9 @@ void halo3::offsets::init()
 	functions::object_try_and_get_and_verify_type = Memcury::Scanner::FindPattern(sigs::list["object_try_and_get_and_verify_type"].c_str()).Get();
 
 	functions::game_team_is_enemy = Memcury::Scanner::FindPattern(sigs::list["game_team_is_enemy"].c_str()).Get();
+
+	variables::screen_res_x = Memcury::Scanner::FindPattern(sigs::list["screen_res_x"].c_str()).RelativeOffset(3).GetAs<int*>();
+	variables::screen_res_y = Memcury::Scanner::FindPattern(sigs::list["screen_res_y"].c_str()).RelativeOffset(3).GetAs<int*>();
 
 	variables::region_member_indexes::physics_constants_member_index = Memcury::Scanner::FindPattern(sigs::list["physics_constants_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();
 

@@ -9,6 +9,33 @@ static_assert(sizeof(qword) == 0x8);
 typedef unsigned long datum_index;
 static_assert(sizeof(datum_index) == 0x4);
 
+struct real_argb_color
+{
+	real alpha;
+	real red;
+	real green;
+	real blue;
+};
+
+struct real_point2d
+{
+	real x;
+	real y;
+};
+
+union short_rectangle2d
+{
+	struct
+	{
+		short y0;
+		short x0;
+		short y1;
+		short x1;
+	};
+	short n[4];
+};
+static_assert(sizeof(short_rectangle2d) == 0x8);
+
 union real_rectangle2d
 {
 	struct

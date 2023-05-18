@@ -30,6 +30,8 @@ namespace halo3
 			inline static int* motion_blur_taps;
 			inline static float* motion_blur_center_falloff;
 			inline static float* motion_blur_expected_dt;
+			inline static int* screen_res_x;
+			inline static int* screen_res_y;
 		};
 
 		/**
@@ -48,7 +50,7 @@ namespace halo3
 			inline static uintptr_t game_time_set_rate_scale_direct;
 			inline static uintptr_t object_try_and_get_and_verify_type;
 			inline static uintptr_t game_team_is_enemy;
-			inline static  void* main_render_game;
+			inline static  void* director_render;
 		};
 
 		/**

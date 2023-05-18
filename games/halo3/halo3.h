@@ -77,6 +77,11 @@ namespace halo3
 		 */
 		static DWORD get_unit_team(int unit_index);
 
+		class render
+		{
+		public:
+			static void draw_engine_text(std::string text, int XPos, int YPos, float scale, real_argb_color colour);
+		};
 		/**
  * \brief Gets a handle of an object
  * \return object handle
