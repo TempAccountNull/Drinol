@@ -138,7 +138,7 @@ public:
 		/**
 		 * \brief Prints the tls pointer of your currently running game, it will change so its best to pause the game so the address stays still, then suspend the mcc process.
 		 */
-		static void print_game_tls_pointer();
+		static void print_game_tls_pointer(bool suspend = false);
 
 		/**
 		 * \brief lists some of the base addresses of the halo game dlls.

@@ -407,7 +407,7 @@ uintptr_t utils::memory::get_offset(uintptr_t address)
 	return offset;
 }
 
-void utils::memory::print_game_tls_pointer()
+void utils::memory::print_game_tls_pointer(bool suspend)
 {
 	switch (games::current_game_number) {
 	case games::e_games::halo1:
@@ -430,6 +430,17 @@ void utils::memory::print_game_tls_pointer()
 		break;
 	default:
 		assert(games::current_game_number <= 6);
+	}
+
+	if (suspend)
+	{
+		typedef LONG(NTAPI* NtSuspendProcess)(IN HANDLE ProcessHandle);
+
+		NtSuspendProcess pfnNtSuspendProcess = (NtSuspendProcess)GetProcAddress(
+			GetModuleHandle(L"ntdll"), "NtSuspendProcess");
+
+		pfnNtSuspendProcess(GetCurrentProcess());
+		CloseHandle(GetCurrentProcess());
 	}
 }
 

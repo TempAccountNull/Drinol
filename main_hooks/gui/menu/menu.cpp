@@ -304,6 +304,8 @@ void menu::render()
 				utils::memory::list_game_base_addresses();
 			if (ImGui::Button("Print Game TLS Pointer"))
 				utils::memory::print_game_tls_pointer();
+			if (ImGui::Button("Print Game TLS Pointer and Suspend MCC"))
+				utils::memory::print_game_tls_pointer(true);
 
 			ImGui::SeparatorText("Debug Test ImGui Widgets");
 			g_Overlay->TextWithToolTip("someText", "WithToolTip");
