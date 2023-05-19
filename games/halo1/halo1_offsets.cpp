@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "halo1_offsets.h"
+
+#include "halo1.h"
+#include "halo1_sigs.h"
+#include "utils.h"
 
 void halo1::offsets::init()
 {

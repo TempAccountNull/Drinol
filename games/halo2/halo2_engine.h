@@ -1,5 +1,4 @@
 #pragma once
-#include <cstdint>
 
 namespace halo2::engine // Engine related structs, etc
 {

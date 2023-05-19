@@ -1,5 +1,7 @@
 #include "stdafx.h"
+#include "halo2_hooks.h"
 
+#include "halo2_offsets.h"
 detour terminal_printf;
 static void terminal_printf_detour(int* a1, char* string, ...)
 {

@@ -1,4 +1,10 @@
 #include "stdafx.h"
+#include "halo2.h"
+
+#include "halo2_hooks.h"
+#include "halo2_offsets.h"
+#include "utils.h"
+#include "config/config.h"
 
 void halo2::game::init() // Initialize hooks and shit for halo 1
 {

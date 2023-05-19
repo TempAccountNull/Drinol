@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "halo4_offsets.h"
+
+#include "halo4_sigs.h"
+#include "games/engine.h"
 
 void halo4::offsets::init()
 {

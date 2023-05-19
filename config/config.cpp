@@ -1,5 +1,23 @@
-// This is used for the management of config files, etc
 #include "stdafx.h"
+#include "config.h"
+
+#include "utils.h"
+#include "games/halo1/halo1.h"
+#include "games/halo1/halo1_hooks.h"
+#include "games/halo1/halo1_offsets.h"
+#include "games/halo1/halo1_sigs.h"
+#include "games/halo2/halo2_hooks.h"
+#include "games/halo2/halo2_sigs.h"
+#include "games/halo3/halo3_hooks.h"
+#include "games/halo3/halo3_offsets.h"
+#include "games/halo3/halo3_sigs.h"
+#include "games/halo3odst/halo3odst_sigs.h"
+#include "games/halo4/halo4_sigs.h"
+#include "games/haloreach/haloreach_sigs.h"
+#include "gui/gui.h"
+#include "gui/menu/menu.h"
+
+// This is used for the management of config files, etc
 
 //https://stackoverflow.com/a/29798
 inline const char* const bool_to_string(bool b)

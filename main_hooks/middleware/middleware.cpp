@@ -1,5 +1,6 @@
-// This has function hooks and other things related to the games UE4 middleware.
 #include "stdafx.h"
+#include <utils.h>
+// This has function hooks and other things related to the games UE4 middleware.
 
 //Crappily reverse engineered struct from the MCC UE4 binary.
 typedef struct {

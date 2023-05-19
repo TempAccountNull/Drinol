@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "halo3odst_offsets.h"
+
+#include "halo3odst.h"
+#include "halo3odst_engine.h"
+#include "halo3odst_sigs.h"
 
 void halo3odst::offsets::init()
 {

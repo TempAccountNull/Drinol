@@ -1,54 +1,33 @@
 #pragma once
+
+// THIS SHOULD HAVE HEADER FILES THAT DONT CHANGE
+
+#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
+// Windows Header Files
+#include <windows.h>
+
 #include <cassert>
+#include <commctrl.h>
 #include <cstdio>
 #include <d3d11.h>
 #include <dxgi.h>
-#include <framework.h>
+#include <string>
 #include <iostream>
 #include <memory>
+#include <ntpebteb.h>
 #include <ostream>
+#include <Psapi.h>
 #include <regex>
 #include <ShellAPI.h>
+#include <cstdint>
 #include <unordered_map>
 #include <xstring>
 
-#include "commctrl.h"
 #include "console.h"
 #include "detour.h"
-#include "framework.h"
 #include "imgui.h"
-#include "ntpebteb.h"
-#include "Psapi.h"
-#include "utils.h"
-#include "version.h"
 #include "backends/imgui_impl_dx11.h"
 #include "backends/imgui_impl_win32.h"
-#include "config/config.h"
-#include "games/halo1/halo1.h"
-#include "games/halo1/halo1_hooks.h"
-#include "games/halo1/halo1_offsets.h"
-#include "games/halo1/halo1_sigs.h"
-#include "games/halo2/halo2.h"
-#include "games/halo2/halo2_hooks.h"
-#include "games/halo2/halo2_offsets.h"
-#include "games/halo2/halo2_sigs.h"
-#include "games/halo3/halo3.h"
-#include "games/halo3/halo3_hooks.h"
-#include "games/halo3/halo3_offsets.h"
-#include "games/halo3/halo3_sigs.h"
-#include "games/halo3odst/halo3odst.h"
-#include "games/halo3odst/halo3odst_offsets.h"
-#include "games/halo3odst/halo3odst_sigs.h"
-#include "games/halo4/halo4.h"
-#include "games/halo4/halo4_hooks.h"
-#include "games/halo4/halo4_offsets.h"
-#include "games/halo4/halo4_sigs.h"
-#include "games/haloreach/haloreach.h"
-#include "games/haloreach/haloreach_hooks.h"
-#include "games/haloreach/haloreach_offsets.h"
-#include "games/haloreach/haloreach_sigs.h"
-#include "gui/gui.h"
-#include "gui/menu/menu.h"
 #include "kiero/kiero.h"
 #include "logging/logging.h"
 #include "memcury/memcury.h"

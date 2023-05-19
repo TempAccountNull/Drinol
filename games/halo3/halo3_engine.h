@@ -1,6 +1,4 @@
 #pragma once
-#include <cstdint>
-
 #include "games/engine.h"
 
 namespace halo3::engine // Engine related structs, etc

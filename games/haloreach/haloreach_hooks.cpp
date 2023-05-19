@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "haloreach_hooks.h"
+
+#include "haloreach.h"
+#include "haloreach_offsets.h"
 
 static void __cdecl game_tick_detour()
 {

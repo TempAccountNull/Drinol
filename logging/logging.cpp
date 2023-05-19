@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+#include "config/config.h"
+
 void logging::init()
 {
 	try

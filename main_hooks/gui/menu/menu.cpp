@@ -1,5 +1,23 @@
-// This is our custom menu.
 #include "stdafx.h"
+#include "menu.h"
+
+#include "utils.h"
+#include "config/config.h"
+#include "gui/gui.h"
+#include <version.h>
+
+#include "games/halo1/halo1.h"
+#include "games/halo1/halo1_hooks.h"
+#include "games/halo1/halo1_offsets.h"
+#include "games/halo2/halo2.h"
+#include "games/halo2/halo2_hooks.h"
+#include "games/halo2/halo2_offsets.h"
+#include "games/halo3/halo3.h"
+#include "games/halo3/halo3_hooks.h"
+#include "games/halo3/halo3_offsets.h"
+#include "games/halo3odst/halo3odst.h"
+#include "games/haloreach/haloreach.h"
+// This is our custom menu.
 
 #pragma region modal_funcs
 void menu::about_modal()

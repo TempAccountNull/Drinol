@@ -1,4 +1,14 @@
 #include "stdafx.h"
+#include "utils.h"
+
+#include "config/config.h"
+#include "games/halo1/halo1.h"
+#include "games/halo2/halo2.h"
+#include "games/halo3/halo3.h"
+#include "games/halo3/halo3_hooks.h"
+#include "games/halo3odst/halo3odst.h"
+#include "games/halo4/halo4.h"
+#include "games/haloreach/haloreach.h"
 
 void utils::handle_game_init(int game_number)
 {

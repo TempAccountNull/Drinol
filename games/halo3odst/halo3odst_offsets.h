@@ -1,6 +1,5 @@
 #pragma once
-
-#include "halo3odst_engine.h"
+#include "games/halo3odst/halo3odst_engine.h"
 
 namespace halo3odst
 {

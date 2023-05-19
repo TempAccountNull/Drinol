@@ -1,4 +1,5 @@
 #pragma once
+#include "games/engine.h"
 
 namespace halo4::engine // Engine related structs, etc
 {

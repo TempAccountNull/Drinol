@@ -1,5 +1,4 @@
 #pragma once
-
 #include "halo2_engine.h"
 
 namespace halo2

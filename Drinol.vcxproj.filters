@@ -185,9 +185,6 @@
     <ClInclude Include="dependencies\memcury\memcury.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="framework.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="dependencies\spdlog\include\spdlog\cfg\argv.h">
       <Filter>Header Files</Filter>
     </ClInclude>

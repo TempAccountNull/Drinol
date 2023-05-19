@@ -1,5 +1,11 @@
 #include "stdafx.h"
 
+#include "utils.h"
+#include "version.h"
+#include "config/config.h"
+#include "gui/gui.h"
+#include "gui/menu/menu.h"
+
 void drinol_init(LPVOID hInstance)
 {
 	utils::cheat_nag();

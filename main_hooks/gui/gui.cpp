@@ -1,5 +1,8 @@
-// Most of this code is from https://github.com/Gavpherk/Universal-IL2CPP-DX11-Kiero-Hook
 #include "stdafx.h"
+#include "gui.h"
+
+#include "menu/menu.h"
+// Most of this code is from https://github.com/Gavpherk/Universal-IL2CPP-DX11-Kiero-Hook
 
 //---------------------------------------------------------------------------------------------------
 // # Forward Declarations

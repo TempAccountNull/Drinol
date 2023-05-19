@@ -1,5 +1,4 @@
 #pragma once
-#include <cstdint>
 
 namespace haloreach::engine // Engine related structs, etc
 {

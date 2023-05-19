@@ -1,6 +1,5 @@
 #pragma once
-
-#include "halo3_engine.h"
+#include "games/halo3/halo3_engine.h"
 
 namespace halo3
 {

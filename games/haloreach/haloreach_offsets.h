@@ -1,8 +1,5 @@
 #pragma once
-#include <string>
-
-#include "haloreach_engine.h"
-#include "memcury/memcury.h"
+#include "games/haloreach/haloreach_engine.h"
 
 namespace haloreach
 {

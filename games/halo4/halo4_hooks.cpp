@@ -1,4 +1,7 @@
 #include "stdafx.h"
+#include "halo4_hooks.h"
+
+#include "halo4_offsets.h"
 
 static bool __cdecl game_in_progress_detour()
 {

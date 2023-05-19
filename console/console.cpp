@@ -1,10 +1,13 @@
-// This is for output and console related stuff.
 #include "stdafx.h"
+
+#include "version.h"
+
+// This is for output and console related stuff.
 
 void console::Initialize()
 {
 	AllocConsole();									//	Initialize Console
-	g_Console->p_handle = GetStdHandle(STD_OUTPUT_HANDLE);		//	
+	g_Console->p_handle = GetStdHandle(STD_OUTPUT_HANDLE);		//
 	g_Console->p_wndwhandle = GetConsoleWindow();				//	set console handle { static as it should never change }
 
 #if defined _DEBUG

@@ -1,4 +1,10 @@
 #include "stdafx.h"
+#include "haloreach.h"
+
+#include "haloreach_hooks.h"
+#include "haloreach_offsets.h"
+#include "utils.h"
+#include "games/haloreach/haloreach_engine.h"
 
 void haloreach::game::init() // Initialize hooks and shit for halo 1
 {

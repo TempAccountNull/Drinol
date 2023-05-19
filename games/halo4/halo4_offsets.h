@@ -1,6 +1,6 @@
 #pragma once
-
-#include "halo4_engine.h"
+#include "games/engine.h"
+#include "games/halo4/halo4_engine.h"
 
 namespace halo4
 {

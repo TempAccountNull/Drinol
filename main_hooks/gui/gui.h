@@ -1,5 +1,4 @@
 #pragma once
-#include "stdafx.h"
 
 // Define Custom Colors
 #define IM_COL32_RED        IM_COL32(255,0,0,255)       // red		= 0xFF0000FF

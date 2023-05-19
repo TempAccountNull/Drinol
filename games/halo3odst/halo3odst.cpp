@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "halo3odst.h"
+
+#include "halo3odst_engine.h"
+#include "halo3odst_offsets.h"
+#include "utils.h"
 
 void halo3odst::game::init() // Initialize hooks and shit for halo 1
 {

@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "haloreach_offsets.h"
+
+#include "haloreach.h"
+#include "haloreach_sigs.h"
+#include "games/haloreach/haloreach_engine.h"
 
 void haloreach::offsets::init()
 {
