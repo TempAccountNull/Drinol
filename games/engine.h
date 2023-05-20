@@ -17,6 +17,12 @@ struct real_argb_color
 	real blue;
 };
 
+struct short_point2d
+{
+	short x;
+	short y;
+};
+
 struct real_point2d
 {
 	real x;

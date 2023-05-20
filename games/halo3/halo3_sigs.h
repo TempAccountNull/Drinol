@@ -31,7 +31,8 @@ namespace halo3
 			{"draw_string_set_bounds","48 85 D2 74 58 44 0F BF 4A 02"},
 			{"get_screen_bounds","33 C0 89 01 0F B7 05"},
 			{"deinit_font_cache","40 53 48 83 EC 20 80 39 00 48 8B D9 74 34 8B 15 ?? ?? ?? ?? 65 48 8B 04 25 58 00 00 00 B9 48 01 00 00"},
-			{"draw_quad","4C 8B DC 48 83 EC ? 0F B7 41"}
+			{"draw_quad","4C 8B DC 48 83 EC ? 0F B7 41"},
+			{"draw_linestrip_2d","48 8B C4 48 89 58 08 48 89 70 10 48 89 78 18 55 48 8B EC 48 83 EC 60 0F 29 70 E8"}
 		};
 	};
 }

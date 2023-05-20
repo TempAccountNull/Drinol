@@ -59,6 +59,8 @@ void halo3::offsets::init()
 
 	functions::render::deinit_font_cache = Memcury::Scanner::FindPattern(sigs::list["deinit_font_cache"].c_str()).Get();
 
+	functions::render::draw_linestrip_2d = Memcury::Scanner::FindPattern(sigs::list["draw_linestrip_2d"].c_str()).Get();
+
 	variables::screen_res_x = Memcury::Scanner::FindPattern(sigs::list["screen_res_x"].c_str()).RelativeOffset(3).GetAs<int*>();
 	variables::screen_res_y = Memcury::Scanner::FindPattern(sigs::list["screen_res_y"].c_str()).RelativeOffset(3).GetAs<int*>();
 

@@ -39,19 +39,30 @@ short ycoord1 = 1140;
 
 short xcoord1 = 1892;
 
+short testx = 96;
+
+short texty = 34;
+
+int test2 = 5;
+
+int test3 = 12;
+
 static void __cdecl director_render_detour()
 {
 	// Drawing text on screen example
 	//ImVec4 crap = gui::SV_RAINBOW(255, 255, 1.0);
 
-	real_argb_color colour(0.42, 1, 0, 132);
-	halo3::game::render::draw_text("Draw quad test.", 80, 80, 1.0f, colour);
+	//real_argb_color colour(0.42, 1, 0, 132);
+	//halo3::game::render::draw_text("Draw quad test.", 80, 80, 1.0f, colour);
 
-	short_rectangle2d rect{ ycoord0,xcoord0,ycoord1,xcoord1 };
+	//short_rectangle2d rect{ ycoord0,xcoord0,ycoord1,xcoord1 };
 
-	int ass = halo3::game::render::real_argb_color_to_pixel32(&colour);
+	//int colour = halo3::game::render::real_argb_color_to_pixel32(&colour);
 
-	utils::memory::game_call<void>(halo3::offsets::functions::render::draw_quad)(&rect, ass);
+	//utils::memory::game_call<void>(halo3::offsets::functions::render::draw_quad)(&rect, colour); //rect is coords, colour is pixel32 colour
+
+	//short_point2d point2d{ testx,texty };
+	//utils::memory::game_call<void>(halo3::offsets::functions::render::draw_linestrip_2d)(&point2d, test2, test3); //point2d is line coords, test 2 is unimplemented?, test 3 is pixel32 colour
 
 	return halo3::hooks::director_render.stub<void>();
 }
