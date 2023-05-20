@@ -26,6 +26,11 @@ namespace halo3
 			{"director_render","48 8B C4 55 48 8D A8 F8 F6 FF FF"},
 			{"screen_res_x","0F B7 05 ? ? ? ? 66 89 41 ? 0F B7 05 ? ? ? ? 66 89 41 ? 0F BF 41"},
 			{"screen_res_y","0F B7 05 ? ? ? ? 66 89 41 ? 0F BF 41"},
+			{"draw_string_set_font","48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 30 33 C0"},
+			{"draw_string_draw","48 89 5C 24 08 48 89 6C 24 10 56 57 41 56 48 81 EC 30 04 00 00"},
+			{"draw_string_set_bounds","48 85 D2 74 58 44 0F BF 4A 02"},
+			{"get_screen_bounds","33 C0 89 01 0F B7 05"},
+			{"deinit_font_cache","40 53 48 83 EC 20 80 39 00 48 8B D9 74 34 8B 15 ?? ?? ?? ?? 65 48 8B 04 25 58 00 00 00 B9 48 01 00 00"},
 			{"draw_quad","4C 8B DC 48 83 EC ? 0F B7 41"}
 		};
 	};

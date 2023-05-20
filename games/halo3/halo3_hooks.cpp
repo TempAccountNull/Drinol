@@ -44,14 +44,14 @@ static void __cdecl director_render_detour()
 	// Drawing text on screen example
 	//ImVec4 crap = gui::SV_RAINBOW(255, 255, 1.0);
 
-	//real_argb_color colour(0.42, 1, 0, 132);
-	//halo3::game::render::draw_text("Draw quad test.", 80, 80, 1.0f, colour);
+	real_argb_color colour(0.42, 1, 0, 132);
+	halo3::game::render::draw_text("Draw quad test.", 80, 80, 1.0f, colour);
 
-	//short_rectangle2d rect{ ycoord0,xcoord0,ycoord1,xcoord1 };
+	short_rectangle2d rect{ ycoord0,xcoord0,ycoord1,xcoord1 };
 
-	//int ass = halo3::game::render::real_argb_color_to_pixel32(&colour);
+	int ass = halo3::game::render::real_argb_color_to_pixel32(&colour);
 
-	//utils::memory::game_call<void>(halo3::offsets::functions::draw_quad)(&rect, ass);
+	utils::memory::game_call<void>(halo3::offsets::functions::render::draw_quad)(&rect, ass);
 
 	return halo3::hooks::director_render.stub<void>();
 }
@@ -86,13 +86,13 @@ void __cdecl weapon_barrel_create_projectiles_detour(long weapon_object_index, s
 
 void halo3::hooks::init()
 {
-	game_in_progress.create(reinterpret_cast<uintptr_t>(offsets::functions::game_in_progress), game_in_progress_detour);
+	game_in_progress.create(reinterpret_cast<uintptr_t>(offsets::functions::game::game_in_progress), game_in_progress_detour);
 
-	game_tick.create(reinterpret_cast<uintptr_t>(offsets::functions::game_tick), game_tick_detour);
+	game_tick.create(reinterpret_cast<uintptr_t>(offsets::functions::game::game_tick), game_tick_detour);
 
-	director_render.create(reinterpret_cast<uintptr_t>(offsets::functions::director_render), director_render_detour);
+	director_render.create(reinterpret_cast<uintptr_t>(offsets::functions::render::director_render), director_render_detour);
 
-	weapon_barrel_create_projectiles.create(reinterpret_cast<uintptr_t>(offsets::functions::weapon_barrel_create_projectiles), weapon_barrel_create_projectiles_detour);
+	weapon_barrel_create_projectiles.create(reinterpret_cast<uintptr_t>(offsets::functions::weapons::weapon_barrel_create_projectiles), weapon_barrel_create_projectiles_detour);
 
 	MH_ApplyQueued();
 }

@@ -180,12 +180,12 @@ unsigned long halo3::game::grab_local_player_unit()
 
 void halo3::game::object_scripting_cannot_die(int object_handle, bool cannot_die)
 {
-	return utils::memory::game_call<void>(offsets::functions::object_scripting_cannot_die)(object_handle, cannot_die);
+	return utils::memory::game_call<void>(offsets::functions::objects::object_scripting_cannot_die)(object_handle, cannot_die);
 }
 
 void halo3::game::game_time_set_rate_scale_direct(float speed)
 {
-	return utils::memory::game_call<void>(offsets::functions::game_time_set_rate_scale_direct)(speed);
+	return utils::memory::game_call<void>(offsets::functions::game::game_time_set_rate_scale_direct)(speed);
 }
 
 void* halo3::game::get_restricted_region_member_address(int alias_index, int member_index, int index)
@@ -197,12 +197,12 @@ void* halo3::game::get_restricted_region_member_address(int alias_index, int mem
 
 long halo3::game::weapon_get_owner_unit_index(long weapon_index)
 {
-	return utils::memory::game_call<long>(offsets::functions::weapon_get_owner_unit_index)(weapon_index);
+	return utils::memory::game_call<long>(offsets::functions::weapons::weapon_get_owner_unit_index)(weapon_index);
 }
 
 bool halo3::game::game_team_is_enemy(long team_1, long team_2)
 {
-	return utils::memory::game_call<bool>(offsets::functions::game_team_is_enemy)(team_1, team_2);
+	return utils::memory::game_call<bool>(offsets::functions::game::game_team_is_enemy)(team_1, team_2);
 }
 
 struct struct_v6 // Dont know what the heck this is .-.
@@ -213,7 +213,7 @@ struct struct_v6 // Dont know what the heck this is .-.
 
 DWORD halo3::game::get_unit_team(int unit_index)
 {
-	struct_v6* ass = utils::memory::game_call<struct_v6*>(halo3::offsets::functions::object_try_and_get_and_verify_type)(unit_index, 0x1003u);
+	struct_v6* ass = utils::memory::game_call<struct_v6*>(halo3::offsets::functions::objects::object_try_and_get_and_verify_type)(unit_index, 0x1003u);
 
 	if (ass)
 	{
@@ -256,21 +256,21 @@ void halo3::game::render::draw_text(std::string text, int XPos, int YPos, float 
 	utils::memory::game_call<halo3::engine::c_rasterizer_draw_string*>(Memcury::PE::GetModuleBase() + 0x28126c)(&draw_string); // c_rasterizer_draw_string rasterizer_draw_string;
 	utils::memory::game_call<halo3::engine::c_font_cache_mt_safe*>(Memcury::PE::GetModuleBase() + 0x177dcc)(&font_cache); // c_font_cache_mt_safe font_cache;
 
-	utils::memory::game_call<void>(Memcury::PE::GetModuleBase() + 0x1febcc)(&draw_string, halo3::engine::e_font_id::Conduit_32);
+	utils::memory::game_call<void>(halo3::offsets::functions::render::draw_string_set_font)(&draw_string, halo3::engine::e_font_id::Conduit_32); // set font
 
 	draw_string.m_scale = scale; // Text Scale
 
 	draw_string.m_color = colour; // Text colour
 
-	utils::memory::game_call<void>(Memcury::PE::GetModuleBase() + 0x26430c)(&bounds); // set bounds
+	utils::memory::game_call<void>(halo3::offsets::functions::render::get_screen_bounds)(&bounds); // get bounds
 
 	//Position
 	bounds.y0 += YPos;
 	bounds.x0 += XPos;
 
-	utils::memory::game_call<void>(Memcury::PE::GetModuleBase() + 0x1fece4)(&draw_string, &bounds); // set bounds
-	utils::memory::game_call<bool>(Memcury::PE::GetModuleBase() + 0x1fed4c)(&draw_string, &font_cache, text.c_str());
-	utils::memory::game_call<void>(Memcury::PE::GetModuleBase() + 0x177ae4)(&font_cache.m_locked); //Deinit font cache
+	utils::memory::game_call<void>(halo3::offsets::functions::render::draw_string_set_bounds)(&draw_string, &bounds); // set bounds
+	utils::memory::game_call<bool>(halo3::offsets::functions::render::draw_string_draw)(&draw_string, &font_cache, text.c_str()); // draw text
+	utils::memory::game_call<void>(halo3::offsets::functions::render::deinit_font_cache)(&font_cache.m_locked); //Deinit font cache
 }
 
 int halo3::game::render::real_argb_color_to_pixel32(real_argb_color* colour)

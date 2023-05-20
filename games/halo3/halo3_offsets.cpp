@@ -29,25 +29,35 @@ void halo3::offsets::init()
 
 	globals::g_restricted_regions = Memcury::Scanner::FindPattern(sigs::list["g_restricted_regions"].c_str()).RelativeOffset(3).GetAs<c_restricted_memory*>();
 
-	functions::game_in_progress = Memcury::Scanner::FindPattern(sigs::list["game_in_progress"].c_str()).RelativeOffset(1).GetAs<void*>();
+	functions::game::game_in_progress = Memcury::Scanner::FindPattern(sigs::list["game_in_progress"].c_str()).RelativeOffset(1).GetAs<void*>();
 
-	functions::game_tick = Memcury::Scanner::FindPattern(sigs::list["game_tick"].c_str()).RelativeOffset(1).GetAs<void*>();
+	functions::game::game_tick = Memcury::Scanner::FindPattern(sigs::list["game_tick"].c_str()).RelativeOffset(1).GetAs<void*>();
 
-	functions::director_render = Memcury::Scanner::FindPattern(sigs::list["director_render"].c_str()).GetAs<void*>();
+	functions::render::director_render = Memcury::Scanner::FindPattern(sigs::list["director_render"].c_str()).GetAs<void*>();
 
-	functions::weapon_barrel_create_projectiles = Memcury::Scanner::FindPattern(sigs::list["weapon_barrel_create_projectiles"].c_str()).RelativeOffset(1).GetAs<void*>();
+	functions::weapons::weapon_barrel_create_projectiles = Memcury::Scanner::FindPattern(sigs::list["weapon_barrel_create_projectiles"].c_str()).RelativeOffset(1).GetAs<void*>();
 
-	functions::weapon_get_owner_unit_index = Memcury::Scanner::FindPattern(sigs::list["weapon_get_owner_unit_index"].c_str()).RelativeOffset(1).Get();
+	functions::weapons::weapon_get_owner_unit_index = Memcury::Scanner::FindPattern(sigs::list["weapon_get_owner_unit_index"].c_str()).RelativeOffset(1).Get();
 
-	functions::object_scripting_cannot_die = Memcury::Scanner::FindPattern(sigs::list["object_scripting_cannot_die"].c_str()).Get();
+	functions::objects::object_scripting_cannot_die = Memcury::Scanner::FindPattern(sigs::list["object_scripting_cannot_die"].c_str()).Get();
 
-	functions::game_time_set_rate_scale_direct = Memcury::Scanner::FindPattern(sigs::list["game_time_set_rate_scale_direct"].c_str()).Get();
+	functions::game::game_time_set_rate_scale_direct = Memcury::Scanner::FindPattern(sigs::list["game_time_set_rate_scale_direct"].c_str()).Get();
 
-	functions::object_try_and_get_and_verify_type = Memcury::Scanner::FindPattern(sigs::list["object_try_and_get_and_verify_type"].c_str()).Get();
+	functions::objects::object_try_and_get_and_verify_type = Memcury::Scanner::FindPattern(sigs::list["object_try_and_get_and_verify_type"].c_str()).Get();
 
-	functions::game_team_is_enemy = Memcury::Scanner::FindPattern(sigs::list["game_team_is_enemy"].c_str()).Get();
+	functions::game::game_team_is_enemy = Memcury::Scanner::FindPattern(sigs::list["game_team_is_enemy"].c_str()).Get();
 
-	functions::draw_quad = Memcury::Scanner::FindPattern(sigs::list["draw_quad"].c_str()).Get();
+	functions::render::draw_quad = Memcury::Scanner::FindPattern(sigs::list["draw_quad"].c_str()).Get();
+
+	functions::render::draw_string_set_font = Memcury::Scanner::FindPattern(sigs::list["draw_string_set_font"].c_str()).Get();
+
+	functions::render::draw_string_draw = Memcury::Scanner::FindPattern(sigs::list["draw_string_draw"].c_str()).Get();
+
+	functions::render::draw_string_set_bounds = Memcury::Scanner::FindPattern(sigs::list["draw_string_set_bounds"].c_str()).Get();
+
+	functions::render::get_screen_bounds = Memcury::Scanner::FindPattern(sigs::list["get_screen_bounds"].c_str()).Get();
+
+	functions::render::deinit_font_cache = Memcury::Scanner::FindPattern(sigs::list["deinit_font_cache"].c_str()).Get();
 
 	variables::screen_res_x = Memcury::Scanner::FindPattern(sigs::list["screen_res_x"].c_str()).RelativeOffset(3).GetAs<int*>();
 	variables::screen_res_y = Memcury::Scanner::FindPattern(sigs::list["screen_res_y"].c_str()).RelativeOffset(3).GetAs<int*>();
