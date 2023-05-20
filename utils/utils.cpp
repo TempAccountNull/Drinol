@@ -6,6 +6,7 @@
 #include "games/halo2/halo2.h"
 #include "games/halo3/halo3.h"
 #include "games/halo3/halo3_hooks.h"
+#include "games/halo3/halo3_offsets.h"
 #include "games/halo3odst/halo3odst.h"
 #include "games/halo4/halo4.h"
 #include "games/haloreach/haloreach.h"
@@ -382,7 +383,7 @@ bool utils::keys::is_key_pressed(int keyCode) {
 int utils::keys::capture_next_key()
 {
 	for (int keyCode = 0; keyCode < 256; ++keyCode) {
-		if (utils::keys::is_key_pressed(keyCode)) {
+		if (is_key_pressed(keyCode)) {
 			return keyCode;
 		}
 	}
@@ -394,7 +395,14 @@ int utils::keys::capture_next_key()
 
 void utils::test_func(int test_int)
 {
-	halo3::hooks::game_tick_test = true;
+	halo3::engine::s_player_control_globals* game_globals = halo3::offsets::globals::player_control_globals;
+	spdlog::info("Player control globals: {:X}", reinterpret_cast<uintptr_t>(&game_globals));
+
+	//for (int i = 0; i < 30; i++) {
+	//	game_globals->game_options.game_mode = 1;
+	//	halo3::game::skulls::skull_primary_enable(i, true);
+	//	halo3::game::skulls::skull_secondary_enable(i, true);
+	//}
 }
 
 uintptr_t utils::memory::get_offset(uintptr_t address)
