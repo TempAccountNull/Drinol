@@ -222,6 +222,30 @@ DWORD halo3::game::get_unit_team(int unit_index)
 	return -1;
 }
 
+void halo3::game::skulls::skull_primary_enable(int16_t skull_id, bool enable)
+{
+	engine::s_game_globals* game_globals = halo3::offsets::globals::game_globals;
+
+	auto skull = 1 << skull_id;
+
+	if (enable)
+		game_globals->active_primary_skulls |= skull;
+	else
+		game_globals->active_primary_skulls &= ~skull;
+}
+
+void halo3::game::skulls::skull_secondary_enable(int16_t skull_id, bool enable)
+{
+	engine::s_game_globals* game_globals = halo3::offsets::globals::game_globals;
+
+	auto skull = 1 << skull_id;
+
+	if (enable)
+		game_globals->active_secondary_skulls |= skull;
+	else
+		game_globals->active_secondary_skulls &= ~skull;
+}
+
 void halo3::game::render::draw_engine_text(std::string text, int XPos, int YPos, float scale, real_argb_color colour = real_argb_color(255, 255, 255, 255))
 {
 	halo3::engine::c_rasterizer_draw_string draw_string;

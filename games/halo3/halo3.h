@@ -82,6 +82,14 @@ namespace halo3
 		public:
 			static void draw_engine_text(std::string text, int XPos, int YPos, float scale, real_argb_color colour);
 		};
+
+		class skulls
+		{
+		public:
+			static void skull_primary_enable(int16_t skull_id, bool enable);
+			static void skull_secondary_enable(int16_t skull_id, bool enable);
+		};
+
 		/**
  * \brief Gets a handle of an object
  * \return object handle
