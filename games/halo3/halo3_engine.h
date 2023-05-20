@@ -396,4 +396,42 @@ namespace halo3::engine // Engine related structs, etc
 		BYTE gap14D[1791];
 		DWORD dword84C;
 	};
+
+	struct s_game_options
+	{
+		uint8_t game_mode;
+		uint8_t game_simulation;
+		uint8_t game_network_type;
+		uint16_t game_tick_rate;
+		uint64_t game_instance;
+		uint32_t random_seed;
+		uint32_t language;
+		uint8_t determinism_version;
+		char pad_0016[323];
+		uint16_t campaign_difficulty;
+		uint16_t campaign_insertion_point;
+		uint16_t campaign_metagame_scoring;
+		char pad_015F[5495];
+	};
+
+	struct s_game_globals
+	{
+		bool initializing;
+		bool map_active;
+		uint8_t N00006F9A;
+		uint8_t N00006F9D;
+		uint32_t active_structure_bsp_mask;
+		uint16_t active_designer_zone_mask;
+		uint32_t active_cinematic_zone_mask;
+		struct s_game_options game_options;
+		char pad_16E4[58515];
+		uint32_t N000036B3;
+		uint32_t active_skulls2;
+		uint32_t N000036B5;
+		uint32_t active_primary_skulls;
+		uint32_t active_secondary_skulls;
+		uint32_t N00003699;
+		uint32_t N000035D0;
+		char pad_FB93[1580];
+	};
 }
