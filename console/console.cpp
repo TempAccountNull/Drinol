@@ -36,7 +36,7 @@ void console::Initialize()
 		DWORD error = GetLastError();
 		std::wstring text = L"Could not get console mode. : ";
 		text.append(std::to_wstring(error));
-		MessageBox(NULL, text.c_str(), L"Drinol Error!", 0);
+		MessageBox(nullptr, text.c_str(), L"Drinol Error!", 0);
 	}
 
 	mode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
@@ -47,7 +47,7 @@ void console::Initialize()
 		DWORD error = GetLastError();
 		std::wstring text = L"Could not set console mode. : ";
 		text.append(std::to_wstring(error));
-		MessageBox(NULL, text.c_str(), L"Drinol Error!", 0);
+		MessageBox(nullptr, text.c_str(), L"Drinol Error!", 0);
 	}
 }
 
@@ -79,17 +79,17 @@ void console::GetConsoleSize(float in[2])
 
 void console::SetConsoleSize(float size[2], int pos[2])
 {
-	HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+	[[maybe_unused]] HANDLE consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	SMALL_RECT rect;
-	rect.Left = pos[0];
-	rect.Top = pos[1];
-	rect.Right = size[0] - 1;
-	rect.Bottom = size[1] - 1;
+	rect.Left = static_cast<short>(pos[0]);
+	rect.Top = static_cast<short>(pos[1]);
+	rect.Right = static_cast<short>(size[0]) - 1;
+	rect.Bottom = static_cast<short>(size[1]) - 1;
 
 	COORD bufferSize;
-	bufferSize.X = size[0];
-	bufferSize.Y = size[1];
+	bufferSize.X = static_cast<short>(size[0]);
+	bufferSize.Y = static_cast<short>(size[1]);
 
 	SetConsoleWindowInfo(p_handle, TRUE, &rect);
 	SetConsoleScreenBufferSize(p_handle, bufferSize);

@@ -23,7 +23,7 @@
 void menu::about_modal()
 {
 	// about modal
-	if (ImGui::BeginPopupModal("Drinol - About", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoDecoration))
+	if (ImGui::BeginPopupModal("Drinol - About", nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoDecoration))
 	{
 		ImGui::Text("Drinol - A Halo modding utility.");
 		ImGui::Separator();
@@ -40,11 +40,11 @@ void menu::about_modal()
 		if (ImGui::Button("Close", size)) { ImGui::CloseCurrentPopup(); }
 		ImGui::SameLine();
 		if (ImGui::Button("Github Repo", size)) {
-			ShellExecute(0, 0, L"https://github.com/matty45/Drinol", 0, 0, SW_SHOW);// I dont feel that this is a secure way of opening a web page but idk
+			ShellExecute(nullptr, nullptr, L"https://github.com/matty45/Drinol", nullptr, nullptr, SW_SHOW);// I dont feel that this is a secure way of opening a web page but idk
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("Discord Server", size)) {
-			ShellExecute(0, 0, L"https://discord.gg/AkyKYTkPSJ", 0, 0, SW_SHOW);// I dont feel that this is a secure way of opening a web page but idk
+			ShellExecute(nullptr, nullptr, L"https://discord.gg/AkyKYTkPSJ", nullptr, nullptr, SW_SHOW);// I dont feel that this is a secure way of opening a web page but idk
 		}
 		ImGui::SameLine();	//	prevents window from constantly expanding
 		ImGui::SetWindowSize({ ImGui::GetWindowContentRegionWidth(), 0 });	//	sets window size
@@ -54,7 +54,7 @@ void menu::about_modal()
 
 void menu::restore_defaults_modal()
 {
-	if (ImGui::BeginPopupModal("Restore Defaults?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	if (ImGui::BeginPopupModal("Restore Defaults?", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
 	{
 		ImGui::Text("Do you want to retore all settings to their default?");
 
@@ -72,7 +72,7 @@ void menu::restore_defaults_modal()
 
 void menu::detach_modal()
 {
-	if (ImGui::BeginPopupModal("Detach Drinol?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	if (ImGui::BeginPopupModal("Detach Drinol?", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
 	{
 		ImGui::Text("Do you want to detach Drinol?");
 
@@ -92,7 +92,7 @@ void menu::detach_modal()
 
 void menu::load_changes_modal()
 {
-	if (ImGui::BeginPopupModal("Load Changes?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	if (ImGui::BeginPopupModal("Load Changes?", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
 	{
 		ImGui::Text("Do you want to load changes from storage?");
 
@@ -110,7 +110,7 @@ void menu::load_changes_modal()
 
 void menu::save_changes_modal()
 {
-	if (ImGui::BeginPopupModal("Save Changes?", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+	if (ImGui::BeginPopupModal("Save Changes?", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
 	{
 		ImGui::Text("Do you want to save your changes?");
 
@@ -197,7 +197,7 @@ void settings_window(bool* show)
 				"Displays the Drinol console. Requires a restart.",
 				&g_Console->bShowWindow
 			))
-				ShowWindow(GetConsoleWindow(), &g_Console->bShowWindow ? SW_SHOW : SW_HIDE);
+				ShowWindow(GetConsoleWindow(), g_Console->bShowWindow ? SW_SHOW : SW_HIDE);
 
 			g_Overlay->CheckboxWithToolTip("Display ImGui Console",
 				"Displays the Drinol ImGui console.",
@@ -249,7 +249,7 @@ int someInteger = 4;
 void menu::render()
 {
 	g_Overlay->ApplyImGuiStyle(true, 0.5f);
-	ImGui::Begin("Drinol", 0, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
+	ImGui::Begin("Drinol", nullptr, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoCollapse);
 
 	// Menu Bar
 	if (ImGui::BeginMenuBar())
@@ -282,7 +282,7 @@ void menu::render()
 		if (ImGui::BeginTabItem("Status"))
 		{
 			// Status of Drinol, blah
-			if (!utils::games::current_game_number == -1)
+			if (utils::games::current_game_number != -1)
 			{
 				ImGui::Text("Currently running game: %i", utils::games::current_game_number);
 			}
@@ -446,24 +446,24 @@ void menu::RenderHUD()
 	//	Render Window
 	ImGui::SetNextWindowPos({ 0, 0 }, ImGuiCond_Always);
 	ImGui::SetNextWindowSize({ size[0], size[1] }, ImGuiCond_Always);
-	if (!ImGui::Begin(("##HUDWindow"), NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoInputs))
+	if (!ImGui::Begin(("##HUDWindow"), nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoInputs))
 	{
 		ImGui::End();
 		return;
 	}
 
-	ImDrawList* draw = ImGui::GetWindowDrawList();
+	[[maybe_unused]] ImDrawList* draw = ImGui::GetWindowDrawList();
 
 	char data[0x128];	//	296 chars max length
 	const char* _data = "";
 	const char* modified = "";
 #if defined _DEBUG
 	_data = "Drinol - Debug - %s";
-	if (sizeof(OLDEST_CHANGED_FILE_BEFORE_COMMIT) > 1)
+	if constexpr (sizeof(OLDEST_CHANGED_FILE_BEFORE_COMMIT) > 1)
 		modified = " - Mod";
 #else
 	_data = "Drinol - Release - %s";
-	if (sizeof(OLDEST_CHANGED_FILE_BEFORE_COMMIT) > 1)
+	if constexpr (sizeof(OLDEST_CHANGED_FILE_BEFORE_COMMIT) > 1)
 		modified = " - Mod";
 #endif
 	sprintf_s(data, _data, COMMIT_HASH, modified);
@@ -649,7 +649,7 @@ void menu::Halo3::DrawMenu()
 #endif
 			if (ImGui::BeginTabItem("Game"))
 			{
-				if (halo3::offsets::globals::physics_constants != NULL)
+				if (halo3::offsets::globals::physics_constants != nullptr)
 				{
 					ImGui::DragFloat("Gravity", &halo3::offsets::globals::physics_constants->gravity, 0.005f, -FLT_MAX, +FLT_MAX, "%.5f", ImGuiSliderFlags_None);
 					if (ImGui::IsItemHovered())

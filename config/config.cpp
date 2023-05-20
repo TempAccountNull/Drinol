@@ -21,7 +21,7 @@
 // This is used for the management of config files, etc
 
 //https://stackoverflow.com/a/29798
-inline const char* const bool_to_string(bool b)
+inline const char* bool_to_string(bool b)
 {
 	return b ? "true" : "false";
 }
@@ -41,9 +41,7 @@ template< typename T >
 std::string int_to_hex_string(T i)
 {
 	std::stringstream stream;
-	stream << "0x"
-		//<< std::setfill('0') << std::setw(sizeof(T) * 2)
-		<< std::hex << i;
+	stream << "0x" << std::hex << i;
 	return stream.str();
 }
 
@@ -119,7 +117,7 @@ bool config::main::create_config_folder()
 {
 	// Create a directory to store all the config files (keeps things tidy :p)
 	// from https://stackoverflow.com/a/9235708
-	if (CreateDirectoryA(config_folder.c_str(), NULL) ||
+	if (CreateDirectoryA(config_folder.c_str(), nullptr) ||
 		ERROR_ALREADY_EXISTS == GetLastError())
 	{
 		//puts("Created a new directory to store the config files, or it already exists!");

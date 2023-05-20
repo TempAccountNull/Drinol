@@ -33,11 +33,11 @@ HRESULT hkResizeBuffers(IDXGISwapChain* pThis, UINT BufferCount, UINT Width, UIN
 
 //---------------------------------------------------------------------------------------------------
 //dx11 ResizeBuffers Hook
-HRESULT hkResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags)
+HRESULT hkResizeBuffers(IDXGISwapChain* pSwapChain, const UINT BufferCount, const UINT Width, const UINT Height, const DXGI_FORMAT NewFormat, const UINT SwapChainFlags)
 {
 	if (mainRenderTargetView)
 	{
-		pContext->OMSetRenderTargets(0, 0, 0);
+		pContext->OMSetRenderTargets(0, nullptr, nullptr);
 		mainRenderTargetView->Release();
 	}
 
@@ -48,14 +48,14 @@ HRESULT hkResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width
 	window = sd.OutputWindow;
 
 	ID3D11Texture2D* pBuffer;
-	pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&pBuffer);
+	pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&pBuffer));
 	// Perform error handling here!
 
-	pDevice->CreateRenderTargetView(pBuffer, NULL, &mainRenderTargetView);
+	pDevice->CreateRenderTargetView(pBuffer, nullptr, &mainRenderTargetView);
 	// Perform error handling here!
 	pBuffer->Release();
 
-	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
+	pContext->OMSetRenderTargets(1, &mainRenderTargetView, nullptr);
 
 	// Set up the viewport.
 	D3D11_VIEWPORT vp;
@@ -99,7 +99,7 @@ void hkDrawIndexed(ID3D11DeviceContext* p_context, const UINT index_count, const
 }
 
 //---------------------------------------------------------------------------------------------------
-LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT __stdcall WndProc(const HWND hWnd, const UINT uMsg, const WPARAM wParam, const LPARAM lParam)
 {
 	//	When menu is shown we want to utilize the imgui wndproc handler
 	//	Likewise , when shutting down we do not want to get locked into DearImGuis WndProc Handler
@@ -112,22 +112,22 @@ LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
 }
 
 //---------------------------------------------------------------------------------------------------
-HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags)
+HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, const UINT SyncInterval, const UINT Flags)
 {
 	//	Should be moved to its own initialization function
 	if (!g_Overlay->binit)
 	{
-		if (SUCCEEDED(pSwapChain->GetDevice(__uuidof(ID3D11Device), (void**)&pDevice)))
+		if (SUCCEEDED(pSwapChain->GetDevice(__uuidof(ID3D11Device), reinterpret_cast<void**>(&pDevice))))
 		{
 			pDevice->GetImmediateContext(&pContext);
 			DXGI_SWAP_CHAIN_DESC sd;
 			pSwapChain->GetDesc(&sd);
 			window = sd.OutputWindow;
 			ID3D11Texture2D* pBackBuffer;
-			pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
-			pDevice->CreateRenderTargetView(pBackBuffer, NULL, &mainRenderTargetView);
+			pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<LPVOID*>(&pBackBuffer));
+			pDevice->CreateRenderTargetView(pBackBuffer, nullptr, &mainRenderTargetView);
 			pBackBuffer->Release();
-			oWndProc = (WNDPROC)SetWindowLongPtr(window, GWLP_WNDPROC, (LONG_PTR)WndProc);
+			oWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(window, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(WndProc)));
 			g_Overlay->InitImGui();
 			g_Overlay->SyncWindow(window);
 			g_Overlay->binit = true;
@@ -163,9 +163,9 @@ void gui::init()
 #if defined _DEBUG
 		spdlog::debug("kiero initialized.");
 #endif
-		kiero::bind(8, (void**)&oPresent, hkPresent);
-		kiero::bind(13, (void**)&oResizeBuffers, hkResizeBuffers);
-		kiero::bind(73, (void**)&oDrawIndexed, hkDrawIndexed);
+		kiero::bind(8, reinterpret_cast<void**>(&oPresent), hkPresent);
+		kiero::bind(13, reinterpret_cast<void**>(&oResizeBuffers), hkResizeBuffers);
+		kiero::bind(73, reinterpret_cast<void**>(&oDrawIndexed), hkDrawIndexed);
 	}
 
 #if defined _DEBUG
@@ -175,12 +175,12 @@ void gui::init()
 
 //---------------------------------------------------------------------------------------------------
 //	Obtains window data and passes it to p_window pointer
-void gui::SyncWindow(HWND window)
+void gui::SyncWindow(const HWND wnd)
 {
 	RECT temprect;
-	GetWindowRect(window, &temprect);
-	float position[2] = { temprect.left, temprect.top };
-	float size[2] = { (temprect.right - temprect.left), (temprect.bottom - temprect.top) };
+	GetWindowRect(wnd, &temprect);
+	float position[2] = { static_cast<float>(temprect.left), static_cast<float>(temprect.top) };
+	//float size[2] = { (temprect.right - temprect.left), (temprect.bottom - temprect.top) };
 
 	// Position
 	for (int i = 0; i < 2; i++)
@@ -220,7 +220,7 @@ void gui::GetCenterScreen(float* in)
 
 //---------------------------------------------------------------------------------------------------
 //	Main Overlay Render Function
-VOID WINAPI gui::Overlay(bool bShowMenu)
+VOID WINAPI gui::Overlay(const bool bShowMenu)
 {
 	//	Begin Draw Scene
 	ImGui_ImplDX11_NewFrame();
@@ -238,7 +238,7 @@ VOID WINAPI gui::Overlay(bool bShowMenu)
 	//	End Draw Scene
 	ImGui::EndFrame();
 	ImGui::Render();
-	pContext->OMSetRenderTargets(1, &mainRenderTargetView, NULL);
+	pContext->OMSetRenderTargets(1, &mainRenderTargetView, nullptr);
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 }
 
@@ -294,7 +294,7 @@ BOOL IMGUI_API gui::CheckboxWithToolTip(const char* label, const char* tip, bool
 
 //---------------------------------------------------------------------------------------------------
 //	Combo with a tooltip
-BOOL IMGUI_API	gui::ComboWithToolTip(const char* label, const char* tip, int* current_item, const char* items_separated_by_zeros, int popup_max_height_in_items)
+BOOL IMGUI_API	gui::ComboWithToolTip(const char* label, const char* tip, int* current_item, const char* items_separated_by_zeros, const int popup_max_height_in_items)
 {
 	bool result = ImGui::Combo(label, current_item, items_separated_by_zeros, popup_max_height_in_items);
 
@@ -306,7 +306,7 @@ BOOL IMGUI_API	gui::ComboWithToolTip(const char* label, const char* tip, int* cu
 
 //---------------------------------------------------------------------------------------------------
 //	Drag Float with a tooltip
-BOOL IMGUI_API gui::DragFloatWithToolTip(const char* label, const char* tip, float* v, float v_speed, float v_min, float v_max, const char* format, ImGuiSliderFlags flags)
+BOOL IMGUI_API gui::DragFloatWithToolTip(const char* label, const char* tip, float* v, const float v_speed, const float v_min, const float v_max, const char* format, const ImGuiSliderFlags flags)
 {
 	bool result = ImGui::DragFloat(label, v, v_speed, v_min, v_max, format, flags);
 
@@ -318,32 +318,32 @@ BOOL IMGUI_API gui::DragFloatWithToolTip(const char* label, const char* tip, flo
 
 //---------------------------------------------------------------------------------------------------
 //	Simplified draw text call
-VOID IMGUI_API gui::Text(const ImVec2& pos, float fontsize, const ImVec4& color, const char* text, const char* text_end, float wrap_width, const ImVec4* cpu_fine_clip_rect)
+VOID IMGUI_API gui::Text(const ImVec2& pos, const float fontsize, const ImVec4& color, const char* text, const char* text_end, const float wrap_width, const ImVec4* cpu_fine_clip_rect)
 {
 	ImGui::GetWindowDrawList()->AddText(ImGui::GetFont(), fontsize, pos, ImColor(color), text, text_end, wrap_width, cpu_fine_clip_rect);
 }
 
 //---------------------------------------------------------------------------------------------------
 // Draws a line from pointA to pointB
-VOID IMGUI_API gui::Line(const ImVec2& pointA, const ImVec2& pointB, const ImVec4& color, float thickness)
+VOID IMGUI_API gui::Line(const ImVec2& pointA, const ImVec2& pointB, const ImVec4& color, const float thickness)
 {
 	ImGui::GetWindowDrawList()->AddLine(pointA, pointB, ImColor(color), thickness);
 }
 
 //---------------------------------------------------------------------------------------------------
 //	Draws text with a black outline
-VOID IMGUI_API gui::CleanText(const ImVec2& pos, const ImVec4& color, const char* text, float fontsize)
+VOID IMGUI_API gui::CleanText(const ImVec2& pos, const ImVec4& color, const char* text, const float fontsize)
 {
-	Text(ImVec2(pos.x + 1.f, pos.y + 1.f), fontsize, ImColor(IM_COL32_BLACK), text, text + strlen(text), 800, 0);
-	Text(ImVec2(pos.x - 1.f, pos.y - 1.f), fontsize, ImColor(IM_COL32_BLACK), text, text + strlen(text), 800, 0);
-	Text(ImVec2(pos.x, pos.y - 1.f), fontsize, ImColor(IM_COL32_BLACK), text, text + strlen(text), 800, 0);
-	Text(ImVec2(pos.x, pos.y + 1.f), fontsize, ImColor(IM_COL32_BLACK), text, text + strlen(text), 800, 0);
-	Text(pos, fontsize, color, text, text + strlen(text), 800, 0);
+	Text(ImVec2(pos.x + 1.f, pos.y + 1.f), fontsize, ImColor(IM_COL32_BLACK), text, text + strlen(text), 800, nullptr);
+	Text(ImVec2(pos.x - 1.f, pos.y - 1.f), fontsize, ImColor(IM_COL32_BLACK), text, text + strlen(text), 800, nullptr);
+	Text(ImVec2(pos.x, pos.y - 1.f), fontsize, ImColor(IM_COL32_BLACK), text, text + strlen(text), 800, nullptr);
+	Text(ImVec2(pos.x, pos.y + 1.f), fontsize, ImColor(IM_COL32_BLACK), text, text + strlen(text), 800, nullptr);
+	Text(pos, fontsize, color, text, text + strlen(text), 800, nullptr);
 }
 
 //---------------------------------------------------------------------------------------------------
 // Draws a line from pointA to pointB with a black outline
-VOID IMGUI_API gui::CleanLine(const ImVec2& a, const ImVec2& b, const ImVec4& color, float thickness)
+VOID IMGUI_API gui::CleanLine(const ImVec2& a, const ImVec2& b, const ImVec4& color, const float thickness)
 {
 	Line(a, b, { 0.f, 0.f, 0.f, color.w }, (thickness + 0.25f));
 	Line(a, b, { 1.f, 1.f, 1.f, (color.w - 0.2f) }, (thickness + 0.15f));
@@ -351,7 +351,7 @@ VOID IMGUI_API gui::CleanLine(const ImVec2& a, const ImVec2& b, const ImVec4& co
 }
 
 // Custom Dear ImGui Style
-void gui::ApplyImGuiStyle(bool is_dark_style, float alpha_threshold)
+void gui::ApplyImGuiStyle(const bool is_dark_style, const float alpha_threshold)
 {
 	//Use a ternary operator
 	is_dark_style ? ImGui::StyleColorsDark() : ImGui::StyleColorsLight();
@@ -455,24 +455,24 @@ void gui::ApplyImGuiStyle(bool is_dark_style, float alpha_threshold)
 }
 
 //Add RAINBOW! - Thanks NightFyre <3
-ImVec4 gui::SV_RAINBOW(float saturation, float value, float opacity, float speed, float hue)
+ImVec4 gui::SV_RAINBOW(const float saturation, const float value, float opacity, const float speed, const float hue)
 {
 	float HSV_RAINBOW_SPEED = speed;
 	static float HSV_RAINBOW_HUE = hue;
 
 	HSV_RAINBOW_HUE -= HSV_RAINBOW_SPEED;
 	if (HSV_RAINBOW_HUE < -1.f) HSV_RAINBOW_HUE += 1.f;
-	for (int i = 0; i < 860; i++)
+	for (int i = 0; i < 860;)
 	{
-		float hue = HSV_RAINBOW_HUE + 1.f / (float)860 * i;
-		if (hue < 0.f) hue += 1.f;
+		float h = HSV_RAINBOW_HUE + 1.f / static_cast<float>(860) * i;
+		if (h < 0.f) h += 1.f;
 
 		float out_r;
 		float out_g;
 		float out_b;
-		ImGui::ColorConvertHSVtoRGB(hue, saturation / 255, value / 255, out_r, out_g, out_b);
+		ImGui::ColorConvertHSVtoRGB(h, saturation / 255, value / 255, out_r, out_g, out_b);
 
-		return ImVec4(opacity, out_r, out_g, out_b);
+		return { opacity, out_r, out_g, out_b };
 	}
 	return {};
 }

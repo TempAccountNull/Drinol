@@ -24,7 +24,7 @@ public:
 	 * \brief the path to the ini file that imgui will store its settings in.
 	 */
 	inline static std::string ui_ini_path;
-	inline static unsigned long long toggle_ui_keybind = 0x0D;	//	VK_INSERT ?
+	inline static int toggle_ui_keybind = 0x0D;	//	VK_INSERT ?
 	static inline int toggle_wireframe_keybind = 0x24;
 
 	/**

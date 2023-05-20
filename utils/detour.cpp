@@ -3,7 +3,7 @@ detour::detour() {
 }
 
 detour::~detour() {
-	this->_function = 0;
+	this->_function = nullptr;
 	this->_location = 0;
 }
 

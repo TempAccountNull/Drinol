@@ -448,7 +448,7 @@ namespace halo3::engine // Engine related structs, etc
 
 	struct s_player_control_globals
 	{
-		struct s_player_control_non_deterministic_input_user_state input_user_states[4];
+		s_player_control_non_deterministic_input_user_state input_user_states[4];
 		char pad_00C0[1608];
 		bool machinima_camera_enabled;
 		bool machinima_camera_use_old_controls;

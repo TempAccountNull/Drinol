@@ -79,7 +79,7 @@ void halo3::offsets::init()
 
 uintptr_t halo3::offsets::get_game_address(uintptr_t rva)
 {
-	return (uintptr_t)GetModuleHandle(L"halo3.dll") + rva;
+	return reinterpret_cast<uintptr_t>(GetModuleHandle(L"halo3.dll")) + rva;
 }
 
 void halo3::offsets::game_init()
@@ -91,6 +91,7 @@ void halo3::offsets::game_init()
 	globals::game_time_globals = static_cast<engine::game_time_globals_definition*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::game_time_globals_member_index));
 	globals::game_globals = static_cast<engine::s_game_globals*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::game_globals_member_index));
 
+	//TODO: sometimes this does not work, no idea why
 	if (game::machinima_mode)
 	{
 		globals::player_control_globals->machinima_camera_debug = true;

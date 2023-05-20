@@ -1,3 +1,6 @@
+#ifndef NTPEBTEB_H
+#define NTPEBTEB_H
+
 typedef struct _CLIENT_ID {
 	HANDLE UniqueProcess;
 	HANDLE UniqueThread;
@@ -61,3 +64,4 @@ typedef struct _TEB
 	PVOID ThreadLocalStoragePointer;
 	PEB* ProcessEnvironmentBlock;
 }TEB, * PTEB;
+#endif // NTPEBTEB_H

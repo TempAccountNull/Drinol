@@ -7,7 +7,7 @@ std::string get_file_version_number(LPCSTR filename)
 	DWORD version_handle = 0;
 	DWORD version_size = GetFileVersionInfoSizeA(filename, &version_handle);
 	UINT val_size = 0;
-	LPBYTE buffer = NULL;
+	LPBYTE buffer = nullptr;
 	std::string version_number;
 	bool version_info_attained = false;
 
@@ -41,16 +41,16 @@ std::string get_mcc_executable_version()
 {
 	// Get handle of MCC Executable
 
-	GetModuleFileNameA(NULL, mcc_exe_path, sizeof mcc_exe_path);
+	GetModuleFileNameA(nullptr, mcc_exe_path, sizeof mcc_exe_path);
 
 	// Read the exes version info and return version
 	return get_file_version_number(mcc_exe_path);
 }
 
-std::string get_game_dll_version(std::string filename)
+std::string get_game_dll_version(const std::string& filename)
 {
 	// Get path of MCC
-	GetModuleFileNameA(NULL, mcc_exe_path, sizeof mcc_exe_path);
+	GetModuleFileNameA(nullptr, mcc_exe_path, sizeof mcc_exe_path);
 
 	// Get MCC root directory
 	std::string dll_path = std::regex_replace(mcc_exe_path, std::regex("\\\\mcc.*"), "");

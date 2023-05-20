@@ -3,9 +3,6 @@
 
 #include "halo3.h"
 #include "halo3_offsets.h"
-#include <random>
-
-#include "utils.h"
 
 static bool __cdecl game_in_progress_detour()
 {

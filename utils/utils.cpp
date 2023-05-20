@@ -5,7 +5,6 @@
 #include "games/halo1/halo1.h"
 #include "games/halo2/halo2.h"
 #include "games/halo3/halo3.h"
-#include "games/halo3/halo3_hooks.h"
 #include "games/halo3/halo3_offsets.h"
 #include "games/halo3odst/halo3odst.h"
 #include "games/halo4/halo4.h"
@@ -188,7 +187,7 @@ void utils::reset_running_game_settings()
 //https://github.com/citizenfx/fivem/blob/f3bb0460562b1eb1a7f9652ffcf73ad7282fd45e/code/client/shared/Hooking.h#L91-L113
 char* utils::memory::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
 {
-	uint32_t* tlsIndex = nullptr;
+	const uint32_t* tlsIndex = nullptr;
 
 	while (!tlsIndex)
 	{
@@ -196,9 +195,9 @@ char* utils::memory::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
 		tlsIndex = ([module_name]()
 			{
 				char* base = reinterpret_cast<char*>(GetModuleHandleW(module_name));
-				PIMAGE_DOS_HEADER moduleBase = reinterpret_cast<PIMAGE_DOS_HEADER>(base);
-				PIMAGE_NT_HEADERS ntBase = reinterpret_cast<PIMAGE_NT_HEADERS>(base + moduleBase->e_lfanew);
-				PIMAGE_TLS_DIRECTORY tlsBase = reinterpret_cast<PIMAGE_TLS_DIRECTORY>(base + ntBase->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_TLS].VirtualAddress);
+				const PIMAGE_DOS_HEADER moduleBase = reinterpret_cast<PIMAGE_DOS_HEADER>(base);
+				const PIMAGE_NT_HEADERS ntBase = reinterpret_cast<PIMAGE_NT_HEADERS>(base + moduleBase->e_lfanew);
+				const PIMAGE_TLS_DIRECTORY tlsBase = reinterpret_cast<PIMAGE_TLS_DIRECTORY>(base + ntBase->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_TLS].VirtualAddress);
 				return reinterpret_cast<uint32_t*>(tlsBase->AddressOfIndex);
 			})();
 	}
@@ -218,6 +217,7 @@ char* utils::memory::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
 	}
 	else
 		spdlog::error("utils::get_tls_pointer: NULL POINTER!!!!");
+	return nullptr;
 }
 
 void utils::detach()
@@ -238,10 +238,10 @@ HRESULT CALLBACK task_dialog_callback(HWND hwndWindow, UINT uNotification, WPARA
 		SendMessageA(hwndWindow, TDM_ENABLE_BUTTON, IDYES, 0);
 		break;
 	case TDN_HYPERLINK_CLICKED:
-		ShellExecute(0, 0, L"https://github.com/matty45/Drinol", 0, 0, SW_SHOW);
+		ShellExecute(nullptr, nullptr, L"https://github.com/matty45/Drinol", nullptr, nullptr, SW_SHOW);
 	case TDN_TIMER:
 		DWORD* pTimeout = reinterpret_cast<DWORD*>(dwUserData);  // = tc.lpCallbackData
-		DWORD timeElapsed = static_cast<DWORD>(wParam);
+		const DWORD timeElapsed = static_cast<DWORD>(wParam);
 		if (*pTimeout && timeElapsed >= *pTimeout)
 		{
 			*pTimeout = 0; // Make sure we don't send the button message multiple times.
@@ -258,20 +258,20 @@ void utils::cheat_nag()
 	HKEY hKey;
 
 	// Check if key exists, if not, create it.
-	RegCreateKeyExA(HKEY_CURRENT_USER, "Software\\Drinol", NULL, NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, NULL);
+	RegCreateKeyExA(HKEY_CURRENT_USER, "Software\\Drinol", NULL, nullptr, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, nullptr, &hKey, nullptr);
 
-	LPBYTE value_data = nullptr;
+	const LPBYTE value_data = nullptr;
 	DWORD value_size = 0;
 
 	// Check if value exists
-	if (!RegQueryValueExA(hKey, "nag_message_closed", NULL, NULL, value_data, &value_size))
+	if (!RegQueryValueExA(hKey, "nag_message_closed", nullptr, nullptr, value_data, &value_size))
 		return;
 
 	//If value does not exist, display nag message.
 
 	// Get window for the message box so we can freeze it.
 	HWND handle = nullptr;
-	while (handle == NULL)
+	while (handle == nullptr)
 	{
 		handle = FindWindowA("UnrealWindow", "Halo: The Master Chief Collection  ");
 	}
@@ -286,7 +286,7 @@ void utils::cheat_nag()
 	TASKDIALOGCONFIG config = { 0 };
 	config.cbSize = sizeof(config);
 	config.hwndParent = handle;
-	config.hInstance = NULL;
+	config.hInstance = nullptr;
 	config.pszMainIcon = TD_WARNING_ICON;
 	config.pszWindowTitle = L"PLEASE READ!";
 	config.pszMainInstruction = L"This tool is not meant for gaining an unfair advantage in multiplayer.";
@@ -303,7 +303,7 @@ void utils::cheat_nag()
 	config.pfCallback = task_dialog_callback;
 
 	int nButtonPressed = 0;
-	TaskDialogIndirect(&config, &nButtonPressed, NULL, NULL);
+	TaskDialogIndirect(&config, &nButtonPressed, nullptr, nullptr);
 
 	switch (nButtonPressed)
 	{
@@ -323,11 +323,11 @@ void utils::cheat_nag()
 	//}
 
 	// Create a value so that the message box will never appear again!
-	DWORD value = 1;
-	LONG lResult = RegSetValueEx(hKey, L"nag_message_closed", 0, REG_DWORD, (const BYTE*)&value, sizeof(value));
+	const DWORD value = 1;
+	LONG lResult = RegSetValueEx(hKey, L"nag_message_closed", 0, REG_DWORD, reinterpret_cast<const BYTE*>(&value), sizeof(value));
 
 	// Clear our window handle
-	handle = NULL;
+	handle = nullptr;
 
 	RegCloseKey(hKey);
 }
@@ -361,8 +361,7 @@ std::string utils::keys::get_key_name(BYTE key)
 {
 	DWORD sc = MapVirtualKeyA(key, 0);
 	// check key for ascii
-	BYTE buf[256];
-	memset(buf, 0, 256);
+	BYTE buf[256] = {};
 	WORD temp;
 	DWORD asc = (key <= 32);
 	if (!asc && (key != VK_DIVIDE)) asc = ToAscii(key, sc, buf, &temp, 1);
@@ -371,8 +370,8 @@ std::string utils::keys::get_key_name(BYTE key)
 	sc |= 0x1 << 25;  // <- don't care
 	if (!asc) sc |= 0x1 << 24; // <- extended bit
 	// convert to ansi string
-	if (GetKeyNameTextA(sc, (char*)buf, sizeof(buf)))
-		return (char*)buf;
+	if (GetKeyNameTextA(sc, reinterpret_cast<char*>(buf), sizeof(buf)))
+		return reinterpret_cast<char*>(buf);
 	else return "";
 }
 
@@ -407,7 +406,7 @@ void utils::test_func(int test_int)
 
 uintptr_t utils::memory::get_offset(uintptr_t address)
 {
-	uintptr_t base = Memcury::PE::GetModuleBase();
+	const uintptr_t base = Memcury::PE::GetModuleBase();
 
 	uintptr_t offset = address;
 	offset = offset - base;
@@ -444,8 +443,8 @@ void utils::memory::print_game_tls_pointer(bool suspend)
 	{
 		typedef LONG(NTAPI* NtSuspendProcess)(IN HANDLE ProcessHandle);
 
-		NtSuspendProcess pfnNtSuspendProcess = (NtSuspendProcess)GetProcAddress(
-			GetModuleHandle(L"ntdll"), "NtSuspendProcess");
+		const NtSuspendProcess pfnNtSuspendProcess = reinterpret_cast<NtSuspendProcess>(GetProcAddress(
+			GetModuleHandleW(L"ntdll"), "NtSuspendProcess"));
 
 		pfnNtSuspendProcess(GetCurrentProcess());
 		CloseHandle(GetCurrentProcess());
@@ -479,10 +478,10 @@ void utils::memory::backtrace(const char* func) {
 	printf("%s callstack: ", func);
 	for (int i = 0; i < trace_count; i++) {
 		if (i == trace_count - 1) {
-			printf("%p\n", (uintptr_t)trace_back[i]);
+			printf("%llu\n", reinterpret_cast<uintptr_t>(trace_back[i]));
 		}
 		else {
-			printf("%p:", (uintptr_t)trace_back[i]);
+			printf("%llu:", reinterpret_cast<uintptr_t>(trace_back[i]));
 		}
 	}
 }

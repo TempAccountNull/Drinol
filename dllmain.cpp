@@ -6,11 +6,9 @@
 #include "gui/gui.h"
 #include "gui/menu/menu.h"
 
-void drinol_init(LPVOID hInstance)
+[[noreturn]] void drinol_init(LPVOID hInstance)
 {
 	utils::cheat_nag();
-
-	srand(static_cast <unsigned> (time(0)));
 
 	// Load data from the ini config.
 
@@ -21,7 +19,7 @@ void drinol_init(LPVOID hInstance)
 	if (!config::main::create_config_folder())
 	{
 		//spdlog::error("Failed to create the config folder.");
-		MessageBox(NULL, L"Failed to create the Drinol folder!", L"Drinol Error!", 0);
+		MessageBox(nullptr, L"Failed to create the Drinol folder!", L"Drinol Error!", 0);
 	}
 
 	if (!config::main::load())
@@ -34,7 +32,7 @@ void drinol_init(LPVOID hInstance)
 		else if (!config::main::load())
 		{
 			//spdlog::error("Failed to load new main settings config file.");
-			MessageBox(NULL, L"Failed to generate and load the main config file!", L"Drinol Error!", 0);
+			MessageBox(nullptr, L"Failed to generate and load the main config file!", L"Drinol Error!", 0);
 		}
 	}
 
@@ -89,7 +87,7 @@ void drinol_init(LPVOID hInstance)
 	spdlog::info("Commit Date: {}", COMMIT_DATE);
 	spdlog::info("Commit Subject: {}", COMMIT_SUBJECT);
 	spdlog::info("Commit Author: {}", COMMIT_AUTHOR);
-	if (sizeof(OLDEST_CHANGED_FILE_BEFORE_COMMIT) > 1)
+	if constexpr (sizeof(OLDEST_CHANGED_FILE_BEFORE_COMMIT) > 1)
 		spdlog::info("Mod");
 
 	spdlog::info("Drinol is loading.");
@@ -101,7 +99,7 @@ void drinol_init(LPVOID hInstance)
 	// Initialize Minhook
 	if (MH_Initialize() != MH_OK)
 	{
-		MessageBox(NULL, L"Failed to initialize minhook. Please restart the game and try again!", L"Drinol Error!", 0);
+		MessageBox(nullptr, L"Failed to initialize minhook. Please restart the game and try again!", L"Drinol Error!", 0);
 	}
 
 	// Initialize UE4 middleware hooks.
@@ -110,9 +108,9 @@ void drinol_init(LPVOID hInstance)
 	if (gui::enabled)
 	{
 		// Initialize DX11 hook and imgui overlay.
-		g_Overlay = std::make_unique<gui>();		//	Global reference to overlay variables (show window)
-		g_Overlay->init();							//	Initialize GUI
-		g_Running = TRUE;							//	gRunning = true , as gui is the last thing to be initialized.
+		g_Overlay = std::make_unique<gui>(); //	Global reference to overlay variables (show window)
+		g_Overlay->init(); //	Initialize GUI
+		g_Running = TRUE; //	gRunning = true , as gui is the last thing to be initialized.
 	}
 
 	spdlog::info("Drinol has loaded.");
@@ -120,7 +118,8 @@ void drinol_init(LPVOID hInstance)
 	//	Executing Main Thread
 	while (g_Running)
 	{
-		if (!menu::settings_window_open) // This will stop people from accidentally pressing hot-keys when they are trying to change them.
+		if (!menu::settings_window_open)
+			// This will stop people from accidentally pressing hot-keys when they are trying to change them.
 		{
 			//	Exit Key
 			if (GetAsyncKeyState(utils::detach_keybind) & 1)
@@ -144,7 +143,7 @@ void drinol_init(LPVOID hInstance)
 
 	//	Exit
 	utils::detach();
-	FreeLibraryAndExitThread((HMODULE)hInstance, EXIT_SUCCESS);
+	FreeLibraryAndExitThread(static_cast<HMODULE>(hInstance), EXIT_SUCCESS);
 }
 
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
@@ -169,7 +168,6 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 	case DLL_PROCESS_DETACH:
 		utils::detach();
 		FreeLibraryAndExitThread(hinstDLL, 0);
-		break;
 
 	default:
 		break;

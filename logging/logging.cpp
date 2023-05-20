@@ -57,7 +57,7 @@ void logging::init()
 			char buf[30] = { 0 };
 			sprintf_s(buf, "Invalid log level! %i", log_level);
 
-			MessageBoxA(NULL, buf, "Drinol Error!", 0);
+			MessageBoxA(nullptr, buf, "Drinol Error!", 0);
 		}
 		}
 
