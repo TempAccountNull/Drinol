@@ -664,9 +664,10 @@ void menu::Halo3::DrawMenu()
 						halo3::hooks::game_tick_test = true;
 					}
 
-					if (ImGui::Checkbox("Machinima Camera", &halo3::offsets::globals::player_control_globals->machinima_camera_enabled))
+					if (ImGui::Checkbox("Machinima Camera", &halo3::game::machinima_mode))
 					{
-						halo3::offsets::globals::player_control_globals->machinima_camera_debug = halo3::offsets::globals::player_control_globals->machinima_camera_enabled;
+						halo3::offsets::globals::player_control_globals->machinima_camera_debug = halo3::game::machinima_mode;
+						halo3::offsets::globals::player_control_globals->machinima_camera_enabled = halo3::game::machinima_mode;
 					}
 					if (ImGui::IsItemHovered())
 						ImGui::SetTooltip("This enables the machinima debug camera, this will show your camera's coords on the screen.");

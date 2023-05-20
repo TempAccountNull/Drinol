@@ -105,5 +105,9 @@ namespace halo3
 		 * \brief the games speed
 		 */
 		static inline float game_speed;
+		/**
+		 * \brief stuff to do with the machinima camera, etc
+		 */
+		static inline bool machinima_mode;
 	};
 }

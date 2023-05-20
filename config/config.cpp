@@ -8,6 +8,7 @@
 #include "games/halo1/halo1_sigs.h"
 #include "games/halo2/halo2_hooks.h"
 #include "games/halo2/halo2_sigs.h"
+#include "games/halo3/halo3.h"
 #include "games/halo3/halo3_hooks.h"
 #include "games/halo3/halo3_offsets.h"
 #include "games/halo3/halo3_sigs.h"
@@ -538,6 +539,7 @@ bool config::games::halo_3::create()
 	ini["Rendering"]["motion_blur_center_falloff"] = "1.4";
 	ini["Game"]["player_weapon_projectiles_only"] = "false";
 	ini["Game"]["player_ally_projectiles_only"] = "false";
+	ini["Game"]["Machinima"] = "false";
 
 	// generate an INI file (overwrites any previous file)
 	if (!file.generate(ini, true))
@@ -564,6 +566,7 @@ bool config::games::halo_3::save()
 	ini["Rendering"]["motion_blur_scale_y"] = to_string(*halo3::offsets::variables::motion_blur_scale_y);
 	ini["Rendering"]["motion_blur_center_falloff"] = to_string(*halo3::offsets::variables::motion_blur_center_falloff);
 	ini["Game"]["player_weapon_projectiles_only"] = bool_to_string(halo3::hooks::player_weapon_projectiles_only);
+	ini["Game"]["Machinima"] = bool_to_string(halo3::game::machinima_mode);
 	ini["Game"]["player_ally_projectiles_only"] = bool_to_string(halo3::hooks::player_ally_projectiles_only);
 
 	// write to the INI file (overwrites)
@@ -590,6 +593,7 @@ bool config::games::halo_3::load()
 	// read a value
 	std::istringstream(ini.get("Game").get("player_weapon_projectiles_only")) >> std::boolalpha >> halo3::hooks::player_weapon_projectiles_only;
 	std::istringstream(ini.get("Game").get("player_ally_projectiles_only")) >> std::boolalpha >> halo3::hooks::player_ally_projectiles_only;
+	std::istringstream(ini.get("Game").get("Machinima")) >> std::boolalpha >> halo3::game::machinima_mode;
 	std::istringstream(ini.get("Rendering").get("motion_blur_expected_dt")) >> *halo3::offsets::variables::motion_blur_expected_dt;
 	std::istringstream(ini.get("Rendering").get("motion_blur_taps")) >> *halo3::offsets::variables::motion_blur_taps;
 	std::istringstream(ini.get("Rendering").get("motion_blur_max_x")) >> *halo3::offsets::variables::motion_blur_max_x;
