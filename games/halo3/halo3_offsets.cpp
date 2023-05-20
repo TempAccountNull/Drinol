@@ -68,6 +68,8 @@ void halo3::offsets::init()
 
 	variables::region_member_indexes::player_mapping_globals_member_index = Memcury::Scanner::FindPattern(sigs::list["player_mapping_globals_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();
 
+	variables::region_member_indexes::player_control_globals_member_index = Memcury::Scanner::FindPattern(sigs::list["player_control_globals_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();
+
 	variables::region_member_indexes::game_time_globals_member_index = Memcury::Scanner::FindPattern(sigs::list["game_time_globals_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();
 
 	variables::region_member_indexes::game_globals_member_index = Memcury::Scanner::FindPattern(sigs::list["game_globals_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();
@@ -83,8 +85,9 @@ uintptr_t halo3::offsets::get_game_address(uintptr_t rva)
 void halo3::offsets::game_init()
 {
 	globals::physics_constants = static_cast<engine::s_physics_constants*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::physics_constants_member_index));
+	globals::player_data = static_cast<engine::s_data_array*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::player_data_member_index));
+	globals::player_control_globals = static_cast<engine::s_player_control_globals*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::player_control_globals_member_index));
 	globals::player_mapping_globals = static_cast<s_player_mapping_globals*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::player_mapping_globals_member_index));
 	globals::game_time_globals = static_cast<engine::game_time_globals_definition*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::game_time_globals_member_index));
-	globals::player_data = static_cast<engine::s_data_array*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::player_data_member_index));
 	globals::game_globals = static_cast<engine::s_game_globals*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::game_globals_member_index));
 }

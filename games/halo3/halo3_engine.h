@@ -434,4 +434,25 @@ namespace halo3::engine // Engine related structs, etc
 		uint32_t N000035D0;
 		char pad_FB93[1580];
 	};
+
+	class s_player_control_non_deterministic_input_user_state
+	{
+	public:
+		uint8_t data0[6]; //0x0000
+		bool player_input_locked; //0x0006
+		uint8_t data7[17]; //0x0007
+		uint32_t player_control_flags; //0x0018
+		uint8_t data1C[20]; //0x001C
+	}; //Size: 0x0030
+	static_assert(sizeof(s_player_control_non_deterministic_input_user_state) == 0x30);
+
+	struct s_player_control_globals
+	{
+		struct s_player_control_non_deterministic_input_user_state input_user_states[4];
+		char pad_00C0[1608];
+		bool machinima_camera_enabled;
+		bool machinima_camera_use_old_controls;
+		bool machinima_camera_debug;
+		char pad_070B[4205];
+	};
 }
