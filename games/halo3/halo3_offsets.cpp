@@ -91,9 +91,9 @@ void halo3::offsets::game_init()
 	globals::game_time_globals = static_cast<engine::game_time_globals_definition*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::game_time_globals_member_index));
 	globals::game_globals = static_cast<engine::s_game_globals*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::game_globals_member_index));
 
-	if (halo3::game::machinima_mode)
+	if (game::machinima_mode)
 	{
-		halo3::offsets::globals::player_control_globals->machinima_camera_debug = true;
-		halo3::offsets::globals::player_control_globals->machinima_camera_enabled = true;
+		globals::player_control_globals->machinima_camera_debug = true;
+		globals::player_control_globals->machinima_camera_enabled = true;
 	}
 }

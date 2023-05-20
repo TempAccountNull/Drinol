@@ -213,7 +213,7 @@ struct struct_v6 // Dont know what the heck this is .-.
 
 DWORD halo3::game::get_unit_team(int unit_index)
 {
-	struct_v6* ass = utils::memory::game_call<struct_v6*>(halo3::offsets::functions::objects::object_try_and_get_and_verify_type)(unit_index, 0x1003u);
+	struct_v6* ass = utils::memory::game_call<struct_v6*>(offsets::functions::objects::object_try_and_get_and_verify_type)(unit_index, 0x1003u);
 
 	if (ass)
 	{
@@ -224,7 +224,7 @@ DWORD halo3::game::get_unit_team(int unit_index)
 
 void halo3::game::skulls::skull_primary_enable(int16_t skull_id, bool enable)
 {
-	engine::s_game_globals* game_globals = halo3::offsets::globals::game_globals;
+	engine::s_game_globals* game_globals = offsets::globals::game_globals;
 
 	auto skull = 1 << skull_id;
 
@@ -236,7 +236,7 @@ void halo3::game::skulls::skull_primary_enable(int16_t skull_id, bool enable)
 
 void halo3::game::skulls::skull_secondary_enable(int16_t skull_id, bool enable)
 {
-	engine::s_game_globals* game_globals = halo3::offsets::globals::game_globals;
+	engine::s_game_globals* game_globals = offsets::globals::game_globals;
 
 	auto skull = 1 << skull_id;
 
@@ -248,29 +248,29 @@ void halo3::game::skulls::skull_secondary_enable(int16_t skull_id, bool enable)
 
 void halo3::game::render::draw_text(std::string text, int XPos, int YPos, float scale, real_argb_color colour = real_argb_color(255, 255, 255, 255))
 {
-	halo3::engine::c_rasterizer_draw_string draw_string;
-	halo3::engine::c_font_cache_mt_safe font_cache;
+	engine::c_rasterizer_draw_string draw_string;
+	engine::c_font_cache_mt_safe font_cache;
 	short_rectangle2d bounds{};
 
 	//Game Calls
-	utils::memory::game_call<halo3::engine::c_rasterizer_draw_string*>(Memcury::PE::GetModuleBase() + 0x28126c)(&draw_string); // c_rasterizer_draw_string rasterizer_draw_string;
-	utils::memory::game_call<halo3::engine::c_font_cache_mt_safe*>(Memcury::PE::GetModuleBase() + 0x177dcc)(&font_cache); // c_font_cache_mt_safe font_cache;
+	utils::memory::game_call<engine::c_rasterizer_draw_string*>(Memcury::PE::GetModuleBase() + 0x28126c)(&draw_string); // c_rasterizer_draw_string rasterizer_draw_string;
+	utils::memory::game_call<engine::c_font_cache_mt_safe*>(Memcury::PE::GetModuleBase() + 0x177dcc)(&font_cache); // c_font_cache_mt_safe font_cache;
 
-	utils::memory::game_call<void>(halo3::offsets::functions::render::draw_string_set_font)(&draw_string, halo3::engine::e_font_id::Conduit_32); // set font
+	utils::memory::game_call<void>(offsets::functions::render::draw_string_set_font)(&draw_string, engine::e_font_id::Conduit_32); // set font
 
 	draw_string.m_scale = scale; // Text Scale
 
 	draw_string.m_color = colour; // Text colour
 
-	utils::memory::game_call<void>(halo3::offsets::functions::render::get_screen_bounds)(&bounds); // get bounds
+	utils::memory::game_call<void>(offsets::functions::render::get_screen_bounds)(&bounds); // get bounds
 
 	//Position
 	bounds.y0 += YPos;
 	bounds.x0 += XPos;
 
-	utils::memory::game_call<void>(halo3::offsets::functions::render::draw_string_set_bounds)(&draw_string, &bounds); // set bounds
-	utils::memory::game_call<bool>(halo3::offsets::functions::render::draw_string_draw)(&draw_string, &font_cache, text.c_str()); // draw text
-	utils::memory::game_call<void>(halo3::offsets::functions::render::deinit_font_cache)(&font_cache.m_locked); //Deinit font cache
+	utils::memory::game_call<void>(offsets::functions::render::draw_string_set_bounds)(&draw_string, &bounds); // set bounds
+	utils::memory::game_call<bool>(offsets::functions::render::draw_string_draw)(&draw_string, &font_cache, text.c_str()); // draw text
+	utils::memory::game_call<void>(offsets::functions::render::deinit_font_cache)(&font_cache.m_locked); //Deinit font cache
 }
 
 int halo3::game::render::real_argb_color_to_pixel32(real_argb_color* colour)

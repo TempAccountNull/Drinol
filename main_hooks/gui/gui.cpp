@@ -147,7 +147,7 @@ VOID WINAPI gui::InitImGui()
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags = ImGuiConfigFlags_NoMouseCursorChange;
-	io.IniFilename = gui::ui_ini_path.c_str();
+	io.IniFilename = ui_ini_path.c_str();
 	ImGui_ImplWin32_Init(window);
 	ImGui_ImplDX11_Init(pDevice, pContext);
 }

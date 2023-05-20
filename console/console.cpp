@@ -33,7 +33,7 @@ void console::Initialize()
 	DWORD mode = 0;
 	if (!GetConsoleMode(g_Console->p_handle, &mode))
 	{
-		DWORD error = ::GetLastError();
+		DWORD error = GetLastError();
 		std::wstring text = L"Could not get console mode. : ";
 		text.append(std::to_wstring(error));
 		MessageBox(NULL, text.c_str(), L"Drinol Error!", 0);
@@ -44,7 +44,7 @@ void console::Initialize()
 	// Try to set the mode.
 	if (!SetConsoleMode(g_Console->p_handle, mode))
 	{
-		DWORD error = ::GetLastError();
+		DWORD error = GetLastError();
 		std::wstring text = L"Could not set console mode. : ";
 		text.append(std::to_wstring(error));
 		MessageBox(NULL, text.c_str(), L"Drinol Error!", 0);
