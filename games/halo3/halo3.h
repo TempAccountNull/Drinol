@@ -80,7 +80,8 @@ namespace halo3
 		class render
 		{
 		public:
-			static void draw_engine_text(std::string text, int XPos, int YPos, float scale, real_argb_color colour);
+			static void draw_text(std::string text, int XPos, int YPos, float scale, real_argb_color colour);
+			static int real_argb_color_to_pixel32(real_argb_color* colour);
 		};
 
 		class skulls

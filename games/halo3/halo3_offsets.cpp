@@ -47,6 +47,8 @@ void halo3::offsets::init()
 
 	functions::game_team_is_enemy = Memcury::Scanner::FindPattern(sigs::list["game_team_is_enemy"].c_str()).Get();
 
+	functions::draw_quad = Memcury::Scanner::FindPattern(sigs::list["draw_quad"].c_str()).Get();
+
 	variables::screen_res_x = Memcury::Scanner::FindPattern(sigs::list["screen_res_x"].c_str()).RelativeOffset(3).GetAs<int*>();
 	variables::screen_res_y = Memcury::Scanner::FindPattern(sigs::list["screen_res_y"].c_str()).RelativeOffset(3).GetAs<int*>();
 

@@ -26,6 +26,7 @@ namespace halo3
 			{"director_render","48 8B C4 55 48 8D A8 F8 F6 FF FF"},
 			{"screen_res_x","0F B7 05 ? ? ? ? 66 89 41 ? 0F B7 05 ? ? ? ? 66 89 41 ? 0F BF 41"},
 			{"screen_res_y","0F B7 05 ? ? ? ? 66 89 41 ? 0F BF 41"},
+			{"draw_quad","4C 8B DC 48 83 EC ? 0F B7 41"}
 		};
 	};
 }

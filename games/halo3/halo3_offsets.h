@@ -50,7 +50,8 @@ namespace halo3
 			inline static uintptr_t game_time_set_rate_scale_direct;
 			inline static uintptr_t object_try_and_get_and_verify_type;
 			inline static uintptr_t game_team_is_enemy;
-			inline static  void* director_render;
+			inline static void* director_render;
+			inline static uintptr_t draw_quad;
 		};
 
 		/**

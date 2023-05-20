@@ -246,7 +246,7 @@ void halo3::game::skulls::skull_secondary_enable(int16_t skull_id, bool enable)
 		game_globals->active_secondary_skulls &= ~skull;
 }
 
-void halo3::game::render::draw_engine_text(std::string text, int XPos, int YPos, float scale, real_argb_color colour = real_argb_color(255, 255, 255, 255))
+void halo3::game::render::draw_text(std::string text, int XPos, int YPos, float scale, real_argb_color colour = real_argb_color(255, 255, 255, 255))
 {
 	halo3::engine::c_rasterizer_draw_string draw_string;
 	halo3::engine::c_font_cache_mt_safe font_cache;
@@ -271,4 +271,9 @@ void halo3::game::render::draw_engine_text(std::string text, int XPos, int YPos,
 	utils::memory::game_call<void>(Memcury::PE::GetModuleBase() + 0x1fece4)(&draw_string, &bounds); // set bounds
 	utils::memory::game_call<bool>(Memcury::PE::GetModuleBase() + 0x1fed4c)(&draw_string, &font_cache, text.c_str());
 	utils::memory::game_call<void>(Memcury::PE::GetModuleBase() + 0x177ae4)(&font_cache.m_locked); //Deinit font cache
+}
+
+int halo3::game::render::real_argb_color_to_pixel32(real_argb_color* colour)
+{
+	return ((static_cast<int>(colour->alpha * 255) << 24) | (static_cast<int>(colour->red * 255) << 16) | (static_cast<int>(colour->green * 255) << 8) | static_cast<int>(colour->blue * 255));
 }

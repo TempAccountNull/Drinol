@@ -3,6 +3,9 @@
 
 #include "halo3.h"
 #include "halo3_offsets.h"
+#include <random>
+
+#include "utils.h"
 
 static bool __cdecl game_in_progress_detour()
 {
@@ -28,12 +31,27 @@ static void __cdecl game_tick_detour()
 	return halo3::hooks::game_tick.stub<void>();
 }
 
+short ycoord0 = 96;
+
+short xcoord0 = 34;
+
+short ycoord1 = 1140;
+
+short xcoord1 = 1892;
+
 static void __cdecl director_render_detour()
 {
 	// Drawing text on screen example
 	//ImVec4 crap = gui::SV_RAINBOW(255, 255, 1.0);
 
-	//halo3::game::render::draw_engine_text("Testing!", 80, 80, 5.0f, real_argb_color(crap.x, crap.y, crap.z, crap.w));
+	//real_argb_color colour(0.42, 1, 0, 132);
+	//halo3::game::render::draw_text("Draw quad test.", 80, 80, 1.0f, colour);
+
+	//short_rectangle2d rect{ ycoord0,xcoord0,ycoord1,xcoord1 };
+
+	//int ass = halo3::game::render::real_argb_color_to_pixel32(&colour);
+
+	//utils::memory::game_call<void>(halo3::offsets::functions::draw_quad)(&rect, ass);
 
 	return halo3::hooks::director_render.stub<void>();
 }
