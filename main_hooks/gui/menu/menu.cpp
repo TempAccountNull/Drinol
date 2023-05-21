@@ -549,9 +549,12 @@ void menu::HaloCombatEvolved::DrawMenu()
 					"Redirects all blamscript text printing functions to the console.",
 					&halo1::hooks::redirect_print);
 
-				g_Overlay->CheckboxWithToolTip("Toggle AI",
+				if (g_Overlay->CheckboxWithToolTip("Toggle AI",
 					"Toggles the games AI.",
-					&halo1::game::toggle_ai_bool);
+					&halo1::game::toggle_ai_bool))
+				{
+					halo1::game::toggle_ai(halo1::game::toggle_ai_bool);
+				}
 
 				ImGui::EndTabItem();
 			}
