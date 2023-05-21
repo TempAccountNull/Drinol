@@ -26,6 +26,9 @@ void halo3::game::init() // Initialize hooks and shit for halo 1
 		spdlog::info("Loaded settings for Halo 3.");
 	}
 
+	// Apply patches from config:
+	toggle_spawning_ai_from_effects(toggle_ai_spawn_effects);
+
 	spdlog::info("Halo 3 initialized ☺");
 }
 
@@ -62,6 +65,15 @@ void halo3::game::list_all_hs_globals()
 }
 
 #endif
+
+void halo3::game::toggle_spawning_ai_from_effects(bool toggle)
+{
+	// E8 98 28 1A 00
+	if (toggle)
+		utils::memory::patch(static_cast<BYTE*>(offsets::patches::ai_handle_effect_creation_check), (BYTE*)"\x90\x90\x90\x90\x90\x90", 0x06);
+	else
+		utils::memory::patch(static_cast<BYTE*>(offsets::patches::ai_handle_effect_creation_check), offsets::patches::ai_handle_effect_creation_check_og_bytes, 0x06);
+}
 
 void* halo3::game::get_hs_global(const char* global_name) // Gets the address of the specified global.
 {

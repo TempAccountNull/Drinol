@@ -28,9 +28,9 @@ namespace halo1
 		};
 
 		/**
-		 * \brief offsets to function calls in the games code
+		 * \brief if statments that need to be nopped out, etc
 		 */
-		class function_calls
+		class patches
 		{
 		public:
 

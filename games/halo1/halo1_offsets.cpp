@@ -36,8 +36,8 @@ void halo1::offsets::init()
 
 	variables::gravity = Memcury::Scanner(game::get_eval_hs_function("physics_get_gravity")).RelativeOffset(3).GetAs<float**>();
 
-	function_calls::ai_update = Memcury::Scanner::FindPattern(sigs::list["ai_update_call"].c_str()).GetAs<void*>();
-	utils::memory::store_memory_bytes(function_calls::ai_update_og_bytes, function_calls::ai_update, 0x05);
+	patches::ai_update = Memcury::Scanner::FindPattern(sigs::list["ai_update_call"].c_str()).GetAs<void*>();
+	utils::memory::store_memory_bytes(patches::ai_update_og_bytes, patches::ai_update, 0x05);
 
 	// for some reason, game_ticks_per_second is protected from being changed
 	DWORD old_prot;

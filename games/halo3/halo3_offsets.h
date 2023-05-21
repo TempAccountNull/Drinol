@@ -36,6 +36,19 @@ namespace halo3
 		};
 
 		/**
+ * \brief if statments that need to be nopped out, etc
+ */
+		class patches
+		{
+		public:
+			/**
+			 * \brief Nop this for allowing ai to spawn through effects.
+			 */
+			inline static void* ai_handle_effect_creation_check;
+			inline static BYTE* ai_handle_effect_creation_check_og_bytes = new BYTE[0x06];
+		};
+
+		/**
 		 * \brief offsets to the game functions
 		 */
 		class functions

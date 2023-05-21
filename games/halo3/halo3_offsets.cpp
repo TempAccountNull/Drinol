@@ -3,6 +3,7 @@
 
 #include "halo3.h"
 #include "halo3_sigs.h"
+#include "utils.h"
 
 void halo3::offsets::init()
 {
@@ -75,6 +76,9 @@ void halo3::offsets::init()
 	variables::region_member_indexes::game_globals_member_index = Memcury::Scanner::FindPattern(sigs::list["game_globals_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();
 
 	variables::region_member_indexes::player_data_member_index = Memcury::Scanner::FindPattern(sigs::list["player_data_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();
+
+	patches::ai_handle_effect_creation_check = Memcury::Scanner::FindPattern(sigs::list["ai_handle_effect_creation_check"].c_str()).GetAs<void*>();
+	utils::memory::store_memory_bytes(patches::ai_handle_effect_creation_check_og_bytes, patches::ai_handle_effect_creation_check, 0x06);
 }
 
 uintptr_t halo3::offsets::get_game_address(uintptr_t rva)

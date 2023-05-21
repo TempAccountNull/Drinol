@@ -77,6 +77,8 @@ namespace halo3
 		 */
 		static DWORD get_unit_team(int unit_index);
 
+		static void toggle_spawning_ai_from_effects(bool toggle);
+
 		class render
 		{
 		public:
@@ -109,5 +111,9 @@ namespace halo3
 		 * \brief stuff to do with the machinima camera, etc
 		 */
 		static inline bool machinima_mode;
+		/**
+		 * \brief This removes a check to allow you to spawn any kind of AI through effects.
+		 */
+		static inline bool toggle_ai_spawn_effects;
 	};
 }

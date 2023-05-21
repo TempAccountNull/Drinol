@@ -667,13 +667,16 @@ void menu::Halo3::DrawMenu()
 						halo3::hooks::game_tick_test = true;
 					}
 
-					if (ImGui::Checkbox("Machinima Camera", &halo3::game::machinima_mode))
+					if (g_Overlay->CheckboxWithToolTip("Machinima Camera", "This enables the machinima debug camera, this will show your camera's coords on the screen.", &halo3::game::machinima_mode))
 					{
 						halo3::offsets::globals::player_control_globals->machinima_camera_debug = halo3::game::machinima_mode;
 						halo3::offsets::globals::player_control_globals->machinima_camera_enabled = halo3::game::machinima_mode;
 					}
-					if (ImGui::IsItemHovered())
-						ImGui::SetTooltip("This enables the machinima debug camera, this will show your camera's coords on the screen.");
+
+					if (g_Overlay->CheckboxWithToolTip("Toggle spawning AI from effects.", "This removes a check to allow you to spawn any kind of AI through effects. (Only the host should use this! non-host clients will cause issues)", &halo3::game::toggle_ai_spawn_effects))
+					{
+						halo3::game::toggle_spawning_ai_from_effects(halo3::game::toggle_ai_spawn_effects);
+					}
 				}
 
 				ImGui::Checkbox("Player weapon projectiles only", &halo3::hooks::player_weapon_projectiles_only);

@@ -537,6 +537,7 @@ bool config::games::halo_3::create()
 	ini["Rendering"]["motion_blur_center_falloff"] = "1.4";
 	ini["Game"]["player_weapon_projectiles_only"] = "false";
 	ini["Game"]["player_ally_projectiles_only"] = "false";
+	ini["Game"]["toggle_ai_spawn_effects"] = "false";
 	ini["Game"]["Machinima"] = "false";
 
 	// generate an INI file (overwrites any previous file)
@@ -564,6 +565,7 @@ bool config::games::halo_3::save()
 	ini["Rendering"]["motion_blur_scale_y"] = to_string(*halo3::offsets::variables::motion_blur_scale_y);
 	ini["Rendering"]["motion_blur_center_falloff"] = to_string(*halo3::offsets::variables::motion_blur_center_falloff);
 	ini["Game"]["player_weapon_projectiles_only"] = bool_to_string(halo3::hooks::player_weapon_projectiles_only);
+	ini["Game"]["toggle_ai_spawn_effects"] = bool_to_string(halo3::game::toggle_ai_spawn_effects);
 	ini["Game"]["Machinima"] = bool_to_string(halo3::game::machinima_mode);
 	ini["Game"]["player_ally_projectiles_only"] = bool_to_string(halo3::hooks::player_ally_projectiles_only);
 
@@ -591,6 +593,7 @@ bool config::games::halo_3::load()
 	// read a value
 	std::istringstream(ini.get("Game").get("player_weapon_projectiles_only")) >> std::boolalpha >> halo3::hooks::player_weapon_projectiles_only;
 	std::istringstream(ini.get("Game").get("player_ally_projectiles_only")) >> std::boolalpha >> halo3::hooks::player_ally_projectiles_only;
+	std::istringstream(ini.get("Game").get("toggle_ai_spawn_effects")) >> std::boolalpha >> halo3::game::toggle_ai_spawn_effects;
 	std::istringstream(ini.get("Game").get("Machinima")) >> std::boolalpha >> halo3::game::machinima_mode;
 	std::istringstream(ini.get("Rendering").get("motion_blur_expected_dt")) >> *halo3::offsets::variables::motion_blur_expected_dt;
 	std::istringstream(ini.get("Rendering").get("motion_blur_taps")) >> *halo3::offsets::variables::motion_blur_taps;

@@ -26,6 +26,8 @@ void halo1::game::init() // Initialize hooks and shit for halo 1
 		spdlog::info("Loaded settings for Halo 1.");
 	}
 
+	//Apply patches from config:
+
 	toggle_ai(toggle_ai_bool); // Apply settings from config.
 
 	spdlog::info("Halo 1 initialized ☺");
@@ -117,9 +119,8 @@ void* halo1::game::get_hs_function(const char* func_name, int to_skip)
 void halo1::game::toggle_ai(bool toggle)
 {
 	// E8 98 28 1A 00
-	//TODO: make this be able to be loaded from ini
 	if (toggle)
-		utils::memory::patch(static_cast<BYTE*>(offsets::function_calls::ai_update), (BYTE*)"\x90\x90\x90\x90\x90", 0x05);
+		utils::memory::patch(static_cast<BYTE*>(offsets::patches::ai_update), (BYTE*)"\x90\x90\x90\x90\x90", 0x05);
 	else
-		utils::memory::patch(static_cast<BYTE*>(offsets::function_calls::ai_update), offsets::function_calls::ai_update_og_bytes, 0x05);
+		utils::memory::patch(static_cast<BYTE*>(offsets::patches::ai_update), offsets::patches::ai_update_og_bytes, 0x05);
 }
