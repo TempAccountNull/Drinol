@@ -1,4 +1,5 @@
 #pragma once
+#include "halo3_engine.h"
 #include "games/engine.h"
 
 namespace halo3
@@ -48,6 +49,7 @@ namespace halo3
 		 * \param speed
 		 */
 		static void game_time_set_rate_scale_direct(float speed);
+		static engine::s_thread_local_storage* get_tls();
 
 		/**
 		 * \brief Grabs the address from the restricted region member
@@ -91,6 +93,13 @@ namespace halo3
 		public:
 			static void skull_primary_enable(int16_t skull_id, bool enable);
 			static void skull_secondary_enable(int16_t skull_id, bool enable);
+		};
+
+		class datums
+		{
+		public:
+			static char* datum_try_and_get(engine::s_data_array* array, int datum_index);
+			static char* datum_try_and_get_absolute(halo3::engine::s_data_array* array, int handle);
 		};
 
 		/**

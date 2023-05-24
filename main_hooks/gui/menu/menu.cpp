@@ -664,7 +664,7 @@ void menu::Halo3::DrawMenu()
 					ImGui::SameLine();
 					if (ImGui::Button("Change"))
 					{
-						halo3::hooks::game_tick_test = true;
+						halo3::hooks::change_game_speed = true;
 					}
 
 					if (g_Overlay->CheckboxWithToolTip("Machinima Camera", "This enables the machinima debug camera, this will show your camera's coords on the screen.", &halo3::game::machinima_mode))

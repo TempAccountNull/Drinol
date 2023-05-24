@@ -34,7 +34,8 @@ namespace halo3
 			{"deinit_font_cache","40 53 48 83 EC 20 80 39 00 48 8B D9 74 34 8B 15 ?? ?? ?? ?? 65 48 8B 04 25 58 00 00 00 B9 48 01 00 00"},
 			{"draw_quad","4C 8B DC 48 83 EC ? 0F B7 41"},
 			{"draw_linestrip_2d","48 8B C4 48 89 58 08 48 89 70 10 48 89 78 18 55 48 8B EC 48 83 EC 60 0F 29 70 E8"},
-			{"ai_handle_effect_creation_check","0F 84 88 00 00 00 F3 0F 10 0D"}
+			{"ai_handle_effect_creation_check","0F 84 88 00 00 00 F3 0F 10 0D"},
+			{"data_initialize","48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 40 44 8B 5C 24 70"}
 		};
 	};
 }

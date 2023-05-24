@@ -90,6 +90,12 @@ namespace halo3
 				inline static uintptr_t object_scripting_cannot_die;
 				inline static uintptr_t object_try_and_get_and_verify_type;
 			};
+
+			class data
+			{
+			public:
+				inline static void* data_initialize;
+			};
 		};
 
 		/**
@@ -117,8 +123,10 @@ namespace halo3
 		{
 		public:
 			inline static engine::s_physics_constants* physics_constants;
+
 			inline static s_player_mapping_globals* player_mapping_globals;
-			inline static engine::s_data_array* player_data;
+			inline static engine::s_data_array* players_globals;
+			inline static engine::s_data_array* players_header;
 
 			inline static c_restricted_memory* g_restricted_regions;
 			inline static engine::game_time_globals_definition* game_time_globals;

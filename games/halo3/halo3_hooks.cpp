@@ -3,6 +3,7 @@
 
 #include "halo3.h"
 #include "halo3_offsets.h"
+#include "utils.h"
 
 static bool __cdecl game_in_progress_detour()
 {
@@ -19,9 +20,26 @@ static bool __cdecl game_in_progress_detour()
 
 static void __cdecl game_tick_detour()
 {
-	if (halo3::hooks::game_tick_test)
+	if (halo3::hooks::change_game_speed)
 	{
 		halo3::game::game_time_set_rate_scale_direct(halo3::game::game_speed);
+		halo3::hooks::change_game_speed = false;
+	}
+
+	if (halo3::hooks::game_tick_test)
+	{
+		for (int i = 0; i < 16; i++) {
+			halo3::engine::players_header* header = reinterpret_cast<halo3::engine::players_header*>(halo3::offsets::globals::players_header);
+
+			halo3::engine::player_datum player = header->players[i];
+
+			if (player.unit_index == halo3::game::grab_local_player_unit())
+			{
+				Beep(221, 233);
+				player.player_traits.m_weapon_traits.m_infinite_ammo_setting = 3;
+			}
+		}
+
 		halo3::hooks::game_tick_test = false;
 	}
 
@@ -92,6 +110,20 @@ void __cdecl weapon_barrel_create_projectiles_detour(long weapon_object_index, s
 	return halo3::hooks::weapon_barrel_create_projectiles.stub<void>(weapon_object_index, barrel_index, fire_data, unk1, unk2);
 }
 
+void __cdecl data_initialize_detour(halo3::engine::s_data_array near* a1, char* name, __int64 allocation, int a4, char a5, halo3::engine::c_allocation_base near* a6)
+{
+	if (strcmp(name, "players") == 0)
+	{
+		halo3::offsets::globals::players_header = a1;
+
+		//spdlog::debug("Players Header: 0x{:X}", reinterpret_cast<uintptr_t>(a1));
+
+		//spdlog::debug("halo3::offsets::globals::players_header: 0x{:X}", reinterpret_cast<uintptr_t>(halo3::offsets::globals::players_header));
+	}
+
+	return halo3::hooks::data_initialize.stub<void>(a1, name, allocation, a4, a5);
+}
+
 void halo3::hooks::init()
 {
 	game_in_progress.create(reinterpret_cast<uintptr_t>(offsets::functions::game::game_in_progress), game_in_progress_detour);
@@ -102,6 +134,8 @@ void halo3::hooks::init()
 
 	weapon_barrel_create_projectiles.create(reinterpret_cast<uintptr_t>(offsets::functions::weapons::weapon_barrel_create_projectiles), weapon_barrel_create_projectiles_detour);
 
+	data_initialize.create(reinterpret_cast<uintptr_t>(offsets::functions::data::data_initialize), data_initialize_detour);
+
 	MH_ApplyQueued();
 }
 
@@ -111,5 +145,6 @@ void halo3::hooks::deinit()
 	game_tick.disable();
 	director_render.disable();
 	weapon_barrel_create_projectiles.disable();
+	data_initialize.disable();
 	MH_ApplyQueued();
 }

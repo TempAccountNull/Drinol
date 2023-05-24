@@ -1,5 +1,9 @@
 #pragma once
 
+#if defined _DEBUG
+#define PRINT_RETURN spdlog::debug("{}: {}", __FUNCTION__, _ReturnAddress())
+#endif
+
 class utils
 {
 public:

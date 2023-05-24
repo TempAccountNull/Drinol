@@ -62,6 +62,8 @@ void halo3::offsets::init()
 
 	functions::render::draw_linestrip_2d = Memcury::Scanner::FindPattern(sigs::list["draw_linestrip_2d"].c_str()).Get();
 
+	functions::data::data_initialize = Memcury::Scanner::FindPattern(sigs::list["data_initialize"].c_str()).GetAs<void*>();
+
 	variables::screen_res_x = Memcury::Scanner::FindPattern(sigs::list["screen_res_x"].c_str()).RelativeOffset(3).GetAs<int*>();
 	variables::screen_res_y = Memcury::Scanner::FindPattern(sigs::list["screen_res_y"].c_str()).RelativeOffset(3).GetAs<int*>();
 
@@ -89,7 +91,7 @@ uintptr_t halo3::offsets::get_game_address(uintptr_t rva)
 void halo3::offsets::game_init()
 {
 	globals::physics_constants = static_cast<engine::s_physics_constants*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::physics_constants_member_index));
-	globals::player_data = static_cast<engine::s_data_array*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::player_data_member_index));
+	globals::players_globals = static_cast<engine::s_data_array*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::player_data_member_index));
 	globals::player_control_globals = static_cast<engine::s_player_control_globals*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::player_control_globals_member_index));
 	globals::player_mapping_globals = static_cast<s_player_mapping_globals*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::player_mapping_globals_member_index));
 	globals::game_time_globals = static_cast<engine::game_time_globals_definition*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::game_time_globals_member_index));

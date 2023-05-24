@@ -5,7 +5,7 @@
 #include "games/halo1/halo1.h"
 #include "games/halo2/halo2.h"
 #include "games/halo3/halo3.h"
-#include "games/halo3/halo3_offsets.h"
+#include "games/halo3/halo3_hooks.h"
 #include "games/halo3odst/halo3odst.h"
 #include "games/halo4/halo4.h"
 #include "games/haloreach/haloreach.h"
@@ -394,8 +394,18 @@ int utils::keys::capture_next_key()
 
 void utils::test_func(int test_int)
 {
-	halo3::engine::s_player_control_globals* game_globals = halo3::offsets::globals::player_control_globals;
-	spdlog::info("Player control globals: {:X}", reinterpret_cast<uintptr_t>(&game_globals));
+	halo3::hooks::game_tick_test = true;
+
+	//for (int i = 0; i < 16; i++) {
+	//	halo3::engine::s_thread_local_storage* tls = halo3::game::get_tls();
+
+	//	halo3::engine::player_datum* player_datum = &tls->player_data->players[i];
+
+	//	if (player_datum->unit_index)
+	//	{
+	//		spdlog::info("Player Datum : 0x{:X}", reinterpret_cast<uintptr_t>(player_datum));
+	//	}
+	//}
 
 	//for (int i = 0; i < 30; i++) {
 	//	game_globals->game_options.game_mode = 1;

@@ -80,7 +80,7 @@ namespace halo3::engine // Engine related structs, etc
 		uint32_t elapsed_ticks; //0x000C
 		float speed; //0x0010
 		float game_ticks_leftover; //0x0014
-		class s_game_tick_time_samples time_samples; //0x0018
+		s_game_tick_time_samples time_samples; //0x0018
 	}; //Size: 0x002C
 	static_assert(sizeof(game_time_globals_definition) == 0x2C);
 
@@ -114,32 +114,48 @@ namespace halo3::engine // Engine related structs, etc
 		k_shield_recharge_rate_percentage_setting_default = _shield_recharge_rate_percentage_setting_100_percent
 	};
 
-	struct c_player_trait_shield_vitality
+	class s_player_configuration
 	{
-		unsigned char m_damage_resistance_percentage_setting;
-		e_shield_recharge_rate_percentage_setting m_shield_recharge_rate_percentage_setting;
-		unsigned char m_vampirism_percentage_setting;
-		unsigned char m_headshot_immunity_setting;
-		unsigned char m_shield_multiplier_setting;
-		unsigned char pad[3];
-	};
-	struct c_player_trait_weapons
+	public:
+		wchar_t name[16]; //0x0000
+		char pad_0020[30]; //0x0020
+		wchar_t clan_tag[3]; //0x003E
+		char pad_0044[92]; //0x0044
+	}; //Size: 0x00A0
+	static_assert(sizeof(s_player_configuration) == 0xA0);
+
+	class c_player_trait_shield_vitality
 	{
-		short m_initial_grenade_count;
-		char m_initial_primary_weapon_absolute_index;
-		char m_initial_secondary_weapon_absolute_index;
-		unsigned char m_damage_modifier_percentage_setting;
-		unsigned char m_recharging_grenades_setting;
-		unsigned char m_infinite_ammo_setting;
-		unsigned char m_weapon_pickup_allowed_setting;
-	};
-	struct c_player_trait_movement
+	public:
+		int8_t m_damage_resistance_percentage_setting; //0x0000
+		int8_t m_shield_recharge_rate_percentage_setting; //0x0001
+		int8_t m_vampirism_percentage_setting; //0x0002
+		int8_t m_headshot_immunity_setting; //0x0003
+		int8_t m_shield_multiplier_setting; //0x0004
+	}; //Size: 0x0005
+	static_assert(sizeof(c_player_trait_shield_vitality) == 0x5);
+
+	class c_player_trait_weapons
 	{
-		unsigned char m_speed_setting;
-		unsigned char m_gravity_setting;
-		unsigned char m_vehicle_usage_setting;
-		unsigned char pad[1];
-	};
+	public:
+		int16_t m_initial_grenade_count; //0x0000
+		uint8_t m_initial_primary_weapon_absolute_index; //0x0002
+		uint8_t m_initial_secondary_weapon_absolute_index; //0x0003
+		uint8_t m_damage_modifier_percentage_setting; //0x0004
+		uint8_t m_recharging_grenades_setting; //0x0005
+		uint8_t m_infinite_ammo_setting; //0x0006
+		uint8_t m_weapon_pickup_allowed_setting; //0x0007
+	}; //Size: 0x0008
+	static_assert(sizeof(c_player_trait_weapons) == 0x8);
+
+	class c_player_trait_movement
+	{
+	public:
+		uint8_t m_speed_setting; //0x0000
+		uint8_t m_gravity_setting; //0x0001
+		uint8_t m_vehicle_usage_setting; //0x0002
+	}; //Size: 0x0003
+	static_assert(sizeof(c_player_trait_movement) == 0x3);
 
 	enum active_camo_settings : unsigned char
 	{
@@ -234,56 +250,125 @@ namespace halo3::engine // Engine related structs, etc
 		k_forced_change_color_settings
 	};
 
-	struct c_player_trait_appearance
+	class c_player_trait_appearance
 	{
-		active_camo_settings m_active_camo_setting;
-		e_waypoint_setting m_waypoint_setting;
-		e_aura_setting m_aura_setting;
-		e_forced_change_color_setting m_forced_change_color_setting;
-	};
-	struct c_player_trait_sensors
-	{
-		unsigned short m_motion_tracker_setting;
-		unsigned short m_motion_tracker_range_setting;
-	};
+	public:
+		uint8_t m_active_camo_setting; //0x0000
+		uint8_t m_waypoint_setting; //0x0001
+		uint8_t m_aura_setting; //0x0002
+		uint8_t m_forced_change_color_setting; //0x0003
+	}; //Size: 0x0004
+	static_assert(sizeof(c_player_trait_appearance) == 0x4);
 
-	struct c_player_traits
+	class c_player_trait_sensors
 	{
-		c_player_trait_shield_vitality m_shield_traits;
-		c_player_trait_weapons m_weapon_traits;
-		c_player_trait_movement m_movement_traits;
-		c_player_trait_appearance m_appearance_traits;
-		c_player_trait_sensors m_sensor_traits;
-	};
+	public:
+		uint16_t m_motion_tracker_setting; //0x0000
+		uint16_t m_motion_tracker_range_setting; //0x0002
+	}; //Size: 0x0004
+	static_assert(sizeof(c_player_trait_sensors) == 0x4);
+
+	class c_player_traits : public c_player_trait_shield_vitality
+	{
+	public:
+		char padding[3][1]; //0x0005
+		class c_player_trait_weapons m_weapon_traits; //0x0008
+		class c_player_trait_movement m_movement_traits; //0x0010
+		uint8_t pad[1]; //0x0013
+		class c_player_trait_appearance m_appearance_traits; //0x0014
+		class c_player_trait_sensors m_sensor_traits; //0x0018
+	}; //Size: 0x001C
 	static_assert(sizeof(c_player_traits) == 0x1C);
 
-	struct player_datum
+	class s_player_identifier
 	{
-		char __data0[0x4];
-		unsigned long flags;
-		char player_identifier[8];
-		unsigned long time;
-		char machine_identifier[6];
-		short machine_index;
-		short machine_user_index;
-		long machine_controller_index;
-		long controller_index;
-		unsigned long unit_index;
-		unsigned long dead_unit_index;
-		char __data30[0x14];
-		char next_spawn_control_context;
-		char __data45[0x13];
-		char configuration[0xA0];
-		char desired_configuration[0xA0];
-		char __data2C8[0x56];
-		unsigned short lives_remaining;
-		unsigned long __unknown320;
-		char __data324[0x4];
-		c_player_traits player_traits;
-		char __data344[0xC];
-		long respawn_target_player_index;
-		char __data[0xCC];
-	};
+	public:
+		uint32_t parts[2]; //0x0000
+	}; //Size: 0x0008
+
+	class player_datum
+	{
+	public:
+		int8_t unk0000; //0x0000
+		char pad_0001[3]; //0x0001
+		uint32_t flags; //0x0004
+		char player_identifier[8]; //0x0008
+		uint32_t time; //0x0010
+		char machine_identifier[4]; //0x0014
+		int16_t unk18; //0x0018
+		int16_t machine_index; //0x001A
+		int16_t machine_user_index; //0x001C
+		char pad_001E[2]; //0x001E
+		int32_t machine_controller_index; //0x0020
+		int32_t controller_index; //0x0024
+		uint32_t unit_index; //0x0028
+		uint32_t dead_unit_index; //0x002C
+		uint32_t failed_teleport_unit_index; //0x0030
+		char pad_0034[4]; //0x0034
+		void** unk38; //0x0038
+		uint32_t unk40; //0x0040
+		int8_t next_spawn_control_context; //0x0044
+		char pad_0045[2]; //0x0045
+		uint8_t unk47; //0x0047
+		uint8_t unk48; //0x0048
+		char pad_0049[3]; //0x0049
+		real_vector3d position; //0x004C
+		s_player_configuration configuration; //0x0058
+		s_player_configuration desired_configuration; //0x00F8
+		int32_t unk198; //0x0198
+		int16_t dead; //0x019C
+		char pad_019E[18]; //0x019E
+		void* unk1B0; //0x01B0
+		uint32_t unk1B8; //0x01B8
+		char pad_01BC[4]; //0x01BC
+		uint32_t unk1C0; //0x01C0
+		char pad_01C4[4]; //0x01C4
+		uint32_t unk1C8; //0x01C8
+		int32_t unk1CC; //0x01CC
+		int32_t unk1D0; //0x01D0
+		int16_t unk1D4; //0x01D4
+		char pad_01D6[1]; //0x01D6
+		uint8_t unk1D7; //0x01D7
+		char pad_01D8[8]; //0x01D8
+		uint8_t unk1E0; //0x01E0
+		char pad_01E1[3]; //0x01E1
+		uint16_t unk1E4; //0x01E4
+		char pad_01E6[2]; //0x01E6
+		uint16_t unk1E8; //0x01E8
+		char pad_01EA[4]; //0x01EA
+		uint16_t lives_remaining; //0x01EE
+		uint32_t unk1F0; //0x01F0
+		uint32_t unk1F4; //0x01F4
+		c_player_traits player_traits; //0x01F8
+		uint32_t unk214; //0x0214
+		uint32_t unk218; //0x0218
+		uint8_t respawn_target_player_index; //0x021C
+		int8_t padding_21D[3]; //0x021D
+		int32_t unk_220; //0x0220
+		int8_t padding_224[28]; //0x0224
+		int8_t unk240; //0x0240
+		uint8_t N00017092; //0x0241
+		uint8_t unk242; //0x0242
+		char pad_0243[3]; //0x0243
+		uint8_t unk246; //0x0246
+		char pad_0247[1]; //0x0247
+		uint32_t unk248; //0x0248
+		uint32_t unk24c; //0x024C
+		uint8_t unk250; //0x0250
+		char pad_0251[27]; //0x0251
+		uint32_t unk26C; //0x026C
+		char pad_0270[27]; //0x0270
+		int8_t unk28B; //0x028B
+		char pad_028C[4]; //0x028C
+		uint16_t unk290; //0x0290
+		char pad_0292[20]; //0x0292
+		int16_t unk2A6; //0x02A6
+		char pad_02A8[24]; //0x02A8
+		void* unk2C0; //0x02C0
+		uint64_t unk2c8; //0x02C8
+		char pad_02D0[32]; //0x02D0
+	}; //Size: 0x02F0
+	static_assert(sizeof(player_datum) == 0x2F0);
 
 	struct s_data_array
 	{
@@ -306,10 +391,17 @@ namespace halo3::engine // Engine related structs, etc
 		long offset_to_bit_vector;
 	};
 
+	class players_header
+	{
+	public:
+		char pad_0000[72]; //0x0000
+		player_datum* players; //0x0048
+	}; //Size: 0x0050
+
 	struct s_thread_local_storage
 	{
 		void* __unknown0[2];
-		s_data_array* player_data;
+		players_header* player_data;
 		int g_registered_thread_index;
 		void* __unknown20[3];
 		s_data_array* object_header;
@@ -423,7 +515,7 @@ namespace halo3::engine // Engine related structs, etc
 		uint32_t active_structure_bsp_mask;
 		uint16_t active_designer_zone_mask;
 		uint32_t active_cinematic_zone_mask;
-		struct s_game_options game_options;
+		s_game_options game_options;
 		char pad_16E4[58515];
 		uint32_t N000036B3;
 		uint32_t active_skulls2;
@@ -454,5 +546,11 @@ namespace halo3::engine // Engine related structs, etc
 		bool machinima_camera_use_old_controls;
 		bool machinima_camera_debug;
 		char pad_070B[4205];
+	};
+
+	struct c_allocation_base
+	{
+		virtual void* allocate(c_allocation_base* unk, qword unk2);
+		virtual void deallocate(void* buffer);
 	};
 }

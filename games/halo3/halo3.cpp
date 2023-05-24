@@ -200,9 +200,14 @@ void halo3::game::game_time_set_rate_scale_direct(float speed)
 	return utils::memory::game_call<void>(offsets::functions::game::game_time_set_rate_scale_direct)(speed);
 }
 
+halo3::engine::s_thread_local_storage* halo3::game::get_tls()
+{
+	return reinterpret_cast<engine::s_thread_local_storage*>(utils::memory::get_tls_pointer(L"halo3.dll"));
+}
+
 void* halo3::game::get_restricted_region_member_address(int alias_index, int member_index, int index)
 {
-	engine::s_thread_local_storage* tls = reinterpret_cast<engine::s_thread_local_storage*>(utils::memory::get_tls_pointer(L"halo3.dll"));
+	engine::s_thread_local_storage* tls = get_tls();
 
 	return &tls->g_restricted_address[alias_index][offsets::globals::g_restricted_regions[member_index].m_registered_member[index].offset];
 }
@@ -256,6 +261,34 @@ void halo3::game::skulls::skull_secondary_enable(int16_t skull_id, bool enable)
 		game_globals->active_secondary_skulls |= skull;
 	else
 		game_globals->active_secondary_skulls &= ~skull;
+}
+
+char* halo3::game::datums::datum_try_and_get(engine::s_data_array* array, int datum_index)
+{
+	char* v2 = nullptr;
+	if (datum_index != -1 && datum_index < array->first_unallocated)
+	{
+		char* v3 = &array->data[datum_index * array->size];
+		if (*v3)
+		{
+			if (*v3 == datum_index >> 16)
+				return &array->data[datum_index * array->size];
+		}
+	}
+	return v2;
+}
+
+char* halo3::game::datums::datum_try_and_get_absolute(halo3::engine::s_data_array* array, int handle)
+{
+	char* result; // eax
+
+	result = 0;
+	if (handle >= 0 && handle < array->first_unallocated)
+	{
+		if (*&array->data[handle * array->size])
+			return &array->data[handle * array->size];
+	}
+	return result;
 }
 
 void halo3::game::render::draw_text(std::string text, int XPos, int YPos, float scale, real_argb_color colour = real_argb_color(255, 255, 255, 255))
