@@ -26,6 +26,9 @@ void halo3::game::init() // Initialize hooks and shit for halo 1
 		spdlog::info("Loaded settings for Halo 3.");
 	}
 
+	// Apply patches from config:
+	toggle_spawning_ai_from_effects(toggle_ai_spawn_effects);
+
 	spdlog::info("Halo 3 initialized ☺");
 }
 
