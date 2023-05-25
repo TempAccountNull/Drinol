@@ -5,7 +5,10 @@ REM Commit Hash
 FOR /F "tokens=*" %%g IN ('git log -1 --pretty^=format:^%%h') do (SET COMMIT_HASH=%%g)
 
 REM Commit Subject
-FOR /F "tokens=*" %%g IN ('git log -1 --pretty^=format:^%%s') do (SET COMMIT_SUBJECT=%%g)
+FOR /F "tokens=*" %%g IN ('git log -1 --pretty^=format:^%%s') do (SET COMMIT_SUBJECT=%%g ) 
+
+REM Remove quotes from COMMIT_SUBJECT
+Set COMMIT_SUBJECT=%COMMIT_SUBJECT:"=%
 
 REM Commit Date
 FOR /F "tokens=*" %%g IN ('git log -1 --pretty^=format:^%%ad') do (SET COMMIT_DATE=%%g)

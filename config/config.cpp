@@ -301,13 +301,13 @@ bool config::sigs::create()
 
 bool config::sigs::validate()
 {
-	// TODO: Merge these for loops
+#if defined _DEBUG // Check if built-in sigs are valid, only really useful for those who are developing drinol.
 
 	for (std::pair<const std::string, std::string> element : middleware::sigs::list)
 	{
 		if (element.first.empty() || element.second.empty())
 		{
-			return false;
+			spdlog::critical("Built-in sigs for middleware are invalid!");
 		}
 	}
 
@@ -315,7 +315,7 @@ bool config::sigs::validate()
 	{
 		if (element.first.empty() || element.second.empty())
 		{
-			return false;
+			spdlog::critical("Built-in sigs for halo1 are invalid!");
 		}
 	}
 
@@ -323,7 +323,7 @@ bool config::sigs::validate()
 	{
 		if (element.first.empty() || element.second.empty())
 		{
-			return false;
+			spdlog::critical("Built-in sigs for halo2 are invalid!");
 		}
 	}
 
@@ -331,7 +331,7 @@ bool config::sigs::validate()
 	{
 		if (element.first.empty() || element.second.empty())
 		{
-			return false;
+			spdlog::critical("Built-in sigs for halo3 are invalid!");
 		}
 	}
 
@@ -339,7 +339,7 @@ bool config::sigs::validate()
 	{
 		if (element.first.empty() || element.second.empty())
 		{
-			return false;
+			spdlog::critical("Built-in sigs for halo3odst are invalid!");
 		}
 	}
 
@@ -347,7 +347,7 @@ bool config::sigs::validate()
 	{
 		if (element.first.empty() || element.second.empty())
 		{
-			return false;
+			spdlog::critical("Built-in sigs for haloreach are invalid!");
 		}
 	}
 
@@ -355,8 +355,141 @@ bool config::sigs::validate()
 	{
 		if (element.first.empty() || element.second.empty())
 		{
-			return false;
+			spdlog::critical("Built-in sigs for halo4 are invalid!");
 		}
+	}
+
+#endif
+
+	// Validate signatures.ini
+	const mINI::INIFile file(main::config_folder + "\\Signatures.ini");
+
+	mINI::INIStructure ini;
+
+	if (!file.read(ini))
+	{
+		// Failed to read ini
+		return false;
+	}
+
+	//Middleware sigs
+	for (std::pair<const std::string, std::string>& item : middleware::sigs::list)
+	{
+		if (ini.has("middleware"))
+		{
+			mINI::INIMap<std::string>& collection = ini["middleware"];
+
+			if (!collection.has(item.first))
+				return false;
+
+			if (collection[item.first].empty())
+				return false;
+		}
+		else
+			return false;
+	}
+
+	//Halo 1 Sigs
+	for (std::pair<const std::string, std::string>& item : halo1::sigs::list)
+	{
+		if (ini.has("Halo1a"))
+		{
+			mINI::INIMap<std::string>& collection = ini["Halo1a"];
+
+			if (!collection.has(item.first))
+				return false;
+
+			if (collection[item.first].empty())
+				return false;
+		}
+		else
+			return false;
+	}
+
+	//Halo 2 Sigs
+	for (std::pair<const std::string, std::string>& item : halo2::sigs::list)
+	{
+		if (ini.has("Halo2a"))
+		{
+			mINI::INIMap<std::string>& collection = ini["Halo2a"];
+
+			if (!collection.has(item.first))
+				return false;
+
+			if (collection[item.first].empty())
+				return false;
+		}
+		else
+			return false;
+	}
+
+	//Halo 3 Sigs
+	for (std::pair<const std::string, std::string>& item : halo3::sigs::list)
+	{
+		if (ini.has("Halo3"))
+		{
+			mINI::INIMap<std::string>& collection = ini["Halo3"];
+
+			if (!collection.has(item.first))
+				return false;
+
+			if (collection[item.first].empty())
+				return false;
+		}
+		else
+			return false;
+	}
+
+	//Halo 3 ODST Sigs
+	for (std::pair<const std::string, std::string>& item : halo3odst::sigs::list)
+	{
+		if (ini.has("Halo3ODST"))
+		{
+			mINI::INIMap<std::string>& collection = ini["Halo3ODST"];
+
+			if (!collection.has(item.first))
+				return false;
+
+			if (collection[item.first].empty())
+				return false;
+		}
+		else
+			return false;
+	}
+
+	//Halo Reach Sigs
+	for (std::pair<const std::string, std::string>& item : haloreach::sigs::list)
+	{
+		if (ini.has("haloreach"))
+		{
+			mINI::INIMap<std::string>& collection = ini["haloreach"];
+
+			if (!collection.has(item.first))
+				return false;
+
+			if (collection[item.first].empty())
+				return false;
+		}
+		else
+			return false;
+	}
+
+	//Halo 4 Sigs
+
+	for (std::pair<const std::string, std::string>& item : halo4::sigs::list)
+	{
+		if (ini.has("Halo4"))
+		{
+			mINI::INIMap<std::string>& collection = ini["Halo4"];
+
+			if (!collection.has(item.first))
+				return false;
+
+			if (collection[item.first].empty())
+				return false;
+		}
+		else
+			return false;
 	}
 
 	return true;
