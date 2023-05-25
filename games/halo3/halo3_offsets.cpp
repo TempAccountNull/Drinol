@@ -103,4 +103,7 @@ void halo3::offsets::game_init()
 		globals::player_control_globals->machinima_camera_debug = true;
 		globals::player_control_globals->machinima_camera_enabled = true;
 	}
+
+	// Apply patches from config:
+	game::toggle_spawning_ai_from_effects(game::toggle_ai_spawn_effects);
 }
