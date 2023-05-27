@@ -63,8 +63,10 @@ static __int64 __fastcall ui_command_overlay_push_detour(INT64 a1, char* a2, int
 
 void middleware::hooks::init()
 {
+	spdlog::debug("Middleware: Pattern scanning for: start_game_engine_t");
 	void* start_game_engine_t = Memcury::Scanner::FindPattern(sigs::list["start_game_engine_t"].c_str()).FindFunctionBoundary(false).GetAs<void*>();
 
+	spdlog::debug("Middleware: Pattern scanning for: UICommandOverlayPush_t");
 	void* UICommandOverlayPush_t = Memcury::Scanner::FindPattern(sigs::list["UICommandOverlayPush_t"].c_str()).FindFunctionBoundary(false).GetAs<void*>();
 
 	start_game_engine.create(reinterpret_cast<uintptr_t>(start_game_engine_t), start_game_engine_detour);
