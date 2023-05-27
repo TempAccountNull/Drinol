@@ -64,21 +64,6 @@
 
 #ifndef USE_BUILTIN_SIGS // Only read signatures built into drinol instead of the ini.
 
-	// Check if signatures.ini is valid. Warning, nasty bugs may occur if the sig lists have empty entries. TODO: Prevent bugs?
-	if (!config::sigs::validate())
-	{
-		spdlog::error("Could not validate existing signatures, generating new signatures file instead.");
-
-		std::string file_name = config::main::config_folder + "\\Signatures.ini";
-		std::remove(file_name.c_str()); // delete file
-
-		if (!config::sigs::create())
-		{
-			//spdlog::error("Failed to create new signatures config file.");
-			MessageBox(NULL, L"Could not validate existing signatures, tried to generate a new signatures file to no avail......", L"Drinol Error!", 0);
-		}
-	}
-
 	if (!config::sigs::load())
 	{
 		spdlog::error("Failed to load signatures config file, creating a new one from scratch.");
@@ -92,6 +77,12 @@
 			//spdlog::error("Failed to load new signatures config file.");
 			MessageBox(NULL, L"Failed to generate and load the signatures config file!", L"Drinol Error!", 0);
 		}
+	}
+
+	// Check if signatures.ini is valid.
+	if (!config::sigs::validate())
+	{
+		MessageBox(NULL, L"The signatures.ini file failed to validate!\nPlease check the logs to find what part of the signatures file is invalid.\nYou can either fix this manually or just delete the file and restart Drinol.", L"Drinol Error!", 0);
 	}
 
 #endif

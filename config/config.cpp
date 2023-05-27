@@ -380,13 +380,22 @@ bool config::sigs::validate()
 			mINI::INIMap<std::string>& collection = ini["middleware"];
 
 			if (!collection.has(item.first))
+			{
+				spdlog::critical("Signatures.ini: [middleware] is missing {}!", item.first);
 				return false;
+			}
 
 			if (collection[item.first].empty())
+			{
+				spdlog::critical("Signatures.ini: [middleware] member {} is missing its value!", item.first);
 				return false;
+			}
 		}
 		else
+		{
+			spdlog::critical("Signatures.ini: [middleware] section does not exist!");
 			return false;
+		}
 	}
 
 	//Halo 1 Sigs
@@ -397,13 +406,22 @@ bool config::sigs::validate()
 			mINI::INIMap<std::string>& collection = ini["Halo1a"];
 
 			if (!collection.has(item.first))
+			{
+				spdlog::critical("Signatures.ini: [Halo1a] is missing {}!", item.first);
 				return false;
+			}
 
 			if (collection[item.first].empty())
+			{
+				spdlog::critical("Signatures.ini: [Halo1a] member {} is missing its value!", item.first);
 				return false;
+			}
 		}
 		else
+		{
+			spdlog::critical("Signatures.ini: [Halo1a] section does not exist!");
 			return false;
+		}
 	}
 
 	//Halo 2 Sigs
@@ -414,13 +432,22 @@ bool config::sigs::validate()
 			mINI::INIMap<std::string>& collection = ini["Halo2a"];
 
 			if (!collection.has(item.first))
+			{
+				spdlog::critical("Signatures.ini: [Halo2a] is missing {}!", item.first);
 				return false;
+			}
 
 			if (collection[item.first].empty())
+			{
+				spdlog::critical("Signatures.ini: [Halo2a] member {} is missing its value!", item.first);
 				return false;
+			}
 		}
 		else
+		{
+			spdlog::critical("Signatures.ini: [Halo2a] section does not exist!");
 			return false;
+		}
 	}
 
 	//Halo 3 Sigs
@@ -431,13 +458,22 @@ bool config::sigs::validate()
 			mINI::INIMap<std::string>& collection = ini["Halo3"];
 
 			if (!collection.has(item.first))
+			{
+				spdlog::critical("Signatures.ini: [Halo3] is missing {}!", item.first);
 				return false;
+			}
 
 			if (collection[item.first].empty())
+			{
+				spdlog::critical("Signatures.ini: [Halo3] member {} is missing its value!", item.first);
 				return false;
+			}
 		}
 		else
+		{
+			spdlog::critical("Signatures.ini: [Halo3] section does not exist!");
 			return false;
+		}
 	}
 
 	//Halo 3 ODST Sigs
@@ -448,13 +484,22 @@ bool config::sigs::validate()
 			mINI::INIMap<std::string>& collection = ini["Halo3ODST"];
 
 			if (!collection.has(item.first))
+			{
+				spdlog::critical("Signatures.ini: [Halo3ODST] is missing {}!", item.first);
 				return false;
+			}
 
 			if (collection[item.first].empty())
+			{
+				spdlog::critical("Signatures.ini: [Halo3ODST] member {} is missing its value!", item.first);
 				return false;
+			}
 		}
 		else
+		{
+			spdlog::critical("Signatures.ini: [Halo3ODST] section does not exist!");
 			return false;
+		}
 	}
 
 	//Halo Reach Sigs
@@ -465,13 +510,22 @@ bool config::sigs::validate()
 			mINI::INIMap<std::string>& collection = ini["haloreach"];
 
 			if (!collection.has(item.first))
+			{
+				spdlog::critical("Signatures.ini: [haloreach] is missing {}!", item.first);
 				return false;
+			}
 
 			if (collection[item.first].empty())
+			{
+				spdlog::critical("Signatures.ini: [haloreach] member {} is missing its value!", item.first);
 				return false;
+			}
 		}
 		else
+		{
+			spdlog::critical("Signatures.ini: [haloreach] section does not exist!");
 			return false;
+		}
 	}
 
 	//Halo 4 Sigs
@@ -483,13 +537,22 @@ bool config::sigs::validate()
 			mINI::INIMap<std::string>& collection = ini["Halo4"];
 
 			if (!collection.has(item.first))
+			{
+				spdlog::critical("Signatures.ini: [Halo4] is missing {}!", item.first);
 				return false;
+			}
 
 			if (collection[item.first].empty())
+			{
+				spdlog::critical("Signatures.ini: [Halo4] member {} is missing its value!", item.first);
 				return false;
+			}
 		}
 		else
+		{
+			spdlog::critical("Signatures.ini: [Halo4] section does not exist!");
 			return false;
+		}
 	}
 
 	return true;
