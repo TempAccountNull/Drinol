@@ -82,7 +82,7 @@
 	// Check if signatures.ini is valid.
 	if (!config::sigs::validate())
 	{
-		MessageBox(NULL, L"The signatures.ini file failed to validate!\nPlease check the logs to find what part of the signatures file is invalid.\nYou can either fix this manually or just delete the file and restart Drinol.", L"Drinol Error!", 0);
+		MessageBox(NULL, L"The signatures.ini file failed to validate!\nPlease check the logs to find what part of the signatures file is invalid.\nYou can either fix this manually or just delete the file and Drinol will generate a new one the next time it starts up.", L"Drinol Error!", 0);
 	}
 
 #endif
