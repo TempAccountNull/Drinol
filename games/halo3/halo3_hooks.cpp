@@ -110,19 +110,19 @@ void __cdecl weapon_barrel_create_projectiles_detour(long weapon_object_index, s
 	return halo3::hooks::weapon_barrel_create_projectiles.stub<void>(weapon_object_index, barrel_index, fire_data, unk1, unk2);
 }
 
-void __cdecl data_initialize_detour(halo3::engine::s_data_array near* a1, char* name, __int64 allocation, int a4, char a5, halo3::engine::c_allocation_base near* a6)
-{
-	if (strcmp(name, "players") == 0)
-	{
-		halo3::offsets::globals::players_header = a1;
-
-		//spdlog::debug("Players Header: 0x{:X}", reinterpret_cast<uintptr_t>(a1));
-
-		//spdlog::debug("halo3::offsets::globals::players_header: 0x{:X}", reinterpret_cast<uintptr_t>(halo3::offsets::globals::players_header));
-	}
-
-	return halo3::hooks::data_initialize.stub<void>(a1, name, allocation, a4, a5);
-}
+//void __cdecl data_initialize_detour(halo3::engine::s_data_array near* a1, char* name, __int64 allocation, int a4, char a5, halo3::engine::c_allocation_base near* a6)
+//{
+//	if (strcmp(name, "players") == 0)
+//	{
+//		halo3::offsets::globals::players_header = a1;
+//
+//		//spdlog::debug("Players Header: 0x{:X}", reinterpret_cast<uintptr_t>(a1));
+//
+//		//spdlog::debug("halo3::offsets::globals::players_header: 0x{:X}", reinterpret_cast<uintptr_t>(halo3::offsets::globals::players_header));
+//	}
+//
+//	return halo3::hooks::data_initialize.stub<void>(a1, name, allocation, a4, a5);
+//}
 
 void halo3::hooks::init()
 {
@@ -134,7 +134,7 @@ void halo3::hooks::init()
 
 	weapon_barrel_create_projectiles.create(reinterpret_cast<uintptr_t>(offsets::functions::weapons::weapon_barrel_create_projectiles), weapon_barrel_create_projectiles_detour);
 
-	data_initialize.create(reinterpret_cast<uintptr_t>(offsets::functions::data::data_initialize), data_initialize_detour);
+	//data_initialize.create(reinterpret_cast<uintptr_t>(offsets::functions::data::data_initialize), data_initialize_detour); //TODO: Commented out for now as using this for some reason, causes MCC to crash when exiting the game to the main menu.
 
 	MH_ApplyQueued();
 }
@@ -145,6 +145,6 @@ void halo3::hooks::deinit()
 	game_tick.disable();
 	director_render.disable();
 	weapon_barrel_create_projectiles.disable();
-	data_initialize.disable();
+	//data_initialize.disable();
 	MH_ApplyQueued();
 }
