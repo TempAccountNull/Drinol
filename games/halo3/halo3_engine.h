@@ -489,9 +489,19 @@ namespace halo3::engine // Engine related structs, etc
 		DWORD dword84C;
 	};
 
+	enum scenario_type : __int8
+	{
+		_scenario_type_none = 0x0,
+		_scenario_type_campaign = 0x1,
+		_scenario_type_multiplayer = 0x2,
+		_scenario_type_mainmenu = 0x3,
+		_scenario_type_shared = 0x4,
+		_scenario_type_count = 0x5,
+	};
+
 	struct s_game_options
 	{
-		uint8_t game_mode;
+		scenario_type game_mode;
 		uint8_t game_simulation;
 		uint8_t game_network_type;
 		uint16_t game_tick_rate;
@@ -553,4 +563,35 @@ namespace halo3::engine // Engine related structs, etc
 		virtual void* allocate(c_allocation_base* unk, qword unk2);
 		virtual void deallocate(void* buffer);
 	};
+
+	class game_allegiance
+	{
+	public:
+		char pad_0000[2]; //0x0000
+		int16_t unk2; //0x0002
+		int16_t team1; //0x0004
+		uint16_t team2; //0x0006
+		uint16_t unk8; //0x0008
+		int8_t unkA; //0x000A
+		uint8_t unkB; //0x000B
+		int8_t unkC; //0x000C
+		int8_t unkD; //0x000D
+		int8_t unkE; //0x000E
+		int8_t unkF; //0x000F
+		uint16_t unk10; //0x0010
+		uint16_t unk12; //0x0012
+	}; //Size: 0x0014
+	static_assert(sizeof(game_allegiance) == 0x14);
+
+	class game_allegiance_globals
+	{
+	public:
+		int16_t allegiance_count; //0x0000
+		char pad_0002[18]; //0x0002
+		game_allegiance allegiances[9]; //0x0014
+		char pad_00C8[380]; //0x00C8
+	}; //Size: 0x0244
+	static_assert(sizeof(game_allegiance_globals) == 0x244);
+
+	// There are 15/16 sp_teams in total
 }

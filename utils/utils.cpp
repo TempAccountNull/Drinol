@@ -5,7 +5,7 @@
 #include "games/halo1/halo1.h"
 #include "games/halo2/halo2.h"
 #include "games/halo3/halo3.h"
-#include "games/halo3/halo3_hooks.h"
+#include "games/halo3/halo3_offsets.h"
 #include "games/halo3odst/halo3odst.h"
 #include "games/halo4/halo4.h"
 #include "games/haloreach/haloreach.h"
@@ -394,7 +394,7 @@ int utils::keys::capture_next_key()
 
 void utils::test_func(int test_int)
 {
-	halo3::hooks::game_tick_test = true;
+	//halo3::hooks::game_tick_test = true;
 
 	//for (int i = 0; i < 16; i++) {
 	//	halo3::engine::s_thread_local_storage* tls = halo3::game::get_tls();
@@ -412,6 +412,8 @@ void utils::test_func(int test_int)
 	//	halo3::game::skulls::skull_primary_enable(i, true);
 	//	halo3::game::skulls::skull_secondary_enable(i, true);
 	//}
+
+	spdlog::info("Game Allegiance Globals: 0x{:X}", reinterpret_cast<uintptr_t>(halo3::offsets::globals::game_allegiance_globals));
 }
 
 uintptr_t utils::memory::get_offset(uintptr_t address)

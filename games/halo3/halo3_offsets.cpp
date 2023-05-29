@@ -108,6 +108,9 @@ void halo3::offsets::init()
 	spdlog::debug("Halo 3: Pattern scanning for: player_data_member_index");
 	variables::region_member_indexes::player_data_member_index = Memcury::Scanner::FindPattern(sigs::list["player_data_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();
 
+	spdlog::debug("Halo 3: Pattern scanning for: game_allegiance_globals_member_index");
+	variables::region_member_indexes::game_allegiance_globals_member_index = Memcury::Scanner::FindPattern(sigs::list["game_allegiance_globals_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();
+
 	spdlog::debug("Halo 3: Pattern scanning for: ai_handle_effect_creation_check");
 	patches::ai_handle_effect_creation_check = Memcury::Scanner::FindPattern(sigs::list["ai_handle_effect_creation_check"].c_str()).GetAs<void*>();
 	utils::memory::store_memory_bytes(patches::ai_handle_effect_creation_check_og_bytes, patches::ai_handle_effect_creation_check, 0x06);
@@ -126,6 +129,7 @@ void halo3::offsets::game_init()
 	globals::player_mapping_globals = static_cast<s_player_mapping_globals*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::player_mapping_globals_member_index));
 	globals::game_time_globals = static_cast<engine::game_time_globals_definition*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::game_time_globals_member_index));
 	globals::game_globals = static_cast<engine::s_game_globals*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::game_globals_member_index));
+	globals::game_allegiance_globals = static_cast<engine::game_allegiance_globals*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::game_allegiance_globals_member_index));
 
 	//TODO: sometimes this does not work, no idea why
 	if (game::machinima_mode)
