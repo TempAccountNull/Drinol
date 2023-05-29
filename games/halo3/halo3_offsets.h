@@ -74,8 +74,10 @@ namespace halo3
 				inline static uintptr_t draw_string_draw;
 				inline static uintptr_t draw_string_set_bounds;
 				inline static uintptr_t get_screen_bounds;
+				inline static uintptr_t font_cache_init;
 				inline static uintptr_t deinit_font_cache;
 				inline static uintptr_t draw_linestrip_2d;
+				inline static uintptr_t draw_string_init;
 			};
 
 			class weapons

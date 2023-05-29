@@ -64,6 +64,12 @@ void halo3::offsets::init()
 	spdlog::debug("Halo 3: Pattern scanning for: draw_quad");
 	functions::render::draw_quad = Memcury::Scanner::FindPattern(sigs::list["draw_quad"].c_str()).Get();
 
+	spdlog::debug("Halo 3: Pattern scanning for: draw_string_init");
+	functions::render::draw_string_init = Memcury::Scanner::FindPattern(sigs::list["draw_string_init"].c_str()).Get();
+
+	spdlog::debug("Halo 3: Pattern scanning for: font_cache_init");
+	functions::render::font_cache_init = Memcury::Scanner::FindPattern(sigs::list["font_cache_init"].c_str()).Get();
+
 	spdlog::debug("Halo 3: Pattern scanning for: draw_string_set_font");
 	functions::render::draw_string_set_font = Memcury::Scanner::FindPattern(sigs::list["draw_string_set_font"].c_str()).Get();
 

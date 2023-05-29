@@ -298,8 +298,8 @@ void halo3::game::render::draw_text(std::string text, int XPos, int YPos, float 
 	short_rectangle2d bounds{};
 
 	//Game Calls
-	utils::memory::game_call<engine::c_rasterizer_draw_string*>(Memcury::PE::GetModuleBase() + 0x28126c)(&draw_string); // c_rasterizer_draw_string rasterizer_draw_string;
-	utils::memory::game_call<engine::c_font_cache_mt_safe*>(Memcury::PE::GetModuleBase() + 0x177dcc)(&font_cache); // c_font_cache_mt_safe font_cache;
+	utils::memory::game_call<engine::c_rasterizer_draw_string*>(offsets::functions::render::draw_string_init)(&draw_string); // c_rasterizer_draw_string rasterizer_draw_string;
+	utils::memory::game_call<engine::c_font_cache_mt_safe*>(offsets::functions::render::font_cache_init)(&font_cache); // c_font_cache_mt_safe font_cache;
 
 	utils::memory::game_call<void>(offsets::functions::render::draw_string_set_font)(&draw_string, engine::e_font_id::Conduit_32); // set font
 
