@@ -19,6 +19,7 @@
 #include "gui/gui.h"
 #include "gui/menu/menu.h"
 #include "games/groundhog/groundhog_hooks.h"
+#include "games/halo4/halo4_hooks.h"
 
 // This is used for the management of config files, etc
 
@@ -842,6 +843,7 @@ bool config::games::halo_4::create()
 	mINI::INIStructure ini;
 
 	// populate the structure
+	ini["Game"]["redirect_print"] = "false";
 
 	// generate an INI file (overwrites any previous file)
 	if (!file.generate(ini, true))
@@ -859,6 +861,7 @@ bool config::games::halo_4::save()
 	mINI::INIStructure ini;
 
 	// populate the structure
+	ini["Game"]["redirect_print"] = bool_to_string(halo4::hooks::redirect_print);
 
 	// write to the INI file (overwrites)
 	if (!file.write(ini, true))
@@ -882,6 +885,7 @@ bool config::games::halo_4::load()
 	}
 
 	// read a value
+	std::istringstream(ini.get("Game").get("redirect_print")) >> std::boolalpha >> halo4::hooks::redirect_print;
 
 	return true;
 }

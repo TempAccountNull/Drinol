@@ -16,9 +16,21 @@ static bool __cdecl game_in_progress_detour()
 	return halo4::hooks::game_in_progress.stub<bool>();
 }
 
+static void __fastcall hs_print_detour(const char* a1)
+{
+	if (halo4::hooks::redirect_print)
+	{
+		spdlog::info("[halo4] hs_print: {}", a1);
+	}
+
+	return halo4::hooks::hs_print.stub<void>(a1);
+}
+
 void halo4::hooks::init()
 {
 	game_in_progress.create(reinterpret_cast<uintptr_t>(offsets::functions::game_in_progress), game_in_progress_detour);
+
+	hs_print.create(reinterpret_cast<uintptr_t>(offsets::functions::hs_print), hs_print_detour);
 
 	MH_ApplyQueued();
 }
@@ -26,5 +38,6 @@ void halo4::hooks::init()
 void halo4::hooks::deinit()
 {
 	game_in_progress.disable();
+	hs_print.disable();
 	MH_ApplyQueued();
 }

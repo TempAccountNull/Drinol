@@ -14,6 +14,9 @@ void halo4::offsets::init()
 
 	spdlog::debug("Halo 4: Pattern scanning for: game_in_progress");
 	functions::game_in_progress = Memcury::Scanner::FindPattern(sigs::list["game_in_progress"].c_str()).RelativeOffset(1).GetAs<void*>();
+
+	spdlog::debug("Halo 4: Pattern scanning for: hs_print");
+	functions::hs_print = Memcury::Scanner::FindPattern(sigs::list["hs_print"].c_str()).GetAs<void*>();
 }
 
 void halo4::offsets::game_init()

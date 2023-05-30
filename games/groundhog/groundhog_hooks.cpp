@@ -16,7 +16,7 @@ static bool __cdecl game_in_progress_detour()
 	return groundhog::hooks::game_in_progress.stub<bool>();
 }
 
-void __fastcall hs_print_detour(const char* a1)
+static void __fastcall hs_print_detour(const char* a1)
 {
 	if (groundhog::hooks::redirect_print)
 	{

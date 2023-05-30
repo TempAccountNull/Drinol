@@ -29,6 +29,7 @@ namespace halo4
 		public:
 
 			inline static void* game_in_progress;
+			inline static void* hs_print;
 		};
 
 		/**

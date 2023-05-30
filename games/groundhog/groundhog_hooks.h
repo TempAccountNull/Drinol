@@ -6,7 +6,6 @@ namespace groundhog
 	{
 	public:
 		inline static detour game_in_progress;
-
 		inline static detour hs_print;
 		inline static bool redirect_print = false;
 

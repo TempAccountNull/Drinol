@@ -18,6 +18,7 @@
 #include "games/halo3odst/halo3odst.h"
 #include "games/haloreach/haloreach.h"
 #include "games/groundhog/groundhog_hooks.h"
+#include "games/halo4/halo4_hooks.h"
 // This is our custom menu.
 
 #pragma region modal_funcs
@@ -812,6 +813,49 @@ void menu::HaloReach::DrawMenu()
 
 void menu::Halo4::DrawMenu()
 {
+	if (ImGui::BeginTabItem("Halo 4"))
+	{
+		if (ImGui::BeginTabBar("Halo4Tabs", ImGuiTabBarFlags_None))
+		{
+			//#if defined _DEBUG
+			//			if (ImGui::BeginTabItem("Debug"))
+			//			{
+			//				if (ImGui::Button("Trigger Test Function"))
+			//					groundhog::game::test_function();
+			//
+			//				if (ImGui::Button("Print all blamscript functions."))
+			//					groundhog::game::list_all_hs_functions();
+			//
+			//				if (ImGui::Button("Print all blamscript globals."))
+			//					groundhog::game::list_all_hs_globals();
+			//
+			//				ImGui::EndTabItem();
+			//			}
+			//#endif
+
+			//if (ImGui::BeginTabItem("Rendering"))
+			//{
+			//	/*	ImGui::Checkbox("Toggle HUD", halo3::offsets::toggle_hud);
+			//		if (ImGui::IsItemHovered())
+			//			ImGui::SetTooltip("Toggles the heads up display.");*/
+
+			//	ImGui::EndTabItem();
+			//}
+
+			if (ImGui::BeginTabItem("Game"))
+			{
+				ImGui::Checkbox("Redirect hs_print", &halo4::hooks::redirect_print);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip("Redirects some engine printing functions to the console.");
+
+				ImGui::EndTabItem();
+			}
+
+			ImGui::EndTabBar();
+		}
+
+		ImGui::EndTabItem();
+	}
 }
 
 void menu::Groundhog::DrawMenu()
