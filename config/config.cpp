@@ -2,6 +2,7 @@
 #include "config.h"
 
 #include "utils.h"
+#include "games/groundhog/groundhog_sigs.h"
 #include "games/halo1/halo1.h"
 #include "games/halo1/halo1_hooks.h"
 #include "games/halo1/halo1_offsets.h"
@@ -152,22 +153,6 @@ bool config::main::create()
 
 	ini["Console"]["loglevel"] = "0";
 
-	//ini["Middleware"];
-
-	//ini["Halo1A"];
-
-	//ini["Halo2A"];
-
-	//ini["Halo3"];
-
-	//ini["Halo3ODST"];
-
-	//ini["HaloReach"];
-
-	//ini["Halo4"];
-
-	//ini["Halo2AMP"];
-
 	// generate an INI file (overwrites any previous file)
 	if (!file.generate(ini, true))
 	{
@@ -237,6 +222,13 @@ bool config::sigs::load()
 		item.second = ini.get("Halo4").get(item.first);
 	}
 
+	//Halo 2 Anniversary Multiplayer Sigs
+
+	for (std::pair<const std::string, std::string>& item : groundhog::sigs::list)
+	{
+		item.second = ini.get("groundhog").get(item.first);
+	}
+
 	return true;
 }
 
@@ -288,6 +280,12 @@ bool config::sigs::create()
 	for (std::pair<const std::string, std::string> item : halo4::sigs::list)
 	{
 		ini["Halo4"][item.first] = item.second;
+	}
+
+	//Halo 2 Anniversary Multiplayer Sigs
+	for (std::pair<const std::string, std::string> item : groundhog::sigs::list)
+	{
+		ini["groundhog"][item.first] = item.second;
 	}
 
 	// generate an INI file (overwrites any previous file)
@@ -356,6 +354,14 @@ bool config::sigs::validate()
 		if (element.first.empty() || element.second.empty())
 		{
 			spdlog::critical("Built-in sigs for halo4 are invalid!");
+		}
+	}
+
+	for (std::pair<const std::string, std::string> element : groundhog::sigs::list)
+	{
+		if (element.first.empty() || element.second.empty())
+		{
+			spdlog::critical("Built-in sigs for groundhog are invalid!");
 		}
 	}
 
@@ -551,6 +557,32 @@ bool config::sigs::validate()
 		else
 		{
 			spdlog::critical("Signatures.ini: [Halo4] section does not exist!");
+			return false;
+		}
+	}
+
+	// Halo 2 Anniversary Multiplayer Sigs
+	for (std::pair<const std::string, std::string>& item : groundhog::sigs::list)
+	{
+		if (ini.has("groundhog"))
+		{
+			mINI::INIMap<std::string>& collection = ini["groundhog"];
+
+			if (!collection.has(item.first))
+			{
+				spdlog::critical("Signatures.ini: [groundhog] is missing {}!", item.first);
+				return false;
+			}
+
+			if (collection[item.first].empty())
+			{
+				spdlog::critical("Signatures.ini: [groundhog] member {} is missing its value!", item.first);
+				return false;
+			}
+		}
+		else
+		{
+			spdlog::critical("Signatures.ini: [groundhog] section does not exist!");
 			return false;
 		}
 	}
@@ -839,6 +871,57 @@ bool config::games::halo_4::save()
 bool config::games::halo_4::load()
 {
 	const mINI::INIFile file(main::config_folder + "\\Halo4.ini");
+
+	mINI::INIStructure ini;
+
+	if (!file.read(ini))
+	{
+		// Failed to read ini
+		return false;
+	}
+
+	// read a value
+
+	return true;
+}
+
+bool config::games::groundhog::create()
+{
+	const mINI::INIFile file(main::config_folder + "\\Groundhog.ini");
+
+	mINI::INIStructure ini;
+
+	// populate the structure
+
+	// generate an INI file (overwrites any previous file)
+	if (!file.generate(ini, true))
+	{
+		// Failed to generate ini
+		return false;
+	}
+	return true;
+}
+
+bool config::games::groundhog::save()
+{
+	const mINI::INIFile file(main::config_folder + "\\Groundhog.ini");
+
+	mINI::INIStructure ini;
+
+	// populate the structure
+
+	// write to the INI file (overwrites)
+	if (!file.write(ini, true))
+	{
+		// Failed to write ini
+		return false;
+	}
+	return true;
+}
+
+bool config::games::groundhog::load()
+{
+	const mINI::INIFile file(main::config_folder + "\\Groundhog.ini");
 
 	mINI::INIStructure ini;
 

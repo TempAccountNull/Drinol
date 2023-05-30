@@ -156,6 +156,15 @@
     <ClCompile Include="dependencies\kiero\kiero.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="games\groundhog\groundhog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="games\groundhog\groundhog_hooks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="games\groundhog\groundhog_offsets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\subhook\subhook.h">
@@ -658,6 +667,21 @@
     </ClInclude>
     <ClInclude Include="main_hooks\gui\menu\menu.h">
       <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="games\groundhog\groundhog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\groundhog\groundhog_engine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\groundhog\groundhog_hooks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\groundhog\groundhog_offsets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\groundhog\groundhog_sigs.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

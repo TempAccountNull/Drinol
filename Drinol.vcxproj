@@ -66,6 +66,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="games\groundhog\groundhog.cpp" />
+    <ClCompile Include="games\groundhog\groundhog_hooks.cpp" />
+    <ClCompile Include="games\groundhog\groundhog_offsets.cpp" />
     <ClCompile Include="games\halo1\halo1.cpp" />
     <ClCompile Include="games\halo1\halo1_offsets.cpp" />
     <ClCompile Include="games\halo2\halo2_hooks.cpp" />
@@ -221,6 +224,11 @@
     <ClInclude Include="dependencies\spdlog\include\spdlog\tweakme.h" />
     <ClInclude Include="dependencies\spdlog\include\spdlog\version.h" />
     <ClInclude Include="dependencies\subhook\subhook.h" />
+    <ClInclude Include="games\groundhog\groundhog.h" />
+    <ClInclude Include="games\groundhog\groundhog_engine.h" />
+    <ClInclude Include="games\groundhog\groundhog_hooks.h" />
+    <ClInclude Include="games\groundhog\groundhog_offsets.h" />
+    <ClInclude Include="games\groundhog\groundhog_sigs.h" />
     <ClInclude Include="games\halo1\halo1.h" />
     <ClInclude Include="games\halo1\halo1_engine.h" />
     <ClInclude Include="games\halo1\halo1_offsets.h" />

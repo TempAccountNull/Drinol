@@ -2,10 +2,11 @@
 #include "utils.h"
 
 #include "config/config.h"
+#include "games/groundhog/groundhog.h"
 #include "games/halo1/halo1.h"
 #include "games/halo2/halo2.h"
 #include "games/halo3/halo3.h"
-#include "games/halo3/halo3_offsets.h"
+#include "games/halo3/halo3_hooks.h"
 #include "games/halo3odst/halo3odst.h"
 #include "games/halo4/halo4.h"
 #include "games/haloreach/haloreach.h"
@@ -30,7 +31,8 @@ void utils::handle_game_init(int game_number)
 		halo4::game::init();
 		break;
 	case games::e_games::groundhog:
-		spdlog::error("Halo 2 Anniversary Multiplayer is not supported at the moment!");
+		version_checking::validate_game_dll("groundhog");
+		groundhog::game::init();
 		break;
 	case games::e_games::halo3odst:
 		version_checking::validate_game_dll("halo3odst");
@@ -61,6 +63,9 @@ void utils::handle_game_deinit()
 		break;
 	case games::e_games::halo4:
 		halo4::game::deinit();
+		break;
+	case games::e_games::groundhog:
+		groundhog::game::deinit();
 		break;
 	case games::e_games::haloreach:
 		haloreach::game::deinit();
@@ -98,6 +103,12 @@ void utils::save_running_game_settings()
 		if (config::games::halo_4::save())
 		{
 			logMessage = "Saved settings for Halo 4!";
+		}
+		break;
+	case games::e_games::groundhog:
+		if (config::games::groundhog::save())
+		{
+			logMessage = "Saved settings for Halo 2 Anniversary Multiplayer!";
 		}
 		break;
 	default:
@@ -140,6 +151,12 @@ void utils::load_running_game_settings()
 			logMessage = "Loaded settings for Halo 4!";
 		}
 		break;
+	case games::e_games::groundhog:
+		if (config::games::groundhog::load())
+		{
+			logMessage = "Loaded settings for Halo 2 Anniversary Multiplayer!";
+		}
+		break;
 	default:
 		assert(games::current_game_number <= 6);
 	}
@@ -171,6 +188,10 @@ void utils::reset_running_game_settings()
 	case games::e_games::halo4:
 		game_name = "Halo 4";
 		success = config::games::halo_4::create() && config::games::halo_4::load();
+		break;
+	case games::e_games::groundhog:
+		game_name = "Halo 2 Anniversary Multiplayer";
+		success = config::games::groundhog::create() && config::games::groundhog::load();
 		break;
 	default:
 		assert(games::current_game_number <= 6);
@@ -394,7 +415,7 @@ int utils::keys::capture_next_key()
 
 void utils::test_func(int test_int)
 {
-	//halo3::hooks::game_tick_test = true;
+	halo3::hooks::game_tick_test = true;
 
 	//for (int i = 0; i < 16; i++) {
 	//	halo3::engine::s_thread_local_storage* tls = halo3::game::get_tls();
@@ -413,7 +434,7 @@ void utils::test_func(int test_int)
 	//	halo3::game::skulls::skull_secondary_enable(i, true);
 	//}
 
-	spdlog::info("Game Allegiance Globals: 0x{:X}", reinterpret_cast<uintptr_t>(halo3::offsets::globals::game_allegiance_globals));
+	//spdlog::info("Game Allegiance Globals: 0x{:X}", reinterpret_cast<uintptr_t>(halo3::offsets::globals::game_allegiance_globals));
 }
 
 uintptr_t utils::memory::get_offset(uintptr_t address)
@@ -446,6 +467,9 @@ void utils::memory::print_game_tls_pointer(bool suspend)
 		break;
 	case games::e_games::halo4:
 		spdlog::debug("Halo 4 TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"halo4.dll")));
+		break;
+	case games::e_games::groundhog:
+		spdlog::debug("Halo 2 Anniversary Multiplayer TLS Pointer : 0x{:X}", reinterpret_cast<uintptr_t>(get_tls_pointer(L"groundhog.dll")));
 		break;
 	default:
 		assert(games::current_game_number <= 6);
@@ -480,6 +504,10 @@ void utils::memory::list_game_base_addresses()
 	Memcury::Scanner::SetTargetModule("halo4.dll");
 
 	spdlog::debug("Halo 4 base : 0x{:X}", Memcury::PE::GetModuleBase());
+
+	Memcury::Scanner::SetTargetModule("groundhog.dll");
+
+	spdlog::debug("Halo 2 Anniversary Multiplayer base : 0x{:X}", Memcury::PE::GetModuleBase());
 }
 
 void utils::memory::backtrace(const char* func) {
