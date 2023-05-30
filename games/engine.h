@@ -55,6 +55,13 @@ union real_rectangle2d
 };
 static_assert(sizeof(real_rectangle2d) == 0x10);
 
+struct real_point3d
+{
+	real x;
+	real y;
+	real z;
+};
+
 union real_vector3d
 {
 	struct
