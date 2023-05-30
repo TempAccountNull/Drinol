@@ -137,7 +137,7 @@ public:
 			static bool load();
 		};
 
-		class groundhog
+		class halo2_amp
 		{
 		public:
 			/**

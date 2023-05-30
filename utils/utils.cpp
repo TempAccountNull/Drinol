@@ -106,7 +106,7 @@ void utils::save_running_game_settings()
 		}
 		break;
 	case games::e_games::groundhog:
-		if (config::games::groundhog::save())
+		if (config::games::halo2_amp::save())
 		{
 			logMessage = "Saved settings for Halo 2 Anniversary Multiplayer!";
 		}
@@ -152,7 +152,7 @@ void utils::load_running_game_settings()
 		}
 		break;
 	case games::e_games::groundhog:
-		if (config::games::groundhog::load())
+		if (config::games::halo2_amp::load())
 		{
 			logMessage = "Loaded settings for Halo 2 Anniversary Multiplayer!";
 		}
@@ -191,7 +191,7 @@ void utils::reset_running_game_settings()
 		break;
 	case games::e_games::groundhog:
 		game_name = "Halo 2 Anniversary Multiplayer";
-		success = config::games::groundhog::create() && config::games::groundhog::load();
+		success = config::games::halo2_amp::create() && config::games::halo2_amp::load();
 		break;
 	default:
 		assert(games::current_game_number <= 6);

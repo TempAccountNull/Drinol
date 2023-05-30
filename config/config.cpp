@@ -18,6 +18,7 @@
 #include "games/haloreach/haloreach_sigs.h"
 #include "gui/gui.h"
 #include "gui/menu/menu.h"
+#include "games/groundhog/groundhog_hooks.h"
 
 // This is used for the management of config files, etc
 
@@ -885,13 +886,15 @@ bool config::games::halo_4::load()
 	return true;
 }
 
-bool config::games::groundhog::create()
+bool config::games::halo2_amp::create()
 {
 	const mINI::INIFile file(main::config_folder + "\\Groundhog.ini");
 
 	mINI::INIStructure ini;
 
 	// populate the structure
+
+	ini["Game"]["redirect_print"] = "false";
 
 	// generate an INI file (overwrites any previous file)
 	if (!file.generate(ini, true))
@@ -902,13 +905,15 @@ bool config::games::groundhog::create()
 	return true;
 }
 
-bool config::games::groundhog::save()
+bool config::games::halo2_amp::save()
 {
 	const mINI::INIFile file(main::config_folder + "\\Groundhog.ini");
 
 	mINI::INIStructure ini;
 
 	// populate the structure
+
+	ini["Game"]["redirect_print"] = bool_to_string(groundhog::hooks::redirect_print);
 
 	// write to the INI file (overwrites)
 	if (!file.write(ini, true))
@@ -919,7 +924,7 @@ bool config::games::groundhog::save()
 	return true;
 }
 
-bool config::games::groundhog::load()
+bool config::games::halo2_amp::load()
 {
 	const mINI::INIFile file(main::config_folder + "\\Groundhog.ini");
 
@@ -932,6 +937,8 @@ bool config::games::groundhog::load()
 	}
 
 	// read a value
+
+	std::istringstream(ini.get("Game").get("redirect_print")) >> std::boolalpha >> groundhog::hooks::redirect_print;
 
 	return true;
 }

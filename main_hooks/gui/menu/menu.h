@@ -29,14 +29,11 @@ public:
 	 */
 	inline static bool console_enabled;
 
-
-
 	class HaloCombatEvolved
 	{
 	public:
 		void static DrawMenu();
 	};
-
 
 	class Halo2
 	{
@@ -44,13 +41,11 @@ public:
 		void static DrawMenu();
 	};
 
-
 	class Halo3
 	{
 	public:
 		void static DrawMenu();
 	};
-
 
 	class Halo3ODST
 	{
@@ -58,18 +53,21 @@ public:
 		void static DrawMenu();
 	};
 
-
 	class HaloReach
 	{
 	public:
 		void static DrawMenu();
 	};
 
-
 	class Halo4
 	{
 	public:
 		void static DrawMenu();
 	};
-};
 
+	class Groundhog
+	{
+	public:
+		void static DrawMenu();
+	};
+};

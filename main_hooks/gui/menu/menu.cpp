@@ -17,6 +17,7 @@
 #include "games/halo3/halo3_offsets.h"
 #include "games/halo3odst/halo3odst.h"
 #include "games/haloreach/haloreach.h"
+#include "games/groundhog/groundhog_hooks.h"
 // This is our custom menu.
 
 #pragma region modal_funcs
@@ -319,20 +320,40 @@ void menu::render()
 #endif
 
 		// TODO: ideally we should show all the games and just grey out the stuff you cant interact with if a certain game is not running
-		if (utils::games::current_game_number == utils::games::halo1)
+
+		switch (utils::games::current_game_number)
+		{
+		case utils::games::halo1:
 			HaloCombatEvolved::DrawMenu();
+			break;
 
-		if (utils::games::current_game_number == utils::games::halo2)
+		case utils::games::halo2:
 			Halo2::DrawMenu();
+			break;
 
-		if (utils::games::current_game_number == utils::games::halo3)
+		case utils::games::halo3:
 			Halo3::DrawMenu();
+			break;
 
-		if (utils::games::current_game_number == utils::games::halo3odst)
+		case utils::games::halo3odst:
 			Halo3ODST::DrawMenu();
+			break;
 
-		if (utils::games::current_game_number == utils::games::haloreach)
+		case utils::games::haloreach:
 			HaloReach::DrawMenu();
+			break;
+
+		case utils::games::halo4:
+			Halo4::DrawMenu();
+			break;
+
+		case utils::games::groundhog:
+			Groundhog::DrawMenu();
+			break;
+
+		default:
+			break;
+		}
 
 		ImGui::EndTabBar();
 	}
@@ -791,4 +812,51 @@ void menu::HaloReach::DrawMenu()
 
 void menu::Halo4::DrawMenu()
 {
+}
+
+void menu::Groundhog::DrawMenu()
+{
+	if (ImGui::BeginTabItem("Halo 2 Anniversary Multiplayer"))
+	{
+		if (ImGui::BeginTabBar("GroundhogTabs", ImGuiTabBarFlags_None))
+		{
+			//#if defined _DEBUG
+			//			if (ImGui::BeginTabItem("Debug"))
+			//			{
+			//				if (ImGui::Button("Trigger Test Function"))
+			//					groundhog::game::test_function();
+			//
+			//				if (ImGui::Button("Print all blamscript functions."))
+			//					groundhog::game::list_all_hs_functions();
+			//
+			//				if (ImGui::Button("Print all blamscript globals."))
+			//					groundhog::game::list_all_hs_globals();
+			//
+			//				ImGui::EndTabItem();
+			//			}
+			//#endif
+
+			//if (ImGui::BeginTabItem("Rendering"))
+			//{
+			//	/*	ImGui::Checkbox("Toggle HUD", halo3::offsets::toggle_hud);
+			//		if (ImGui::IsItemHovered())
+			//			ImGui::SetTooltip("Toggles the heads up display.");*/
+
+			//	ImGui::EndTabItem();
+			//}
+
+			if (ImGui::BeginTabItem("Game"))
+			{
+				ImGui::Checkbox("Redirect hs_print", &groundhog::hooks::redirect_print);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip("Redirects some engine printing functions to the console.");
+
+				ImGui::EndTabItem();
+			}
+
+			ImGui::EndTabBar();
+		}
+
+		ImGui::EndTabItem();
+	}
 }

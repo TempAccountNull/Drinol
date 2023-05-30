@@ -16,7 +16,7 @@ void groundhog::game::init() // Initialize hooks and shit for Halo 2 Anniversary
 	hooks::init();
 
 	//Load Settings
-	if (!config::games::groundhog::load())
+	if (!config::games::halo2_amp::load())
 	{
 		spdlog::error("Failed to load settings for Halo 2 Anniversary Multiplayer.\nEither the settings file does not exist or something bad has happened!\nYou can ignore this error if you did not save it in the past.");
 	}
