@@ -28,12 +28,17 @@ void haloreach::game::deinit()
 #if defined _DEBUG
 void haloreach::game::test_function()
 {
+	engine::hs_function_definition* hack_func = get_hs_function("chud_post_message_HACK");
+
+	engine::hs_function_definition* print_func = get_hs_function("print");
+
+	utils::memory::swap_table_pointer(&print_func->evaluate_func, &hack_func->evaluate_func);
 }
 
 void haloreach::game::list_all_hs_functions()
 {
 	spdlog::info("Printing all eval functions inside the blamscript function table.");
-	for (engine::_hs_script_op* function : offsets::blamscript::hs_function_table->table)
+	for (engine::hs_function_definition* function : offsets::blamscript::hs_function_table->table)
 	{
 		if (function->evaluate_func != nullptr && function->evaluate_func != offsets::blamscript::functions::hs_null_evaluate && function->evaluate_func != offsets::blamscript::functions::hs_null_evaluate2)
 		{
@@ -79,7 +84,7 @@ void* haloreach::game::get_hs_global(const char* global_name) // Gets the addres
 
 void* haloreach::game::get_eval_hs_function(const char* func_name) // Gets the address of the specified function.
 {
-	for (const engine::_hs_script_op* function : offsets::blamscript::hs_function_table->table)
+	for (const engine::hs_function_definition* function : offsets::blamscript::hs_function_table->table)
 	{
 		if (strcmp(function->name, func_name) == 0)
 		{
@@ -98,7 +103,28 @@ void* haloreach::game::get_eval_hs_function(const char* func_name) // Gets the a
 	return nullptr;
 }
 
-void* haloreach::game::get_hs_function(const char* func_name, int to_skip)
+haloreach::engine::hs_function_definition* haloreach::game::get_hs_function(const char* func_name) // Gets the address of the specified function.
+{
+	for (engine::hs_function_definition* function : offsets::blamscript::hs_function_table->table)
+	{
+		if (strcmp(function->name, func_name) == 0)
+		{
+			// bool has been found
+			if (function->evaluate_func != nullptr || function->evaluate_func != offsets::blamscript::functions::hs_null_evaluate)
+			{
+				return function;
+			}
+
+			spdlog::error("haloreach::game::get_hs_function: function has been found but does not have a working eval function");
+			return nullptr;
+		}
+	}
+
+	spdlog::error("haloreach::game::get_hs_function:: function was not found");
+	return nullptr;
+}
+
+void* haloreach::game::get_eval_hs_function_address(const char* func_name, int to_skip)
 {
 	void* eval_function = get_eval_hs_function(func_name); // Get the address of the blamscript functions evaluate function.
 	void* function = Memcury::Scanner(eval_function).ScanFor({ Memcury::ASM::Mnemonic("CALL") }, true, to_skip).RelativeOffset(1).GetAs<void*>(); // Get the function inside of the evaluate function.

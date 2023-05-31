@@ -526,4 +526,17 @@ void utils::memory::backtrace(const char* func) {
 	}
 }
 
+void utils::memory::swap_table_pointer(void* pointer1, void* pointer2)
+{
+	// We first must capture our original Page Protections.
+	DWORD oldprotect;
+	VirtualProtect(pointer1, 1, PAGE_EXECUTE_READWRITE, &oldprotect);
+
+	//We then tell the address to copy itself into the pointer we want.
+	memcpy(pointer1, pointer2, sizeof(void*));
+
+	// We now restore the original Page Protections.
+	VirtualProtect(pointer1, 1, oldprotect, &oldprotect);
+}
+
 #endif

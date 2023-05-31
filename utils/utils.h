@@ -155,6 +155,17 @@ public:
 		 */
 		static void backtrace(const char* func);
 
+		/*
+1. It captures the original page protection of the memory location pointed to by Pointer1. The VirtualProtect function is called to modify the protection of a region of memory. In this case, it sets the protection to PAGE_EXECUTE_READWRITE. The original protection value is stored in the oldprotect variable.
+
+2. The code then uses the memcpy function to copy the contents of Pointer2 into the memory location pointed to by Pointer1. The memcpy function is used to copy a specified number of bytes from one memory location to another. In this case, it copies the value of Pointer2 (the address it holds) into the memory location pointed to by Pointer1. The size of the copy is determined by sizeof(void*).
+
+3. Finally, the original page protection of Pointer1 is restored using the VirtualProtect function. The protection value is set to the original oldprotect value.
+
+4. Overall, this code swaps the addresses held by two void pointers by modifying their respective memory locations. It temporarily changes the page protection to allow the modification and then restores it to its original value.
+*/
+		static void swap_table_pointer(void* pointer1, void* pointer2);
+
 #endif
 	};
 };
