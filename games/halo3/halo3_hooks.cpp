@@ -46,21 +46,21 @@ static void __cdecl game_tick_detour()
 	return halo3::hooks::game_tick.stub<void>();
 }
 
-short ycoord0 = 96;
-
-short xcoord0 = 34;
-
-short ycoord1 = 1140;
-
-short xcoord1 = 1892;
-
-short testx = 96;
-
-short texty = 34;
-
-int test2 = 5;
-
-int test3 = 12;
+//short ycoord0 = 96;
+//
+//short xcoord0 = 34;
+//
+//short ycoord1 = 1140;
+//
+//short xcoord1 = 1892;
+//
+//short testx = 96;
+//
+//short texty = 34;
+//
+//int test2 = 5;
+//
+//int test3 = 12;
 
 static void __cdecl director_render_detour()
 {
