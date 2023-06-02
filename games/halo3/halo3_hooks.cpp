@@ -124,6 +124,24 @@ void __cdecl weapon_barrel_create_projectiles_detour(long weapon_object_index, s
 //	return halo3::hooks::data_initialize.stub<void>(a1, name, allocation, a4, a5);
 //}
 
+static void terminal_printf_detour(int* a1, char* string, ...)
+{
+	if (halo3::hooks::redirect_print)
+	{
+		char msgbuf[254];
+		va_list args;
+
+		va_start(args, string);
+
+		vsnprintf(msgbuf, sizeof msgbuf, string, args);  // NOLINT(cert-err33-c)
+
+		spdlog::info("[halo3] Print: {}", msgbuf);
+		va_end(args);
+	}
+
+	return halo3::hooks::terminal_printf.stub<void>(a1, string);
+}
+
 void halo3::hooks::init()
 {
 	game_in_progress.create(reinterpret_cast<uintptr_t>(offsets::functions::game::game_in_progress), game_in_progress_detour);
@@ -133,6 +151,8 @@ void halo3::hooks::init()
 	director_render.create(reinterpret_cast<uintptr_t>(offsets::functions::render::director_render), director_render_detour);
 
 	weapon_barrel_create_projectiles.create(reinterpret_cast<uintptr_t>(offsets::functions::weapons::weapon_barrel_create_projectiles), weapon_barrel_create_projectiles_detour);
+
+	terminal_printf.create(reinterpret_cast<uintptr_t>(offsets::functions::game::terminal_printf), terminal_printf_detour);
 
 	//data_initialize.create(reinterpret_cast<uintptr_t>(offsets::functions::data::data_initialize), data_initialize_detour); //TODO: Commented out for now as using this for some reason, causes MCC to crash when exiting the game to the main menu.
 
@@ -145,6 +165,7 @@ void halo3::hooks::deinit()
 	game_tick.disable();
 	director_render.disable();
 	weapon_barrel_create_projectiles.disable();
+	terminal_printf.disable();
 	//data_initialize.disable();
 	MH_ApplyQueued();
 }

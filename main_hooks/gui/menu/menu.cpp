@@ -690,6 +690,8 @@ void menu::Halo3::DrawMenu()
 						halo3::hooks::change_game_speed = true;
 					}
 
+					g_Overlay->CheckboxWithToolTip("Redirect Print", "Redirects some engine printing functions to the console.", &halo3::hooks::redirect_print);
+
 					if (g_Overlay->CheckboxWithToolTip("Machinima Camera", "This enables the machinima debug camera, this will show your camera's coords on the screen.", &halo3::game::machinima_mode))
 					{
 						halo3::offsets::globals::player_control_globals->machinima_camera_debug = halo3::game::machinima_mode;

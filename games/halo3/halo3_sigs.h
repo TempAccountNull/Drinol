@@ -38,7 +38,8 @@ namespace halo3
 			{"draw_quad","4C 8B DC 48 83 EC ? 0F B7 41"},
 			{"draw_linestrip_2d","48 8B C4 48 89 58 08 48 89 70 10 48 89 78 18 55 48 8B EC 48 83 EC 60 0F 29 70 E8"},
 			{"ai_handle_effect_creation_check","0F 84 88 00 00 00 F3 0F 10 0D"},
-			{"data_initialize","48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 40 44 8B 5C 24 70"}
+			{"data_initialize","48 89 5C 24 08 48 89 74 24 10 57 48 83 EC 40 44 8B 5C 24 70"},
+			{"terminal_printf","4C 8B DC 49 89 53 10 4D 89 43 18"}
 		};
 	};
 }

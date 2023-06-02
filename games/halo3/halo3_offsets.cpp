@@ -61,6 +61,9 @@ void halo3::offsets::init()
 	spdlog::debug("Halo 3: Pattern scanning for: game_team_is_enemy");
 	functions::game::game_team_is_enemy = Memcury::Scanner::FindPattern(sigs::list["game_team_is_enemy"].c_str()).Get();
 
+	spdlog::debug("Halo 3: Pattern scanning for: terminal_printf");
+	functions::game::terminal_printf = Memcury::Scanner::FindPattern(sigs::list["terminal_printf"].c_str()).GetAs<void*>();
+
 	spdlog::debug("Halo 3: Pattern scanning for: draw_quad");
 	functions::render::draw_quad = Memcury::Scanner::FindPattern(sigs::list["draw_quad"].c_str()).Get();
 

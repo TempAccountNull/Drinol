@@ -15,10 +15,13 @@ namespace halo3
 
 		inline static detour data_initialize;
 
+		inline static detour terminal_printf;
+
 		inline static bool change_game_speed = false;
 		inline static bool player_weapon_projectiles_only;
 		inline static bool player_ally_projectiles_only;
 		inline static bool game_tick_test = false;
+		inline static bool redirect_print = false;
 		static void init();
 		static void deinit();
 	};

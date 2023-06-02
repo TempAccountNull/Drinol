@@ -61,6 +61,7 @@ namespace halo3
 			public:
 				inline static void* game_in_progress;
 				inline static void* game_tick;
+				inline static void* terminal_printf;
 				inline static uintptr_t game_time_set_rate_scale_direct;
 				inline static uintptr_t game_team_is_enemy;
 			};
