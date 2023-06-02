@@ -99,6 +99,12 @@ void utils::save_running_game_settings()
 			logMessage = "Saved settings for Halo 3!";
 		}
 		break;
+	case games::e_games::haloreach:
+		if (config::games::halo_reach::save())
+		{
+			logMessage = "Saved settings for Halo Reach!";
+		}
+		break;
 	case games::e_games::halo4:
 		if (config::games::halo_4::save())
 		{
@@ -145,6 +151,12 @@ void utils::load_running_game_settings()
 			logMessage = "Loaded settings for Halo 3!";
 		}
 		break;
+	case games::e_games::haloreach:
+		if (config::games::halo_reach::load())
+		{
+			logMessage = "Loaded settings for Halo Reach!";
+		}
+		break;
 	case games::e_games::halo4:
 		if (config::games::halo_4::load())
 		{
@@ -184,6 +196,10 @@ void utils::reset_running_game_settings()
 	case games::e_games::halo3:
 		game_name = "Halo 3";
 		success = config::games::halo_3::create() && config::games::halo_3::load();
+		break;
+	case games::e_games::haloreach:
+		game_name = "Halo 3";
+		success = config::games::halo_reach::create() && config::games::halo_reach::load();
 		break;
 	case games::e_games::halo4:
 		game_name = "Halo 4";

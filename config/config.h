@@ -117,6 +117,26 @@ public:
 			static bool load();
 		};
 
+		class halo_reach
+		{
+		public:
+			/**
+			 * \brief creates a new config file containing settings related to Halo 1 Anniversary.
+			 * \return true if created successfully
+			 */
+			static bool create();
+			/**
+		 * \brief saves to the config file containing settings related to Halo 1 Anniversary.
+		 * \return true if saved successfully
+		*/
+			static bool save();
+			/**
+			 * \brief loads the config file containing settings related to Halo 1 Anniversary.
+			 * \return true if loaded successfully
+			 */
+			static bool load();
+		};
+
 		class halo_4
 		{
 		public:

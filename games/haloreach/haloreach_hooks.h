@@ -17,6 +17,10 @@ namespace haloreach
 		inline static bool do_game_tick_stuff = false;
 
 		inline static bool infinite_ammo = false;
+		/**
+		 * \brief Redirects hs_print output to console.
+		 */
+		inline static bool redirect_print;
 		static void init();
 		static void deinit();
 	};

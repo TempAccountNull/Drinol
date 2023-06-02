@@ -19,6 +19,7 @@
 #include "games/haloreach/haloreach.h"
 #include "games/groundhog/groundhog_hooks.h"
 #include "games/halo4/halo4_hooks.h"
+#include "games/haloreach/haloreach_hooks.h"
 // This is our custom menu.
 
 #pragma region modal_funcs
@@ -796,11 +797,11 @@ void menu::HaloReach::DrawMenu()
 			}
 #endif
 
-			if (ImGui::BeginTabItem("Rendering"))
+			if (ImGui::BeginTabItem("Game"))
 			{
-				/*	ImGui::Checkbox("Toggle HUD", halo3::offsets::toggle_hud);
-					if (ImGui::IsItemHovered())
-						ImGui::SetTooltip("Toggles the heads up display.");*/
+				ImGui::Checkbox("Redirect hs_print", &haloreach::hooks::redirect_print);
+				if (ImGui::IsItemHovered())
+					ImGui::SetTooltip("Redirects the blamscript print function output to the console.");
 
 				ImGui::EndTabItem();
 			}
@@ -846,7 +847,7 @@ void menu::Halo4::DrawMenu()
 			{
 				ImGui::Checkbox("Redirect hs_print", &halo4::hooks::redirect_print);
 				if (ImGui::IsItemHovered())
-					ImGui::SetTooltip("Redirects some engine printing functions to the console.");
+					ImGui::SetTooltip("Redirects the blamscript print function output to the console.");
 
 				ImGui::EndTabItem();
 			}
@@ -893,7 +894,7 @@ void menu::Groundhog::DrawMenu()
 			{
 				ImGui::Checkbox("Redirect hs_print", &groundhog::hooks::redirect_print);
 				if (ImGui::IsItemHovered())
-					ImGui::SetTooltip("Redirects some engine printing functions to the console.");
+					ImGui::SetTooltip("Redirects the blamscript print function output to the console.");
 
 				ImGui::EndTabItem();
 			}

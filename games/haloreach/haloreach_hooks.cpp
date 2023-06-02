@@ -32,20 +32,30 @@ static bool __cdecl weapon_has_infinite_ammo_detour(unsigned __int16 a1)
 	return haloreach::hooks::weapon_has_infinite_ammo.stub<bool>(a1);
 }
 
-void __fastcall hs_null_evaluate2_detour(__int16 a1, unsigned int a2, char a3)
+void __fastcall hs_null_evaluate2_detour(__int16 function_index, unsigned int a2, char a3)
 {
-	//*((_WORD *)hs_function_table[a1] + 28)
-	//(__int64)hs_function_table[a1] + 58
-	int* weirdint = utils::memory::game_call<int*>(haloreach::offsets::functions::hs_macro_function_evaluate)(a2, *(reinterpret_cast<WORD*>(haloreach::offsets::blamscript::hs_function_table->table[a1]) + 0x1C), reinterpret_cast<__int64>(haloreach::offsets::blamscript::hs_function_table->table[a1]) + 0x3A, a3);
-
-	if (weirdint)
+	if (haloreach::hooks::redirect_print)
 	{
-		if (char* crap = utils::memory::game_call<char*>(haloreach::offsets::functions::hs_parse)(weirdint))
+		if (function_index != 40) // Do not execute if the function_index does not equal hs_print. (will cause crashes otherwise!)
+			return haloreach::hooks::hs_null_evaluate2.stub<void>(function_index, a2, a3);
+
+		int* weirdint = utils::memory::game_call<int*>(haloreach::offsets::functions::hs_macro_function_evaluate)(a2, *(reinterpret_cast<WORD*>(haloreach::offsets::blamscript::hs_function_table->table[function_index]) + 0x1C), reinterpret_cast<__int64>(haloreach::offsets::blamscript::hs_function_table->table[function_index]) + 0x3A, a3);
+
+		if (!weirdint)
+			return haloreach::hooks::hs_null_evaluate2.stub<void>(function_index, a2, a3);
+
+		char* crap = utils::memory::game_call<char*>(haloreach::offsets::functions::hs_parse)(weirdint);
+
+		if (crap)
 		{
 			spdlog::info("[haloreach] Print: {}", crap);
 
 			utils::memory::game_call<void>(haloreach::offsets::functions::hs_return)(a2, 0);
 		}
+	}
+	else
+	{
+		return haloreach::hooks::hs_null_evaluate2.stub<void>(function_index, a2, a3);
 	}
 }
 

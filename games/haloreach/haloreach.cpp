@@ -4,6 +4,7 @@
 #include "haloreach_hooks.h"
 #include "haloreach_offsets.h"
 #include "utils.h"
+#include "config/config.h"
 #include "games/haloreach/haloreach_engine.h"
 
 void haloreach::game::init() // Initialize hooks and shit for halo 1
@@ -15,6 +16,16 @@ void haloreach::game::init() // Initialize hooks and shit for halo 1
 	offsets::init();
 
 	hooks::init();
+
+	//Load Settings
+	if (!config::games::halo_reach::load())
+	{
+		spdlog::error("Failed to load settings for Halo Reach.\nEither the settings file does not exist or something bad has happened!\nYou can ignore this error if you did not save it in the past.");
+	}
+	else
+	{
+		spdlog::info("Loaded settings for Halo Reach.");
+	}
 
 	spdlog::info("Halo Reach initialized ☺");
 }

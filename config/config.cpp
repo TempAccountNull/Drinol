@@ -20,6 +20,7 @@
 #include "gui/menu/menu.h"
 #include "games/groundhog/groundhog_hooks.h"
 #include "games/halo4/halo4_hooks.h"
+#include "games/haloreach/haloreach_hooks.h"
 
 // This is used for the management of config files, etc
 
@@ -832,6 +833,63 @@ bool config::games::halo_3::load()
 	std::istringstream(ini.get("Rendering").get("motion_blur_scale_x")) >> *halo3::offsets::variables::motion_blur_scale_x;
 	std::istringstream(ini.get("Rendering").get("motion_blur_scale_y")) >> *halo3::offsets::variables::motion_blur_scale_y;
 	std::istringstream(ini.get("Rendering").get("motion_blur_center_falloff")) >> *halo3::offsets::variables::motion_blur_center_falloff;
+
+	return true;
+}
+
+bool config::games::halo_reach::create()
+{
+	const mINI::INIFile file(main::config_folder + "\\HaloReach.ini");
+
+	mINI::INIStructure ini;
+
+	// populate the structure
+
+	ini["Game"]["redirect_print"] = "false";
+
+	// generate an INI file (overwrites any previous file)
+	if (!file.generate(ini, true))
+	{
+		// Failed to generate ini
+		return false;
+	}
+	return true;
+}
+
+bool config::games::halo_reach::save()
+{
+	const mINI::INIFile file(main::config_folder + "\\HaloReach.ini");
+
+	mINI::INIStructure ini;
+
+	// populate the structure
+
+	ini["Game"]["redirect_print"] = bool_to_string(haloreach::hooks::redirect_print);
+
+	// write to the INI file (overwrites)
+	if (!file.write(ini, true))
+	{
+		// Failed to write ini
+		return false;
+	}
+	return true;
+}
+
+bool config::games::halo_reach::load()
+{
+	const mINI::INIFile file(main::config_folder + "\\HaloReach.ini");
+
+	mINI::INIStructure ini;
+
+	if (!file.read(ini))
+	{
+		// Failed to read ini
+		return false;
+	}
+
+	// read a value
+
+	std::istringstream(ini.get("Game").get("redirect_print")) >> std::boolalpha >> haloreach::hooks::redirect_print;
 
 	return true;
 }
