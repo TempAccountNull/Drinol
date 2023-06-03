@@ -2,8 +2,10 @@
 #include "halo3odst.h"
 
 #include "halo3odst_engine.h"
+#include "halo3odst_hooks.h"
 #include "halo3odst_offsets.h"
 #include "utils.h"
+#include "config/config.h"
 
 void halo3odst::game::init() // Initialize hooks and shit for halo 1
 {
@@ -13,7 +15,25 @@ void halo3odst::game::init() // Initialize hooks and shit for halo 1
 
 	offsets::init();
 
-	spdlog::info("Halo 3 ODST initialized ☺");
+	hooks::init();
+
+	//Load Settings
+	if (!config::games::halo_3_odst::load())
+	{
+		spdlog::error("Failed to load settings for Halo 3: ODST.\nEither the settings file does not exist or something bad has happened!\nYou can ignore this error if you did not save it in the past.");
+	}
+	else
+	{
+		spdlog::info("Loaded settings for Halo 3: ODST.");
+	}
+
+	spdlog::info("Halo 3: ODST initialized ☺");
+}
+
+void halo3odst::game::deinit()
+{
+	hooks::deinit();
+	spdlog::info("Uninitialized Halo 3: ODST");
 }
 
 #if defined _DEBUG

@@ -18,6 +18,7 @@
 #include "games/halo3odst/halo3odst.h"
 #include "games/haloreach/haloreach.h"
 #include "games/groundhog/groundhog_hooks.h"
+#include "games/halo3odst/halo3odst_hooks.h"
 #include "games/halo4/halo4_hooks.h"
 #include "games/haloreach/haloreach_hooks.h"
 // This is our custom menu.
@@ -318,7 +319,7 @@ void menu::render()
 			g_Overlay->ComboWithToolTip("TestCombo", "WithToolTip", &someInteger, "\0Option1\0Option2\0Options3");
 
 			ImGui::EndTabItem();
-		}
+	}
 #endif
 
 		// TODO: ideally we should show all the games and just grey out the stuff you cant interact with if a certain game is not running
@@ -358,7 +359,7 @@ void menu::render()
 		}
 
 		ImGui::EndTabBar();
-	}
+}
 	ImGui::End();
 
 	// All popups and other windows go below here. ------------------------------------------------>
@@ -522,7 +523,7 @@ void menu::HaloCombatEvolved::DrawMenu()
 					halo1::game::list_all_hs_globals();
 
 				ImGui::EndTabItem();
-			}
+	}
 #endif
 
 			if (ImGui::BeginTabItem("Weapons"))
@@ -607,7 +608,7 @@ void menu::HaloCombatEvolved::DrawMenu()
 				ImGui::EndTabItem();
 			}
 			ImGui::EndTabBar();
-		}
+}
 
 		ImGui::EndTabItem();
 	}
@@ -632,7 +633,7 @@ void menu::Halo2::DrawMenu()
 					halo2::game::list_all_hs_globals();
 
 				ImGui::EndTabItem();
-			}
+	}
 #endif
 
 			if (ImGui::BeginTabItem("Game"))
@@ -649,7 +650,7 @@ void menu::Halo2::DrawMenu()
 			}
 
 			ImGui::EndTabBar();
-		}
+}
 
 		ImGui::EndTabItem();
 	}
@@ -671,7 +672,7 @@ void menu::Halo3::DrawMenu()
 					halo3::game::list_all_hs_globals();
 
 				ImGui::EndTabItem();
-			}
+	}
 #endif
 			if (ImGui::BeginTabItem("Game"))
 			{
@@ -734,7 +735,7 @@ void menu::Halo3::DrawMenu()
 				ImGui::EndTabItem();
 			}
 			ImGui::EndTabBar();
-		}
+}
 
 		ImGui::EndTabItem();
 	}
@@ -759,19 +760,26 @@ void menu::Halo3ODST::DrawMenu()
 					halo3odst::game::list_all_hs_globals();
 
 				ImGui::EndTabItem();
-			}
+	}
 #endif
 
-			if (ImGui::BeginTabItem("Rendering"))
+			//if (ImGui::BeginTabItem("Rendering"))
+			//{
+			//	/*	ImGui::Checkbox("Toggle HUD", halo3::offsets::toggle_hud);
+			//		if (ImGui::IsItemHovered())
+			//			ImGui::SetTooltip("Toggles the heads up display.");*/
+
+			//	ImGui::EndTabItem();
+			//}
+
+			if (ImGui::BeginTabItem("Game"))
 			{
-				/*	ImGui::Checkbox("Toggle HUD", halo3::offsets::toggle_hud);
-					if (ImGui::IsItemHovered())
-						ImGui::SetTooltip("Toggles the heads up display.");*/
+				g_Overlay->CheckboxWithToolTip("Redirect Print", "Redirects some engine printing functions to the console.", &halo3odst::hooks::redirect_print);
 
 				ImGui::EndTabItem();
 			}
 			ImGui::EndTabBar();
-		}
+}
 
 		ImGui::EndTabItem();
 	}
@@ -796,7 +804,7 @@ void menu::HaloReach::DrawMenu()
 					haloreach::game::list_all_hs_globals();
 
 				ImGui::EndTabItem();
-			}
+	}
 #endif
 
 			if (ImGui::BeginTabItem("Game"))
@@ -808,7 +816,7 @@ void menu::HaloReach::DrawMenu()
 				ImGui::EndTabItem();
 			}
 			ImGui::EndTabBar();
-		}
+}
 
 		ImGui::EndTabItem();
 	}

@@ -165,6 +165,9 @@
     <ClCompile Include="games\groundhog\groundhog_offsets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="games\halo3odst\halo3odst_hooks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\subhook\subhook.h">
@@ -681,6 +684,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="games\groundhog\groundhog_sigs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="games\halo3odst\halo3odst_hooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

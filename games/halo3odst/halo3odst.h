@@ -6,6 +6,7 @@ namespace halo3odst
 	{
 	public:
 		static void init();
+		static void deinit();
 		/**
 		 * \brief gets the address of a global that is used in the blamscript/haloscript scripting system.
 		 * \param global_name the name of the global.

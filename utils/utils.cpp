@@ -61,14 +61,17 @@ void utils::handle_game_deinit()
 	case games::e_games::halo3:
 		halo3::game::deinit();
 		break;
+	case games::e_games::halo3odst:
+		halo3odst::game::deinit();
+		break;
+	case games::e_games::haloreach:
+		haloreach::game::deinit();
+		break;
 	case games::e_games::halo4:
 		halo4::game::deinit();
 		break;
 	case games::e_games::groundhog:
 		groundhog::game::deinit();
-		break;
-	case games::e_games::haloreach:
-		haloreach::game::deinit();
 		break;
 	default:
 		assert(games::current_game_number <= 6);
@@ -97,6 +100,12 @@ void utils::save_running_game_settings()
 		if (config::games::halo_3::save())
 		{
 			logMessage = "Saved settings for Halo 3!";
+		}
+		break;
+	case games::e_games::halo3odst:
+		if (config::games::halo_3_odst::save())
+		{
+			logMessage = "Saved settings for Halo 3: ODST!";
 		}
 		break;
 	case games::e_games::haloreach:
@@ -151,6 +160,12 @@ void utils::load_running_game_settings()
 			logMessage = "Loaded settings for Halo 3!";
 		}
 		break;
+	case games::e_games::halo3odst:
+		if (config::games::halo_3_odst::load())
+		{
+			logMessage = "Loaded settings for Halo 3: ODST!";
+		}
+		break;
 	case games::e_games::haloreach:
 		if (config::games::halo_reach::load())
 		{
@@ -197,6 +212,10 @@ void utils::reset_running_game_settings()
 		game_name = "Halo 3";
 		success = config::games::halo_3::create() && config::games::halo_3::load();
 		break;
+	case games::e_games::halo3odst:
+		game_name = "Halo 3: ODST";
+		success = config::games::halo_3_odst::create() && config::games::halo_3_odst::load();
+		break;
 	case games::e_games::haloreach:
 		game_name = "Halo 3";
 		success = config::games::halo_reach::create() && config::games::halo_reach::load();
@@ -236,8 +255,8 @@ char* utils::memory::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
 				const PIMAGE_NT_HEADERS ntBase = reinterpret_cast<PIMAGE_NT_HEADERS>(base + moduleBase->e_lfanew);
 				const PIMAGE_TLS_DIRECTORY tlsBase = reinterpret_cast<PIMAGE_TLS_DIRECTORY>(base + ntBase->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_TLS].VirtualAddress);
 				return reinterpret_cast<uint32_t*>(tlsBase->AddressOfIndex);
-			})();
-	}
+	})();
+}
 
 #if defined(_M_IX86)
 	LPVOID* tlsBase = (LPVOID*)__readfsdword(0x2C);
@@ -553,6 +572,6 @@ void utils::memory::swap_table_pointer(void* pointer1, void* pointer2)
 
 	// We now restore the original Page Protections.
 	VirtualProtect(pointer1, 1, oldprotect, &oldprotect);
-}
+		}
 
 #endif

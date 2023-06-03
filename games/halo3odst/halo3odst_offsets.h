@@ -24,6 +24,20 @@ namespace halo3odst
 			};
 		};
 
+		/**
+* \brief offsets to the game functions
+*/
+		class functions
+		{
+		public:
+
+			class game
+			{
+			public:
+				inline static void* terminal_printf;
+			};
+		};
+
 		static void init();
 	};
 }

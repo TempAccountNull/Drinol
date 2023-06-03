@@ -81,17 +81,17 @@ public:
 		{
 		public:
 			/**
-			 * \brief creates a new config file containing settings related to Halo 1 Anniversary.
+			 * \brief creates a new config file containing settings related to Halo 2 Anniversary.
 			 * \return true if created successfully
 			 */
 			static bool create();
 			/**
-		 * \brief saves to the config file containing settings related to Halo 1 Anniversary.
+		 * \brief saves to the config file containing settings related to Halo 2 Anniversary.
 		 * \return true if saved successfully
 		*/
 			static bool save();
 			/**
-			 * \brief loads the config file containing settings related to Halo 1 Anniversary.
+			 * \brief loads the config file containing settings related to Halo 2 Anniversary.
 			 * \return true if loaded successfully
 			 */
 			static bool load();
@@ -101,17 +101,37 @@ public:
 		{
 		public:
 			/**
-			 * \brief creates a new config file containing settings related to Halo 1 Anniversary.
+			 * \brief creates a new config file containing settings related to Halo 3.
 			 * \return true if created successfully
 			 */
 			static bool create();
 			/**
-		 * \brief saves to the config file containing settings related to Halo 1 Anniversary.
+		 * \brief saves to the config file containing settings related to Halo 3.
 		 * \return true if saved successfully
 		*/
 			static bool save();
 			/**
-			 * \brief loads the config file containing settings related to Halo 1 Anniversary.
+			 * \brief loads the config file containing settings related to Halo 3.
+			 * \return true if loaded successfully
+			 */
+			static bool load();
+		};
+
+		class halo_3_odst
+		{
+		public:
+			/**
+			 * \brief creates a new config file containing settings related to Halo 3: ODST.
+			 * \return true if created successfully
+			 */
+			static bool create();
+			/**
+		 * \brief saves to the config file containing settings related to Halo 3: ODST.
+		 * \return true if saved successfully
+		*/
+			static bool save();
+			/**
+			 * \brief loads the config file containing settings related to Halo 3: ODST.
 			 * \return true if loaded successfully
 			 */
 			static bool load();
@@ -121,17 +141,17 @@ public:
 		{
 		public:
 			/**
-			 * \brief creates a new config file containing settings related to Halo 1 Anniversary.
+			 * \brief creates a new config file containing settings related to Halo Reach.
 			 * \return true if created successfully
 			 */
 			static bool create();
 			/**
-		 * \brief saves to the config file containing settings related to Halo 1 Anniversary.
+		 * \brief saves to the config file containing settings related to Halo Reach.
 		 * \return true if saved successfully
 		*/
 			static bool save();
 			/**
-			 * \brief loads the config file containing settings related to Halo 1 Anniversary.
+			 * \brief loads the config file containing settings related to Halo Reach.
 			 * \return true if loaded successfully
 			 */
 			static bool load();
@@ -141,17 +161,17 @@ public:
 		{
 		public:
 			/**
-			 * \brief creates a new config file containing settings related to Halo 1 Anniversary.
+			 * \brief creates a new config file containing settings related to Halo 4.
 			 * \return true if created successfully
 			 */
 			static bool create();
 			/**
-		 * \brief saves to the config file containing settings related to Halo 1 Anniversary.
+		 * \brief saves to the config file containing settings related to Halo 4.
 		 * \return true if saved successfully
 		*/
 			static bool save();
 			/**
-			 * \brief loads the config file containing settings related to Halo 1 Anniversary.
+			 * \brief loads the config file containing settings related to Halo 4.
 			 * \return true if loaded successfully
 			 */
 			static bool load();
@@ -161,17 +181,17 @@ public:
 		{
 		public:
 			/**
-			 * \brief creates a new config file containing settings related to Halo 1 Anniversary.
+			 * \brief creates a new config file containing settings related to Halo 2 Anniversary Multiplayer.
 			 * \return true if created successfully
 			 */
 			static bool create();
 			/**
-		 * \brief saves to the config file containing settings related to Halo 1 Anniversary.
+		 * \brief saves to the config file containing settings related to Halo 2 Anniversary Multiplayer.
 		 * \return true if saved successfully
 		*/
 			static bool save();
 			/**
-			 * \brief loads the config file containing settings related to Halo 1 Anniversary.
+			 * \brief loads the config file containing settings related to Halo 2 Anniversary Multiplayer.
 			 * \return true if loaded successfully
 			 */
 			static bool load();

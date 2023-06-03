@@ -19,6 +19,7 @@
 #include "gui/gui.h"
 #include "gui/menu/menu.h"
 #include "games/groundhog/groundhog_hooks.h"
+#include "games/halo3odst/halo3odst_hooks.h"
 #include "games/halo4/halo4_hooks.h"
 #include "games/haloreach/haloreach_hooks.h"
 
@@ -836,6 +837,60 @@ bool config::games::halo_3::load()
 	std::istringstream(ini.get("Rendering").get("motion_blur_scale_x")) >> *halo3::offsets::variables::motion_blur_scale_x;
 	std::istringstream(ini.get("Rendering").get("motion_blur_scale_y")) >> *halo3::offsets::variables::motion_blur_scale_y;
 	std::istringstream(ini.get("Rendering").get("motion_blur_center_falloff")) >> *halo3::offsets::variables::motion_blur_center_falloff;
+
+	return true;
+}
+
+bool config::games::halo_3_odst::create()
+{
+	const mINI::INIFile file(main::config_folder + "\\Halo3ODST.ini");
+
+	mINI::INIStructure ini;
+
+	// populate the structure
+	ini["Game"]["redirect_print"] = "false";
+
+	// generate an INI file (overwrites any previous file)
+	if (!file.generate(ini, true))
+	{
+		// Failed to generate ini
+		return false;
+	}
+	return true;
+}
+
+bool config::games::halo_3_odst::save()
+{
+	const mINI::INIFile file(main::config_folder + "\\Halo3ODST.ini");
+
+	mINI::INIStructure ini;
+
+	// populate the structure
+	ini["Game"]["redirect_print"] = bool_to_string(halo3odst::hooks::redirect_print);
+
+	// write to the INI file (overwrites)
+	if (!file.write(ini, true))
+	{
+		// Failed to write ini
+		return false;
+	}
+	return true;
+}
+
+bool config::games::halo_3_odst::load()
+{
+	const mINI::INIFile file(main::config_folder + "\\Halo3ODST.ini");
+
+	mINI::INIStructure ini;
+
+	if (!file.read(ini))
+	{
+		// Failed to read ini
+		return false;
+	}
+
+	// read a value
+	std::istringstream(ini.get("Game").get("redirect_print")) >> std::boolalpha >> halo3odst::hooks::redirect_print;
 
 	return true;
 }
