@@ -21,6 +21,9 @@ namespace haloreach
 			public:
 				inline static void* hs_null_evaluate;
 				inline static void* hs_null_evaluate2;
+				inline static uintptr_t hs_macro_function_evaluate;
+				inline static uintptr_t hs_return;
+				inline static uintptr_t hs_parse;
 			};
 		};
 
@@ -33,9 +36,6 @@ namespace haloreach
 			inline static uintptr_t player_mapping_get_unit_by_output_user;
 			inline static uintptr_t game_tick;
 			inline static uintptr_t weapon_has_infinite_ammo;
-			inline static uintptr_t hs_macro_function_evaluate;
-			inline static uintptr_t hs_return;
-			inline static uintptr_t hs_parse;
 		};
 
 		static void init();

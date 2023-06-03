@@ -39,11 +39,11 @@ void haloreach::offsets::init()
 	functions::weapon_has_infinite_ammo = Memcury::Scanner::FindPattern(sigs::list["weapon_has_infinite_ammo"].c_str()).FindFunctionBoundary().Get();
 
 	spdlog::debug("Halo Reach: Pattern scanning for: hs_macro_function_evaluate");
-	functions::hs_macro_function_evaluate = Memcury::Scanner::FindPattern(sigs::list["hs_macro_function_evaluate"].c_str()).FindFunctionBoundary().Get();
+	blamscript::functions::hs_macro_function_evaluate = Memcury::Scanner::FindPattern(sigs::list["hs_macro_function_evaluate"].c_str()).FindFunctionBoundary().Get();
 
 	spdlog::debug("Halo Reach: Pattern scanning for: hs_return");
-	functions::hs_return = Memcury::Scanner::FindPattern(sigs::list["hs_return"].c_str()).FindFunctionBoundary().Get();
+	blamscript::functions::hs_return = Memcury::Scanner::FindPattern(sigs::list["hs_return"].c_str()).FindFunctionBoundary().Get();
 
 	spdlog::debug("Halo Reach: Pattern scanning for: hs_parse");
-	functions::hs_parse = Memcury::Scanner::FindPattern(sigs::list["hs_parse"].c_str()).FindFunctionBoundary().Get();
+	blamscript::functions::hs_parse = Memcury::Scanner::FindPattern(sigs::list["hs_parse"].c_str()).FindFunctionBoundary().Get();
 }

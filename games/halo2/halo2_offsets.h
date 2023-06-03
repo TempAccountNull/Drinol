@@ -21,6 +21,10 @@ namespace halo2
 			{
 			public:
 				inline static void* hs_null_evaluate;
+				inline static void* hs_null_evaluate_2;
+				inline static uintptr_t hs_macro_function_evaluate;
+				inline static uintptr_t hs_return;
+				inline static uintptr_t hs_parse;
 			};
 		};
 
