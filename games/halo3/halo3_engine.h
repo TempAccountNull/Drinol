@@ -594,4 +594,15 @@ namespace halo3::engine // Engine related structs, etc
 	static_assert(sizeof(game_allegiance_globals) == 0x244);
 
 	// There are 15/16 sp_teams in total
+
+	class rasterizer_game_states
+	{
+	public:
+		bool motion_blur_enabled; //0x0000
+		bool render_atmosphere_fog; //0x0001
+		bool render_patchy_fog; //0x0002
+		bool render_weather; //0x0003
+		bool cinematic_motion_blur; //0x0004
+	}; //Size: 0x0005
+	static_assert(sizeof(rasterizer_game_states) == 0x5);
 }

@@ -23,15 +23,9 @@ namespace halo3
 				inline static int* game_globals_member_index;
 				inline static int* player_control_globals_member_index;
 				inline static int* game_allegiance_globals_member_index;
+				inline static int* rasterizer_game_states_member_index;
 			};
 
-			inline static float* motion_blur_scale_y;
-			inline static float* motion_blur_scale_x;
-			inline static float* motion_blur_max_y;
-			inline static float* motion_blur_max_x;
-			inline static int* motion_blur_taps;
-			inline static float* motion_blur_center_falloff;
-			inline static float* motion_blur_expected_dt;
 			inline static int* screen_res_x;
 			inline static int* screen_res_y;
 		};
@@ -137,6 +131,7 @@ namespace halo3
 			inline static engine::s_game_globals* game_globals;
 			inline static engine::s_player_control_globals* player_control_globals;
 			inline static engine::game_allegiance_globals* game_allegiance_globals;
+			inline static engine::rasterizer_game_states* rasterizer_game_states;
 		};
 
 	public:

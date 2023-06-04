@@ -7,6 +7,7 @@
 #include "games/halo2/halo2.h"
 #include "games/halo3/halo3.h"
 #include "games/halo3/halo3_hooks.h"
+#include "games/halo3/halo3_offsets.h"
 #include "games/halo3odst/halo3odst.h"
 #include "games/halo4/halo4.h"
 #include "games/haloreach/haloreach.h"
@@ -255,8 +256,8 @@ char* utils::memory::get_tls_pointer(LPCWSTR module_name, int TLSFunctionIndex)
 				const PIMAGE_NT_HEADERS ntBase = reinterpret_cast<PIMAGE_NT_HEADERS>(base + moduleBase->e_lfanew);
 				const PIMAGE_TLS_DIRECTORY tlsBase = reinterpret_cast<PIMAGE_TLS_DIRECTORY>(base + ntBase->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_TLS].VirtualAddress);
 				return reinterpret_cast<uint32_t*>(tlsBase->AddressOfIndex);
-	})();
-}
+			})();
+	}
 
 #if defined(_M_IX86)
 	LPVOID* tlsBase = (LPVOID*)__readfsdword(0x2C);
@@ -450,7 +451,12 @@ int utils::keys::capture_next_key()
 
 void utils::test_func(int test_int)
 {
-	halo3::hooks::game_tick_test = true;
+	//halo3::hooks::game_tick_test = true;
+
+	halo3::offsets::globals::rasterizer_game_states->motion_blur_enabled = !halo3::offsets::globals::rasterizer_game_states->motion_blur_enabled;
+	halo3::offsets::globals::rasterizer_game_states->render_atmosphere_fog = !halo3::offsets::globals::rasterizer_game_states->render_atmosphere_fog;
+	halo3::offsets::globals::rasterizer_game_states->render_patchy_fog = !halo3::offsets::globals::rasterizer_game_states->render_patchy_fog;
+	halo3::offsets::globals::rasterizer_game_states->render_weather = !halo3::offsets::globals::rasterizer_game_states->render_weather;
 
 	//for (int i = 0; i < 16; i++) {
 	//	halo3::engine::s_thread_local_storage* tls = halo3::game::get_tls();
@@ -572,6 +578,6 @@ void utils::memory::swap_table_pointer(void* pointer1, void* pointer2)
 
 	// We now restore the original Page Protections.
 	VirtualProtect(pointer1, 1, oldprotect, &oldprotect);
-		}
+}
 
 #endif

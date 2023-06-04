@@ -19,14 +19,6 @@ void halo3::offsets::init()
 	spdlog::debug("Halo 3: Pattern scanning for: hs_external_globals");
 	blamscript::hs_external_globals = reinterpret_cast<engine::_hs_external_globals*>(Memcury::Scanner::FindPattern(sigs::list["hs_external_globals"].c_str()).RelativeOffset(3).Get());
 
-	variables::motion_blur_expected_dt = static_cast<float*>(game::get_hs_global("motion_blur_expected_dt"));
-	variables::motion_blur_taps = static_cast<int*>(game::get_hs_global("motion_blur_taps"));
-	variables::motion_blur_max_x = static_cast<float*>(game::get_hs_global("motion_blur_max_x"));
-	variables::motion_blur_max_y = static_cast<float*>(game::get_hs_global("motion_blur_max_y"));
-	variables::motion_blur_scale_x = static_cast<float*>(game::get_hs_global("motion_blur_scale_x"));
-	variables::motion_blur_scale_y = static_cast<float*>(game::get_hs_global("motion_blur_scale_y"));
-	variables::motion_blur_center_falloff = static_cast<float*>(game::get_hs_global("motion_blur_center_falloff"));
-
 	//Blamscript type names.
 	spdlog::debug("Halo 3: Pattern scanning for: hs_type_names");
 	blamscript::hs_type_names = Memcury::Scanner::FindPattern(sigs::list["hs_type_names"].c_str()).RelativeOffset(3).GetAs<engine::_hs_type_names*>();
@@ -120,6 +112,9 @@ void halo3::offsets::init()
 	spdlog::debug("Halo 3: Pattern scanning for: game_allegiance_globals_member_index");
 	variables::region_member_indexes::game_allegiance_globals_member_index = Memcury::Scanner::FindPattern(sigs::list["game_allegiance_globals_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();
 
+	spdlog::debug("Halo 3: Pattern scanning for: rasterizer_game_states_member_index");
+	variables::region_member_indexes::rasterizer_game_states_member_index = Memcury::Scanner::FindPattern(sigs::list["rasterizer_game_states_member_index"].c_str()).RelativeOffset(2).GetAs<int*>();
+
 	spdlog::debug("Halo 3: Pattern scanning for: ai_handle_effect_creation_check");
 	patches::ai_handle_effect_creation_check = Memcury::Scanner::FindPattern(sigs::list["ai_handle_effect_creation_check"].c_str()).GetAs<void*>();
 	utils::memory::store_memory_bytes(patches::ai_handle_effect_creation_check_og_bytes, patches::ai_handle_effect_creation_check, 0x06);
@@ -139,6 +134,9 @@ void halo3::offsets::game_init()
 	globals::game_time_globals = static_cast<engine::game_time_globals_definition*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::game_time_globals_member_index));
 	globals::game_globals = static_cast<engine::s_game_globals*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::game_globals_member_index));
 	globals::game_allegiance_globals = static_cast<engine::game_allegiance_globals*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::game_allegiance_globals_member_index));
+	globals::rasterizer_game_states = static_cast<engine::rasterizer_game_states*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::rasterizer_game_states_member_index));
+
+	game::settings_init();
 
 	//TODO: sometimes this does not work, no idea why
 	if (game::machinima_mode)

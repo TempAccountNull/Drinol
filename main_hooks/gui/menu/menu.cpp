@@ -319,7 +319,7 @@ void menu::render()
 			g_Overlay->ComboWithToolTip("TestCombo", "WithToolTip", &someInteger, "\0Option1\0Option2\0Options3");
 
 			ImGui::EndTabItem();
-	}
+		}
 #endif
 
 		// TODO: ideally we should show all the games and just grey out the stuff you cant interact with if a certain game is not running
@@ -359,7 +359,7 @@ void menu::render()
 		}
 
 		ImGui::EndTabBar();
-}
+	}
 	ImGui::End();
 
 	// All popups and other windows go below here. ------------------------------------------------>
@@ -523,7 +523,7 @@ void menu::HaloCombatEvolved::DrawMenu()
 					halo1::game::list_all_hs_globals();
 
 				ImGui::EndTabItem();
-	}
+			}
 #endif
 
 			if (ImGui::BeginTabItem("Weapons"))
@@ -608,7 +608,7 @@ void menu::HaloCombatEvolved::DrawMenu()
 				ImGui::EndTabItem();
 			}
 			ImGui::EndTabBar();
-}
+		}
 
 		ImGui::EndTabItem();
 	}
@@ -633,7 +633,7 @@ void menu::Halo2::DrawMenu()
 					halo2::game::list_all_hs_globals();
 
 				ImGui::EndTabItem();
-	}
+			}
 #endif
 
 			if (ImGui::BeginTabItem("Game"))
@@ -650,7 +650,7 @@ void menu::Halo2::DrawMenu()
 			}
 
 			ImGui::EndTabBar();
-}
+		}
 
 		ImGui::EndTabItem();
 	}
@@ -672,7 +672,7 @@ void menu::Halo3::DrawMenu()
 					halo3::game::list_all_hs_globals();
 
 				ImGui::EndTabItem();
-	}
+			}
 #endif
 			if (ImGui::BeginTabItem("Game"))
 			{
@@ -718,24 +718,22 @@ void menu::Halo3::DrawMenu()
 
 			if (ImGui::BeginTabItem("Rendering"))
 			{
-				ImGui::DragFloat("##motion_blur_scale_x", halo3::offsets::variables::motion_blur_scale_x, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_scale_x: %.5f", ImGuiSliderFlags_None);
+				ImGui::SeparatorText("Warning: Scripts can still take control of these!");
 
-				ImGui::DragFloat("##motion_blur_scale_y", halo3::offsets::variables::motion_blur_scale_y, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_scale_y: %.5f", ImGuiSliderFlags_None);
+				g_Overlay->CheckboxWithToolTip("Motion Blur", "Toggles motion blur.", &halo3::offsets::globals::rasterizer_game_states->motion_blur_enabled);
 
-				ImGui::DragFloat("##motion_blur_max_x", halo3::offsets::variables::motion_blur_max_x, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_max_x: %.5f", ImGuiSliderFlags_None);
+				g_Overlay->CheckboxWithToolTip("Cinematic Motion Blur", "Toggles cinematic motion blur.", &halo3::offsets::globals::rasterizer_game_states->cinematic_motion_blur);
 
-				ImGui::DragFloat("##motion_blur_max_y", halo3::offsets::variables::motion_blur_max_y, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_max_y: %.5f", ImGuiSliderFlags_None);
+				g_Overlay->CheckboxWithToolTip("Atmospheric Fog", "Toggles rendering the fog.", &halo3::offsets::globals::rasterizer_game_states->render_atmosphere_fog);
 
-				ImGui::DragInt("##motion_blur_taps", halo3::offsets::variables::motion_blur_taps, 1, 0, 100, "motion_blur_taps: %i", ImGuiSliderFlags_None);
+				g_Overlay->CheckboxWithToolTip("Patchy Fog", "Toggles rendering patchy fog.", &halo3::offsets::globals::rasterizer_game_states->render_patchy_fog);
 
-				ImGui::DragFloat("##motion_blur_center_falloff", halo3::offsets::variables::motion_blur_center_falloff, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_center_falloff: %.5f", ImGuiSliderFlags_None);
-
-				ImGui::DragFloat("##motion_blur_expected_dt", halo3::offsets::variables::motion_blur_expected_dt, 0.005f, -FLT_MAX, +FLT_MAX, "motion_blur_expected_dt: %.5f", ImGuiSliderFlags_None);
+				g_Overlay->CheckboxWithToolTip("Weather", "Toggles rendering the weather.", &halo3::offsets::globals::rasterizer_game_states->render_weather);
 
 				ImGui::EndTabItem();
 			}
 			ImGui::EndTabBar();
-}
+		}
 
 		ImGui::EndTabItem();
 	}
@@ -760,7 +758,7 @@ void menu::Halo3ODST::DrawMenu()
 					halo3odst::game::list_all_hs_globals();
 
 				ImGui::EndTabItem();
-	}
+			}
 #endif
 
 			//if (ImGui::BeginTabItem("Rendering"))
@@ -779,7 +777,7 @@ void menu::Halo3ODST::DrawMenu()
 				ImGui::EndTabItem();
 			}
 			ImGui::EndTabBar();
-}
+		}
 
 		ImGui::EndTabItem();
 	}
@@ -804,7 +802,7 @@ void menu::HaloReach::DrawMenu()
 					haloreach::game::list_all_hs_globals();
 
 				ImGui::EndTabItem();
-	}
+			}
 #endif
 
 			if (ImGui::BeginTabItem("Game"))
@@ -816,7 +814,7 @@ void menu::HaloReach::DrawMenu()
 				ImGui::EndTabItem();
 			}
 			ImGui::EndTabBar();
-}
+		}
 
 		ImGui::EndTabItem();
 	}

@@ -7,6 +7,7 @@ namespace halo3
 	class game
 	{
 	public:
+		static void settings_init();
 		static void init();
 		static void deinit();
 		/**

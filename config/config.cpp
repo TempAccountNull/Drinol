@@ -760,13 +760,11 @@ bool config::games::halo_3::create()
 
 	// populate the structure
 
-	ini["Rendering"]["motion_blur_expected_dt"] = "0.03";
-	ini["Rendering"]["motion_blur_taps"] = "6";
-	ini["Rendering"]["motion_blur_max_x"] = "0.03";
-	ini["Rendering"]["motion_blur_max_y"] = "0.05";
-	ini["Rendering"]["motion_blur_scale_x"] = "0.05";
-	ini["Rendering"]["motion_blur_scale_y"] = "0.15";
-	ini["Rendering"]["motion_blur_center_falloff"] = "1.4";
+	ini["Rendering"]["motion_blur"] = "true";
+	ini["Rendering"]["cinematic_motion_blur"] = "false";
+	ini["Rendering"]["atmospheric_fog"] = "true";
+	ini["Rendering"]["patchy_fog"] = "true";
+	ini["Rendering"]["weather"] = "true";
 	ini["Game"]["player_weapon_projectiles_only"] = "false";
 	ini["Game"]["player_ally_projectiles_only"] = "false";
 	ini["Game"]["toggle_ai_spawn_effects"] = "false";
@@ -789,14 +787,11 @@ bool config::games::halo_3::save()
 	mINI::INIStructure ini;
 
 	// populate the structure
-
-	ini["Rendering"]["motion_blur_expected_dt"] = to_string(*halo3::offsets::variables::motion_blur_expected_dt);
-	ini["Rendering"]["motion_blur_taps"] = to_string<int>(*halo3::offsets::variables::motion_blur_taps);
-	ini["Rendering"]["motion_blur_max_x"] = to_string(*halo3::offsets::variables::motion_blur_max_x);
-	ini["Rendering"]["motion_blur_max_y"] = to_string(*halo3::offsets::variables::motion_blur_max_y);
-	ini["Rendering"]["motion_blur_scale_x"] = to_string(*halo3::offsets::variables::motion_blur_scale_x);
-	ini["Rendering"]["motion_blur_scale_y"] = to_string(*halo3::offsets::variables::motion_blur_scale_y);
-	ini["Rendering"]["motion_blur_center_falloff"] = to_string(*halo3::offsets::variables::motion_blur_center_falloff);
+	ini["Rendering"]["motion_blur"] = bool_to_string(halo3::offsets::globals::rasterizer_game_states->motion_blur_enabled);
+	ini["Rendering"]["cinematic_motion_blur"] = bool_to_string(halo3::offsets::globals::rasterizer_game_states->cinematic_motion_blur);
+	ini["Rendering"]["atmospheric_fog"] = bool_to_string(halo3::offsets::globals::rasterizer_game_states->render_atmosphere_fog);
+	ini["Rendering"]["patchy_fog"] = bool_to_string(halo3::offsets::globals::rasterizer_game_states->render_patchy_fog);
+	ini["Rendering"]["weather"] = bool_to_string(halo3::offsets::globals::rasterizer_game_states->render_weather);
 	ini["Game"]["player_weapon_projectiles_only"] = bool_to_string(halo3::hooks::player_weapon_projectiles_only);
 	ini["Game"]["toggle_ai_spawn_effects"] = bool_to_string(halo3::game::toggle_ai_spawn_effects);
 	ini["Game"]["redirect_print"] = bool_to_string(halo3::hooks::redirect_print);
@@ -825,18 +820,16 @@ bool config::games::halo_3::load()
 	}
 
 	// read a value
+	std::istringstream(ini.get("Rendering").get("motion_blur")) >> std::boolalpha >> halo3::offsets::globals::rasterizer_game_states->motion_blur_enabled;
+	std::istringstream(ini.get("Rendering").get("cinematic_motion_blur")) >> std::boolalpha >> halo3::offsets::globals::rasterizer_game_states->cinematic_motion_blur;
+	std::istringstream(ini.get("Rendering").get("atmospheric_fog")) >> std::boolalpha >> halo3::offsets::globals::rasterizer_game_states->render_atmosphere_fog;
+	std::istringstream(ini.get("Rendering").get("patchy_fog")) >> std::boolalpha >> halo3::offsets::globals::rasterizer_game_states->render_patchy_fog;
+	std::istringstream(ini.get("Rendering").get("weather")) >> std::boolalpha >> halo3::offsets::globals::rasterizer_game_states->render_weather;
 	std::istringstream(ini.get("Game").get("player_weapon_projectiles_only")) >> std::boolalpha >> halo3::hooks::player_weapon_projectiles_only;
 	std::istringstream(ini.get("Game").get("player_ally_projectiles_only")) >> std::boolalpha >> halo3::hooks::player_ally_projectiles_only;
 	std::istringstream(ini.get("Game").get("toggle_ai_spawn_effects")) >> std::boolalpha >> halo3::game::toggle_ai_spawn_effects;
 	std::istringstream(ini.get("Game").get("redirect_print")) >> std::boolalpha >> halo3::hooks::redirect_print;
 	std::istringstream(ini.get("Game").get("Machinima")) >> std::boolalpha >> halo3::game::machinima_mode;
-	std::istringstream(ini.get("Rendering").get("motion_blur_expected_dt")) >> *halo3::offsets::variables::motion_blur_expected_dt;
-	std::istringstream(ini.get("Rendering").get("motion_blur_taps")) >> *halo3::offsets::variables::motion_blur_taps;
-	std::istringstream(ini.get("Rendering").get("motion_blur_max_x")) >> *halo3::offsets::variables::motion_blur_max_x;
-	std::istringstream(ini.get("Rendering").get("motion_blur_max_y")) >> *halo3::offsets::variables::motion_blur_max_y;
-	std::istringstream(ini.get("Rendering").get("motion_blur_scale_x")) >> *halo3::offsets::variables::motion_blur_scale_x;
-	std::istringstream(ini.get("Rendering").get("motion_blur_scale_y")) >> *halo3::offsets::variables::motion_blur_scale_y;
-	std::istringstream(ini.get("Rendering").get("motion_blur_center_falloff")) >> *halo3::offsets::variables::motion_blur_center_falloff;
 
 	return true;
 }

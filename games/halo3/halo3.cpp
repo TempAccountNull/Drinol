@@ -6,16 +6,8 @@
 #include "utils.h"
 #include "config/config.h"
 
-void halo3::game::init() // Initialize hooks and shit for halo 1
+void halo3::game::settings_init()
 {
-	spdlog::info("Initializing Halo 3");
-
-	Memcury::Scanner::SetTargetModule("halo3.dll");
-
-	offsets::init();
-
-	hooks::init();
-
 	//Load Settings
 	if (!config::games::halo_3::load())
 	{
@@ -28,6 +20,17 @@ void halo3::game::init() // Initialize hooks and shit for halo 1
 
 	// Apply patches from config:
 	toggle_spawning_ai_from_effects(toggle_ai_spawn_effects);
+}
+
+void halo3::game::init() // Initialize hooks and shit for halo 1
+{
+	spdlog::info("Initializing Halo 3");
+
+	Memcury::Scanner::SetTargetModule("halo3.dll");
+
+	offsets::init();
+
+	hooks::init();
 
 	spdlog::info("Halo 3 initialized ☺");
 }
