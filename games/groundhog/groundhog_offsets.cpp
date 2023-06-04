@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "groundhog_offsets.h"
 
+#include "groundhog.h"
 #include "groundhog_sigs.h"
 #include "games/engine.h"
 
@@ -15,6 +16,7 @@ void groundhog::offsets::init()
 
 void groundhog::offsets::game_init()
 {
+	game::settings_init();
 	//TODO: HOOK GAME IN PROGRESS AND FIX THIS
 	//globals::physics_constants = static_cast<engine::s_physics_constants*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::physics_constants_member_index));
 }

@@ -5,16 +5,8 @@
 #include "groundhog_offsets.h"
 #include "config/config.h"
 
-void groundhog::game::init() // Initialize hooks and shit for Halo 2 Anniversary Multiplayer
+void groundhog::game::settings_init()
 {
-	spdlog::info("Initializing Halo 2 Anniversary Multiplayer");
-
-	Memcury::Scanner::SetTargetModule("groundhog.dll");
-
-	offsets::init();
-
-	hooks::init();
-
 	//Load Settings
 	if (!config::games::halo2_amp::load())
 	{
@@ -24,6 +16,17 @@ void groundhog::game::init() // Initialize hooks and shit for Halo 2 Anniversary
 	{
 		spdlog::info("Loaded settings for Halo 2 Anniversary Multiplayer.");
 	}
+}
+
+void groundhog::game::init() // Initialize hooks and shit for Halo 2 Anniversary Multiplayer
+{
+	spdlog::info("Initializing Halo 2 Anniversary Multiplayer");
+
+	Memcury::Scanner::SetTargetModule("groundhog.dll");
+
+	offsets::init();
+
+	hooks::init();
 
 	spdlog::info("Halo 2 Anniversary Multiplayer initialized ☺");
 }

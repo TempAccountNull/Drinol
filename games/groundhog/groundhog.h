@@ -5,6 +5,7 @@ namespace groundhog
 	class game
 	{
 	public:
+		static void settings_init();
 		static void init();
 		static void deinit();
 

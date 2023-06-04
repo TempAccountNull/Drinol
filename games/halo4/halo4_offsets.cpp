@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "halo4_offsets.h"
 
+#include "halo4.h"
 #include "halo4_sigs.h"
 #include "games/engine.h"
 
@@ -21,6 +22,8 @@ void halo4::offsets::init()
 
 void halo4::offsets::game_init()
 {
+	game::settings_init();
+
 	//TODO: HOOK GAME IN PROGRESS AND FIX THIS
 	//globals::physics_constants = static_cast<engine::s_physics_constants*>(game::get_restricted_region_member_address(2, 3, *variables::region_member_indexes::physics_constants_member_index));
 }

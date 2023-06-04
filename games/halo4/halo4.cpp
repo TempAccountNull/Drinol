@@ -7,16 +7,8 @@
 #include "utils.h"
 #include "config/config.h"
 
-void halo4::game::init() // Initialize hooks and shit for halo 1
+void halo4::game::settings_init()
 {
-	spdlog::info("Initializing Halo 4");
-
-	Memcury::Scanner::SetTargetModule("halo4.dll");
-
-	offsets::init();
-
-	hooks::init();
-
 	//Load Settings
 	if (!config::games::halo_4::load())
 	{
@@ -26,6 +18,17 @@ void halo4::game::init() // Initialize hooks and shit for halo 1
 	{
 		spdlog::info("Loaded settings for Halo 4.");
 	}
+}
+
+void halo4::game::init() // Initialize hooks and shit for halo 1
+{
+	spdlog::info("Initializing Halo 4");
+
+	Memcury::Scanner::SetTargetModule("halo4.dll");
+
+	offsets::init();
+
+	hooks::init();
 
 	spdlog::info("Halo 4 initialized ☺");
 }
