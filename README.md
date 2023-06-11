@@ -1,3 +1,5 @@
+# This project is currently on hiatus due to me being burnt out of coding.
+
 #  Drinol: <br/> A Modding tool for Halo MCC.
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
