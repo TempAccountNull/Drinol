@@ -104,8 +104,8 @@ namespace haloreach::engine // Engine related structs, etc
 	class _hs_function_table
 	{
 	public:
-		class hs_function_definition* table[1914]; //0x0000
-	}; //Size: 0x3B78
+		class hs_function_definition* table[1882]; //0x0000
+	}; //Size: 0x3AD0
 
 	class hs_function_definition
 	{
@@ -130,10 +130,10 @@ namespace haloreach::engine // Engine related structs, etc
 	class _hs_external_globals
 	{
 	public:
-		class hs_external_global* globals[1724]; //0x0000 The list of globals.
-		// 466 is the hardcoded total number of globals in this array TODO: Fetch this dynamically somehow?
-	}; //Size: 0x2930
-	static_assert(sizeof(_hs_external_globals) == 0x35E0);
+		class hs_external_global* globals[1716]; //0x0000 The list of globals.
+		// 1716 is the hardcoded total number of globals in this array TODO: Fetch this dynamically somehow?
+	}; //Size: 0x35A0
+	static_assert(sizeof(_hs_external_globals) == 0x35A0);
 
 	class hs_external_global
 	{
